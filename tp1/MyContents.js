@@ -1,5 +1,9 @@
 import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
+import { MyHouse } from './MyHouse.js';
+import { MyTable } from './MyTable.js';
+import { MyPlate } from './MyPlate.js';
+import { MyCake } from './MyCake.js';
 
 /**
  *  This class contains the contents of out application
@@ -13,13 +17,22 @@ class MyContents  {
     constructor(app) {
         this.app = app
         this.axis = null
+        this.house = null
 
         // box related attributes
         this.boxMesh = null
         this.boxMeshSize = 1.0
-        this.boxEnabled = true
+        this.boxEnabled = false
         this.lastBoxEnabled = null
         this.boxDisplacement = new THREE.Vector3(0,2,0)
+
+        //cake related attributes
+        this.cake = null
+        this.cakeSize = 1.0
+        this.cakeEnabled = true
+        this.cakeDisplacement = new THREE.Vector3(0,2,0)
+        this.cakeSize = 1.0
+        this.lastCakeEnabled = null
 
         // plane related attributes
         this.diffusePlaneColor = "#00ffff"
@@ -27,6 +40,9 @@ class MyContents  {
         this.planeShininess = 30
         this.planeMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.diffusePlaneColor, emissive: "#000000", shininess: this.planeShininess })
+
+        this.table = null;
+        this.cake = null;
     }
 
     /**
@@ -41,6 +57,15 @@ class MyContents  {
         this.boxMesh = new THREE.Mesh( box, boxMaterial );
         this.boxMesh.rotation.x = -Math.PI / 2;
         this.boxMesh.position.y = this.boxDisplacement.y;
+    }
+
+    buildCake(){
+        this.cake = new MyCake(this, 0xA0816C);
+        this.cake.scale.set(this.cakeSize,this.cakeSize,this.cakeSize);
+        this.cake.position.x = this.cakeDisplacement.x
+        this.cake.position.y = this.cakeDisplacement.y
+        this.cake.position.z = this.cakeDisplacement.z
+        this.app.scene.add(this.cake);
     }
 
     /**
@@ -70,14 +95,19 @@ class MyContents  {
         this.app.scene.add( ambientLight );
 
         this.buildBox()
+        this.buildCake()
         
         // Create a Plane Mesh with basic material
-        
-        let plane = new THREE.PlaneGeometry( 10, 10 );
-        this.planeMesh = new THREE.Mesh( plane, this.planeMaterial );
-        this.planeMesh.rotation.x = -Math.PI / 2;
-        this.planeMesh.position.y = -0;
-        this.app.scene.add( this.planeMesh );
+        if(this.house === null){ 
+            console.log("house")       
+            this.house = new  MyHouse(this);
+            this.app.scene.add(this.house);
+        }
+
+        if(this.table == null){
+            this.table = new MyTable(400, 300, 2,2,2);
+            this.app.scene.add(this.table);
+        }
     }
     
     /**
@@ -117,6 +147,15 @@ class MyContents  {
         this.buildBox();
         this.lastBoxEnabled = null
     }
+
+    rebuildCake() {
+        if(this.cake !== undefined && this.cake !== null){
+            this.app.scene.remove(this.cake);
+        }
+        this.buildCake();
+        this.lastCakeEnabled = null;
+        
+    }
     
     /**
      * updates the box mesh if required
@@ -135,6 +174,20 @@ class MyContents  {
         }
     }
 
+    updateCakeIfRequired() {
+        if (this.cakeEnabled !== this.lastCakeEnabled) {
+            this.lastCakeEnabled = this.cakeEnabled
+            console.log(this.cakeEnabled)
+            if (this.cakeEnabled) {
+                this.app.scene.add(this.cake)
+            }
+            else {
+                this.app.scene.remove(this.cake)
+            }
+        }
+    }
+
+
     /**
      * updates the contents
      * this method is called from the render method of the app
@@ -143,11 +196,17 @@ class MyContents  {
     update() {
         // check if box mesh needs to be updated
         this.updateBoxIfRequired()
+        this.updateCakeIfRequired()
 
         // sets the box mesh position based on the displacement vector
         this.boxMesh.position.x = this.boxDisplacement.x
         this.boxMesh.position.y = this.boxDisplacement.y
         this.boxMesh.position.z = this.boxDisplacement.z
+
+        this.cake.scale.set(this.cakeSize,this.cakeSize,this.cakeSize);
+        this.cake.position.x = this.cakeDisplacement.x
+        this.cake.position.y = this.cakeDisplacement.y
+        this.cake.position.z = this.cakeDisplacement.z
         
     }
 
