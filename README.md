@@ -1,10 +1,10 @@
 # SGI 2023/2024
 
-## Group T0xG0y
+## Group T05G05
 | Name             | Number    | E-Mail             |
 | ---------------- | --------- | ------------------ |
-| John Doe         | 201901010 | ...                |
-| Jane Doe         | 201901011 | ...                |
+| Inês Cardoso         | 202005435 | up202005435@edu.fe.up.pt                |
+| Joana Santos         | 202006279 | up202006279@edu.fe.up.pt                |
 
 ----
 
