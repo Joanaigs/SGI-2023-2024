@@ -30,7 +30,7 @@ class MyCake extends THREE.Object3D {
         const toppingMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
         let topping = new THREE.SphereGeometry(0.1, 32, 16, 0, Math.PI*2, 0, Math.PI/2);
 
-        // Define cake tiers and their heights
+        // Define cake tiers and heights
         const cakeTiers = [
             { radiusTop: 1, radiusBottom: 1, height: 0.6 },
             { radiusTop: 0.7, radiusBottom: 0.7, height: 0.5 },
@@ -39,7 +39,7 @@ class MyCake extends THREE.Object3D {
 
         let currentHeight = plateHeight;
 
-        // Loop through cake tiers
+        // Cake tiers
         for (let i = 0; i < cakeTiers.length; i++) {
             const tier = cakeTiers[i];
             let geometry
@@ -52,7 +52,7 @@ class MyCake extends THREE.Object3D {
 
 
     
-            // Add toppings to the visible part of the cake
+            // Toppings
             for (let j = 0; j < 6; j++) {
                 if(i==cakeTiers.length-1 && j==2)
                     continue
@@ -62,15 +62,13 @@ class MyCake extends THREE.Object3D {
                 this.add(top);
             }
 
-            // Set the position of the cake tier
             cake.position.set(0, currentHeight + tier.height / 2, 0);
             this.add(cake);
 
-            // Update the current height
             currentHeight += tier.height;
         }
 
-        // Add a candle on top
+        // Candle
         this.candle = new MyCandle(this, 1, 0xffffff, [0, currentHeight, 0]);
         this.add(this.candle);
     }
