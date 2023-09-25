@@ -22,25 +22,30 @@ class MyCandle extends THREE.Object3D {
 
         const materialCandle = new THREE.MeshBasicMaterial( {color: color} );
         const materialFlame = new THREE.MeshBasicMaterial( {color: 0xff4500} );
-        const materialwick = new THREE.MeshBasicMaterial( {color: 0x000000} );
+        const materialWick = new THREE.MeshBasicMaterial( {color: 0x000000} );
 
-        //candle base
-        var geometry = new THREE.CylinderGeometry(0.04* this.size,0.05* this.size,0.4* this.size, 32, 1);
-        let candle = new THREE.Mesh( geometry, materialCandle ); 
-        candle.position.set(position[0],position[1]+0.2,position[2]);
-        this.add( candle );
+        // Calculate heights and positions based on size
+        const baseHeight = 0.4 * this.size;
+        const topHeight = 0.03 * this.size;
+        const flameHeight = 0.1 * this.size;
 
-        //candle top
-        var geometry = new THREE.CylinderGeometry(0.01* this.size,0.01* this.size,0.03* this.size, 32, 1);
-        let candleTop = new THREE.Mesh( geometry, materialwick );
-        candleTop.position.set(position[0],position[1]+0.415,position[2]);
-        this.add( candleTop );
+        // Candle base
+        const geometryBase = new THREE.CylinderGeometry(0.04 * this.size, 0.05 * this.size, baseHeight, 32, 1);
+        let candleBase = new THREE.Mesh(geometryBase, materialCandle);
+        candleBase.position.set(position[0], position[1]  + baseHeight / 2, position[2]);
+        this.add(candleBase);
 
-        //candle flame
-        var geometry = new THREE.ConeGeometry(0.03* this.size, 0.1* this.size);
-        let flame = new THREE.Mesh( geometry, materialFlame );
-        flame.position.set(position[0],position[1]+0.48,position[2]);
-        this.add( flame );
+        // Candle top
+        const geometryTop = new THREE.CylinderGeometry(0.01 * this.size, 0.01 * this.size, topHeight, 32, 1);
+        let candleTop = new THREE.Mesh(geometryTop, materialWick);
+        candleTop.position.set(position[0], position[1] + baseHeight + topHeight/2 , position[2]);
+        this.add(candleTop);
+
+        // Candle flame
+        const geometryFlame = new THREE.ConeGeometry(0.03 * this.size, flameHeight);
+        let flame = new THREE.Mesh(geometryFlame, materialFlame);
+        flame.position.set(position[0], position[1] + baseHeight + topHeight + flameHeight/2, position[2]);
+        this.add(flame);
 
 
 
