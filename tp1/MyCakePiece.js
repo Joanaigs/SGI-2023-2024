@@ -45,7 +45,7 @@ class MyCakePiece extends THREE.Object3D {
         // Toppingsf
         const ang = (2 * Math.PI) / 6;
         const top = new THREE.Mesh(topping, toppingMaterial);
-        top.position.set(position[0] + (pieceCakeInfo.radiusBottom - 0.1) * Math.cos(ang) - 0.2, position[1] + currentHeight + pieceCakeInfo.height, position[2] + (pieceCakeInfo.radiusBottom - 0.1) * Math.sin(ang) - 0.2);
+        top.position.set(position[0] + (pieceCakeInfo.radiusBottom - 0.1) * Math.cos(ang) - 0.15, position[1] + currentHeight + pieceCakeInfo.height, position[2] + (pieceCakeInfo.radiusBottom - 0.1) * Math.sin(ang) - 0.15);
         this.add(top);
 
         // Add rectangles to close the sides
