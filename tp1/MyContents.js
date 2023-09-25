@@ -4,6 +4,8 @@ import { MyHouse } from './MyHouse.js';
 import { MyTable } from './MyTable.js';
 import { MyPlate } from './MyPlate.js';
 import { MyCake } from './MyCake.js';
+import { MyVase } from './MyVase.js';
+import { MyCakePiece } from './MyCakePiece.js';
 
 /**
  *  This class contains the contents of out application
@@ -108,6 +110,12 @@ class MyContents  {
             this.table = new MyTable(400, 300, 2,2,2);
             this.app.scene.add(this.table);
         }
+
+        this.vase = new MyVase(this, 0.5, 0x36454F, [0, 0, 0]);
+        this.app.scene.add(this.vase);
+
+        this.cakePiece = new MyCakePiece(this, 0xA0816C, [2, 2, 0]);
+        this.app.scene.add(this.cakePiece);
     }
     
     /**
