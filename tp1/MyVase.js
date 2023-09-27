@@ -44,12 +44,8 @@ class MyVase extends THREE.Object3D {
         const topHeight = 0.5 * this.size;
         const geometryVaseTop = new THREE.CylinderGeometry( 0.7*this.size, this.size * 0.5, topHeight, 32); 
         let top = new THREE.Mesh( geometryVaseTop, material ); 
-        console.log(this.size*Math.cos(Math.PI/3), this.size*Math.sin(Math.PI/3));
         top.position.set(position[0],position[1]  + baseHeight + middleHeight + topHeight/2,position[2]);
         this.add( top );
-        
-
-
         
     }
 

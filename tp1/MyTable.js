@@ -1,39 +1,54 @@
 import * as THREE from 'three';
-import { MyApp } from './MyApp.js';
+
 
 /**
- * This class contains a 3D axis representation
+ * This class contains a Table representation
  */
-class MyTable extends THREE.Object3D {
-
-    /**
-     * 
-     * @param {MyApp} app the application object
-     * @param {number} size the size of each axis 
-     * @param {number} baseRadius the base radius of each axis
-     * @param {number} xxColor the hexadecimal representation of the xx axis color
-     * @param {number} yyColor the hexadecimal representation of the xx axis color
-     * @param {number} zzColor the hexadecimal representation of the zz axis color
-     */
-    constructor(size, baseRadius, xxColor, yyColor, zzColor) {
+export class MyTable extends THREE.Object3D {
+    constructor(app, topLength, topWidth, legHeight, color, position) {
         super();
-        /*this.type = 'Group';
-        this.size = size || 2;
-        this.baseRadius = baseRadius || 0.05;
-        this.xxColor = xxColor || 0xff0000
-        this.yyColor = yyColor || 0x00ff00
-        this.zzColor = zzColor || 0x0000ff
+        this.type = 'Group';
+        this.app = app;
+        this.topLength = topLength;
+        this.topWidth = topWidth;
+        this.legHeight = legHeight;
+        this.color = color;
 
-        // leg 1
-        const leg1 = new THREE.BoxGeometry( this.baseRadius, this.size, 32 ); 
-        const leg1Material = new THREE.MeshBasicMaterial( {color: this.yyColor} );
-        const leg1Mesh = new THREE.Mesh(leg1, leg1Material ); 
-        leg1Mesh.position.set(0,0,0);
-        this.add( leg1Mesh );*/
-    
+        // Material for the table
+        const materialWood = new THREE.MeshBasicMaterial({ color: this.color });
+        
+        this.createTableTop(materialWood)
+        this.createTableLegs(materialWood);
     }
+
+    createTableLegs(materialWood){
+        const legPositions = [
+            [-(this.topLength / 2), -(this.topWidth / 2)],
+            [-(this.topLength / 2), this.topWidth / 2 ],
+            [this.topLength / 2, -(this.topWidth / 2)],
+            [this.topLength / 2, this.topWidth / 2],
+        ];
+
+        for (const [legX, legY] of legPositions) {
+            const geometryLeg = new THREE.CylinderGeometry(0.2, 0.05, this.legHeight, 32);
+            const tableLeg = new THREE.Mesh(geometryLeg, materialWood);
+            tableLeg.position.set(
+                this.position.x + legX,
+                this.legHeight / 2,
+                this.position.z + legY
+            );
+            this.add(tableLeg);
+        }
+    }
+
+    createTableTop(materialWood){
+        const geometryTop = new THREE.BoxGeometry(this.topLength, this.topWidth, 0.1);
+        const tableTop = new THREE.Mesh(geometryTop, materialWood);
+        tableTop.position.set(this.position.x, this.legHeight, this.position.z + 0.05);
+        tableTop.rotateX(-Math.PI / 2);
+        this.add(tableTop);
+    }
+    
 }
 
 MyTable.prototype.isGroup = true;
-
-export { MyTable };

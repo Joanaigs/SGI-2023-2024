@@ -50,7 +50,7 @@ class MyCakePiece extends THREE.Object3D {
 
         // Add rectangles to close the sides
         const sideGeometry = new THREE.PlaneGeometry(pieceCakeInfo.radiusBottom , pieceCakeInfo.height);
-        const sideMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+        const sideMaterial = new THREE.MeshBasicMaterial({ color: 0xffc2d9 });
 
         const side1 = new THREE.Mesh(sideGeometry, sideMaterial);
         side1.position.set(position[0]  -0.15 , position[1] + currentHeight + pieceCakeInfo.height / 2, position[2] -0.15 + pieceCakeInfo.radiusBottom/2  );
