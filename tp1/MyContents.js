@@ -6,7 +6,7 @@ import { MyPlate } from './MyPlate.js';
 import { MyCake } from './MyCake.js';
 import { MyVase } from './MyVase.js';
 import { MyCakePiece } from './MyCakePiece.js';
-
+import { MySofaOne } from './MySofaOne.js';
 /**
  *  This class contains the contents of out application
  */
@@ -113,6 +113,9 @@ class MyContents  {
 
         this.cakePiece = new MyCakePiece(this, 0xffdbe9, [2, 2, 0]);
         this.app.scene.add(this.cakePiece);
+        
+        this.sofa = new MySofaOne(this, 1, 0xA0816C, [0,0, 8], 10 );
+        this.app.scene.add(this.sofa);
     }
     
     /**

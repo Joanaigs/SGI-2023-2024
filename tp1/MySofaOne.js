@@ -14,7 +14,7 @@ class MySofaOne extends THREE.Object3D {
      * @param {number} position
      *
      */
-    constructor(app, size, color, position) {
+    constructor(app, size, color, position, sofaLength) {
         super();
         this.app = app;
         this.size = size || 2;
@@ -24,14 +24,14 @@ class MySofaOne extends THREE.Object3D {
 
         // Calculate heights and positions based on size
         const baseHeight = 1.5 * this.size;
-        const sofaWidth = 3 * this.size;
-        const sofaLength = 1.5 * this.size;
+        const sofaWidth = 4 * this.size;
+        sofaLength = sofaLength * this.size;
         const backWidth = 3 * this.size;
         const backHeight = 3 * this.size;
         const flameHeight = 0.1 * this.size;
 
         //Sofa base
-        const geometryBase = new THREE.BoxGeometry( 3, baseHeight, sofaWidth);
+        const geometryBase = new THREE.BoxGeometry( sofaLength, baseHeight, sofaWidth);
         let sofaBase = new THREE.Mesh(geometryBase, materialSofa);
         sofaBase.position.set(position[0], position[1]  + baseHeight / 2, position[2]);
         this.add(sofaBase);
