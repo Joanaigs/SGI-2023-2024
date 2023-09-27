@@ -43,7 +43,6 @@ class MyContents  {
         this.planeMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.diffusePlaneColor, emissive: "#000000", shininess: this.planeShininess })
 
-        this.table = null;
         this.cake = null;
     }
 
@@ -62,7 +61,7 @@ class MyContents  {
     }
 
     buildCake(){
-        this.cake = new MyCake(this, 0xA0816C);
+        this.cake = new MyCake(this, 0xffdbe9);
         this.cake.scale.set(this.cakeSize,this.cakeSize,this.cakeSize);
         this.cake.position.x = this.cakeDisplacement.x
         this.cake.position.y = this.cakeDisplacement.y
@@ -106,15 +105,13 @@ class MyContents  {
             this.app.scene.add(this.house);
         }
 
-        if(this.table == null){
-            this.table = new MyTable(400, 300, 2,2,2);
-            this.app.scene.add(this.table);
-        }
+        this.table = new MyTable(this, 10,5,2, 0x5d2906, [0, 0, 0]);
+        this.app.scene.add(this.table); 
 
         this.vase = new MyVase(this, 0.5, 0x36454F, [0, 0, 0]);
         this.app.scene.add(this.vase);
 
-        this.cakePiece = new MyCakePiece(this, 0xA0816C, [2, 2, 0]);
+        this.cakePiece = new MyCakePiece(this, 0xffdbe9, [2, 2, 0]);
         this.app.scene.add(this.cakePiece);
     }
     
