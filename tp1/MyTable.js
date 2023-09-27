@@ -23,19 +23,19 @@ export class MyTable extends THREE.Object3D {
 
     createTableLegs(materialWood){
         const legPositions = [
-            [-(this.topLength / 2), -(this.topWidth / 2)],
-            [-(this.topLength / 2), this.topWidth / 2 ],
-            [this.topLength / 2, -(this.topWidth / 2)],
-            [this.topLength / 2, this.topWidth / 2],
+            [-(this.topLength / 2) +0.3, -(this.topWidth / 2) +0.3],
+            [-(this.topLength / 2) +0.3, this.topWidth / 2 -0.3 ],
+            [this.topLength / 2 -0.3, -(this.topWidth / 2) +0.3],
+            [this.topLength / 2 -0.3, this.topWidth / 2 -0.3],
         ];
 
-        for (const [legX, legY] of legPositions) {
+        for (const [legX, legZ] of legPositions) {
             const geometryLeg = new THREE.CylinderGeometry(0.2, 0.05, this.legHeight, 32);
             const tableLeg = new THREE.Mesh(geometryLeg, materialWood);
             tableLeg.position.set(
                 this.position.x + legX,
                 this.legHeight / 2,
-                this.position.z + legY
+                this.position.z + legZ
             );
             this.add(tableLeg);
         }
