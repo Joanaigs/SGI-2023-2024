@@ -71,7 +71,7 @@ class MyCake extends THREE.Object3D {
         let pieceCakeInfo= cakeTiers[cakeTiers.length-1];
          // Add rectangles to close the sides
          const sideGeometry = new THREE.PlaneGeometry(pieceCakeInfo.radiusBottom , pieceCakeInfo.height);
-         const sideMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+         const sideMaterial = new THREE.MeshBasicMaterial({ color: 0Xffc2d9});
  
         
          const side1 = new THREE.Mesh(sideGeometry, sideMaterial);
