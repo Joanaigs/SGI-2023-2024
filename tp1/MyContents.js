@@ -39,11 +39,16 @@ class MyContents  {
         this.lastCakeEnabled = null
 
         // plane related attributes
-        this.diffusePlaneColor = "#00ffff"
+        this.planeTexture =
+        new THREE.TextureLoader().load('textures/floor1.jpg');
+        this.planeTexture.wrapS = THREE.RepeatWrapping;
+        this.planeTexture.wrapT = THREE.RepeatWrapping;
+
+        this.diffusePlaneColor = "#FFFFFF"
         this.specularPlaneColor = "#777777"
-        this.planeShininess = 30
+        this.planeShininess = 100
         this.planeMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
-            specular: this.diffusePlaneColor, emissive: "#000000", shininess: this.planeShininess })
+            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.planeTexture })
 
         this.cake = null;
     }
@@ -94,7 +99,7 @@ class MyContents  {
         this.app.scene.add( pointLightHelper );
 
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight( 0x555555 );
+        const ambientLight = new THREE.AmbientLight( 0xffffff );
         this.app.scene.add( ambientLight );
 
         this.buildBox()

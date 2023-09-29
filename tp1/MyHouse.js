@@ -23,7 +23,7 @@ class MyHouse extends THREE.Object3D {
     createWalls(size) {
         // Define the plane geometry at the class level
         this.planeGeometry = new THREE.PlaneGeometry(size * 2, size );
-        const material = new THREE.MeshBasicMaterial({ color: 0xF5F5DD });
+        const material = new THREE.MeshBasicMaterial({ color: 0xC9B7A4});
 
         const wall1 = new THREE.Mesh(this.planeGeometry, material);
         wall1.rotation.y = -Math.PI / 2;
@@ -53,8 +53,7 @@ class MyHouse extends THREE.Object3D {
     createFloor(size) {
         // Define the plane geometry at the class level
         this.planeGeometry = new THREE.PlaneGeometry(size * 2, size *2 );
-        const material = new THREE.MeshBasicMaterial({ color: 0xD2BD96 /*C8AE7E*/ });
-        const floor = new THREE.Mesh(this.planeGeometry, material);
+        const floor = new THREE.Mesh(this.planeGeometry, this.app.planeMaterial);
 
         floor.rotation.x = -Math.PI / 2;
         floor.position.y = -0;
