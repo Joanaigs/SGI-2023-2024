@@ -38,20 +38,41 @@ class MyContents  {
         this.cakeDisplacement = new THREE.Vector3(0,2,0)
         this.cakeSize = 1.0
         this.lastCakeEnabled = null
+        this.lastFloorEnabled = null
 
         // plane related attributes
-        this.planeTexture =
-        new THREE.TextureLoader().load('textures/floor1.jpg');
-        this.planeTexture.wrapS = THREE.RepeatWrapping;
-        this.planeTexture.wrapT = THREE.RepeatWrapping;
-
-        this.diffusePlaneColor = "#FFFFFF"
-        this.specularPlaneColor = "#777777"
-        this.planeShininess = 100
+        this.wrapping_mode_u = 'Repeat';
+        this.wrapping_mode_v = 'Repeat';
+        let planeSizeU = 30;
+        let planeSizeV = 30;
+        let planeUVRate = planeSizeV / planeSizeU;
+        let planeTextureUVRate = 612 / 407; // image dimensions
+        this.repeat_u = 2;
+        this.repeat_v = this.repeat_u * planeUVRate * planeTextureUVRate;
+        this.offset_u = 0;
+        this.offset_v = 0;
+        this.rotation = 0;
+        this.planeTexture =new THREE.TextureLoader().load('textures/floor.jpg');
+        this.diffusePlaneColor = "#FFFFFF";
+        this.specularPlaneColor = "#777777";
+        this.planeShininess = 100;
         this.planeMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
-            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.planeTexture })
-
+            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.planeTexture });
+        
+        //spotlight
+        this.lightColor = "#ffffff";
+        this.lightIntensity = 15;
+        this.lightDistance = 13;
+        this.lightAngle = 10;
+        this.lightPenumbra = 0;
+        this.lightDecay = 0;
+        this.lightPosition = new THREE.Vector3(0, 15, 0);
+        this.lightTarget = new THREE.Vector3(0, 2, 0);
+        
+        
+        // other attributes
         this.cake = null;
+        this.floor=null
     }
 
     /**
@@ -71,10 +92,48 @@ class MyContents  {
     buildCake(){
         this.cake = new MyCake(this, 0xffdbe9);
         this.cake.scale.set(this.cakeSize,this.cakeSize,this.cakeSize);
-        this.cake.position.x = this.cakeDisplacement.x
-        this.cake.position.y = this.cakeDisplacement.y
-        this.cake.position.z = this.cakeDisplacement.z
+        this.cake.position.x = this.cakeDisplacement.x;
+        this.cake.position.y = this.cakeDisplacement.y;
+        this.cake.position.z = this.cakeDisplacement.z;
         this.app.scene.add(this.cake);
+    }
+
+    buildFloor(){
+        if(this.wrapping_mode_u === 'ClampToEdge'){
+            this.planeTexture.wrapS = THREE.ClampToEdgeWrapping;
+        }
+        else if(this.wrapping_mode_u === 'Repeat'){
+            this.planeTexture.wrapS = THREE.RepeatWrapping;
+        }
+        else if(this.wrapping_mode_u === 'MirroredRepeat'){
+            this.planeTexture.wrapS = THREE.MirroredRepeatWrapping;
+        }
+        if(this.wrapping_mode_v === 'ClampToEdge'){
+            this.planeTexture.wrapT = THREE.ClampToEdgeWrapping;
+        }
+        else if(this.wrapping_mode_v === 'Repeat'){
+            this.planeTexture.wrapT = THREE.RepeatWrapping;
+        }
+        else if(this.wrapping_mode_v === 'MirroredRepeat'){
+            this.planeTexture.wrapT = THREE.MirroredRepeatWrapping;
+        }
+        this.planeTexture.repeat.set(this.repeat_u, this.repeat_v);
+        this.planeTexture.rotation = this.rotation;
+        this.planeTexture.offset = new THREE.Vector2(this.offset_u,this.offset_v);
+        var plane = new THREE.PlaneGeometry( 30, 30 );
+        this.floor = new THREE.Mesh( plane, this.planeMaterial );
+        this.floor.rotation.x = -Math.PI / 2;
+        this.floor.position.y = 0;
+        this.app.scene.add(this.floor);
+    }
+    buildSpotlight(){
+        this.spotlight = new THREE.SpotLight(this.lightColor, this.lightIntensity, this.lightDistance, 
+            this.lightAngle*(Math.PI/180), this.lightPenumbra, this.lightDecay);
+        this.spotlight.position.set(this.lightPosition.x, this.lightPosition.y, this.lightPosition.z);
+        this.spotlight.target=this.cake;
+        this.app.scene.add(this.spotlight);
+        this.spotLightHelper = new THREE.SpotLightHelper(this.spotlight, 0xffffff );
+        this.app.scene.add(this.spotLightHelper)
     }
 
     /**
@@ -85,8 +144,8 @@ class MyContents  {
         // create once 
         if (this.axis === null) {
             // create and attach the axis to the scene
-            this.axis = new MyAxis(this)
-            this.app.scene.add(this.axis)
+            this.axis = new MyAxis(this);
+            this.app.scene.add(this.axis);
         }
 
         // add a point light on top of the model
@@ -103,12 +162,13 @@ class MyContents  {
         const ambientLight = new THREE.AmbientLight( 0xffffff );
         this.app.scene.add( ambientLight );
 
+
         this.buildBox()
         this.buildCake()
-        
-        // Create a Plane Mesh with basic material
-        if(this.house === null){ 
-            console.log("house")       
+        this.buildFloor()
+        this.buildSpotlight()
+
+        if(this.house === null){      
             this.house = new  MyHouse(this);
             this.app.scene.add(this.house);
         }
@@ -163,24 +223,24 @@ class MyContents  {
      * @param {THREE.Color} value 
      */
     updateDiffusePlaneColor(value) {
-        this.diffusePlaneColor = value
-        this.planeMaterial.color.set(this.diffusePlaneColor)
+        this.diffusePlaneColor = value;
+        this.planeMaterial.color.set(this.diffusePlaneColor);
     }
     /**
      * updates the specular plane color and the material
      * @param {THREE.Color} value 
      */
     updateSpecularPlaneColor(value) {
-        this.specularPlaneColor = value
-        this.planeMaterial.specular.set(this.specularPlaneColor)
+        this.specularPlaneColor = value;
+        this.planeMaterial.specular.set(this.specularPlaneColor);
     }
     /**
      * updates the plane shininess and the material
      * @param {number} value 
      */
     updatePlaneShininess(value) {
-        this.planeShininess = value
-        this.planeMaterial.shininess = this.planeShininess
+        this.planeShininess = value;
+        this.planeMaterial.shininess = this.planeShininess;
     }
     
     /**
@@ -190,10 +250,10 @@ class MyContents  {
     rebuildBox() {
         // remove boxMesh if exists
         if (this.boxMesh !== undefined && this.boxMesh !== null) {  
-            this.app.scene.remove(this.boxMesh)
+            this.app.scene.remove(this.boxMesh);
         }
         this.buildBox();
-        this.lastBoxEnabled = null
+        this.lastBoxEnabled = null;
     }
 
     rebuildCake() {
@@ -203,6 +263,21 @@ class MyContents  {
         this.buildCake();
         this.lastCakeEnabled = null;
         
+    }
+
+    rebuildFloor(){
+        if(this.floor !== undefined && this.floor !== null){
+            this.app.scene.remove(this.cake);
+        }
+        this.buildFloor();
+    }
+
+    rebuildSpotlight(){
+        if(this.spotlight !== undefined && this.spotlight !== null){
+            this.app.scene.remove(this.spotlight);
+            this.app.scene.remove(this.spotLightHelper);
+        }
+        this.buildSpotlight();
     }
     
     /**

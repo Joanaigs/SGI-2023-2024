@@ -15,8 +15,6 @@ class MyHouse extends THREE.Object3D {
         this.type = 'Group';
         let size = 15;
 
-
-        this.createFloor(size);
         this.createWalls(size);
     }
 
@@ -50,16 +48,7 @@ class MyHouse extends THREE.Object3D {
         this.add(wall4);
     }
 
-    createFloor(size) {
-        // Define the plane geometry at the class level
-        this.planeGeometry = new THREE.PlaneGeometry(size * 2, size *2 );
-        const floor = new THREE.Mesh(this.planeGeometry, this.app.planeMaterial);
 
-        floor.rotation.x = -Math.PI / 2;
-        floor.position.y = -0;
-
-        this.add(floor);
-    }
 }
 
 MyHouse.prototype.isGroup = true;
