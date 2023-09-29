@@ -53,5 +53,5 @@ class MyCandle extends THREE.Object3D {
         
     }
 }
-
+MyCandle.prototype.isGroup = true;
 export { MyCandle };

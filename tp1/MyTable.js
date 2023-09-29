@@ -19,6 +19,14 @@ export class MyTable extends THREE.Object3D {
         
         this.createTableTop(materialWood)
         this.createTableLegs(materialWood);
+        //carpet
+        const geometryCarpet = new THREE.CircleGeometry( 5, 32 );
+        const materialCarpet = new THREE.MeshBasicMaterial( { color: 0xBE93D4  } );
+        const carpet = new THREE.Mesh( geometryCarpet, materialCarpet );
+        carpet.position.set(position[0],position[1]+0.01,position[2]);
+        carpet.rotateX(-Math.PI / 2);
+        this.add( carpet );
+
     }
 
     createTableLegs(materialWood){
@@ -44,7 +52,7 @@ export class MyTable extends THREE.Object3D {
     createTableTop(materialWood){
         const geometryTop = new THREE.BoxGeometry(this.topLength, this.topWidth, 0.1);
         const tableTop = new THREE.Mesh(geometryTop, materialWood);
-        tableTop.position.set(this.position.x, this.legHeight, this.position.z + 0.05);
+        tableTop.position.set(this.position.x, this.legHeight-0.1/2, this.position.z + 0.05);
         tableTop.rotateX(-Math.PI / 2);
         this.add(tableTop);
     }

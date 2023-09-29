@@ -6,7 +6,9 @@ import { MyPlate } from './MyPlate.js';
 import { MyCake } from './MyCake.js';
 import { MyVase } from './MyVase.js';
 import { MyCakePiece } from './MyCakePiece.js';
-import { MySofaOne } from './MySofaOne.js';
+import { MySofa } from './MySofa.js';
+import { MyFrame } from './MyFrame.js';
+import { MyWindow } from './MyWindow.js';
 /**
  *  This class contains the contents of out application
  */
@@ -104,18 +106,45 @@ class MyContents  {
             this.house = new  MyHouse(this);
             this.app.scene.add(this.house);
         }
-
-        this.table = new MyTable(this, 10,5,2, 0x5d2906, [0, 0, 0]);
+        this.table = new MyTable(this, 6,3.5,2, 0x5d2906, [0, 0, 0]);
         this.app.scene.add(this.table); 
 
-        this.vase = new MyVase(this, 0.5, 0x36454F, [0, 0, 0]);
+        
+        this.vase = new MyVase(this, 1, 0x36454F, [-8, 0, -8]);
         this.app.scene.add(this.vase);
 
         this.cakePiece = new MyCakePiece(this, 0xffdbe9, [2, 2, 0]);
         this.app.scene.add(this.cakePiece);
         
-        this.sofa = new MySofaOne(this, 1, 0xA0816C, [0,0, 8], 10 );
-        this.app.scene.add(this.sofa);
+        this.sofa1 = new MySofa(this, 1, 0x373737, 0x5d5d5d, [0,0, 9], 10 );
+        this.app.scene.add(this.sofa1);
+
+        this.sofa2 = new MySofa(this, 1, 0x373737, 0x5d5d5d, [0,0, 0], 5 );
+        this.sofa2.rotation.y = -Math.PI/2;
+        this.sofa2.position.x = -9;
+        this.app.scene.add(this.sofa2);
+
+        // Pile of plates
+        for(let i = 0; i < 5; i++){
+            let plate = new MyPlate(this, 0.5, 0xf5e9dc, [-2, 2, 0]);
+            plate.position.y += i*plate.plateHeight();
+            this.app.scene.add(plate);
+        }
+
+        // frame
+        this.frame = new MyFrame(this, 0.5,5, 5, 0x5d2906, [10, 4, 15-0.25],0);
+        this.app.scene.add(this.frame);
+
+        // window
+        this.window = new MyWindow(this, 0.5,6, 8, 0x5d2906, [-15+0.25, 4, 5],-Math.PI/2);
+        this.app.scene.add(this.window);
+
+        //televison
+        this.tele= new MyFrame(this, 0.3,10, 5, 0x5d2906, [0, 4, -15+0.25],Math.PI);
+        this.app.scene.add(this.tele);
+
+
+
     }
     
     /**
