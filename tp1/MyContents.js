@@ -107,7 +107,7 @@ class MyContents  {
             this.house = new  MyHouse(this);
             this.app.scene.add(this.house);
         }
-        this.table = new MyTable(this, 6,3.5,2, 0x5d2906, [0, 0, 0]);
+        this.table = new MyTable(this, 6,3.5,2,0xffffff, 0x5d2906, [0, 0, 0]);
         this.app.scene.add(this.table); 
 
         //this.robot = new MyRobot(this, 0x5d2906, [0, 0, 0]);
