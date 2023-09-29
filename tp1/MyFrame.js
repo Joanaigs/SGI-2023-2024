@@ -14,7 +14,7 @@ class MyFrame extends THREE.Object3D {
      * @param {number} position
      *
      */
-    constructor(app, size, lenght, hight , color, position, rotation) {
+    constructor(app, size, lenght, hight , color, position, rotation, texture) {
         super();
         this.type = 'Group';
         this.app = app;
@@ -22,6 +22,7 @@ class MyFrame extends THREE.Object3D {
         this.color = color
         this.lenght = lenght
         this.hight = hight
+        this.texture = texture
 
 
         const materialFrame = new THREE.MeshBasicMaterial( {color: color} );

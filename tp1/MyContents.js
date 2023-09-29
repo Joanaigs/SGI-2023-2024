@@ -5,6 +5,7 @@ import { MyTable } from './MyTable.js';
 import { MyPlate } from './MyPlate.js';
 import { MyCake } from './MyCake.js';
 import { MyVase } from './MyVase.js';
+import { MyRobot } from './MyRobot.js';
 import { MyCakePiece } from './MyCakePiece.js';
 import { MySofa } from './MySofa.js';
 import { MyFrame } from './MyFrame.js';
@@ -111,9 +112,11 @@ class MyContents  {
             this.house = new  MyHouse(this);
             this.app.scene.add(this.house);
         }
-        this.table = new MyTable(this, 6,3.5,2, 0x5d2906, [0, 0, 0]);
+        this.table = new MyTable(this, 6,3.5,2,0xffffff, 0x5d2906, [0, 0, 0]);
         this.app.scene.add(this.table); 
 
+        //this.robot = new MyRobot(this, 0x5d2906, [0, 0, 0]);
+        //this.app.scene.add(this.robot); 
         
         this.vase = new MyVase(this, 1, 0x36454F, [-8, 0, -8]);
         this.app.scene.add(this.vase);
@@ -137,8 +140,11 @@ class MyContents  {
         }
 
         // frame
-        this.frame = new MyFrame(this, 0.5,5, 5, 0x5d2906, [10, 4, 15-0.25],0);
-        this.app.scene.add(this.frame);
+        this.joanaPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [3.2, 6, 15-0.25],0);
+        this.app.scene.add(this.joanaPhoto);
+
+        this.inesPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [-3.2, 5.3, 15-0.25],0);
+        this.app.scene.add(this.inesPhoto);
 
         // window
         this.window = new MyWindow(this, 0.5,6, 8, 0x5d2906, [-15+0.25, 4, 5],-Math.PI/2);

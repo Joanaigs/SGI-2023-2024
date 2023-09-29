@@ -5,7 +5,7 @@ import * as THREE from 'three';
  * This class contains a Table representation
  */
 export class MyTable extends THREE.Object3D {
-    constructor(app, topLength, topWidth, legHeight, color, position) {
+    constructor(app, topLength, topWidth, legHeight, color, topColor, position) {
         super();
         this.type = 'Group';
         this.app = app;
@@ -13,11 +13,14 @@ export class MyTable extends THREE.Object3D {
         this.topWidth = topWidth;
         this.legHeight = legHeight;
         this.color = color;
+        this.topColor = topColor
 
         // Material for the table
         const materialWood = new THREE.MeshBasicMaterial({ color: this.color });
-        
-        this.createTableTop(materialWood)
+        const materialThin = new THREE.MeshBasicMaterial({ color: this.topColor });
+
+
+        this.createTableTop(materialWood, materialThin);
         this.createTableLegs(materialWood);
         //carpet
         const geometryCarpet = new THREE.CircleGeometry( 5, 32 );
@@ -49,12 +52,19 @@ export class MyTable extends THREE.Object3D {
         }
     }
 
-    createTableTop(materialWood){
-        const geometryTop = new THREE.BoxGeometry(this.topLength, this.topWidth, 0.1);
+    createTableTop(materialWood, materialThin){
+        const geometryTop = new THREE.BoxGeometry(this.topLength, this.topWidth, 0.2);
         const tableTop = new THREE.Mesh(geometryTop, materialWood);
-        tableTop.position.set(this.position.x, this.legHeight-0.1/2, this.position.z + 0.05);
+        tableTop.position.set(this.position.x, this.legHeight/2 + 0.80, this.position.z + 0.05);
         tableTop.rotateX(-Math.PI / 2);
         this.add(tableTop);
+
+        const geometryThinTop = new THREE.BoxGeometry(this.topLength, this.topWidth, 0.1);
+        const thinTop = new THREE.Mesh(geometryThinTop, materialThin);
+        thinTop.position.set(this.position.x, this.legHeight/2 + 0.96, this.position.z + 0.05);
+        thinTop.rotateX(-Math.PI / 2);
+        this.add(thinTop);
+        
     }
     
 }
