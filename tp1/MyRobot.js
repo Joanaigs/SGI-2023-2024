@@ -15,7 +15,7 @@ export class MyRobot extends THREE.Object3D {
         const materialRobot = new THREE.MeshBasicMaterial({ color: this.color });
         this.createRobotHead();
         this.createRobotBody();
-        this.createRobotLegs();
+        //this.createRobotLegs();
     }
 
     createRobotHead(){

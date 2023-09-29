@@ -13,44 +13,47 @@ class MyHouse extends THREE.Object3D {
         super();
         this.app = app;
         this.type = 'Group';
-        let size = 20;
+        let size = 15;
 
-        // Define the plane geometry at the class level
-        this.planeGeometry = new THREE.PlaneGeometry(size * 2, size * 2);
+
         this.createFloor(size);
         this.createWalls(size);
     }
 
     createWalls(size) {
+        // Define the plane geometry at the class level
+        this.planeGeometry = new THREE.PlaneGeometry(size * 2, size );
         const material = new THREE.MeshBasicMaterial({ color: 0xF5F5DD });
 
         const wall1 = new THREE.Mesh(this.planeGeometry, material);
         wall1.rotation.y = -Math.PI / 2;
         wall1.position.x = size;
-        wall1.position.y = size;
+        wall1.position.y = size/2;
         this.add(wall1);
 
         const wall2 = new THREE.Mesh(this.planeGeometry, material);
         wall2.rotation.y = Math.PI / 2;
         wall2.position.x = -size;
-        wall2.position.y = size;
+        wall2.position.y = size/2;
         this.add(wall2);
 
         const wall3 = new THREE.Mesh(this.planeGeometry, material);
         wall3.rotation.y = -Math.PI;
         wall3.position.z = size;
-        wall3.position.y = size;
+        wall3.position.y = size/2;
         this.add(wall3);
 
         const wall4 = new THREE.Mesh(this.planeGeometry, material);
         wall4.rotation.y = 0;
         wall4.position.z = -size;
-        wall4.position.y = size;
+        wall4.position.y = size/2;
         this.add(wall4);
     }
 
     createFloor(size) {
-    const material = new THREE.MeshBasicMaterial({ color: 0xD2BD96 /*C8AE7E*/ });
+        // Define the plane geometry at the class level
+        this.planeGeometry = new THREE.PlaneGeometry(size * 2, size *2 );
+        const material = new THREE.MeshBasicMaterial({ color: 0xD2BD96 /*C8AE7E*/ });
         const floor = new THREE.Mesh(this.planeGeometry, material);
 
         floor.rotation.x = -Math.PI / 2;
