@@ -5,6 +5,7 @@ import { MyTable } from './MyTable.js';
 import { MyPlate } from './MyPlate.js';
 import { MyCake } from './MyCake.js';
 import { MyVase } from './MyVase.js';
+import { MyRobot } from './MyRobot.js';
 import { MyCakePiece } from './MyCakePiece.js';
 
 /**
@@ -107,6 +108,9 @@ class MyContents  {
 
         this.table = new MyTable(this, 10,5,2, 0x5d2906, [0, 0, 0]);
         this.app.scene.add(this.table); 
+
+        //this.robot = new MyRobot(this, 0x5d2906, [0, 0, 0]);
+        //this.app.scene.add(this.robot); 
 
         this.vase = new MyVase(this, 0.5, 0x36454F, [0, 0, 0]);
         this.app.scene.add(this.vase);
