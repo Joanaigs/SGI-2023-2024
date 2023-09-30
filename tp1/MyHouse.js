@@ -5,58 +5,60 @@ import { MyApp } from './MyApp.js';
  * This class contains a Floor representation
  */
 class MyHouse extends THREE.Object3D {
-    /**
-     * 
-     * @param {MyApp} app the application object
-     */
     constructor(app) {
         super();
         this.app = app;
         this.type = 'Group';
         let size = 15;
 
-
         this.createFloor(size);
         this.createWalls(size);
     }
 
     createWalls(size) {
-        // Define the plane geometry at the class level
-        this.planeGeometry = new THREE.PlaneGeometry(size * 2, size );
-        const material = new THREE.MeshBasicMaterial({ color: 0xC9B7A4});
+        const wallDimensions = [
+            { width: size * 3, height: size }, // Wall 1
+            { width: size * 3, height: size }, // Wall 2
+            { width: size * 2, height: size }, // Wall 3
+            { width: size * 2, height: size }, // Wall 4
+        ];
 
-        const wall1 = new THREE.Mesh(this.planeGeometry, material);
-        wall1.rotation.y = -Math.PI / 2;
-        wall1.position.x = size;
-        wall1.position.y = size/2;
-        this.add(wall1);
+        const material = new THREE.MeshBasicMaterial({ color: 0xC9B7A4 });
 
-        const wall2 = new THREE.Mesh(this.planeGeometry, material);
-        wall2.rotation.y = Math.PI / 2;
-        wall2.position.x = -size;
-        wall2.position.y = size/2;
-        this.add(wall2);
+        for (let i = 0; i < wallDimensions.length; i++) {
+            const wall = new THREE.Mesh(new THREE.PlaneGeometry(wallDimensions[i].width, wallDimensions[i].height), material);
+            if (i === 0) {
+                wall.rotation.y = -Math.PI / 2;
+                wall.position.x = size;
+                wall.position.y = wallDimensions[i].height / 2;
+                wall.position.z = size/2;
+            } else if (i === 1) {
+                wall.rotation.y = Math.PI / 2;
+                wall.position.x = -size;
+                wall.position.y = wallDimensions[i].height / 2;
+                wall.position.z = size/2;
+            } else if (i === 2) {
+                wall.rotation.y = -Math.PI;
+                wall.position.z = size * 2;
+                wall.position.y = wallDimensions[i].height / 2;
+            } else if (i === 3) {
+                wall.rotation.y = 0;
+                wall.position.z = -size;
+                wall.position.y = wallDimensions[i].height / 2;
+            }
 
-        const wall3 = new THREE.Mesh(this.planeGeometry, material);
-        wall3.rotation.y = -Math.PI;
-        wall3.position.z = size;
-        wall3.position.y = size/2;
-        this.add(wall3);
-
-        const wall4 = new THREE.Mesh(this.planeGeometry, material);
-        wall4.rotation.y = 0;
-        wall4.position.z = -size;
-        wall4.position.y = size/2;
-        this.add(wall4);
+            this.add(wall);
+        }
     }
 
     createFloor(size) {
-        // Define the plane geometry at the class level
-        this.planeGeometry = new THREE.PlaneGeometry(size * 2, size *2 );
-        const floor = new THREE.Mesh(this.planeGeometry, this.app.planeMaterial);
+        const floorWidth = size * 2;
+        const floorLength = size * 3;
+        const floor = new THREE.Mesh(new THREE.PlaneGeometry(floorWidth, floorLength), this.app.planeMaterial);
 
         floor.rotation.x = -Math.PI / 2;
         floor.position.y = -0;
+        floor.position.z = size / 3 + 2.5;
 
         this.add(floor);
     }

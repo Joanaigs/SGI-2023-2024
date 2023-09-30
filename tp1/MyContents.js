@@ -5,10 +5,13 @@ import { MyTable } from './MyTable.js';
 import { MyPlate } from './MyPlate.js';
 import { MyCake } from './MyCake.js';
 import { MyVase } from './MyVase.js';
+import { MyCarpet } from './MyCarpet.js';
+import { MyLampshade } from './MyLampshade.js';
 import { MyRobot } from './MyRobot.js';
 import { MyCakePiece } from './MyCakePiece.js';
 import { MySofa } from './MySofa.js';
 import { MyFrame } from './MyFrame.js';
+import { MyCabinet } from './MyCabinet.js';
 import { MyWindow } from './MyWindow.js';
 /**
  *  This class contains the contents of out application
@@ -115,11 +118,17 @@ class MyContents  {
         this.table = new MyTable(this, 6,3.5,2,0xffffff, 0x5d2906, [0, 0, 0]);
         this.app.scene.add(this.table); 
 
+        this.carpet = new MyCarpet(this,0xffffff, [0, 0, 0]);
+        this.app.scene.add(this.carpet); 
+
         //this.robot = new MyRobot(this, 0x5d2906, [0, 0, 0]);
         //this.app.scene.add(this.robot); 
         
-        this.vase = new MyVase(this, 1, 0x36454F, [-8, 0, -8]);
-        this.app.scene.add(this.vase);
+        //this.vase = new MyVase(this, 1, 0x36454F, [8, 0, -8]);
+        //this.app.scene.add(this.vase);
+
+        this.lampshade = new MyLampshade(this, 7, 1.5, 0x36454F, 0xffffff, [12, 0, -12]);
+        this.app.scene.add(this.lampshade);
 
         this.cakePiece = new MyCakePiece(this, 0xffdbe9, [2, 2, 0]);
         this.app.scene.add(this.cakePiece);
@@ -140,10 +149,10 @@ class MyContents  {
         }
 
         // frame
-        this.joanaPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [3.2, 6, 15-0.25],0);
+        this.joanaPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [3.2, 6, 30-0.25],0);
         this.app.scene.add(this.joanaPhoto);
 
-        this.inesPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [-3.2, 5.3, 15-0.25],0);
+        this.inesPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [-3.2, 5.3, 30-0.25],0);
         this.app.scene.add(this.inesPhoto);
 
         // window
@@ -151,9 +160,20 @@ class MyContents  {
         this.app.scene.add(this.window);
 
         //televison
-        this.tele= new MyFrame(this, 0.3,10, 5, 0x5d2906, [0, 4, -15+0.25],Math.PI);
-        this.app.scene.add(this.tele);
+        this.television= new MyFrame(this, 0.3,10, 5, 0x5d2906, [0, 5, -15+0.25],Math.PI);
+        this.app.scene.add(this.television);
 
+        // televison Bottom cabinet
+        this.televisionBottomCabinet = new MyCabinet(this, 16, 2, 3, 0x373737, [-2,0, -14], false );
+        this.app.scene.add(this.televisionBottomCabinet);
+
+        //bookshelf cabinet
+        this.bookshelf = new MyCabinet(this, 4, 2, 5, 0x373737, [-8,5, -14], true, 3 );
+        this.app.scene.add(this.bookshelf);
+
+        //back table
+        this.backTable = new MyTable(this, 12, 5,4,0xffffff, 0x5d2906, [0, 0, 10.5]);
+        this.app.scene.add(this.backTable); 
 
 
     }
