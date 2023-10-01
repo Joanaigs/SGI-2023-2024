@@ -121,16 +121,16 @@ class MyContents  {
         this.carpet = new MyCarpet(this,0xffffff, [0, 0, 0]);
         this.app.scene.add(this.carpet); 
 
-        //this.robot = new MyRobot(this, 0x5d2906, [0, 0, 0]);
-        //this.app.scene.add(this.robot); 
+        this.robot = new MyRobot(this, 0x5d2906, [-4, -0.3, 3.9]);
+        this.app.scene.add(this.robot); 
         
-        //this.vase = new MyVase(this, 1, 0x36454F, [8, 0, -8]);
-        //this.app.scene.add(this.vase);
+        this.vase = new MyVase(this, 1, 0x36454F, [-12.5, 0, -13]);
+        this.app.scene.add(this.vase);
 
         this.lampshade = new MyLampshade(this, 7, 1.5, 0x36454F, 0xffffff, [12, 0, -12]);
         this.app.scene.add(this.lampshade);
 
-        this.cakePiece = new MyCakePiece(this, 0xffdbe9, [2, 2, 0]);
+        this.cakePiece = new MyCakePiece(this, 0xffdbe9, [1.2, 2.42, 6.8]);
         this.app.scene.add(this.cakePiece);
         
         this.sofa1 = new MySofa(this, 1, 0x373737, 0x5d5d5d, [0,0, 9], 10 );
@@ -155,9 +155,15 @@ class MyContents  {
         this.inesPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [-3.2, 5.3, 30-0.25],0);
         this.app.scene.add(this.inesPhoto);
 
-        // window
-        this.window = new MyWindow(this, 0.5,6, 8, 0x5d2906, [-15+0.25, 4, 5],-Math.PI/2);
-        this.app.scene.add(this.window);
+        // windows
+        //this.window = new MyWindow(this, 0.5,6, 8, 0x5d2906, [-15+0.25, 4, 5],-Math.PI/2);
+        //this.app.scene.add(this.window);
+
+        this.rightWindow = new MyFrame(this, 0.5,13, 10 , 0x5d2906, [-15+0.25, 1, -2.5],-Math.PI/2,0);
+        this.app.scene.add(this.rightWindow);
+
+        this.leftWindow = new MyFrame(this, 0.5,13, 10 , 0x5d2906, [-15+0.25, 1, 18.5],-Math.PI/2,0);
+        this.app.scene.add(this.leftWindow);
 
         //televison
         this.television= new MyFrame(this, 0.3,10, 5, 0x5d2906, [0, 5, -15+0.25],Math.PI);
