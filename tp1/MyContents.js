@@ -12,7 +12,7 @@ import { MyCakePiece } from './MyCakePiece.js';
 import { MySofa } from './MySofa.js';
 import { MyFrame } from './MyFrame.js';
 import { MyCabinet } from './MyCabinet.js';
-import { MyWindow } from './MyWindow.js';
+import { MyDoor } from './MyDoor.js';
 /**
  *  This class contains the contents of out application
  */
@@ -155,9 +155,6 @@ class MyContents  {
         this.inesPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [-3.2, 5.3, 30-0.25],0);
         this.app.scene.add(this.inesPhoto);
 
-        // windows
-        //this.window = new MyWindow(this, 0.5,6, 8, 0x5d2906, [-15+0.25, 4, 5],-Math.PI/2);
-        //this.app.scene.add(this.window);
 
         this.rightWindow = new MyFrame(this, 0.5,13, 10 , 0x5d2906, [-15+0.25, 1, -2.5],-Math.PI/2,0);
         this.app.scene.add(this.rightWindow);
@@ -181,6 +178,9 @@ class MyContents  {
         this.backTable = new MyTable(this, 12, 5,4,0xffffff, 0x5d2906, [0, 0, 10.5]);
         this.app.scene.add(this.backTable); 
 
+        // door
+        this.door = new MyDoor(this, 5, 12,0.5, 0x5d2906, [7.4, 0, 8]);
+        this.app.scene.add(this.door); 
 
     }
     
