@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { MyApp } from './MyApp.js';
 
 /**
  * This class contains a Floor representation
@@ -10,8 +9,6 @@ class MyHouse extends THREE.Object3D {
         this.app = app;
         this.type = 'Group';
         let size = 15;
-
-        this.createFloor(size);
         this.createWalls(size);
     }
 
@@ -51,17 +48,6 @@ class MyHouse extends THREE.Object3D {
         }
     }
 
-    createFloor(size) {
-        const floorWidth = size * 2;
-        const floorLength = size * 3;
-        const floor = new THREE.Mesh(new THREE.PlaneGeometry(floorWidth, floorLength), this.app.planeMaterial);
-
-        floor.rotation.x = -Math.PI / 2;
-        floor.position.y = -0;
-        floor.position.z = size / 3 + 2.5;
-
-        this.add(floor);
-    }
 }
 
 MyHouse.prototype.isGroup = true;
