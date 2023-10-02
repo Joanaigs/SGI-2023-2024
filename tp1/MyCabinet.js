@@ -81,7 +81,7 @@ class MyCabinet extends THREE.Object3D {
         for (let i = 0; i < this.numShelves ; i++) {          
             const shelfGeometry = new THREE.BoxGeometry(length / 2, shelfHeight, shelfWidth);
             const shelf = new THREE.Mesh(shelfGeometry, material);
-            shelf.position.set(position[0] + length / 4, position[1] + i*shelfSpacing + shelfHeight/2, position[2] - width / 4); // Adjusted position
+            shelf.position.set(position[0] + length / 4, position[1] + i*shelfSpacing + shelfHeight/2, position[2]  ); // Adjusted position
             this.add(shelf);
         }
     
