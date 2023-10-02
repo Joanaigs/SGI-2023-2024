@@ -1,11 +1,12 @@
 import * as THREE from 'three';
+import { MyChair } from './MyChair.js';
 
 
 /**
  * This class contains a Table representation
  */
 export class MyTable extends THREE.Object3D {
-    constructor(app, topLength, topWidth, legHeight, color, topColor, position) {
+    constructor(app, topLength, topWidth, legHeight, color, topColor, position, chair=false) {
         super();
         this.type = 'Group';
         this.app = app;
@@ -24,6 +25,9 @@ export class MyTable extends THREE.Object3D {
 
         this.createTableTop(materialWood, materialThin);
         this.createTableLegs(materialWood);
+        if(chair){
+            this.createChair(materialWood, materialThin);
+        }
 
     }
 
@@ -60,6 +64,23 @@ export class MyTable extends THREE.Object3D {
         thinTop.rotateX(-Math.PI / 2);
         this.add(thinTop);
         
+    }
+
+    createChair(){
+        const chairPositions = [
+            [this.position.x + this.topLength/2, this.position.y, this.position.z, Math.PI/2],
+            [this.position.x - this.topLength/2, this.position.y, this.position.z, -Math.PI/2],
+            [this.position.x + this.topLength/6, this.position.y, this.position.z - this.topWidth/2, Math.PI],
+            [this.position.x + this.topLength/6, this.position.y, this.position.z + this.topWidth/2, 0],
+            [this.position.x - this.topLength/6, this.position.y, this.position.z - this.topWidth/2, Math.PI],
+            [this.position.x - this.topLength/6, this.position.y, this.position.z + this.topWidth/2, 0],
+            ];
+
+        for (const chairPos of chairPositions) {
+            const chair = new MyChair(this.app, 1, [chairPos[0], chairPos[1], chairPos[2]], chairPos[3], this.color);
+            this.add(chair);
+        }
+
     }
     
 }

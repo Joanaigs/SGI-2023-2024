@@ -244,7 +244,7 @@ class MyContents  {
          this.app.scene.add(this.bookshelf2);
 
         //back table
-        this.backTable = new MyTable(this, 12, 5,4,0xffffff, 0x5d2906, [0, 0, 10.5]);
+        this.backTable = new MyTable(this, 12, 5,4,0xffffff, 0x5d2906, [0, 0, 10.5], true);
         this.app.scene.add(this.backTable); 
 
         // door
