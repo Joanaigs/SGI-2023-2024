@@ -15,7 +15,7 @@ class MyDoor extends THREE.Object3D {
         this.height = height;
         this.color = color;
         this.position.set(position[0], position[1], position[2]);
-        console.log(this.width)
+
 
         const materialDoor = new THREE.MeshBasicMaterial( {color: color} );
         const materialDoor2 = new THREE.MeshBasicMaterial( {color: 0xffffff} );

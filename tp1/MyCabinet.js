@@ -19,6 +19,7 @@ class MyCabinet extends THREE.Object3D {
         this.colorBase = colorBase;
         this.bookshelf = bookshelf;
         this.numShelves = numShelves + 2;
+        console.log(this.numShelves);
 
         const material = new THREE.MeshBasicMaterial( {color: colorBase} );
         const secondaryMaterial = new THREE.MeshBasicMaterial( {color: 0xffffff} );
@@ -47,7 +48,7 @@ class MyCabinet extends THREE.Object3D {
         this.add(thinTopLayer);
     }
 
-    createBookShelf(length, width, height, position, material, secondaryMaterial, numShelves){
+    createBookShelf(length, width, height, position, material, secondaryMaterial){
 
         // Compact side (left side)
         const compactGeometry = new THREE.BoxGeometry(length / 2, height, width);
@@ -64,24 +65,20 @@ class MyCabinet extends THREE.Object3D {
         this.add(wallPartCabinet);
 
         //right 
-        const rightGeometry = new THREE.BoxGeometry(length / 2, height, width - width + 0.3);
+        const rightGeometry = new THREE.BoxGeometry(0.3, height, width - width + 0.3);
         const rightLayer = new THREE.Mesh(rightGeometry, material);
-        rightLayer.position.set(position[0] + length / 4 + 0.9, position[1] + height / 2, (position[2] - width/2) + 1);
-        rightLayer.rotateY(-Math.PI / 2)
-        this.add(rightLayer)
+        rightLayer.position.set(position[0] + length / 4 + length / 4, position[1] + height / 2, position[2] - width / 4 + 0.3);
+        rightLayer.rotateY(-Math.PI / 2);
+        this.add(rightLayer);
+
 
         // Shelves
-        const shelfSpacing = height / 4; // Evenly spaced shelves
+        const shelfSpacing = height / (this.numShelves - 1); // Evenly spaced shelves
 
-        for (let i = 1; i < 6; i++) {            
+        for (let i = 1; i < this.numShelves +1 ; i++) {            
             const shelfGeometry = new THREE.BoxGeometry(length / 2, height / 8 + 0.5, width - width + 0.3);
             const shelf = new THREE.Mesh(shelfGeometry, material);
-            if (i == 5){
-                shelf.position.set(position[0] + length / 4, position[1] + height / 4 + i*shelfSpacing - 2.6, position[2] - width / 4);
-            }
-            else{
-                shelf.position.set(position[0] + length / 4, position[1] + height / 4 + i*shelfSpacing - 2.4, position[2] - width / 4); // Adjusted position
-            }
+            shelf.position.set(position[0] + length / 4, position[1] + height / 4 + i*shelfSpacing - 2.4, position[2] - width / 4); // Adjusted position
             shelf.rotateX(-Math.PI / 2);
             this.add(shelf);
         }
