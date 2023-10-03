@@ -73,7 +73,7 @@ class MyGuiInterface  {
         textureFolder.add(this.contents, 'rotation', 0, 360).name('Rotation').onChange((value) => { this.contents.rebuildFloor(value) });
 
 
-        const lightFolder = this.datgui.addFolder( 'Light' );
+        const lightFolder = this.datgui.addFolder( 'SpotLight cake' );
         lightFolder.addColor( this.contents, 'lightColor' ).onChange( (value) => { this.contents.rebuildSpotlight() } );
         lightFolder.add(this.contents, 'lightIntensity', 0, 20).name("Intensity").onChange( (value) => { this.contents.rebuildSpotlight() } );
         lightFolder.add(this.contents, 'lightDistance', 0, 100).name("Distance").onChange( (value) => { this.contents.rebuildSpotlight() } );

@@ -64,12 +64,12 @@ class MyContents  {
         
         //spotlight
         this.lightColor = "#ffffff";
-        this.lightIntensity = 15;
+        this.lightIntensity = 1;
         this.lightDistance = 13;
         this.lightAngle = 10;
         this.lightPenumbra = 0;
         this.lightDecay = 0;
-        this.lightPosition = new THREE.Vector3(0, 15, 0);
+        this.lightPosition = new THREE.Vector3(0, 14.5, 0);
         this.lightTarget = new THREE.Vector3(0, 2, 0);
         
         
@@ -157,7 +157,7 @@ class MyContents  {
 
         // add a point light on top of the model
         const pointLight = new THREE.PointLight( 0xffffff, 500, 0 );
-        pointLight.position.set( 0, 20, 0 );
+        pointLight.position.set( 0, 20, 7.5 );
         this.app.scene.add( pointLight );
 
         // add a point light helper for the previous point light
@@ -179,7 +179,7 @@ class MyContents  {
             this.house = new  MyHouse(this);
             this.app.scene.add(this.house);
         }
-        this.table = new MyTable(this, 6,3.5,2,0xffffff, 0x5d2906, [0, 0, 0]);
+        this.table = new MyTable(this, 6,3.5,1.95,0xffffff, 0x5d2906, [0, 0, 0]);
         this.app.scene.add(this.table); 
 
         this.carpet = new MyCarpet(this,0xffffff, [0, 0, 0]);
@@ -191,7 +191,7 @@ class MyContents  {
         this.vase = new MyVase(this, 1, 0x36454F, [-12.5, 0, -13]);
         this.app.scene.add(this.vase);
 
-        this.lampshade = new MyLampshade(this, 7, 1.5, 0x36454F, 0xffffff, [12, 0, -12]);
+        this.lampshade = new MyLampshade(this, 7, 1.75, 1.5, 0x36454F, 0xffffff, [12, 0, -12]);
         this.app.scene.add(this.lampshade);
 
         this.cakePiece = new MyCakePiece(this, 0xffdbe9, [1.2, 2.42, 6.8]);
@@ -251,6 +251,16 @@ class MyContents  {
         this.door = new MyDoor(this, 5, 12,0.5, 0x5d2906, [7.4, 0, 8]);
         this.app.scene.add(this.door); 
 
+        this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, 0x36454F, 0xffffff, [0, 0, 0], true);
+        this.lampshadeCeiling1.position.set(0, 15, 0)
+        this.lampshadeCeiling1.rotateX(-Math.PI);
+        this.app.scene.add(this.lampshadeCeiling1);
+
+        this.lampshadeCeiling2 = new MyLampshade(this, 0.7, 0.6, 0.5, 0x36454F, 0xffffff, [0, 0, 0], true);
+        this.lampshadeCeiling2.position.set(0, 15, 15)
+        this.lampshadeCeiling2.rotateX(-Math.PI);
+        //this.addSpotLight(0xffffff, 1, 20, 10, 0, 0, [0, 14.5, 15], [0, 0, 15])
+        this.app.scene.add(this.lampshadeCeiling2);
     }
     
     /**

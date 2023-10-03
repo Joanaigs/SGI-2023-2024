@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
 class MyLampshade extends THREE.Object3D {
-    constructor(app, height, radius, baseColor, lampshadeColor, position) {
+    constructor(app, height, cylinderHeight, radius, baseColor, lampshadeColor, position, upsideDown = false) {
         super();
         this.app = app;
         this.height = height;
@@ -27,8 +27,12 @@ class MyLampshade extends THREE.Object3D {
         this.add(sphere);
 
         // Cylinder on top of the sphere
-        const cylinderHeight = height / 4; // Adjust the height as needed
-        const geometryCylinder = new THREE.CylinderGeometry(sphereRadius * 3, sphereRadius * 4, cylinderHeight, 32, 1, true); // Set openEnded to true
+        let geometryCylinder;
+        if(upsideDown) 
+            geometryCylinder = new THREE.CylinderGeometry(sphereRadius * 4, sphereRadius * 3, cylinderHeight, 32, 1, true); // Set openEnded to true
+        else
+            geometryCylinder = new THREE.CylinderGeometry(sphereRadius * 3, sphereRadius * 4, cylinderHeight, 32, 1, true); // Set openEnded to true
+
         const cylinder = new THREE.Mesh(geometryCylinder, materialLampshade);
         cylinder.position.set(position[0], position[1] + height + sphereRadius * 1.2, position[2]); // Adjust the Y position as needed
         this.add(cylinder);
