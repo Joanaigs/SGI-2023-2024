@@ -193,6 +193,7 @@ class MyContents  {
 
         this.lampshade = new MyLampshade(this, 7, 1.75, 1.5, 0x36454F, 0xffffff, [12, 0, -12]);
         this.app.scene.add(this.lampshade);
+        this.addSpotLightLamp([12, 7.5, -12], 30)
 
         this.cakePiece = new MyCakePiece(this, 0xffdbe9, [1.2, 2.42, 6.8]);
         this.app.scene.add(this.cakePiece);
@@ -251,16 +252,24 @@ class MyContents  {
         this.door = new MyDoor(this, 5, 12,0.5, 0x5d2906, [7.4, 0, 8]);
         this.app.scene.add(this.door); 
 
-        this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, 0x36454F, 0xffffff, [0, 0, 0], true);
-        this.lampshadeCeiling1.position.set(0, 15, 0)
-        this.lampshadeCeiling1.rotateX(-Math.PI);
+        this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, 0x36454F, 0xffffff, [0, 15, 0], true);
         this.app.scene.add(this.lampshadeCeiling1);
 
-        this.lampshadeCeiling2 = new MyLampshade(this, 0.7, 0.6, 0.5, 0x36454F, 0xffffff, [0, 0, 0], true);
-        this.lampshadeCeiling2.position.set(0, 15, 15)
-        this.lampshadeCeiling2.rotateX(-Math.PI);
-        //this.addSpotLight(0xffffff, 1, 20, 10, 0, 0, [0, 14.5, 15], [0, 0, 15])
+        this.lampshadeCeiling2 = new MyLampshade(this, 0.7, 0.6, 0.5, 0x36454F, 0xffffff, [0, 15, 15], true);
         this.app.scene.add(this.lampshadeCeiling2);
+        this.addSpotLightLamp([0, 14, 15], 10)
+    }
+
+    addSpotLightLamp(lampPosition, lightAngle){
+        let spotlightLamp = new THREE.SpotLight(0xffffff, 1, 20, lightAngle*(Math.PI/180), 0, 0);
+        spotlightLamp.position.set(lampPosition[0], lampPosition[1], lampPosition[2]);
+        let target = new THREE.Object3D();
+        target.position.set(lampPosition[0], 0, lampPosition[2]);
+        spotlightLamp.target = target;
+        this.app.scene.add(spotlightLamp);
+
+        let spotLightLampHelper = new THREE.SpotLightHelper(spotlightLamp);
+        this.app.scene.add(spotLightLampHelper);
     }
     
     /**
@@ -301,18 +310,9 @@ class MyContents  {
         this.lastBoxEnabled = null;
     }
 
-    rebuildCake() {
-        if(this.cake !== undefined && this.cake !== null){
-            this.app.scene.remove(this.cake);
-        }
-        this.buildCake();
-        this.lastCakeEnabled = null;
-        
-    }
-
     rebuildFloor(){
         if(this.floor !== undefined && this.floor !== null){
-            this.app.scene.remove(this.cake);
+            this.app.scene.remove(this.floor);
         }
         this.buildFloor();
     }
@@ -342,19 +342,6 @@ class MyContents  {
         }
     }
 
-    updateCakeIfRequired() {
-        if (this.cakeEnabled !== this.lastCakeEnabled) {
-            this.lastCakeEnabled = this.cakeEnabled
-            console.log(this.cakeEnabled)
-            if (this.cakeEnabled) {
-                this.app.scene.add(this.cake)
-            }
-            else {
-                this.app.scene.remove(this.cake)
-            }
-        }
-    }
-
 
     /**
      * updates the contents
@@ -364,7 +351,6 @@ class MyContents  {
     update() {
         // check if box mesh needs to be updated
         this.updateBoxIfRequired()
-        this.updateCakeIfRequired()
 
         // sets the box mesh position based on the displacement vector
         this.boxMesh.position.x = this.boxDisplacement.x
