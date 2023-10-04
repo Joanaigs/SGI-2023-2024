@@ -20,7 +20,7 @@ class MyHouse extends THREE.Object3D {
             { width: size * 2, height: size }, // Wall 4
         ];
 
-        const material = new THREE.MeshBasicMaterial({ color: 0xC9B7A4 });
+        const material = new THREE.MeshBasicMaterial({ color: 0xD5D4CA });
 
         for (let i = 0; i < wallDimensions.length; i++) {
             const wall = new THREE.Mesh(new THREE.PlaneGeometry(wallDimensions[i].width, wallDimensions[i].height), material);

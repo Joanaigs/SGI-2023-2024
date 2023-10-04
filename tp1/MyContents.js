@@ -213,17 +213,17 @@ class MyContents  {
         }
 
         // frame
-        this.joanaPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [3.2, 6, 30-0.25],0);
+        this.joanaPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [3.2, 6, 30-0.25],0, "textures/flowersPainting.jpg", "textures/floor1.jpg");
         this.app.scene.add(this.joanaPhoto);
 
-        this.inesPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [-3.2, 5.3, 30-0.25],0);
+        this.inesPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [-3.2, 5.3, 30-0.25],0, "textures/housePainting.jpg", "textures/floor1.jpg" );
         this.app.scene.add(this.inesPhoto);
 
 
-        this.rightWindow = new MyFrame(this, 0.5,13, 10 , 0x5d2906, [-15+0.25, 1, -2.5],-Math.PI/2,0);
+        this.rightWindow = new MyFrame(this, 0.5,13, 10 , 0x5d2906, [-15+0.25, 1, -2.5],-Math.PI/2,"textures/transferir.jpg" );
         this.app.scene.add(this.rightWindow);
 
-        this.leftWindow = new MyFrame(this, 0.5,13, 10 , 0x5d2906, [-15+0.25, 1, 18.5],-Math.PI/2,0);
+        this.leftWindow = new MyFrame(this, 0.5,13, 10 , 0x5d2906, [-15+0.25, 1, 18.5],-Math.PI/2,"textures/transferir.jpg");
         this.app.scene.add(this.leftWindow);
 
         //televison

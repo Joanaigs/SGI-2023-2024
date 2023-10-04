@@ -252,11 +252,6 @@ export class MyRobot extends THREE.Object3D {
         this.add(meshRightFoot);
 
     }
-    
-    
-    
-
-    
 }
 
 MyRobot.prototype.isGroup = true;
