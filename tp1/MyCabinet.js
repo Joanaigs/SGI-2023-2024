@@ -58,6 +58,7 @@ class MyCabinet extends THREE.Object3D {
     
         // Shelves side (right side)
 
+        const shelfWidth = this.width;
         // wall part
         const wallPartGeometry = new THREE.BoxGeometry(length / 2, height, width - width + 0.1);
         const wallPartCabinet = new THREE.Mesh(wallPartGeometry, secondaryMaterial);
@@ -73,13 +74,14 @@ class MyCabinet extends THREE.Object3D {
 
 
         // Shelves
-        const shelfSpacing = height / (this.numShelves - 1); // Evenly spaced shelves
+        const shelfHeight =  (height/4) / (this.numShelves) ; 
+        console.log(shelfHeight, height);
+        const shelfSpacing = (height-shelfHeight) / (this.numShelves-1); // Evenly spaced shelves
 
-        for (let i = 1; i < this.numShelves +1 ; i++) {            
-            const shelfGeometry = new THREE.BoxGeometry(length / 2, height / 8 + 0.5, width - width + 0.3);
+        for (let i = 0; i < this.numShelves ; i++) {          
+            const shelfGeometry = new THREE.BoxGeometry(length / 2, shelfHeight, shelfWidth);
             const shelf = new THREE.Mesh(shelfGeometry, material);
-            shelf.position.set(position[0] + length / 4, position[1] + height / 4 + i*shelfSpacing - 2.4, position[2] - width / 4); // Adjusted position
-            shelf.rotateX(-Math.PI / 2);
+            shelf.position.set(position[0] + length / 4, position[1] + i*shelfSpacing + shelfHeight/2, position[2]  ); // Adjusted position
             this.add(shelf);
         }
     
