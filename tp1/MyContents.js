@@ -65,7 +65,7 @@ class MyContents  {
         //spotlight
         this.lightColor = "#ffffff";
         this.lightIntensity = 1;
-        this.lightDistance = 13;
+        this.lightDistance = 20;
         this.lightAngle = 10;
         this.lightPenumbra = 0;
         this.lightDecay = 0;
@@ -270,6 +270,9 @@ class MyContents  {
 
         let spotLightLampHelper = new THREE.SpotLightHelper(spotlightLamp);
         this.app.scene.add(spotLightLampHelper);
+
+        console.log('Light position:', spotlightLamp.position);
+        console.log('Light target position:', spotlightLamp.target.position);
     }
     
     /**

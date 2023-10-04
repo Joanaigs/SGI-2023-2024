@@ -47,6 +47,11 @@ class MyCandle extends THREE.Object3D {
         flame.position.set(position[0], position[1] + baseHeight + topHeight + flameHeight/2, position[2]);
         this.add(flame);
 
+        // Candle light
+        const light = new THREE.PointLight( 0xff4500, 1, 10 );
+        light.position.set(position[0], position[1] + baseHeight + topHeight + flameHeight/2, position[2]);
+        this.add(light);
+        
 
 
 
