@@ -261,15 +261,16 @@ class MyContents  {
     }
 
     addSpotLightLamp(lampPosition, lightAngle){
-        let spotlightLamp = new THREE.SpotLight(0xffffff, 1, 20, lightAngle*(Math.PI/180), 0, 0);
+        let spotlightLamp = new THREE.SpotLight(0xffffff, 2, 20, lightAngle*(Math.PI/180), 1, 0);
         spotlightLamp.position.set(lampPosition[0], lampPosition[1], lampPosition[2]);
         let target = new THREE.Object3D();
+        this.app.scene.add(target);
         target.position.set(lampPosition[0], 0, lampPosition[2]);
         spotlightLamp.target = target;
         this.app.scene.add(spotlightLamp);
 
-        let spotLightLampHelper = new THREE.SpotLightHelper(spotlightLamp);
-        this.app.scene.add(spotLightLampHelper);
+        //let spotLightLampHelper = new THREE.SpotLightHelper(spotlightLamp);
+        //this.app.scene.add(spotLightLampHelper);
 
         console.log('Light position:', spotlightLamp.position);
         console.log('Light target position:', spotlightLamp.target.position);
