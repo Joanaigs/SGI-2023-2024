@@ -221,10 +221,10 @@ class MyContents  {
         this.app.scene.add(this.inesPhoto);
 
 
-        this.rightWindow = new MyFrame(this, 0.2,14, 11 , 0x5d2906, [-15+0.10, 0, -2.5],-Math.PI/2,"textures/transferir.jpg", "textures/metal.jpg", true);
+        this.rightWindow = new MyFrame(this, 0.2,14, 11 , 0x5d2906, [-15+0.10, 0, -2.5],-Math.PI/2,"textures/transferir2.jpg", "textures/metal.jpg", true);
         this.app.scene.add(this.rightWindow);
 
-        this.leftWindow = new MyFrame(this, 0.2,14, 11 , 0x5d2906, [-15+0.10, 0, 18.5],-Math.PI/2,"textures/transferir.jpg", "textures/metal.jpg", true);
+        this.leftWindow = new MyFrame(this, 0.2,14, 11 , 0x5d2906, [-15+0.10, 0, 18.5],-Math.PI/2,"textures/transferir1.jpg", "textures/metal.jpg", true);
         this.app.scene.add(this.leftWindow);
 
         //televison

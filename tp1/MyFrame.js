@@ -37,10 +37,10 @@ class MyFrame extends THREE.Object3D {
             
         this.contentTexture =new THREE.TextureLoader().load(contentTexturePath);
         this.diffusePlaneColor = "#FFFFFF";
-        this.specularPlaneColor = "#ffffff";
+        this.specularPlaneColor = "#000000";
         this.planeShininess = 100;
         this.contentMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
-            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.contentTexture });
+            specular: this.specularPlaneColor, emissive: "#000000", shininess: 100, map: this.contentTexture });
 
         //frame top
         const baseHeight = 0.1 * this.size;
