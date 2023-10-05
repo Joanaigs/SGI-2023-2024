@@ -3,47 +3,64 @@ import * as THREE from 'three';
 class MyLampshade extends THREE.Object3D {
     constructor(app, height, cylinderHeight, radius, baseColor, lampshadeColor, position, upsideDown = false) {
         super();
+        this.type = 'Group';
         this.app = app;
         this.height = height;
         this.baseColor = baseColor;
         this.lampshadeColor = lampshadeColor;
         this.radius = radius;
+        this.upsideDown = upsideDown;
+        this.cylinderHeight = cylinderHeight;
+        this.lampPosition= position;
 
-        const materialBase = new THREE.MeshBasicMaterial({ color: baseColor });
-        const materialLampshade = new THREE.MeshBasicMaterial({ color: lampshadeColor });
+        this.rotateAngle = 0;
+        if(this.upsideDown) this.rotateAngle = -Math.PI;
+        this.buildLamp();
+
+        this.position.set(position[0], position[1], position[2]);
+        this.rotateX(this.rotateAngle);
+
+    }
+
+    buildLamp(){
+        const materialBase = new THREE.MeshBasicMaterial({ color: this.baseColor });
+        const materialLampshade = new THREE.MeshBasicMaterial({ color: this.lampshadeColor });
         const materialBulb = new THREE.MeshBasicMaterial({ color: 0xffffdd });
 
+        // Cone at the base of the cylinder
+        const coneHeight = this.height / 16;
+        const geometryCone = new THREE.ConeGeometry(this.radius / 2, coneHeight, 32);
+        const cone = new THREE.Mesh(geometryCone, materialBase);
+        cone.position.set(0,  coneHeight/2, 0);
+        this.add(cone);
+
+
         // Lampshade base
-        const geometryBase = new THREE.CylinderGeometry(this.radius / 16, this.radius / 8, height, 32, 1);
+        const geometryBase = new THREE.CylinderGeometry(this.radius / 16, this.radius / 8, this.height, 32, 1);
         const base = new THREE.Mesh(geometryBase, materialBase);
-        base.position.set(position[0], position[1] + height / 2, position[2]);
+        base.position.set(0,  this.height / 2 + coneHeight/2, 0);
         this.add(base);
 
         // Sphere on top of the cylinder
         const sphereRadius = this.radius / 4; // Adjust the size as needed
         const geometrySphere = new THREE.SphereGeometry(sphereRadius, 32, 32);
         const sphere = new THREE.Mesh(geometrySphere, materialBulb);
-        sphere.position.set(position[0], position[1] + height , position[2]); // Adjust the Y position as needed
+        sphere.position.set(0,  this.height + coneHeight/2 , 0); // Adjust the Y position as needed
         this.add(sphere);
 
         // Cylinder on top of the sphere
         let geometryCylinder;
-        if(upsideDown) 
-            geometryCylinder = new THREE.CylinderGeometry(sphereRadius * 4, sphereRadius * 3, cylinderHeight, 32, 1, true); // Set openEnded to true
+        if(this.upsideDown) 
+            geometryCylinder = new THREE.CylinderGeometry(sphereRadius * 4, sphereRadius * 3, this.cylinderHeight, 32, 1, true); // Set openEnded to true
         else
-            geometryCylinder = new THREE.CylinderGeometry(sphereRadius * 3, sphereRadius * 4, cylinderHeight, 32, 1, true); // Set openEnded to true
+            geometryCylinder = new THREE.CylinderGeometry(sphereRadius * 3, sphereRadius * 4, this.cylinderHeight, 32, 1, true); // Set openEnded to true
 
         const cylinder = new THREE.Mesh(geometryCylinder, materialLampshade);
-        cylinder.position.set(position[0], position[1] + height + sphereRadius * 1.2, position[2]); // Adjust the Y position as needed
+        cylinder.position.set(0,  this.height + sphereRadius * 1.2, 0); // Adjust the Y position as needed
         this.add(cylinder);
-
-        // Cone at the base of the cylinder
-        const coneHeight = height / 16;
-        const geometryCone = new THREE.ConeGeometry(radius / 2, coneHeight, 32);
-        const cone = new THREE.Mesh(geometryCone, materialBase);
-        cone.position.set(position[0], position[1] + coneHeight - 0.2, position[2]);
-        this.add(cone);
     }
+
+
 }
 
 MyLampshade.prototype.isGroup = true;

@@ -38,16 +38,6 @@ class MyGuiInterface  {
         boxFolder.add(this.contents.boxDisplacement, 'y', -5, 5)
         boxFolder.add(this.contents.boxDisplacement, 'z', -5, 5)
         boxFolder.open()
-
-        // add a folder to the gui interface for the cake
-        const cakeFolder = this.datgui.addFolder( 'Cake' );
-        // note that we are using a property from the contents object
-        cakeFolder.add(this.contents, 'cakeEnabled', true).name("enabled");
-        cakeFolder.add(this.contents, 'cakeSize', 0, 10).name("size").onChange( () => { this.contents.rebuildCake() } );
-        cakeFolder.add(this.contents.cakeDisplacement, 'x', -5, 5)
-        cakeFolder.add(this.contents.cakeDisplacement, 'y', -5, 5)
-        cakeFolder.add(this.contents.cakeDisplacement, 'z', -5, 5)
-        cakeFolder.open()
         
         const data = {  
             'diffuse color': this.contents.diffusePlaneColor,
