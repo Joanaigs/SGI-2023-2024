@@ -10,17 +10,31 @@ export class MyChair extends THREE.Object3D {
         this.type = 'Group';
         this.app = app;
         this.size = size;
-        // Material for the table
-        const materialWood = new THREE.MeshBasicMaterial({ color: color });
+        this.color = color;
 
-        this.createChair(materialWood);
+        // Material for the table
+        this.materialTexture =new THREE.TextureLoader().load("textures/top.jpg");
+        this.diffusePlaneColor = "#FFFFFF";
+        this.specularPlaneColor = "#ffffff";
+        this.planeShininess = 50;
+        this.materialWood = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
+            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.materialTexture });
+        
+        this.thinTexture =new THREE.TextureLoader().load("textures/tableLegs.jpg");
+        this.diffusePlaneColor = "#FFFFFF";
+        this.specularPlaneColor = "#ffffff";
+        this.planeShininess = 50;
+        this.materialThin = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
+            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.thinTexture });
+
+        this.createChair(this.materialWood, this.materialThin);
         this.position.set(position[0], position[1], position[2]);
         this.rotateY(rotation);
 
     }
 
 
-    createChair(materialWood){
+    createChair(materialWood, materialThin){
         let legHeight = 2.5*this.size;
         let legrad = 0.2*this.size;
         let legSeparation = 0.9*this.size;

@@ -21,8 +21,19 @@ class MyCabinet extends THREE.Object3D {
         this.numShelves = numShelves + 2;
         console.log(this.numShelves);
 
-        const material = new THREE.MeshBasicMaterial( {color: colorBase} );
-        const secondaryMaterial = new THREE.MeshBasicMaterial( {color: 0xffffff} );
+        this.thinTexture =new THREE.TextureLoader().load("textures/top.jpg");
+        this.diffusePlaneColor = "#FFFFFF";
+        this.specularPlaneColor = "#ffffff";
+        this.planeShininess = 50;
+        const material = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
+            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.thinTexture });
+
+        this.materialTexture =new THREE.TextureLoader().load("textures/tableLegs.jpg");
+        this.diffusePlaneColor = "#FFFFFF";
+        this.specularPlaneColor = "#ffffff";
+        this.planeShininess = 50;
+        const secondaryMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
+            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.materialTexture });
 
         //Cabinet base
         if (this.bookshelf)
@@ -61,7 +72,7 @@ class MyCabinet extends THREE.Object3D {
         const shelfWidth = this.width;
         // wall part
         const wallPartGeometry = new THREE.BoxGeometry(length / 2, height, width - width + 0.1);
-        const wallPartCabinet = new THREE.Mesh(wallPartGeometry, secondaryMaterial);
+        const wallPartCabinet = new THREE.Mesh(wallPartGeometry, material);
         wallPartCabinet.position.set(position[0] + length / 4, position[1] + height / 2, position[2] - width/2);
         this.add(wallPartCabinet);
 

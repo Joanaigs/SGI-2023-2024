@@ -179,10 +179,10 @@ class MyContents  {
             this.house = new  MyHouse(this);
             this.app.scene.add(this.house);
         }
-        this.table = new MyTable(this, 6,3.5,1.95,0xffffff, 0x5d2906, [0, 0, 0]);
+        this.table = new MyTable(this, 6,3.5,1.95,"textures/top.jpg", "textures/tableLegs.jpg", [0, 0, 0]);
         this.app.scene.add(this.table); 
 
-        this.carpet = new MyCarpet(this,0xffffff, [0, 0, 0]);
+        this.carpet = new MyCarpet(this,0x8eb1c2, [0, 0, 0]);
         this.app.scene.add(this.carpet); 
 
         this.robot = new MyRobot(this, 0x5d2906, [-4, -0.3, 3.9]);
@@ -197,10 +197,10 @@ class MyContents  {
         this.cakePiece = new MyCakePiece(this, 0xffdbe9, [1.2, 2.42, 6.8]);
         this.app.scene.add(this.cakePiece);
         
-        this.sofa1 = new MySofa(this, 1, 0x373737, 0x5d5d5d, [0,0, 9], 10 );
+        this.sofa1 = new MySofa(this, 1, 0x365563, 0x446879, [0,0, 9], 10 );
         this.app.scene.add(this.sofa1);
 
-        this.sofa2 = new MySofa(this, 1, 0x373737, 0x5d5d5d, [0,0, 0], 5 );
+        this.sofa2 = new MySofa(this, 1, 0X365563, 0x446879, [0,0, 0], 5 );
         this.sofa2.rotation.y = -Math.PI/2;
         this.sofa2.position.x = -9;
         this.app.scene.add(this.sofa2);
@@ -244,7 +244,7 @@ class MyContents  {
          this.app.scene.add(this.bookshelf2);
 
         //back table
-        this.backTable = new MyTable(this, 12, 5,4,0xffffff, 0x5d2906, [0, 0, 10.5], true);
+        this.backTable = new MyTable(this, 12, 5,4, "textures/top.jpg","textures/tableLegs.jpg", [0, 0, 10.5], true);
         this.app.scene.add(this.backTable); 
 
         // door

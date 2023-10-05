@@ -13,7 +13,7 @@ export class MyCarpet extends THREE.Object3D {
 
         //carpet
         const geometryCarpet = new THREE.CircleGeometry( 5, 32 );
-        const materialCarpet = new THREE.MeshBasicMaterial( { color: 0xBE93D4  } );
+        const materialCarpet = new THREE.MeshBasicMaterial( { color: this.color } );
         const carpet = new THREE.Mesh( geometryCarpet, materialCarpet );
         carpet.position.set(position[0],position[1]+0.01,position[2]);
         carpet.rotateX(-Math.PI / 2);
