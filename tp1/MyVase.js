@@ -21,7 +21,13 @@ class MyVase extends THREE.Object3D {
         this.color = color
         
 
-        const material = new THREE.MeshBasicMaterial( {color: color} ); 
+        const material = new THREE.MeshPhongMaterial({
+            color: this.color,  // Base color
+            specular: this.color,  // Specular color
+            shininess: 30,       // Shininess (higher values make it shinier)
+            reflectivity: 0.5,   // Reflectivity (higher values increase reflectivity)
+        });
+        
 
 
         //vase base

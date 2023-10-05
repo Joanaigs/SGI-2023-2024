@@ -14,7 +14,7 @@ class MyFrame extends THREE.Object3D {
      * @param {number} position
      *
      */
-    constructor(app, size, length, height, color, position, rotation, contentTexturePath, frameTexturePath) {
+    constructor(app, size, length, height, color, position, rotation, contentTexturePath, frameTexturePath, window = false) {
         super();
         this.type = 'Group';
         this.app = app;
@@ -22,6 +22,7 @@ class MyFrame extends THREE.Object3D {
         this.color = color;
         this.length = length;
         this.height = height;
+        this.window = window;
         this.contentTexturePath = contentTexturePath;
         this.frameTexturePath = frameTexturePath;
 
@@ -33,10 +34,11 @@ class MyFrame extends THREE.Object3D {
         this.frameMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.frameTexture });
         
+            
         this.contentTexture =new THREE.TextureLoader().load(contentTexturePath);
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#ffffff";
-        this.planeShininess = 50;
+        this.planeShininess = 100;
         this.contentMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.contentTexture });
 

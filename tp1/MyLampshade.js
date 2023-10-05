@@ -1,12 +1,12 @@
 import * as THREE from 'three';
 
 class MyLampshade extends THREE.Object3D {
-    constructor(app, height, cylinderHeight, radius, baseColor, lampshadeColor, position, upsideDown = false) {
+    constructor(app, height, cylinderHeight, radius, baseTexturePath, lampshadeColor, position, upsideDown = false) {
         super();
         this.type = 'Group';
         this.app = app;
         this.height = height;
-        this.baseColor = baseColor;
+        this.baseTexturePath = baseTexturePath;
         this.lampshadeColor = lampshadeColor;
         this.radius = radius;
         this.upsideDown = upsideDown;
@@ -23,7 +23,13 @@ class MyLampshade extends THREE.Object3D {
     }
 
     buildLamp(){
-        const materialBase = new THREE.MeshBasicMaterial({ color: this.baseColor });
+        this.baseTexture =new THREE.TextureLoader().load(this.baseTexturePath);
+        this.diffusePlaneColor = "#FFFFFF";
+        this.specularPlaneColor = "#000000";
+        this.planeShininess = 100;
+        const  materialBase = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
+            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.baseTexture });
+
         const materialLampshade = new THREE.MeshBasicMaterial({ color: this.lampshadeColor });
         const materialBulb = new THREE.MeshBasicMaterial({ color: 0xffffdd });
 

@@ -188,10 +188,10 @@ class MyContents  {
         this.robot = new MyRobot(this, 0x5d2906, [-4, -0.3, 3.9]);
         this.app.scene.add(this.robot); 
         
-        this.vase = new MyVase(this, 1, 0x36454F, [-12.5, 0, -13]);
+        this.vase = new MyVase(this, 1, 0xc8dfea, [-12.5, 0, -13]);
         this.app.scene.add(this.vase);
 
-        this.lampshade = new MyLampshade(this, 7, 1.75, 1.5, 0x36454F, 0xffffff, [12, 0, -12]);
+        this.lampshade = new MyLampshade(this, 7, 1.75, 1.5, "textures/metal.jpg", 0xffffff, [12, 0, -12]);
         this.app.scene.add(this.lampshade);
         this.addSpotLightLamp([12, 7.5, -12], 30)
 
@@ -214,17 +214,17 @@ class MyContents  {
         }
 
         // frame
-        this.joanaPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [3.2, 6, 30-0.25],0, "textures/flowersPainting.jpg", "textures/floor1.jpg");
+        this.joanaPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [3.2, 6, 30-0.25],0, "textures/flowersPainting.jpg", "textures/floor1.jpg", false);
         this.app.scene.add(this.joanaPhoto);
 
-        this.inesPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [-3.2, 5.3, 30-0.25],0, "textures/housePainting.jpg", "textures/floor1.jpg" );
+        this.inesPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [-3.2, 5.3, 30-0.25],0, "textures/housePainting.jpg", "textures/floor1.jpg", false);
         this.app.scene.add(this.inesPhoto);
 
 
-        this.rightWindow = new MyFrame(this, 0.5,13, 10 , 0x5d2906, [-15+0.25, 1, -2.5],-Math.PI/2,"textures/transferir.jpg" );
+        this.rightWindow = new MyFrame(this, 0.2,14, 11 , 0x5d2906, [-15+0.10, 0, -2.5],-Math.PI/2,"textures/transferir.jpg", "textures/metal.jpg", true);
         this.app.scene.add(this.rightWindow);
 
-        this.leftWindow = new MyFrame(this, 0.5,13, 10 , 0x5d2906, [-15+0.25, 1, 18.5],-Math.PI/2,"textures/transferir.jpg");
+        this.leftWindow = new MyFrame(this, 0.2,14, 11 , 0x5d2906, [-15+0.10, 0, 18.5],-Math.PI/2,"textures/transferir.jpg", "textures/metal.jpg", true);
         this.app.scene.add(this.leftWindow);
 
         //televison
@@ -249,7 +249,7 @@ class MyContents  {
         this.app.scene.add(this.backTable); 
 
         // door
-        this.door = new MyDoor(this, 5, 12,0.5, 0x5d2906, [7.4, 0, 8]);
+        this.door = new MyDoor(this, 5, 12,0.5, "textures/top.jpg", "textures/metal.jpg", [7.4, 0, 8]);
         this.app.scene.add(this.door); 
 
         this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, 0x36454F, 0xffffff, [0, 15, 0], true);
