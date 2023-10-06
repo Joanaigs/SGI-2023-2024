@@ -64,10 +64,10 @@ class MyContents  {
         
         //spotlight
         this.lightColor = "#ffffff";
-        this.lightIntensity = 1;
+        this.lightIntensity = 2;
         this.lightDistance = 20;
         this.lightAngle = 10;
-        this.lightPenumbra = 0;
+        this.lightPenumbra = 1;
         this.lightDecay = 0;
         this.lightPosition = new THREE.Vector3(0, 14.5, 0);
         this.lightTarget = new THREE.Vector3(0, 2, 0);
@@ -137,10 +137,13 @@ class MyContents  {
         this.spotlight = new THREE.SpotLight(this.lightColor, this.lightIntensity, this.lightDistance, 
             this.lightAngle*(Math.PI/180), this.lightPenumbra, this.lightDecay);
         this.spotlight.position.set(this.lightPosition.x, this.lightPosition.y, this.lightPosition.z);
-        this.spotlight.target=this.cake;
+        this.targetSpot = new THREE.Object3D();
+        this.targetSpot.position.set(this.lightTarget.x, this.lightTarget.y, this.lightTarget.z);
+        this.app.scene.add(this.targetSpot);
+        this.spotlight.target=this.targetSpot;
         this.app.scene.add(this.spotlight);
-        this.spotLightHelper = new THREE.SpotLightHelper(this.spotlight, 0xffffff );
-        this.app.scene.add(this.spotLightHelper)
+        //this.spotLightHelper = new THREE.SpotLightHelper(this.spotlight, 0xffffff );
+        //this.app.scene.add(this.spotLightHelper)
     }
 
     /**
@@ -166,7 +169,7 @@ class MyContents  {
         this.app.scene.add( pointLightHelper );
 
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight( 0xffffff );
+        const ambientLight = new THREE.AmbientLight( 0xeeeeee );
         this.app.scene.add( ambientLight );
 
 
@@ -324,7 +327,8 @@ class MyContents  {
     rebuildSpotlight(){
         if(this.spotlight !== undefined && this.spotlight !== null){
             this.app.scene.remove(this.spotlight);
-            this.app.scene.remove(this.spotLightHelper);
+            this.app.scene.remove(this.targetSpot);
+            //this.app.scene.remove(this.spotLightHelper);
         }
         this.buildSpotlight();
     }
