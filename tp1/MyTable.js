@@ -22,15 +22,15 @@ export class MyTable extends THREE.Object3D {
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#777777";
         this.planeShininess = 50;
-        this.materialWood = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
+        this.materialWood = new THREE.MeshStandardMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.materialTexture });
 
 
         this.thinTexture =new THREE.TextureLoader().load(this.color);
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#777777";
-        this.planeShininess = 30;
-        this.materialThin = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
+        this.planeShininess = 50;
+        this.materialThin = new THREE.MeshStandardMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.thinTexture });
 
 

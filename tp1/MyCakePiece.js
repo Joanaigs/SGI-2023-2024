@@ -26,8 +26,8 @@ class MyCakePiece extends THREE.Object3D {
         this.add(this.plate);
         let plateHeight = this.plate.plateHeight();
 
-        const material = new THREE.MeshBasicMaterial({ color: color });
-        const toppingMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        const material = new THREE.MeshStandardMaterial({ color: color });
+        const toppingMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
         let topping = new THREE.SphereGeometry(0.1, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2);
 
         // Define cake pieceCakeInfos and heights
@@ -50,7 +50,7 @@ class MyCakePiece extends THREE.Object3D {
 
         // Add rectangles to close the sides
         const sideGeometry = new THREE.PlaneGeometry(pieceCakeInfo.radiusBottom , pieceCakeInfo.height);
-        const sideMaterial = new THREE.MeshBasicMaterial({ color: 0xffc2d9 });
+        const sideMaterial = new THREE.MeshStandardMaterial({ color: 0xffc2d9 });
 
         const side1 = new THREE.Mesh(sideGeometry, sideMaterial);
         side1.position.set(position[0]  -0.15 , position[1] + currentHeight + pieceCakeInfo.height / 2, position[2] -0.15 + pieceCakeInfo.radiusBottom/2  );

@@ -21,7 +21,7 @@ class MyPlate extends THREE.Object3D {
         this.color = color
         
 
-        const material = new THREE.MeshBasicMaterial( {color: color} ); 
+        const material = new THREE.MeshStandardMaterial( {color: color} ); 
 
 
         //plate base

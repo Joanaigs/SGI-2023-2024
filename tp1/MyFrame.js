@@ -31,7 +31,7 @@ class MyFrame extends THREE.Object3D {
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#777777";
         this.planeShininess = 100;
-        this.frameMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
+        this.frameMaterial = new THREE.MeshStandardMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.frameTexture });
         
             
@@ -39,7 +39,7 @@ class MyFrame extends THREE.Object3D {
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#000000";
         this.planeShininess = 100;
-        this.contentMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
+        this.contentMaterial = new THREE.MeshStandardMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: 100, map: this.contentTexture });
 
         //frame top

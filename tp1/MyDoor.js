@@ -23,14 +23,14 @@ class MyDoor extends THREE.Object3D {
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#ffffff";
         this.planeShininess = 50;
-        const materialDoor = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
+        const materialDoor = new THREE.MeshStandardMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.materialTexture });
 
         this.knobTexture =new THREE.TextureLoader().load(this.knobTexturePath);
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#000000";
         this.planeShininess = 50;
-        const materialKnob = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
+        const materialKnob = new THREE.MeshStandardMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.knobTexture });
 
         const geometry = new THREE.BoxGeometry( this.lenght, this.height, this.width);

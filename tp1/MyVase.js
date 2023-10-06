@@ -54,12 +54,12 @@ class MyVase extends THREE.Object3D {
         this.add( top );
 
         //flowers
-        const materialStem = new THREE.MeshBasicMaterial( {color: 0x556b2f} );
+        const materialStem = new THREE.MeshPhongMaterial( {color: 0x556b2f} );
         const flowerRadius = 0.2 * this.size;
         const flowerHeight = 0.35 * this.size;
         for (let i = 0; i < 6; i++) {
             const randomColor = Math.random() * 0xffffff; // Random color
-            const flowerMaterial = new THREE.MeshBasicMaterial({ color: randomColor });
+            const flowerMaterial = new THREE.MeshPhongMaterial({ color: randomColor });
 
             const stemHeight = (0.2 + Math.random() * 1) * this.size;
             const geometryStem = new THREE.CylinderGeometry(0.02 * this.size, 0.02 * this.size, stemHeight, 32);

@@ -13,6 +13,7 @@ import { MySofa } from './MySofa.js';
 import { MyFrame } from './MyFrame.js';
 import { MyCabinet } from './MyCabinet.js';
 import { MyDoor } from './MyDoor.js';
+import { MyWindow } from './MyWindow.js';
 /**
  *  This class contains the contents of out application
  */
@@ -59,14 +60,14 @@ class MyContents  {
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#777777";
         this.planeShininess = 100;
-        this.planeMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
+        this.planeMaterial = new THREE.MeshStandardMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.planeTexture });
         
         //spotlight
         this.lightColor = "#ffffff";
         this.lightIntensity = 2;
-        this.lightDistance = 20;
-        this.lightAngle = 10;
+        this.lightDistance = 0;
+        this.lightAngle = 40;
         this.lightPenumbra = 1;
         this.lightDecay = 0;
         this.lightPosition = new THREE.Vector3(0, 14.5, 0);
@@ -82,7 +83,7 @@ class MyContents  {
      * builds the box mesh with material assigned
      */
     buildBox() {    
-        let boxMaterial = new THREE.MeshPhongMaterial({ color: "#ffff77", 
+        let boxMaterial = new THREE.MeshStandardMaterial({ color: "#ffff77", 
         specular: "#000000", emissive: "#000000", shininess: 90 })
 
         // Create a Cube Mesh with basic material
@@ -159,7 +160,7 @@ class MyContents  {
         }
 
         // add a point light on top of the model
-        const pointLight = new THREE.PointLight( 0xffffff, 500, 0 );
+        const pointLight = new THREE.PointLight( 0xffffff, 50, 0 );
         pointLight.position.set( 0, 20, 7.5 );
         this.app.scene.add( pointLight );
 
@@ -169,7 +170,7 @@ class MyContents  {
         this.app.scene.add( pointLightHelper );
 
         // add an ambient light
-        const ambientLight = new THREE.AmbientLight( 0xeeeeee );
+        const ambientLight = new THREE.AmbientLight( 0xeeeeee, 0.05 );
         this.app.scene.add( ambientLight );
 
 
@@ -224,10 +225,10 @@ class MyContents  {
         this.app.scene.add(this.inesPhoto);
 
 
-        this.rightWindow = new MyFrame(this, 0.2,14, 11 , 0x5d2906, [-15+0.10, 0, -2.5],-Math.PI/2,"textures/transferir2.jpg", "textures/metal.jpg", true);
+        this.rightWindow = new MyWindow(this, 0.2,14, 11 , 0x5d2906, [-15+0.10, 0, -2.5],-Math.PI/2,"textures/transferir2.jpg", "textures/metal.jpg", true);
         this.app.scene.add(this.rightWindow);
 
-        this.leftWindow = new MyFrame(this, 0.2,14, 11 , 0x5d2906, [-15+0.10, 0, 18.5],-Math.PI/2,"textures/transferir1.jpg", "textures/metal.jpg", true);
+        this.leftWindow = new MyWindow(this, 0.2,14, 11 , 0x5d2906, [-15+0.10, 0, 18.5],-Math.PI/2,"textures/transferir1.jpg", "textures/metal.jpg", true);
         this.app.scene.add(this.leftWindow);
 
         //televison
