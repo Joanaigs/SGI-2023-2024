@@ -14,6 +14,7 @@ import { MyFrame } from './MyFrame.js';
 import { MyCabinet } from './MyCabinet.js';
 import { MyDoor } from './MyDoor.js';
 import { MyWindow } from './MyWindow.js';
+import { MyCarocha } from './MyCarocha.js';
 /**
  *  This class contains the contents of out application
  */
@@ -67,10 +68,10 @@ class MyContents  {
         this.lightColor = "#ffffff";
         this.lightIntensity = 2;
         this.lightDistance = 0;
-        this.lightAngle = 40;
+        this.lightAngle = 60;
         this.lightPenumbra = 1;
         this.lightDecay = 0;
-        this.lightPosition = new THREE.Vector3(0, 14.5, 0);
+        this.lightPosition = new THREE.Vector3(0, 14, 0);
         this.lightTarget = new THREE.Vector3(0, 2, 0);
         
         
@@ -197,7 +198,7 @@ class MyContents  {
 
         this.lampshade = new MyLampshade(this, 7, 1.75, 1.5, "textures/metal.jpg", 0xffffff, [12, 0, -12]);
         this.app.scene.add(this.lampshade);
-        this.addSpotLightLamp([12, 7.5, -12], 30)
+        this.addSpotLightLamp([12, 7.5, -12], 40)
 
         this.cakePiece = new MyCakePiece(this, 0xffdbe9, [1.2, 2.42, 6.8]);
         this.app.scene.add(this.cakePiece);
@@ -259,11 +260,14 @@ class MyContents  {
 
         this.lampshadeCeiling2 = new MyLampshade(this, 0.7, 0.6, 0.5, 0x36454F, 0xffffff, [0, 15, 15], true);
         this.app.scene.add(this.lampshadeCeiling2);
-        this.addSpotLightLamp([0, 14, 15], 10)
+        this.addSpotLightLamp([0, 14, 17], 60)
+
+        this.carocha = new MyCarocha(this, "textures/floor1.jpg", [-14.75, 6, 10.25], Math.PI/2, 1);
+        this.app.scene.add(this.carocha);
     }
 
     addSpotLightLamp(lampPosition, lightAngle){
-        let spotlightLamp = new THREE.SpotLight(0xffffff, 2, 20, lightAngle*(Math.PI/180), 1, 0);
+        let spotlightLamp = new THREE.SpotLight(0xffffff, 2, 0, lightAngle*(Math.PI/180), 1, 0);
         spotlightLamp.position.set(lampPosition[0], lampPosition[1], lampPosition[2]);
         let target = new THREE.Object3D();
         this.app.scene.add(target);
@@ -364,10 +368,6 @@ class MyContents  {
         this.boxMesh.position.y = this.boxDisplacement.y
         this.boxMesh.position.z = this.boxDisplacement.z
 
-        this.cake.scale.set(this.cakeSize,this.cakeSize,this.cakeSize);
-        this.cake.position.x = this.cakeDisplacement.x
-        this.cake.position.y = this.cakeDisplacement.y
-        this.cake.position.z = this.cakeDisplacement.z
         
     }
 

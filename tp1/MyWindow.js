@@ -52,7 +52,7 @@ class MyWindow extends THREE.Object3D {
                  map: this.contentTexture });
 
         this.contentPlane = new THREE.Mesh(new THREE.PlaneGeometry(40, 20), this.contentMaterial);
-        this.contentPlane.position.set(-17, 5, 5);
+        this.contentPlane.position.set(-17, 5, 7.5);
         this.contentPlane.rotateY(Math.PI/2);
         this.add(this.contentPlane);
 

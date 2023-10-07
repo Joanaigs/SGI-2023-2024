@@ -30,7 +30,7 @@ class MyLampshade extends THREE.Object3D {
         const  materialBase = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.baseTexture });
 
-        const materialLampshade = new THREE.MeshPhongMaterial({ color: this.lampshadeColor });
+        const materialLampshade = new THREE.MeshPhongMaterial({ color: this.lampshadeColor,  emissive: "#aaaaaa" });
         const materialBulb = new THREE.MeshPhongMaterial({ color: 0xffffdd });
 
         // Cone at the base of the cylinder
