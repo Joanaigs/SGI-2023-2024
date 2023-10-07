@@ -2,16 +2,16 @@ import * as THREE from 'three';
 import { MyApp } from './MyApp.js';
 
 /**
- * This class contains a Floor representation
+ * This class contains a Plate representation
  */
 class MyPlate extends THREE.Object3D {
 
     /**
      * 
-     * @param {MyPlate} app the application object
-     * @param {number} size the size of each axis 
-     * @param {number} color
-     * @param {number} position
+     * @param {MyApp} app the application object
+     * @param {number} size the size overall
+     * @param {hex} color the color of the plate
+     * @param {list} position the position of the plate
      *
      */
     constructor(app, size, color, position) {

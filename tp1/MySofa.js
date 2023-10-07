@@ -2,17 +2,18 @@ import * as THREE from 'three';
 import { MyApp } from './MyApp.js';
 
 /**
- * This class contains a Candle representation
+ * This class contains a Sofa representation
  */
 class MySofa extends THREE.Object3D {
 
     /**
      * 
-     * @param {MySofa} app the application object
-     * @param {number} size the size of each axis 
-     * @param {number} color
-     * @param {number} position
-     *
+     * @param {MyApp} app the application object
+     * @param {number} size the size overall
+     * @param {hex} colorBase the color of the sofa base
+     * @param {hex} colorPillow the color of the sofa pillow
+     * @param {list} position the position of the sofa
+     * @param {number} sofaLength the length of the sofa
      */
     constructor(app, size, colorBase, colorPillow, position, sofaLength) {
         super();

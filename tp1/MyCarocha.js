@@ -1,18 +1,19 @@
 import * as THREE from 'three';
 import { MyFrame } from './MyFrame.js';
+import { MyApp } from './MyApp.js';
 
 /**
- * This class contains a Candle representation
+ * This class contains a Frame with a Carocha drawing eith cuves
  */
 class MyCarocha extends THREE.Object3D {
 
     /**
      * 
-     * @param {MyFrame} app the application object
-     * @param {number} size the size of each axis 
-     * @param {number} color
-     * @param {number} position
-     *
+     * @param {MyApp} app the application object
+     * @param {string} frameTexturePath the path to the frame texture
+     * @param {list} position the position of the carocha
+     * @param {number} rotation the angle of rotation of the carocha in y axis
+     * @param {number} scale the scale of the carocha 
      */
     constructor(app, frameTexturePath, position, rotation, scale) {
         super();

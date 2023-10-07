@@ -4,17 +4,15 @@ import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUnifo
 import { MyFrame } from './MyFrame.js';
 
 /**
- * This class contains a Candle representation
+ * This class contains a Window representation
  */
 class MyWindow extends THREE.Object3D {
 
     /**
      * 
-     * @param {MyFrame} app the application object
-     * @param {number} size the size of each axis 
-     * @param {number} color
-     * @param {number} position
-     *
+     * @param {MyApp} app the application object
+     * @param {string} contentTexturePath the path to the place texture 
+     * @param {string} frameTexturePath the path to the frame texture
      */
     constructor(app, contentTexturePath, frameTexturePath) {
         super();

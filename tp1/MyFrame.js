@@ -2,17 +2,22 @@ import * as THREE from 'three';
 import { MyApp } from './MyApp.js';
 
 /**
- * This class contains a Candle representation
+ * This class contains a Frame representation
  */
 class MyFrame extends THREE.Object3D {
 
     /**
      * 
-     * @param {MyFrame} app the application object
-     * @param {number} size the size of each axis 
-     * @param {number} color
-     * @param {number} position
-     *
+     * @param {MyApp} app the application object
+     * @param {number} size the width of the frame
+     * @param {number} length the length of the frame
+     * @param {number} height the height of the frame
+     * @param {hex} color the color of the frame
+     * @param {list} position the position of the frame
+     * @param {number} rotation the rotation of the frame
+     * @param {string} contentTexturePath the path to the content texture
+     * @param {string} frameTexturePath the path to the frame texture
+     * @param {boolean} window is a window or not
      */
     constructor(app, size, length, height, color, position, rotation, contentTexturePath, frameTexturePath, window = false) {
         super();

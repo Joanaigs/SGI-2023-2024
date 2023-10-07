@@ -1,9 +1,14 @@
 import * as THREE from 'three';
+import { MyApp } from './MyApp';
 
 /**
- * This class contains a Floor representation
+ * This class contains a House walls representation
  */
 class MyHouse extends THREE.Object3D {
+    /**
+     * 
+     * @param {MyApp} app the application object
+     */
     constructor(app) {
         super();
         this.app = app;

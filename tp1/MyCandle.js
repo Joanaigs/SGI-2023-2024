@@ -8,10 +8,10 @@ class MyCandle extends THREE.Object3D {
 
     /**
      * 
-     * @param {MyCandle} app the application object
+     * @param {MyApp} app the application object
      * @param {number} size the size of each axis 
-     * @param {number} color
-     * @param {number} position
+     * @param {hex} color hex color of the candle
+     * @param {list} position position of the candle
      *
      */
     constructor(app, size, color, position) {

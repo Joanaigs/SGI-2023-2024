@@ -1,6 +1,21 @@
 import * as THREE from 'three';
-
+import { MyApp } from './MyApp';
+/**
+ * This class contains a Lamshade representation
+ */
 class MyLampshade extends THREE.Object3D {
+
+    /**
+     * 
+     * @param {MyApp} app the application object
+     * @param {number} height the height of the lampshade
+     * @param {number} cylinderHeight the height of the cylinder
+     * @param {number} radius the radius of the lampshade
+     * @param {string} baseTexturePath the path of the base texture
+     * @param {hex} lampshadeColor the color of the lampshade
+     * @param {list} position the position of the lampshade
+     * @param {bool} upsideDown true if the lampshade is upside down
+     */
     constructor(app, height, cylinderHeight, radius, baseTexturePath, lampshadeColor, position, upsideDown = false) {
         super();
         this.type = 'Group';

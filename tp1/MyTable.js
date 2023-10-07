@@ -1,11 +1,23 @@
 import * as THREE from 'three';
 import { MyChair } from './MyChair.js';
+import { MyApp } from './MyApp.js';
 
 
 /**
  * This class contains a Table representation
  */
 export class MyTable extends THREE.Object3D {
+    /**
+     * 
+     * @param {MyApp} app the application object
+     * @param {number} topLength the length of the table top
+     * @param {number} topWidth the width of the table top
+     * @param {number} legHeight the height of the table legs
+     * @param {hex} color the color of the table legs
+     * @param {hex} topColor the color of the table top
+     * @param {list} position the position of the table
+     * @param {bool} chair has chairs or not
+     */
     constructor(app, topLength, topWidth, legHeight, color, topColor, position, chair=false) {
         super();
         this.type = 'Group';

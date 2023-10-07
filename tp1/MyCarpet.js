@@ -1,9 +1,16 @@
 import * as THREE from 'three';
+import { MyApp } from './MyApp';
 
 /**
- * This class contains a Table representation
+ * This class contains a carpet representation
  */
 export class MyCarpet extends THREE.Object3D {
+    /**
+     * 
+     * @param {MyApp} app the application object
+     * @param {hex} color the color of the carpet
+     * @param {list} position the position of the carpet
+     */
     constructor(app, color, position) {
         super();
         this.type = 'Group';

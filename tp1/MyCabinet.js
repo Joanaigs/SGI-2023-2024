@@ -2,13 +2,20 @@ import * as THREE from 'three';
 import { MyApp } from './MyApp.js';
 
 /**
- * This class contains a Cabinet representation
+ * This class contains a Cabinet representation, it can build a bookshelf or a cabinet base
  */
 class MyCabinet extends THREE.Object3D {
 
     /**
      * 
-     *
+     * @param {MyApp} app  the application object
+     * @param {number} length the length of the cabinet
+     * @param {number} width the width of the cabinet
+     * @param {number} height the height of the cabinet
+     * @param {hex} colorBase the color of the base of the cabinet
+     * @param {list} position the position of the cabinet
+     * @param {boolean} bookshelf if the cabinet is a bookshelf or not
+     * @param {number} numShelves the number of shelves of the bookshelf
      */
     constructor(app, length, width, height, colorBase,  position, bookshelf, numShelves) {
         super();
@@ -43,6 +50,15 @@ class MyCabinet extends THREE.Object3D {
         
     }
 
+    /**
+     * Builds the cabinet base
+     * @param {number} length 
+     * @param {number} width 
+     * @param {number} height 
+     * @param {list} position 
+     * @param {MeshPhongMaterial} material 
+     * @param {MeshPhongMaterial} secondaryMaterial 
+     */
     createCabinetBase(length, width, height, position, material, secondaryMaterial){
         const geometryBase = new THREE.BoxGeometry( length, height, width);
         let cabinetBase = new THREE.Mesh(geometryBase, material);
@@ -59,6 +75,15 @@ class MyCabinet extends THREE.Object3D {
         this.add(thinTopLayer);
     }
 
+    /**
+     * Builds the bookshelf
+     * @param {number} length 
+     * @param {number} width 
+     * @param {number} height 
+     * @param {list} position 
+     * @param {MeshPhongMaterial} material 
+     * @param {MeshPhongMaterial} secondaryMaterial 
+     */
     createBookShelf(length, width, height, position, material, secondaryMaterial){
 
         // Compact side (left side)

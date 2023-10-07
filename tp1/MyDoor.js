@@ -1,10 +1,21 @@
 import * as THREE from 'three';
+import { MyApp } from './MyApp';
 
 /**
  * This class contains a Door representation
  */
 class MyDoor extends THREE.Object3D {
 
+    /**
+     * 
+     * @param {MyApp} app the application object
+     * @param {number} width the width of the door
+     * @param {number} lenght the lenght of the door
+     * @param {number} height the height of the door
+     * @param {hex} color the color of the door
+     * @param {string} knobTexturePath the path of the knob texture
+     * @param {list} position the position of the door
+     */
     constructor(app, width, lenght, height , color, knobTexturePath, position) {
         super();
         this.type = 'Group';

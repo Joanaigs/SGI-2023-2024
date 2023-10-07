@@ -1,10 +1,19 @@
 import * as THREE from 'three';
+import { MyApp } from './MyApp';
 
 
 /**
- * This class contains a Table representation
+ * This class contains a Chair representation
  */
 export class MyChair extends THREE.Object3D {
+    /**
+     * 
+     * @param {MyApp} app the application object
+     * @param {number} size the size of each axis
+     * @param {list} position the position of the chair
+     * @param {number} rotation the angle of rotation of the chair in y axis
+     * @param {hex} color the color of the chair
+     */
     constructor(app, size,  position, rotation, color) {
         super();
         this.type = 'Group';

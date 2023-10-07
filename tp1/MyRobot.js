@@ -1,10 +1,17 @@
 import * as THREE from 'three';
+import { MyApp } from './MyApp';
 
 
 /**
- * This class contains a Table representation
+ * This class contains a robot representation
  */
 export class MyRobot extends THREE.Object3D {
+    /**
+     * 
+     * @param {MyApp} app the application object
+     * @param {hex} color the color of the robot
+     * @param {list} position the position of the robot
+     */
     constructor(app,color, position) {
         super();
         this.type = 'Group';

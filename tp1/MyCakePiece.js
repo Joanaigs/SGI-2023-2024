@@ -4,16 +4,15 @@ import { MyPlate } from './MyPlate.js';
 import { MyCandle } from './MyCandle.js';
 
 /**
- * This class contains a Cake representation
+ * This class contains a Cake Slice representation
  */
 class MyCakePiece extends THREE.Object3D {
 
     /**
      * 
-     * @param {MyCake} app the application object
-     * @param {number} size the size of each axis 
-     * @param {number} color
-     * @param {number} position
+     * @param {MyApp} app the application object
+     * @param {hex} color hex color of the cake
+     * @param {list} position position of the cake piece
      *
      */
     constructor(app, color, position) {
