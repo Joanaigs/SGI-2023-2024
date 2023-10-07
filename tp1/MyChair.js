@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { MyApp } from './MyApp';
+import { MyApp } from './MyApp.js';
 
 
 /**
