@@ -15,6 +15,7 @@ import { MyCabinet } from './MyCabinet.js';
 import { MyDoor } from './MyDoor.js';
 import { MyWindow } from './MyWindow.js';
 import { MyCarocha } from './MyCarocha.js';
+import { MyCoil } from './MyCoil.js';
 /**
  *  This class contains the contents of out application
  */
@@ -262,8 +263,12 @@ class MyContents  {
         this.app.scene.add(this.lampshadeCeiling2);
         this.addSpotLightLamp([0, 14, 17], 60)
 
-        this.carocha = new MyCarocha(this, "textures/floor1.jpg", [-14.75, 6, 10.25], Math.PI/2, 1);
+        this.carocha = new MyCarocha(this, "textures/floor1.jpg", [14.75, 6, 22], -Math.PI/2, 1);
         this.app.scene.add(this.carocha);
+
+        //coil
+        this.coil = new MyCoil(this, 0.5, 8, 0.07, [2, 4.6, 21], Math.PI/4);
+        this.app.scene.add(this.coil);
     }
 
     addSpotLightLamp(lampPosition, lightAngle){
