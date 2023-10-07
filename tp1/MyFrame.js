@@ -31,17 +31,10 @@ class MyFrame extends THREE.Object3D {
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#777777";
         this.planeShininess = 100;
-        this.frameMaterial = new THREE.MeshStandardMaterial({ color: this.diffusePlaneColor, 
+        this.frameMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.frameTexture });
         
-            
-        this.contentTexture =new THREE.TextureLoader().load(contentTexturePath);
-        this.diffusePlaneColor = "#FFFFFF";
-        this.specularPlaneColor = "#000000";
-        this.planeShininess = 100;
-        this.contentMaterial = new THREE.MeshStandardMaterial({ color: this.diffusePlaneColor, 
-            specular: this.specularPlaneColor, emissive: "#000000", shininess: 100, map: this.contentTexture });
-
+       
         //frame top
         const baseHeight = 0.1 * this.size;
         const geometry = new THREE.BoxGeometry( this.length, this.size, this.size);
@@ -66,12 +59,23 @@ class MyFrame extends THREE.Object3D {
         frameRight.position.set(this.length/2 - this.size/2, heightSides/2 + this.size/2, 0);
         this.add(frameRight);
 
-        //back
-        const geometryBack = new THREE.PlaneGeometry(this.length, heightSides);
-        let frameBack = new THREE.Mesh(geometryBack,this.contentMaterial);
-        frameBack.position.set(0, heightSides/2 + this.size/2, this.size/2 - 0.01);
-        frameBack.rotation.y = Math.PI;
-        this.add(frameBack);
+        if(!window){
+            this.contentTexture =new THREE.TextureLoader().load(contentTexturePath);
+            this.diffusePlaneColor = "#FFFFFF";
+            this.specularPlaneColor = "#ffffff";
+            this.planeShininess = 40;
+            this.contentMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
+                specular: this.specularPlaneColor, emissive: "#000000", shininess: 100, map: this.contentTexture });
+
+                //back
+                const geometryBack = new THREE.PlaneGeometry(this.length, heightSides);
+                let frameBack = new THREE.Mesh(geometryBack,this.contentMaterial);
+                frameBack.position.set(0, heightSides/2 + this.size/2, this.size/2 - 0.01);
+                frameBack.rotation.y = Math.PI;
+                this.add(frameBack);
+        }
+
+        
 
         this.position.set(position[0], position[1], position[2]);
         this.rotateY(rotation); 

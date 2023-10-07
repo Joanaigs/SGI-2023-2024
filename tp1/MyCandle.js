@@ -20,9 +20,9 @@ class MyCandle extends THREE.Object3D {
         this.size = size || 2;
         this.color = color
 
-        const materialCandle = new THREE.MeshStandardMaterial( {color: color} );
-        const materialFlame = new THREE.MeshStandardMaterial( {color: 0xff4500} );
-        const materialWick = new THREE.MeshStandardMaterial( {color: 0x000000} );
+        const materialCandle = new THREE.MeshPhongMaterial( {color: color} );
+        const materialFlame = new THREE.MeshPhongMaterial( {color: 0xff4500} );
+        const materialWick = new THREE.MeshPhongMaterial( {color: 0x000000} );
 
         // Calculate heights and positions based on size
         const baseHeight = 0.4 * this.size;

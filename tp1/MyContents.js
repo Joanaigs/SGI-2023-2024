@@ -60,7 +60,7 @@ class MyContents  {
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#777777";
         this.planeShininess = 100;
-        this.planeMaterial = new THREE.MeshStandardMaterial({ color: this.diffusePlaneColor, 
+        this.planeMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.planeTexture });
         
         //spotlight
@@ -83,7 +83,7 @@ class MyContents  {
      * builds the box mesh with material assigned
      */
     buildBox() {    
-        let boxMaterial = new THREE.MeshStandardMaterial({ color: "#ffff77", 
+        let boxMaterial = new THREE.MeshPhongMaterial({ color: "#ffff77", 
         specular: "#000000", emissive: "#000000", shininess: 90 })
 
         // Create a Cube Mesh with basic material
@@ -225,11 +225,9 @@ class MyContents  {
         this.app.scene.add(this.inesPhoto);
 
 
-        this.rightWindow = new MyWindow(this, 0.2,14, 11 , 0x5d2906, [-15+0.10, 0, -2.5],-Math.PI/2,"textures/transferir2.jpg", "textures/metal.jpg", true);
-        this.app.scene.add(this.rightWindow);
+        this.window = new MyWindow(this, "textures/transferir.jpg", "textures/metal.jpg", true);
+        this.app.scene.add(this.window);
 
-        this.leftWindow = new MyWindow(this, 0.2,14, 11 , 0x5d2906, [-15+0.10, 0, 18.5],-Math.PI/2,"textures/transferir1.jpg", "textures/metal.jpg", true);
-        this.app.scene.add(this.leftWindow);
 
         //televison
         this.television= new MyFrame(this, 0.3,10, 5, 0x5d2906, [0, 5, -15+0.25],Math.PI);

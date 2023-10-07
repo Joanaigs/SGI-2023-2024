@@ -26,8 +26,8 @@ class MyCake extends THREE.Object3D {
         this.add(this.plate);
         let plateHeight = this.plate.plateHeight();
 
-        const material = new THREE.MeshStandardMaterial({ color: color });
-        const toppingMaterial = new THREE.MeshStandardMaterial({ color: 0xffffff });
+        const material = new THREE.MeshPhongMaterial({ color: color });
+        const toppingMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
         let topping = new THREE.SphereGeometry(0.1, 32, 16, 0, Math.PI*2, 0, Math.PI/2);
 
         // Define cake tiers and heights
@@ -71,7 +71,7 @@ class MyCake extends THREE.Object3D {
         let pieceCakeInfo= cakeTiers[cakeTiers.length-1];
          // Add rectangles to close the sides
          const sideGeometry = new THREE.PlaneGeometry(pieceCakeInfo.radiusBottom , pieceCakeInfo.height);
-         const sideMaterial = new THREE.MeshStandardMaterial({ color: 0Xffc2d9});
+         const sideMaterial = new THREE.MeshPhongMaterial({ color: 0Xffc2d9});
  
         
          const side1 = new THREE.Mesh(sideGeometry, sideMaterial);
