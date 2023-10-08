@@ -26,10 +26,10 @@ class MyWindow extends THREE.Object3D {
         this.builder = new MyNurbsBuilder();
 
         this.rightWindow= new MyFrame(this.app, 0.2,this.length, this.height , 0x5d2906, position1,-Math.PI/2, "", frameTexturePath, true);
-        this.buildCurtains([position1[0]+1.5, position1[1]+this.height*0.3+0.3, position1[2]-this.length/2], -Math.PI/3);
+        this.buildCurtains([position1[0]+1.5, position1[1]+this.height*0.5+0.5, position1[2]-this.length/2], -Math.PI/3);
         this.metalRod([position1[0], position1[1]+this.height+0.5, position1[2]]);
         this.leftWindow = new MyFrame(this.app, 0.2,this.length, this.height , 0x5d2906, position2,-Math.PI/2,"", frameTexturePath, true);
-        this.buildCurtains([position2[0]+1.5, position2[1]+this.height*0.3, position2[2]+this.length/3], -Math.PI/3);
+        this.buildCurtains([position2[0]+1.5, position2[1]+this.height*0.5+0.5, position2[2]+this.length/3], -Math.PI/3);
         this.metalRod([position2[0], position2[1]+this.height+0.5, position2[2]]);
 
         this.add(this.leftWindow);
@@ -145,7 +145,7 @@ class MyWindow extends THREE.Object3D {
 
         // Create meshes for the two NURBS surfaces
         mesh1 = new THREE.Mesh(surfaceData1, this.material);
-        mesh1.scale.set(1, this.height*0.8, 1);
+        mesh1.scale.set(1, this.height*0.55, 1);
         mesh1.position.set(position[0], position[1], position[2]);
         mesh1.rotateY(rotation);
         this.add(mesh1);
