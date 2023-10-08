@@ -3,7 +3,7 @@ import { MyApp } from './MyApp.js';
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
 
 /**
- * This class contains a Round Vase representation
+ * This class contains a Flower representation
  */
 class MyFlower extends THREE.Object3D {
 
@@ -11,8 +11,9 @@ class MyFlower extends THREE.Object3D {
      * 
      * @param {MyApp} app the application object
      * @param {number} size the size of each axis 
-     * @param {hex} color the color of the vase
-     * @param {list} position the position of the vase
+     * @param {hex} color the color of the flower
+     * @param {list} position the position of the flower
+     * @param {number} angle the angle of the flower in the y axis
      *
      */
     constructor(app, size, color, position, angle) {

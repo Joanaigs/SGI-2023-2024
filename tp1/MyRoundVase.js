@@ -37,8 +37,8 @@ class MyRoundVase extends THREE.Object3D {
 
     createNurbsSurfaces() {
         // Declare local variables
-        let controlPoints1, controlPoints2;
-        let surfaceData1, surfaceData2;
+        let controlPoints1;
+        let surfaceData1;
         let mesh1, mesh2;
         let orderU = 2; // Higher order for smoother curves
         let orderV = 3; // Higher order for smoother curves
