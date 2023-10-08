@@ -16,6 +16,8 @@ import { MyDoor } from './MyDoor.js';
 import { MyWindow } from './MyWindow.js';
 import { MyCarocha } from './MyCarocha.js';
 import { MyCoil } from './MyCoil.js';
+import { MyRoundVase } from './MyRoundVase.js';
+import {MyFlower} from './MyFlower.js';
 /**
  *  This class contains the contents of out application
  */
@@ -256,10 +258,10 @@ class MyContents  {
         this.door = new MyDoor(this, 5, 12,0.5, "textures/top.jpg", "textures/metal.jpg", [7.4, 0, 8]);
         this.app.scene.add(this.door); 
 
-        this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, 0x36454F, 0xffffff, [0, 15, 0], true);
+        this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, "textures/metal.jpg", 0xffffff, [0, 15, 0], true);
         this.app.scene.add(this.lampshadeCeiling1);
 
-        this.lampshadeCeiling2 = new MyLampshade(this, 0.7, 0.6, 0.5, 0x36454F, 0xffffff, [0, 15, 15], true);
+        this.lampshadeCeiling2 = new MyLampshade(this, 0.7, 0.6, 0.5, "textures/metal.jpg", 0xffffff, [0, 15, 15], true);
         this.app.scene.add(this.lampshadeCeiling2);
         this.addSpotLightLamp([0, 14, 17], 60)
 
@@ -269,6 +271,14 @@ class MyContents  {
         //coil
         this.coil = new MyCoil(this, 0.5, 8, 0.07, [2, 4.6, 21], Math.PI/4);
         this.app.scene.add(this.coil);
+
+        this.roundVase= new MyRoundVase(this, 0.8, 0xc8dfea, [0, 6, 21]);
+        this.app.scene.add(this.roundVase);
+
+        this.flower = new MyFlower(this, 2, 0xffb6c1, [0, 5, 21], 0);
+        this.app.scene.add(this.flower);
+        this.flower = new MyFlower(this, 2, 0xffb6c1, [0.2, 4.5, 21],0);
+        this.app.scene.add(this.flower);
     }
 
     addSpotLightLamp(lampPosition, lightAngle){
