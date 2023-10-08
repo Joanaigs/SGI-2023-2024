@@ -14,9 +14,10 @@ class MyLampshade extends THREE.Object3D {
      * @param {string} baseTexturePath the path of the base texture
      * @param {hex} lampshadeColor the color of the lampshade
      * @param {list} position the position of the lampshade
+     * @param {number} angle the angle of the lampshade
      * @param {bool} upsideDown true if the lampshade is upside down
      */
-    constructor(app, height, cylinderHeight, radius, baseTexturePath, lampshadeColor, position, upsideDown = false) {
+    constructor(app, height, cylinderHeight, radius, baseTexturePath, lampshadeColor, position, angle=0, upsideDown = false) {
         super();
         this.type = 'Group';
         this.app = app;
@@ -27,6 +28,7 @@ class MyLampshade extends THREE.Object3D {
         this.upsideDown = upsideDown;
         this.cylinderHeight = cylinderHeight;
         this.lampPosition= position;
+        this.angle = angle;
 
         this.rotateAngle = 0;
         if(this.upsideDown) this.rotateAngle = -Math.PI;
@@ -66,6 +68,7 @@ class MyLampshade extends THREE.Object3D {
         const sphereRadius = this.radius / 4; // Adjust the size as needed
         const geometrySphere = new THREE.SphereGeometry(sphereRadius, 32, 32);
         const sphere = new THREE.Mesh(geometrySphere, materialBulb);
+        this.rotateX(this.angle);
         sphere.position.set(0,  this.height + coneHeight/2 , 0); // Adjust the Y position as needed
         this.add(sphere);
 
@@ -77,6 +80,7 @@ class MyLampshade extends THREE.Object3D {
             geometryCylinder = new THREE.CylinderGeometry(sphereRadius * 3, sphereRadius * 4, this.cylinderHeight, 32, 1, true); // Set openEnded to true
 
         const cylinder = new THREE.Mesh(geometryCylinder, materialLampshade);
+        cylinder.rotateX(this.angle);
         cylinder.position.set(0,  this.height + sphereRadius * 1.2, 0); // Adjust the Y position as needed
         this.add(cylinder);
     }

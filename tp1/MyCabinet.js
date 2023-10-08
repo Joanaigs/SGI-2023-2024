@@ -30,15 +30,15 @@ class MyCabinet extends THREE.Object3D {
 
         this.thinTexture =new THREE.TextureLoader().load("textures/top.jpg");
         this.diffusePlaneColor = "#FFFFFF";
-        this.specularPlaneColor = "#ffffff";
-        this.planeShininess = 50;
+        this.specularPlaneColor = "#777777";
+        this.planeShininess = 25;
         const material = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.thinTexture });
 
         this.materialTexture =new THREE.TextureLoader().load("textures/tableLegs.jpg");
         this.diffusePlaneColor = "#FFFFFF";
-        this.specularPlaneColor = "#ffffff";
-        this.planeShininess = 50;
+        this.specularPlaneColor = "#777777";
+        this.planeShininess = 25;
         const secondaryMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.materialTexture });
 

@@ -24,15 +24,15 @@ export class MyChair extends THREE.Object3D {
         // Material for the table
         this.materialTexture =new THREE.TextureLoader().load("textures/top.jpg");
         this.diffusePlaneColor = "#FFFFFF";
-        this.specularPlaneColor = "#ffffff";
-        this.planeShininess = 50;
+        this.specularPlaneColor = "#777777";
+        this.planeShininess = 25;
         this.materialWood = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.materialTexture });
         
         this.thinTexture =new THREE.TextureLoader().load("textures/tableLegs.jpg");
         this.diffusePlaneColor = "#FFFFFF";
-        this.specularPlaneColor = "#ffffff";
-        this.planeShininess = 50;
+        this.specularPlaneColor = "#777777";
+        this.planeShininess = 25;
         this.materialThin = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.thinTexture });
 

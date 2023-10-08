@@ -63,7 +63,7 @@ class MyContents  {
         this.planeTexture =new THREE.TextureLoader().load('textures/floor.jpg');
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#777777";
-        this.planeShininess = 100;
+        this.planeShininess = 50;
         this.planeMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.planeTexture });
         
@@ -71,11 +71,11 @@ class MyContents  {
         this.lightColor = "#ffffff";
         this.lightIntensity = 2;
         this.lightDistance = 0;
-        this.lightAngle = 60;
+        this.lightAngle = 70;
         this.lightPenumbra = 1;
         this.lightDecay = 0;
-        this.lightPosition = new THREE.Vector3(0, 14, 0);
-        this.lightTarget = new THREE.Vector3(0, 2, 0);
+        this.lightPosition = new THREE.Vector3(0, 15, 0);
+        this.lightTarget = new THREE.Vector3(0, 2, -3);
         
         
         // other attributes
@@ -201,7 +201,7 @@ class MyContents  {
 
         this.lampshade = new MyLampshade(this, 7, 1.75, 1.5, "textures/metal.jpg", 0xffffff, [12, 0, -12]);
         this.app.scene.add(this.lampshade);
-        this.addSpotLightLamp([12, 7.5, -12], 40)
+        this.addSpotLightLamp([12, 7.5, -12], [12, 0, -12], 40)
 
         this.cakePiece = new MyCakePiece(this, 0xffdbe9, [1.2, 2.42, 6.8]);
         this.app.scene.add(this.cakePiece);
@@ -258,12 +258,13 @@ class MyContents  {
         this.door = new MyDoor(this, 5, 12,0.5, "textures/top.jpg", "textures/metal.jpg", [7.4, 0, 8]);
         this.app.scene.add(this.door); 
 
-        this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, "textures/metal.jpg", 0xffffff, [0, 15, 0], true);
+        this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, "textures/metal.jpg", 0xffffff, [0, 15, 0],Math.PI/16, true);
         this.app.scene.add(this.lampshadeCeiling1);
 
-        this.lampshadeCeiling2 = new MyLampshade(this, 0.7, 0.6, 0.5, "textures/metal.jpg", 0xffffff, [0, 15, 15], true);
+        this.lampshadeCeiling2 = new MyLampshade(this, 0.7, 0.6, 0.5, "textures/metal.jpg", 0xffffff, [0, 15, 18], -Math.PI/16, true);
         this.app.scene.add(this.lampshadeCeiling2);
-        this.addSpotLightLamp([0, 14, 17], 60)
+        this.addSpotLightLamp([0, 15, 18], [0, 0, 21], 70)
+
 
         this.carocha = new MyCarocha(this, "textures/floor1.jpg", [14.75, 6, 22], -Math.PI/2, 1);
         this.app.scene.add(this.carocha);
@@ -281,12 +282,12 @@ class MyContents  {
         this.app.scene.add(this.flower);
     }
 
-    addSpotLightLamp(lampPosition, lightAngle){
+    addSpotLightLamp(lampPosition,targetPostion, lightAngle){
         let spotlightLamp = new THREE.SpotLight(0xffffff, 2, 0, lightAngle*(Math.PI/180), 1, 0);
         spotlightLamp.position.set(lampPosition[0], lampPosition[1], lampPosition[2]);
         let target = new THREE.Object3D();
         this.app.scene.add(target);
-        target.position.set(lampPosition[0], 0, lampPosition[2]);
+        target.position.set(targetPostion[0], targetPostion[1], targetPostion[2]);
         spotlightLamp.target = target;
         this.app.scene.add(spotlightLamp);
 

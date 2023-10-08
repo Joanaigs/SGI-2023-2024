@@ -57,8 +57,8 @@ class MyWindow extends THREE.Object3D {
             this.contentMaterial = new THREE.MeshBasicMaterial({ color: this.diffusePlaneColor, 
                  map: this.contentTexture });
 
-        this.contentPlane = new THREE.Mesh(new THREE.PlaneGeometry(40, 20), this.contentMaterial);
-        this.contentPlane.position.set(-17, 5, 7.5);
+        this.contentPlane = new THREE.Mesh(new THREE.PlaneGeometry(45, 20), this.contentMaterial);
+        this.contentPlane.position.set(-18, 5, 7.5);
         this.contentPlane.rotateY(Math.PI/2);
         this.add(this.contentPlane);
 
