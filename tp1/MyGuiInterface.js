@@ -54,13 +54,13 @@ class MyGuiInterface  {
         // adds a folder to the gui interface for the textures
         const textureFolder = this.datgui.addFolder( 'Textures Plane Settings' );
         const wrappingModeOptions = ['ClampToEdge', 'Repeat', 'MirroredRepeat'];
-        textureFolder.add(this.contents, 'wrapping_mode_u', wrappingModeOptions).name('Wrapping U').onChange( (value) => { this.contents.rebuildFloor(value) } );
-        textureFolder.add(this.contents, 'wrapping_mode_v', wrappingModeOptions).name('Wrapping V').onChange( (value) => { this.contents.rebuildFloor(value) } );
-        textureFolder.add(this.contents, 'repeat_u', 1, 10).name('Repeat U').onChange((value) => { this.contents.rebuildFloor(value) });
-        textureFolder.add(this.contents, 'repeat_v', 1, 10).name('Repeat V').onChange((value) => { this.contents.rebuildFloor(value) });
-        textureFolder.add(this.contents, 'offset_u', 0, 1).name('Offset U').onChange((value) => { this.contents.rebuildFloor(value) });
-        textureFolder.add(this.contents, 'offset_v', 0, 1).name('Offset V').onChange((value) => { this.contents.rebuildFloor(value) });
-        textureFolder.add(this.contents, 'rotation', 0, 360).name('Rotation').onChange((value) => { this.contents.rebuildFloor(value) });
+        textureFolder.add(this.contents, 'wrapping_mode_u', wrappingModeOptions).name('Wrapping U').onChange( (value) => { this.contents.rebuildFloor() } );
+        textureFolder.add(this.contents, 'wrapping_mode_v', wrappingModeOptions).name('Wrapping V').onChange( (value) => { this.contents.rebuildFloor() } );
+        textureFolder.add(this.contents, 'repeat_u', 1, 10).name('Repeat U').onChange((value) => { this.contents.rebuildFloor() });
+        textureFolder.add(this.contents, 'repeat_v', 1, 10).name('Repeat V').onChange((value) => { this.contents.rebuildFloor() });
+        textureFolder.add(this.contents, 'offset_u', 0, 1).name('Offset U').onChange((value) => { this.contents.rebuildFloor() });
+        textureFolder.add(this.contents, 'offset_v', 0, 1).name('Offset V').onChange((value) => { this.contents.rebuildFloor() });
+        textureFolder.add(this.contents, 'rotation', 0, 360).name('Rotation').onChange((value) => { this.contents.rebuildFloor() });
 
 
         const lightFolder = this.datgui.addFolder( 'SpotLight cake' );
@@ -83,7 +83,7 @@ class MyGuiInterface  {
 
         // adds a folder to the gui interface for the camera
         const cameraFolder = this.datgui.addFolder('Camera')
-        cameraFolder.add(this.app, 'activeCameraName', [ 'Perspective', 'Left', 'Top', 'Front' ] ).name("active camera");
+        cameraFolder.add(this.app, 'activeCameraName', [ 'Perspective', 'Robot', 'Left','Right', 'Top', 'Front', 'Back' ] ).name("active camera");
         // note that we are using a property from the app 
         cameraFolder.add(this.app.activeCamera.position, 'x', 0, 10).name("x coord")
         cameraFolder.open()

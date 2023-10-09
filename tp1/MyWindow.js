@@ -94,7 +94,7 @@ class MyWindow extends THREE.Object3D {
         let surfaceData1;
         let mesh1;
         let orderU = 3; // Higher order for smoother curves
-        let orderV = 2; // Higher order for smoother curves
+        let orderV = 1; // Higher order for smoother curves
 
         // Define control points for the first NURBS surface (lower part of the vase)
 
@@ -102,26 +102,22 @@ class MyWindow extends THREE.Object3D {
             // U = 0
             [
                 [-1.0, -1.0, 0.0, 1],
-                [-1.0, 0, 0.0, 1],
                 [-1.0, 1, 0.0, 1],
             ],
             // U = 1
             [
                 [0, -1.0,3.0, 1],
-                [0, 0, 3, 1],
                 [0, 1.0, 3.0, 1],
             ],
             // U = 2
 
             [
                 [1.0, -1.0, 0.0, 1],
-                [1.0, 0, 0, 1],
                 [1.0, 1.0, 0.0, 1],
             ],
 
             [
                 [2.0, -1.0, 2.0, 1],
-                [2.0, 0, 2, 1],
                 [2.0, 1.0, 2.0, 1],
             ],
 

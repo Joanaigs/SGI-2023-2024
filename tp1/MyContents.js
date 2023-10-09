@@ -60,13 +60,11 @@ class MyContents  {
         this.offset_u = 0;
         this.offset_v = 0;
         this.rotation = 0;
-        this.planeTexture =new THREE.TextureLoader().load('textures/floor.jpg');
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#777777";
         this.planeShininess = 50;
         this.planeMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
-            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.planeTexture });
-        
+            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess });
         //spotlight
         this.lightColor = "#ffffff";
         this.lightIntensity = 2;
@@ -107,27 +105,29 @@ class MyContents  {
     }
 
     buildFloor(){
+        let planeTexture =new THREE.TextureLoader().load('textures/floor.jpg');
         if(this.wrapping_mode_u === 'ClampToEdge'){
-            this.planeTexture.wrapS = THREE.ClampToEdgeWrapping;
+            planeTexture.wrapS = THREE.ClampToEdgeWrapping;
         }
         else if(this.wrapping_mode_u === 'Repeat'){
-            this.planeTexture.wrapS = THREE.RepeatWrapping;
+            planeTexture.wrapS = THREE.RepeatWrapping;
         }
         else if(this.wrapping_mode_u === 'MirroredRepeat'){
-            this.planeTexture.wrapS = THREE.MirroredRepeatWrapping;
+            planeTexture.wrapS = THREE.MirroredRepeatWrapping;
         }
         if(this.wrapping_mode_v === 'ClampToEdge'){
-            this.planeTexture.wrapT = THREE.ClampToEdgeWrapping;
+            planeTexture.wrapT = THREE.ClampToEdgeWrapping;
         }
         else if(this.wrapping_mode_v === 'Repeat'){
-            this.planeTexture.wrapT = THREE.RepeatWrapping;
+            planeTexture.wrapT = THREE.RepeatWrapping;
         }
         else if(this.wrapping_mode_v === 'MirroredRepeat'){
-            this.planeTexture.wrapT = THREE.MirroredRepeatWrapping;
+            planeTexture.wrapT = THREE.MirroredRepeatWrapping;
         }
-        this.planeTexture.repeat.set(this.repeat_u, this.repeat_v);
-        this.planeTexture.rotation = this.rotation;
-        this.planeTexture.offset = new THREE.Vector2(this.offset_u,this.offset_v);
+        planeTexture.repeat.set(this.repeat_u, this.repeat_v);
+        planeTexture.rotation = this.rotation;
+        planeTexture.offset = new THREE.Vector2(this.offset_u,this.offset_v);
+        this.planeMaterial.map = planeTexture;
         var plane = new THREE.PlaneGeometry( 30, 45 );
         this.floor = new THREE.Mesh( plane, this.planeMaterial );
         this.floor.rotation.x = -Math.PI / 2;
