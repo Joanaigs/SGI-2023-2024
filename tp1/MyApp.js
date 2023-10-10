@@ -119,14 +119,14 @@ class MyApp  {
         console.log(left, right, top, bottom, near, far)
 
         // create a front view orthographic camera
-        const orthoFront = new THREE.OrthographicCamera( left, right, top, bottom, near, far);
+        const orthoFront = new THREE.OrthographicCamera( left, right, top, bottom, near, far+15);
         orthoFront.up = new THREE.Vector3(0,1,0);
         orthoFront.position.set(0,0, this.frustumSize /4) 
         orthoFront.lookAt( new THREE.Vector3(0,0,0) );
         this.cameras['Front'] = orthoFront
 
         // create a back view orthographic camera
-        const orthoBack = new THREE.OrthographicCamera( left, right, top, bottom, near, far);
+        const orthoBack = new THREE.OrthographicCamera( left, right, top, bottom, near, far+15);
         orthoBack.up = new THREE.Vector3(0,1,0);
         orthoBack.position.set(0,0, -this.frustumSize /4)
         orthoBack.lookAt( new THREE.Vector3(0,0,0) );

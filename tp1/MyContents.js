@@ -18,6 +18,7 @@ import { MyCarocha } from './MyCarocha.js';
 import { MyCoil } from './MyCoil.js';
 import { MyRoundVase } from './MyRoundVase.js';
 import {MyFlower} from './MyFlower.js';
+import { MyJornal } from './MyJornal.js';
 /**
  *  This class contains the contents of out application
  */
@@ -74,6 +75,13 @@ class MyContents  {
         this.lightDecay = 0;
         this.lightPosition = new THREE.Vector3(0, 15, 0);
         this.lightTarget = new THREE.Vector3(0, 2, -3);
+
+        //textures
+        this.materialJornal =new THREE.TextureLoader().load('textures/jornal.jpg');
+        this.materialJornal.wrapT = THREE.MirroredRepeat;
+        this.materialJornal.repeat.y=-1;
+
+    
         
         
         // other attributes
@@ -280,6 +288,10 @@ class MyContents  {
         this.app.scene.add(this.flower);
         this.flower = new MyFlower(this, 2, 0xffb6c1, [0.2, 4.5, 21],0);
         this.app.scene.add(this.flower);
+
+        this.jornal= new MyJornal(this, 1, [-10, 1.4, -1], Math.PI/16, 4, 0.5);
+        this.app.scene.add(this.jornal);
+
     }
 
     addSpotLightLamp(lampPosition,targetPostion, lightAngle){
