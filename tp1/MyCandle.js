@@ -12,9 +12,10 @@ class MyCandle extends THREE.Object3D {
      * @param {number} size the size of each axis 
      * @param {hex} color hex color of the candle
      * @param {list} position position of the candle
+     * @param {bool} shadows true if the candle casts shadows
      *
      */
-    constructor(app, size, color, position) {
+    constructor(app, size, color, position, shadows=false) {
         super();
         this.app = app;
         this.size = size || 2;
@@ -32,6 +33,11 @@ class MyCandle extends THREE.Object3D {
         // Candle base
         const geometryBase = new THREE.CylinderGeometry(0.04 * this.size, 0.05 * this.size, baseHeight, 32, 1);
         let candleBase = new THREE.Mesh(geometryBase, materialCandle);
+        if(shadows){
+            console.log("candle shadows");
+            candleBase.castShadow = true;
+            candleBase.receiveShadow = true;
+        }
         candleBase.position.set(position[0], position[1]  + baseHeight / 2, position[2]);
         this.add(candleBase);
 

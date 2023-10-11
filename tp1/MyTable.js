@@ -17,8 +17,9 @@ export class MyTable extends THREE.Object3D {
      * @param {hex} topColor the color of the table top
      * @param {list} position the position of the table
      * @param {bool} chair has chairs or not
+     * @param {bool} shadows has shadows or not
      */
-    constructor(app, topLength, topWidth, legHeight, color, topColor, position, chair=false) {
+    constructor(app, topLength, topWidth, legHeight, color, topColor, position, chair=false, shadows=false) {
         super();
         this.type = 'Group';
         this.app = app;
@@ -27,6 +28,8 @@ export class MyTable extends THREE.Object3D {
         this.legHeight = legHeight;
         this.color = color;
         this.topColor = topColor;
+        this.shadows = shadows;
+        console.log(this.shadows);
         this.position.set(position[0], position[1], position[2]);
 
         // Material for the table
@@ -70,6 +73,11 @@ export class MyTable extends THREE.Object3D {
                 this.legHeight / 2,
                 this.position.z + legZ
             );
+            if(this.shadows){
+                console.log("shadows");
+                tableLeg.castShadow = true;
+                tableLeg.receiveShadow = true;
+            }
             this.add(tableLeg);
         }
     }
@@ -77,12 +85,21 @@ export class MyTable extends THREE.Object3D {
     createTableTop(materialWood, materialThin){
         const geometryTop = new THREE.BoxGeometry(this.topLength, this.topWidth, 0.2);
         const tableTop = new THREE.Mesh(geometryTop, materialWood);
+        console.log(this.shadows);
+        if(this.shadows){
+            tableTop.castShadow = true;
+            tableTop.receiveShadow = true;
+        }
         tableTop.position.set(this.position.x, this.legHeight - 0.15, this.position.z + 0.05);
         tableTop.rotateX(-Math.PI / 2);
         this.add(tableTop);
 
         const geometryThinTop = new THREE.BoxGeometry(this.topLength, this.topWidth, 0.1);
         const thinTop = new THREE.Mesh(geometryThinTop, materialThin);
+        if(this.shadows){
+            thinTop.castShadow = true;
+            thinTop.receiveShadow = true;
+        }
         thinTop.position.set(this.position.x, this.legHeight, this.position.z + 0.05);
         thinTop.rotateX(-Math.PI / 2);
         this.add(thinTop);
@@ -100,7 +117,7 @@ export class MyTable extends THREE.Object3D {
             ];
 
         for (const chairPos of chairPositions) {
-            const chair = new MyChair(this.app, 1, [chairPos[0], chairPos[1], chairPos[2]], chairPos[3], this.color);
+            const chair = new MyChair(this.app, 1, [chairPos[0], chairPos[1], chairPos[2]], chairPos[3], this.color, this.shadows);
             this.add(chair);
         }
 

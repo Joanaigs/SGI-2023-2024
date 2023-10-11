@@ -13,8 +13,8 @@ class MyJornal extends THREE.Object3D {
      * @param {number} size the size of each axis 
      * @param {list} position the position of the jornal
      * @param {number} angle the angle of the Jornal
-     * @param {*} num_pages the number of pages
-     * @param {*} height the height of the jornal
+     * @param {number} num_pages the number of pages
+     * @param {number} height the height of the jornal
      */
     constructor(app, size, position, angle, num_pages=5, height=0.4) {
         super();
