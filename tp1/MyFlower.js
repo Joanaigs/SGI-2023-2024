@@ -36,12 +36,22 @@ class MyFlower extends THREE.Object3D {
     createFLower() {
         // Stem of the flower
         const material = new THREE.LineBasicMaterial({ color: 0x195905 });
-        const stem = new THREE.QuadraticBezierCurve(
-            new THREE.Vector3(0, 0, 0),        // Start point
-            new THREE.Vector3(-0.5, 1, 0),        // Control point 1
-            new THREE.Vector3(0, 1.5, 0)         // End point
-        );
-        const pointsStem = stem.getPoints(20);
+        const stem = new THREE.CatmullRomCurve3([
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(0, 0.3, 0),
+            new THREE.Vector3(-0.1, 0.5, 0),
+            new THREE.Vector3(-0.15, 0.5, 0),
+            new THREE.Vector3(-0.2, 0.4, 0),
+            new THREE.Vector3(-0.1, 0.3, 0),
+            new THREE.Vector3(0, 0.3, 0),
+            new THREE.Vector3(0, 0.7, 0),
+            new THREE.Vector3(0.1, 0.9, 0),
+            new THREE.Vector3(0.15, 0.9, 0),
+            new THREE.Vector3(0.2, 0.8, 0),
+            new THREE.Vector3(0.1, 0.7, 0),
+            new THREE.Vector3(0, 1.2, 0)
+        ]);
+        const pointsStem = stem.getPoints(50);
         const geometryStem = new THREE.BufferGeometry().setFromPoints(pointsStem);
 
         const stemObject = new THREE.Line(geometryStem, material);
@@ -50,7 +60,7 @@ class MyFlower extends THREE.Object3D {
         const flowerCenterGeometry = new THREE.CircleGeometry(0.11, 32);
         const flowerCenterMaterial = new THREE.MeshBasicMaterial({ color: 0xeedc82, side: THREE.DoubleSide });
         const flowerCenterMesh = new THREE.Mesh(flowerCenterGeometry, flowerCenterMaterial);
-        flowerCenterMesh.position.set(0.11, 1.5, 0);
+        flowerCenterMesh.position.set(0, 1.3, 0);
         this.add(flowerCenterMesh);
 
         // Petals
@@ -65,9 +75,9 @@ class MyFlower extends THREE.Object3D {
             // Position each petal around the flower center
             const angle = i * petalAngleIncrement;
             const radius = 0.15; // Adjust the radius as needed
-            const x =0.11+ radius * Math.cos(angle);
+            const x = radius * Math.cos(angle);
             const z = 0;
-            const y = 1.5 + radius * Math.sin(angle);; // Adjust the height of the petals as needed
+            const y = 1.3 + radius * Math.sin(angle);; // Adjust the height of the petals as needed
             petalMesh.position.set(x, y, z);
 
             // Rotate petals to face outward
