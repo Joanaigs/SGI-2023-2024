@@ -32,7 +32,6 @@ class MyVase extends THREE.Object3D {
         });
         
 
-
         //vase base
         const baseHeight = 1 * this.size;
         const geometryVaseBase = new THREE.CylinderGeometry( 1*this.size, this.size*0.5, baseHeight, 32 );

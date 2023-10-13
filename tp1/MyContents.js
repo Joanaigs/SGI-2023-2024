@@ -225,8 +225,8 @@ class MyContents  {
         this.carpet = new MyCarpet(this,0x8eb1c2, [0, 0, 0]);
         this.app.scene.add(this.carpet); 
 
-        this.book =  new MyBook(this, 1, 1, 0.1, 5, [0, 0, 0]);
-        this.book.position.set(-2.3, 1.7, -7.0);
+        this.book =  new MyBook(this, 1, 0.7, 0.1, 8, [0, 0, 0]);
+        this.book.position.set(-7.5, 5.7, -13.5);
         this.book.rotateZ(Math.PI/2);
         this.book.rotateX(Math.PI);
         this.app.scene.add(this.book);
