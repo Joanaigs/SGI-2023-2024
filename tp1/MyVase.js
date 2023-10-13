@@ -19,13 +19,16 @@ class MyVase extends THREE.Object3D {
         this.app = app;
         this.size = size || 2;
         this.color = color
-        
+
+        this.texture = new THREE.TextureLoader().load("textures/jarTexture.jpg");
+        this.texture.wrapS = THREE.RepeatWrapping;
+        this.texture.wrapT = THREE.RepeatWrapping;
+        this.texture.repeat.set(2,1);
 
         const material = new THREE.MeshPhongMaterial({
-            color: this.color,  // Base color
-            specular: this.color,  // Specular color
-            shininess: 30,       // Shininess (higher values make it shinier)
-            reflectivity: 0.5,   // Reflectivity (higher values increase reflectivity)
+            specular: 0xffffff,  // Specular color
+            shininess: 2,       // Shininess (higher values make it shinier)
+            map: this.texture,
         });
         
 
@@ -48,7 +51,7 @@ class MyVase extends THREE.Object3D {
 
         //vase top
         const topHeight = 0.5 * this.size;
-        const geometryVaseTop = new THREE.CylinderGeometry( 0.7*this.size, this.size * 0.5, topHeight, 32); 
+        const geometryVaseTop = new THREE.CylinderGeometry( 0.7*this.size, this.size * 0.5, topHeight, 32 ); 
         let top = new THREE.Mesh( geometryVaseTop, material ); 
         top.position.set(position[0],position[1]  + baseHeight + middleHeight + topHeight/2,position[2]);
         this.add( top );
