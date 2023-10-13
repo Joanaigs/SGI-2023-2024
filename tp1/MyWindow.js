@@ -85,6 +85,7 @@ class MyWindow extends THREE.Object3D {
         this.add( cylinder3 );
     }
     buildCurtains(position, rotation){
+        
         this.material = new THREE.MeshPhongMaterial({
             color: 0xffffee,
             side: THREE.DoubleSide,

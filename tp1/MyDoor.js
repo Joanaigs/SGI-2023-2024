@@ -28,8 +28,6 @@ class MyDoor extends THREE.Object3D {
         this.knobTexturePath = knobTexturePath
         this.position.set(position[0], position[1], position[2]);
         
-
-
         this.materialTexture =new THREE.TextureLoader().load(this.color);
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#777777";

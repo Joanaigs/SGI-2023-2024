@@ -6,6 +6,7 @@ import { MyPlate } from './MyPlate.js';
 import { MyCake } from './MyCake.js';
 import { MyVase } from './MyVase.js';
 import { MyCarpet } from './MyCarpet.js';
+import { MyBook } from './MyBook.js';
 import { MyLampshade } from './MyLampshade.js';
 import { MyRobot } from './MyRobot.js';
 import { MyCakePiece } from './MyCakePiece.js';
@@ -80,9 +81,6 @@ class MyContents  {
         this.materialJornal =new THREE.TextureLoader().load('textures/jornal.jpg');
         this.materialJornal.wrapT = THREE.MirroredRepeat;
         this.materialJornal.repeat.y=-1;
-
-    
-        
         
         // other attributes
         this.cake = null;
@@ -201,7 +199,13 @@ class MyContents  {
         this.carpet = new MyCarpet(this,0x8eb1c2, [0, 0, 0]);
         this.app.scene.add(this.carpet); 
 
-        this.robot = new MyRobot(this, 0x5d2906, [-4, -0.3, 3.9]);
+        this.book =  new MyBook(this, 1, 1, 0.1, 5, [0, 0, 0]);
+        this.book.position.set(-2.3, 1.7, -7.0);
+        this.book.rotateZ(Math.PI/2);
+        this.book.rotateX(Math.PI);
+        this.app.scene.add(this.book);
+
+        this.robot = new MyRobot(this, 0x8ecccc, [-4, -0.3, 3.9]);
         this.app.scene.add(this.robot); 
         
         this.vase = new MyVase(this, 1, 0xc8dfea, [-12.5, 0, -13]);
@@ -236,10 +240,8 @@ class MyContents  {
         this.inesPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [-3.2, 5.3, 30-0.25],0, "textures/housePainting.jpg", "textures/floor1.jpg", false);
         this.app.scene.add(this.inesPhoto);
 
-
         this.window = new MyWindow(this, "textures/transferir.jpg", "textures/metal.jpg", true);
         this.app.scene.add(this.window);
-
 
         //televison
         this.television= new MyFrame(this, 0.3,10, 5, 0x5d2906, [0, 5, -15+0.25],Math.PI);
