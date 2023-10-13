@@ -13,6 +13,11 @@ class MyHouse extends THREE.Object3D {
         super();
         this.app = app;
         this.type = 'Group';
+        this.repeat_u = 2;
+        this.repeat_v = 3;
+        this.offset_u = 0;
+        this.offset_v = 0;
+        this.rotate = Math.PI/4;
         let size = 15;
         this.createWalls(size);
     }
@@ -25,7 +30,13 @@ class MyHouse extends THREE.Object3D {
 
         ];
 
-        const material = new THREE.MeshPhongMaterial({ color: 0xD5D4CA });
+        const material = new THREE.MeshPhongMaterial({ color: 0xffffff });
+        const textureWallPaper = new THREE.TextureLoader().load('textures/wallPaper2.jpg');
+        textureWallPaper.wrapS = THREE.RepeatWrapping;
+        textureWallPaper.wrapT = THREE.RepeatWrapping;
+        textureWallPaper.rotation = this.rotate
+        textureWallPaper.repeat.set(this.repeat_u, this.repeat_v);
+        const materialPaper = new THREE.MeshPhongMaterial({ color: 0xffffff, map: textureWallPaper});
 
         const wall1 = new THREE.Mesh(new THREE.PlaneGeometry(wallDimensions[0].width, wallDimensions[0].height), material);
         wall1.rotation.y = -Math.PI / 2;
@@ -40,7 +51,7 @@ class MyHouse extends THREE.Object3D {
         wall2.position.y = wallDimensions[1].height / 2;
         this.add(wall2);
         
-        const wall3 = new THREE.Mesh(new THREE.PlaneGeometry(wallDimensions[2].width, wallDimensions[2].height), material);
+        const wall3 = new THREE.Mesh(new THREE.PlaneGeometry(wallDimensions[2].width, wallDimensions[2].height), materialPaper);
         wall3.rotation.y = 0;
         wall3.position.z = -size;
         wall3.position.y = wallDimensions[2].height / 2;

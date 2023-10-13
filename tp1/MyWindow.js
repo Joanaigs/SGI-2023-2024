@@ -26,10 +26,10 @@ class MyWindow extends THREE.Object3D {
         this.builder = new MyNurbsBuilder();
 
         this.rightWindow= new MyFrame(this.app, 0.2,this.length, this.height , 0x5d2906, position1,-Math.PI/2, "", frameTexturePath, true);
-        this.buildCurtains([position1[0]+1.5, position1[1]+this.height*0.5+0.5, position1[2]-this.length/2], -Math.PI/3);
+        this.buildCurtains([position1[0]+1.5, position1[1]+this.height*0.5+0.5, position1[2]-this.length/2+1], -Math.PI/3);
         this.metalRod([position1[0], position1[1]+this.height+0.5, position1[2]]);
         this.leftWindow = new MyFrame(this.app, 0.2,this.length, this.height , 0x5d2906, position2,-Math.PI/2,"", frameTexturePath, true);
-        this.buildCurtains([position2[0]+1.5, position2[1]+this.height*0.5+0.5, position2[2]+this.length/3], -Math.PI/3);
+        this.buildCurtains([position2[0]+1.5, position2[1]+this.height*0.5+0.5, position2[2]+this.length/3-0.3], -Math.PI/3);
         this.metalRod([position2[0], position2[1]+this.height+0.5, position2[2]]);
 
         this.add(this.leftWindow);
@@ -87,8 +87,10 @@ class MyWindow extends THREE.Object3D {
     buildCurtains(position, rotation){
         
         this.material = new THREE.MeshPhongMaterial({
-            color: 0xffffee,
+            color: 0x8eb1c2,
             side: THREE.DoubleSide,
+            opacity: 0.8,
+            transparent: true,
         });
         // Declare local variables
         let controlPoints1;

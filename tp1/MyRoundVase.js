@@ -13,12 +13,14 @@ class MyRoundVase extends THREE.Object3D {
      * @param {number} size the size of each axis 
      * @param {hex} color the color of the vase
      * @param {list} position the position of the vase
+     * @param {boolean} shadow if the object has shadow or not
      *
      */
-    constructor(app, size, color, position) {
+    constructor(app, size, color, position, shadow=false) {
         super();
         this.app = app;
         this.size = size || 2;
+        this.shadow = shadow;
         this.color = color;
         this.meshes = [];
         this.samplesU = 20; // maximum defined in MyGuiInterface
@@ -27,6 +29,8 @@ class MyRoundVase extends THREE.Object3D {
         this.material = new THREE.MeshPhongMaterial({
             color: this.color,
             side: THREE.DoubleSide,
+            transparent: true,
+            opacity: 0.8,
         });
 
         this.createNurbsSurfaces();
@@ -86,9 +90,17 @@ class MyRoundVase extends THREE.Object3D {
 
         // Create meshes for the two NURBS surfaces
         mesh1 = new THREE.Mesh(surfaceData1, this.material);
+        if(this.shadow){
+            mesh1.castShadow = true;
+            mesh1.receiveShadow = true;
+        }
         this.add(mesh1);
 
         mesh2 = new THREE.Mesh(surfaceData1, this.material);
+        if(this.shadow){
+            mesh2.castShadow = true;
+            mesh2.receiveShadow = true;
+        }
         mesh2.rotateY(Math.PI);
         this.add(mesh2);
 

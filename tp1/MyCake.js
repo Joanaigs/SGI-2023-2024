@@ -49,8 +49,10 @@ class MyCake extends THREE.Object3D {
             const cake = new THREE.Mesh(geometry, material);
             if(i==0){
                 cake.castShadow = true;
-                cake.receiveShadow = true;
             }
+            cake.castShadow = true;
+
+            cake.receiveShadow = true;
 
 
     

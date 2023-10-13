@@ -27,7 +27,7 @@ class MyVase extends THREE.Object3D {
         const material = new THREE.MeshPhongMaterial({
             specular: 0xffffff,  // Specular color
             shininess: 2,       // Shininess (higher values make it shinier)
-            map: this.texture,
+            map: this.app.textureVase,
         });
         
 
@@ -56,6 +56,8 @@ class MyVase extends THREE.Object3D {
         this.add( middle );
 
         //vase top
+        this.texture.repeat.set(3, 1);
+
         const topHeight = 0.5 * this.size;
         const geometryVaseTop = new THREE.CylinderGeometry( 0.7*this.size, this.size * 0.5, topHeight, 32 ); 
         let top = new THREE.Mesh( geometryVaseTop, material ); 
@@ -67,7 +69,7 @@ class MyVase extends THREE.Object3D {
         this.add( top );
 
         //flowers
-        const materialStem = new THREE.MeshPhongMaterial( {color: 0x556b2f} );
+        const materialStem = new THREE.MeshPhongMaterial( {color: 0xbdecb6} );
         const flowerRadius = 0.2 * this.size;
         const flowerHeight = 0.35 * this.size;
         for (let i = 0; i < 6; i++) {

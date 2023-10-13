@@ -14,13 +14,14 @@ class MyFlower extends THREE.Object3D {
      * @param {hex} color the color of the flower
      * @param {list} position the position of the flower
      * @param {number} angle the angle of the flower in the y axis
-     *
+     * @param {boolean} shadow if the object has shadow or not
      */
-    constructor(app, size, color, position, angle) {
+    constructor(app, size, color, position, angle, shadow=false) {
         super();
         this.app = app;
         this.size = size || 2;
         this.color = color;
+        this.shadow = shadow;
         this.meshes = [];
         this.samplesU = 20; // maximum defined in MyGuiInterface
         this.samplesV = 20; // maximum defined in MyGuiInterface
@@ -35,8 +36,9 @@ class MyFlower extends THREE.Object3D {
 
     createFLower() {
         // Stem of the flower
-        const material = new THREE.LineBasicMaterial({ color: 0x195905 });
+        const material = new THREE.MeshPhongMaterial({ color: 0xbdecb6 });
         const stem = new THREE.CatmullRomCurve3([
+            new THREE.Vector3(0, -1, 0),
             new THREE.Vector3(0, 0, 0),
             new THREE.Vector3(0, 0.3, 0),
             new THREE.Vector3(-0.1, 0.5, 0),
@@ -51,15 +53,22 @@ class MyFlower extends THREE.Object3D {
             new THREE.Vector3(0.1, 0.7, 0),
             new THREE.Vector3(0, 1.2, 0)
         ]);
-        const pointsStem = stem.getPoints(50);
-        const geometryStem = new THREE.BufferGeometry().setFromPoints(pointsStem);
+        const tubeRadius = 0.01; // Adjust this value to control the stem's radius
+        const tubeSegments = 100; // Adjust this value to control the smoothness of the tube
 
-        const stemObject = new THREE.Line(geometryStem, material);
+        const geometryStem = new THREE.TubeGeometry(stem, tubeSegments, tubeRadius, 8, false);
+        const stemObject = new THREE.Mesh(geometryStem, material);
+        if (this.shadow) {
+            stemObject.castShadow = true;
+        }
         this.add(stemObject);
         // Center of the flower
-        const flowerCenterGeometry = new THREE.CircleGeometry(0.11, 32);
-        const flowerCenterMaterial = new THREE.MeshBasicMaterial({ color: 0xeedc82, side: THREE.DoubleSide });
+        const flowerCenterGeometry = new THREE.CircleGeometry(0.06, 32);
+        const flowerCenterMaterial = new THREE.MeshPhongMaterial({ color: 0xffff66, side: THREE.DoubleSide });
         const flowerCenterMesh = new THREE.Mesh(flowerCenterGeometry, flowerCenterMaterial);
+        if(this.shadow){
+            flowerCenterMesh.castShadow = true;
+        }
         flowerCenterMesh.position.set(0, 1.3, 0);
         this.add(flowerCenterMesh);
 
@@ -68,13 +77,16 @@ class MyFlower extends THREE.Object3D {
         const petalAngleIncrement = (Math.PI * 2) / numPetals;
 
         for (let i = 0; i < numPetals; i++) {
-            const petalGeometry = new THREE.ConeGeometry(0.05, 0.1, 32);
-            const petalMaterial = new THREE.MeshBasicMaterial({ color: this.color });
+            const petalGeometry = new THREE.ConeGeometry(0.04, 0.1, 32);
+            const petalMaterial = new THREE.MeshPhongMaterial({ color: this.color });
             const petalMesh = new THREE.Mesh(petalGeometry, petalMaterial);
+            if(this.shadow){
+                petalMesh.castShadow = true;
+            }
 
             // Position each petal around the flower center
             const angle = i * petalAngleIncrement;
-            const radius = 0.15; // Adjust the radius as needed
+            const radius = 0.1; // Adjust the radius as needed
             const x = radius * Math.cos(angle);
             const z = 0;
             const y = 1.3 + radius * Math.sin(angle);; // Adjust the height of the petals as needed

@@ -82,10 +82,13 @@ class MyContents  {
 
         //textures
         this.materialJornal =new THREE.TextureLoader().load('textures/jornal.jpg');
-        this.materialJornal.wrapT = THREE.MirroredRepeat;
-        this.materialJornal.repeat.y=-1;
+        this.materialJornal.wrapT = THREE.MirroredRepeatWrapping;
+        this.materialJornal.rotation = Math.PI/2;
+        this.materialJornal.repeat.set(1,  -1)
+        console.log(this.materialJornal.repeat)
 
-        this.textureVase = new THREE.TextureLoader().load("textures/jarTexture.jpg");
+
+        this.textureVase = new THREE.TextureLoader().load("textures/flowersPattern.jpg");
         this.textureVase.wrapS = THREE.RepeatWrapping;
         this.textureVase.wrapT = THREE.RepeatWrapping;
 
@@ -185,7 +188,7 @@ class MyContents  {
         }
 
         // add a point light on top of the model
-        const pointLight = new THREE.PointLight( 0xffffff, 50, 0);
+        const pointLight = new THREE.PointLight( 0xffffff, 70, 0);
         pointLight.castShadow = true;
         pointLight.shadow.mapSize.width = this.mapSize;
         pointLight.shadow.mapSize.height = this.mapSize;
@@ -318,13 +321,13 @@ class MyContents  {
         this.app.scene.add(this.carocha);
 
         //coil
-        this.coil = new MyCoil(this, 0.5, 8, 0.07, [2, 4.6, 21], Math.PI/4);
+        this.coil = new MyCoil(this, 0.5, 8, 0.07, [2, 4.6, 21], Math.PI/4, true);
         this.app.scene.add(this.coil);
 
-        this.roundVase= new MyRoundVase(this, 0.8, 0xc8dfea, [0, 6, 21]);
+        this.roundVase= new MyRoundVase(this, 0.8, 0xc8dfea, [0, 6, 21], true);
         this.app.scene.add(this.roundVase);
 
-        this.flower = new MyFlower(this, 2, 0xffb6c1, [0, 5.4, 21], 0);
+        this.flower = new MyFlower(this, 2, 0xffb6c1, [0, 5.4, 21], 0, true);
         this.app.scene.add(this.flower);
 
 

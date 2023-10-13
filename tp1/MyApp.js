@@ -79,6 +79,22 @@ class MyApp  {
         perspective2.lookAt( new THREE.Vector3(0,5,0) );
         this.cameras['Robot'] = perspective2
 
+        // Jornal Prespective Camera
+        const perspective3 = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
+        perspective3.position.set(-5, 5, -1)
+        perspective3.lookAt( new THREE.Vector3(-10, 1.4, -1) );
+        this.cameras['Jornal'] = perspective3
+
+        //Vase Prespective Camera
+        const perspective4 = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
+        perspective4.position.set(-5, 3, -5)
+        this.cameras['Vase'] = perspective4
+
+        //Left Side Room Prepective
+        const perspective5 = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
+        perspective5.position.set(0, 7, 10)
+        this.cameras['Left Side Room Prepective'] = perspective5
+
         // defines the frustum size for the orthographic cameras
         let left = -(this.frustumSize) / 2 * aspect -7.5
         let right = (this.frustumSize) /2 * aspect -7.5
@@ -168,10 +184,34 @@ class MyApp  {
                 // Orbit controls allow the camera to orbit around a target.
                 this.controls = new OrbitControls( this.activeCamera, this.renderer.domElement );
                 this.controls.enableZoom = true;
-                this.controls.update();
+
+                if(this.activeCameraName == 'Robot'){
+                    this.controls.target = new THREE.Vector3(0, 5, 0)
+                }
+                if(this.activeCameraName == 'Jornal'){
+                    this.controls.target = new THREE.Vector3(-10, 1.4, -1)
+                }
+                if(this.activeCameraName == 'Vase'){
+                    this.controls.target = new THREE.Vector3(-12.5, 0, -13)
+                }
+                if(this.activeCameraName == 'Left Side Room Prepective'){
+                    this.controls.target = new THREE.Vector3(0, 5, 30)
+                }
             }
             else {
                 this.controls.object = this.activeCamera
+                if(this.activeCameraName == 'Robot'){
+                    this.controls.target = new THREE.Vector3(0, 5, 0)
+                }
+                if(this.activeCameraName == 'Jornal'){
+                    this.controls.target = new THREE.Vector3(-10, 1.4, -1)
+                }
+                if(this.activeCameraName == 'Vase'){
+                    this.controls.target = new THREE.Vector3(-12.5, 0, -13)
+                }
+                if(this.activeCameraName == 'Left Side Room Prepectives'){
+                    this.controls.target = new THREE.Vector3(0, 5, 30)
+                }
             }
         }
     }
