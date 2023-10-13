@@ -231,6 +231,12 @@ class MyContents  {
         this.book.rotateX(Math.PI);
         this.app.scene.add(this.book);
 
+        this.book2 =  new MyBook(this, 1, 0.7, 0.1, 8, [0, 0, 0]);
+        this.book2.position.set(-7.5, 6.9, -13.5);
+        this.book2.rotateZ(Math.PI/2);
+        this.book2.rotateX(Math.PI);
+        this.app.scene.add(this.book2);
+
         this.robot = new MyRobot(this, 0x8ecccc, [-4, -0.3, 3.9]);
         this.app.scene.add(this.robot); 
         
