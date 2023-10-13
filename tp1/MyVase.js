@@ -19,11 +19,10 @@ class MyVase extends THREE.Object3D {
         this.app = app;
         this.size = size || 2;
         this.color = color
+ 
 
-        this.texture = new THREE.TextureLoader().load("textures/jarTexture.jpg");
-        this.texture.wrapS = THREE.RepeatWrapping;
-        this.texture.wrapT = THREE.RepeatWrapping;
-        this.texture.repeat.set(2,1);
+        this.texture = this.app.textureVase;
+        this.texture.repeat.set(2, 1);
 
         const material = new THREE.MeshPhongMaterial({
             specular: 0xffffff,  // Specular color
