@@ -14,8 +14,9 @@ class MySofa extends THREE.Object3D {
      * @param {hex} colorPillow the color of the sofa pillow
      * @param {list} position the position of the sofa
      * @param {number} sofaLength the length of the sofa
+     * @param {bool} shadows true if the sofa casts shadows
      */
-    constructor(app, size, colorBase, colorPillow, position, sofaLength) {
+    constructor(app, size, colorBase, colorPillow, position, sofaLength, shadows=false) {
         super();
         this.app = app;
         this.size = size || 2;
@@ -34,12 +35,20 @@ class MySofa extends THREE.Object3D {
         //Sofa base
         const geometryBase = new THREE.BoxGeometry( sofaLength, baseHeight, sofaWidth);
         let sofaBase = new THREE.Mesh(geometryBase, materialSofa);
+        if(shadows){
+            sofaBase.castShadow = true;
+            sofaBase.receiveShadow = true;
+        }
         sofaBase.position.set(position[0], position[1]  + baseHeight / 2, position[2]);
         this.add(sofaBase);
 
         //Sofa back
         const geometryBack = new THREE.BoxGeometry(sofaLength, backHeight, backWidth);
         let sofaBack = new THREE.Mesh(geometryBack, materialSofa);
+        if(shadows){
+            sofaBack.castShadow = true;
+            sofaBack.receiveShadow = true;
+        }
         sofaBack.position.set(position[0], position[1]  + baseHeight + backHeight/2 , position[2]+sofaWidth/2- backWidth/2);
         this.add(sofaBack);
 
@@ -63,6 +72,10 @@ class MySofa extends THREE.Object3D {
         const armRestLength = 0.5 * this.size;
         const geometryArmRest = new THREE.BoxGeometry(armRestLength, armRestHeight, armRestWidth);
         let armRest = new THREE.Mesh(geometryArmRest, materialSofa);
+        if(shadows){
+            armRest.castShadow = true;
+            armRest.receiveShadow = true;
+        }
         armRest.position.set(position[0] + sofaLength/2 + armRestLength/2, position[1] + armRestHeight/2 , position[2]);
         this.add(armRest);
 
@@ -75,6 +88,10 @@ class MySofa extends THREE.Object3D {
 
         //Arm rest 2
         let armRest2 = new THREE.Mesh(geometryArmRest, materialSofa);
+        if(shadows){
+            armRest2.castShadow = true;
+            armRest2.receiveShadow = true;
+        }
         armRest2.position.set(position[0] - sofaLength/2 - armRestLength/2, position[1] + armRestHeight/2, position[2]);
         this.add(armRest2);
 

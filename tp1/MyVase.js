@@ -14,7 +14,7 @@ class MyVase extends THREE.Object3D {
      * @param {list} position the position of the vase
      *
      */
-    constructor(app, size, color, position) {
+    constructor(app, size, color, position, shadows=false) {
         super();
         this.app = app;
         this.size = size || 2;
@@ -38,6 +38,10 @@ class MyVase extends THREE.Object3D {
         const geometryVaseBase = new THREE.CylinderGeometry( 1*this.size, this.size*0.5, baseHeight, 32 );
 
         let base = new THREE.Mesh( geometryVaseBase, material ); 
+        if(shadows){
+            base.castShadow = true;
+            base.receiveShadow = true;
+        }
         base.position.set(position[0],position[1] + baseHeight/2,position[2]);
         this.add( base );
 
@@ -46,6 +50,10 @@ class MyVase extends THREE.Object3D {
         const middleHeight = 1.5 * this.size;
         const geometryVaseMiddle = new THREE.CylinderGeometry( this.size*0.5, this.size*1, middleHeight, 32 );
         let middle = new THREE.Mesh( geometryVaseMiddle, material );
+        if(shadows){
+            middle.castShadow = true;
+            middle.receiveShadow = true;
+        }
         middle.position.set(position[0],position[1]  + baseHeight + middleHeight/2,position[2]);
         this.add( middle );
 
@@ -53,6 +61,10 @@ class MyVase extends THREE.Object3D {
         const topHeight = 0.5 * this.size;
         const geometryVaseTop = new THREE.CylinderGeometry( 0.7*this.size, this.size * 0.5, topHeight, 32 ); 
         let top = new THREE.Mesh( geometryVaseTop, material ); 
+        if(shadows){
+            top.castShadow = true;
+            top.receiveShadow = true;
+        }
         top.position.set(position[0],position[1]  + baseHeight + middleHeight + topHeight/2,position[2]);
         this.add( top );
 

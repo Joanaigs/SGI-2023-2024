@@ -20,7 +20,7 @@ class MyCake extends THREE.Object3D {
         this.app = app;
         this.color = color;
 
-        this.plate = new MyPlate(this, 1.2, 0xf5e9dc, [0, 0, 0]);
+        this.plate = new MyPlate(this, 1.2, 0xf5e9dc, [0, 0, 0], true);
         this.add(this.plate);
         let plateHeight = this.plate.plateHeight();
 
@@ -47,6 +47,10 @@ class MyCake extends THREE.Object3D {
                 geometry = new THREE.CylinderGeometry(tier.radiusTop, tier.radiusBottom, tier.height, 32, 1, false, 0, (5*Math.PI)/3);
 
             const cake = new THREE.Mesh(geometry, material);
+            if(i==0){
+                cake.castShadow = true;
+                cake.receiveShadow = true;
+            }
 
 
     
@@ -86,7 +90,7 @@ class MyCake extends THREE.Object3D {
          this.add(side2);
 
         // Candle
-        this.candle = new MyCandle(this, 1, 0xffffff, [0, currentHeight, 0]);
+        this.candle = new MyCandle(this, 1, 0xffffff, [0, currentHeight, 0], true);
         this.add(this.candle);
     }
 }

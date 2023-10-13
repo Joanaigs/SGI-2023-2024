@@ -77,6 +77,9 @@ class MyContents  {
         this.lightPosition = new THREE.Vector3(0, 15, 0);
         this.lightTarget = new THREE.Vector3(0, 2, -3);
 
+        //shadows
+        this.mapSize = 4096
+
         //textures
         this.materialJornal =new THREE.TextureLoader().load('textures/jornal.jpg');
         this.materialJornal.wrapT = THREE.MirroredRepeat;
@@ -136,6 +139,7 @@ class MyContents  {
         this.planeMaterial.map = planeTexture;
         var plane = new THREE.PlaneGeometry( 30, 45 );
         this.floor = new THREE.Mesh( plane, this.planeMaterial );
+        this.floor.receiveShadow = true;
         this.floor.rotation.x = -Math.PI / 2;
         this.floor.position.y = 0;
         this.floor.position.z = 15 / 3 + 2.5;
@@ -147,6 +151,12 @@ class MyContents  {
     buildSpotlight(){
         this.spotlight = new THREE.SpotLight(this.lightColor, this.lightIntensity, this.lightDistance, 
             this.lightAngle*(Math.PI/180), this.lightPenumbra, this.lightDecay);
+        this.spotlight.castShadow = true;
+        this.spotlight.shadow.mapSize.width = this.mapSize;
+        this.spotlight.shadow.mapSize.height = this.mapSize;
+        this.spotlight.shadow.camera.near = 0.5;
+        this.spotlight.shadow.camera.far = 25;
+
         this.spotlight.position.set(this.lightPosition.x, this.lightPosition.y, this.lightPosition.z);
         this.targetSpot = new THREE.Object3D();
         this.targetSpot.position.set(this.lightTarget.x, this.lightTarget.y, this.lightTarget.z);
@@ -170,14 +180,30 @@ class MyContents  {
         }
 
         // add a point light on top of the model
-        const pointLight = new THREE.PointLight( 0xffffff, 50, 0 );
-        pointLight.position.set( 0, 20, 7.5 );
+        const pointLight = new THREE.PointLight( 0xffffff, 50, 0);
+        pointLight.castShadow = true;
+        pointLight.shadow.mapSize.width = this.mapSize;
+        pointLight.shadow.mapSize.height = this.mapSize;
+        pointLight.shadow.camera.near = 0.5;
+        pointLight.shadow.camera.far = 25;
+        pointLight.position.set( 0, 14.5, 7.5 );
         this.app.scene.add( pointLight );
+        const pontLightObject = new THREE.CylinderGeometry( 0.5, 0.5, 0.3, 32 );
+        const pontLightMaterial = new THREE.MeshPhongMaterial( {color: 0xffffff, emissive: 0xdddddd} );
+        const pointLightObject = new THREE.Mesh( pontLightObject, pontLightMaterial );
+        pointLightObject.position.set( 0, 14.7, 7.5 );
+        this.app.scene.add( pointLightObject );
+
+        const pointLightBase = new THREE.CylinderGeometry( 1, 0.5, 0.4, 32 );
+        const pointLightBaseMaterial = new THREE.MeshPhongMaterial( {color: 0x000000, emissive: 0x222222} );
+        const pointLightBaseObject = new THREE.Mesh( pointLightBase, pointLightBaseMaterial );
+        pointLightBaseObject.position.set( 0, 14.8, 7.5 );
+        this.app.scene.add( pointLightBaseObject );
 
         // add a point light helper for the previous point light
         const sphereSize = 0.5;
-        const pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );
-        this.app.scene.add( pointLightHelper );
+        //const pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );
+        //this.app.scene.add( pointLightHelper );
 
         // add an ambient light
         const ambientLight = new THREE.AmbientLight( 0xeeeeee, 0.05 );
@@ -193,7 +219,7 @@ class MyContents  {
             this.house = new  MyHouse(this);
             this.app.scene.add(this.house);
         }
-        this.table = new MyTable(this, 6,3.5,1.95,"textures/top.jpg", "textures/tableLegs.jpg", [0, 0, 0]);
+        this.table = new MyTable(this, 6,3.5,1.95,"textures/top.jpg", "textures/tableLegs.jpg", [0, 0, 0], false, true);
         this.app.scene.add(this.table); 
 
         this.carpet = new MyCarpet(this,0x8eb1c2, [0, 0, 0]);
@@ -208,20 +234,21 @@ class MyContents  {
         this.robot = new MyRobot(this, 0x8ecccc, [-4, -0.3, 3.9]);
         this.app.scene.add(this.robot); 
         
-        this.vase = new MyVase(this, 1, 0xc8dfea, [-12.5, 0, -13]);
+        this.vase = new MyVase(this, 1, 0xc8dfea, [-12.5, 0, -13], true);
         this.app.scene.add(this.vase);
 
         this.lampshade = new MyLampshade(this, 7, 1.75, 1.5, "textures/metal.jpg", 0xffffff, [12, 0, -12]);
         this.app.scene.add(this.lampshade);
         this.addSpotLightLamp([12, 7.5, -12], [12, 0, -12], 40)
+        this.addSpotLightLamp([12, 7.5, -12], [12, 15, -12], 60)
 
-        this.cakePiece = new MyCakePiece(this, 0xffdbe9, [1.2, 2.42, 6.8]);
+        this.cakePiece = new MyCakePiece(this, 0xffdbe9, [1.2, 2.42, 6.8], true);
         this.app.scene.add(this.cakePiece);
         
-        this.sofa1 = new MySofa(this, 1, 0x365563, 0x446879, [0,0, 9], 10 );
+        this.sofa1 = new MySofa(this, 1, 0x365563, 0x446879, [0,0, 9], 10, true );
         this.app.scene.add(this.sofa1);
 
-        this.sofa2 = new MySofa(this, 1, 0X365563, 0x446879, [0,0, 0], 5 );
+        this.sofa2 = new MySofa(this, 1, 0X365563, 0x446879, [0,0, 0], 5, true );
         this.sofa2.rotation.y = -Math.PI/2;
         this.sofa2.position.x = -9;
         this.app.scene.add(this.sofa2);
@@ -261,19 +288,19 @@ class MyContents  {
          this.app.scene.add(this.bookshelf2);
 
         //back table
-        this.backTable = new MyTable(this, 12, 5,4, "textures/top.jpg","textures/tableLegs.jpg", [0, 0, 10.5], true);
+        this.backTable = new MyTable(this, 12, 5,4, "textures/top.jpg","textures/tableLegs.jpg", [0, 0, 10.5], true, true);
         this.app.scene.add(this.backTable); 
 
         // door
         this.door = new MyDoor(this, 5, 12,0.5, "textures/top.jpg", "textures/metal.jpg", [7.4, 0, 8]);
         this.app.scene.add(this.door); 
 
-        this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, "textures/metal.jpg", 0xffffff, [0, 15, 0],Math.PI/16, true);
+        this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, "textures/metal.jpg", 0xffffff, [0, 15, 0],0, true);
         this.app.scene.add(this.lampshadeCeiling1);
 
-        this.lampshadeCeiling2 = new MyLampshade(this, 0.7, 0.6, 0.5, "textures/metal.jpg", 0xffffff, [0, 15, 18], -Math.PI/16, true);
+        this.lampshadeCeiling2 = new MyLampshade(this, 0.7, 0.6, 0.5, "textures/metal.jpg", 0xffffff, [0, 15, 18], 0, true);
         this.app.scene.add(this.lampshadeCeiling2);
-        this.addSpotLightLamp([0, 15, 18], [0, 0, 21], 70)
+        this.addSpotLightLamp([0, 15, 18], [0, 0, 21], 70, true)
 
 
         this.carocha = new MyCarocha(this, "textures/floor1.jpg", [14.75, 6, 22], -Math.PI/2, 1);
@@ -286,22 +313,28 @@ class MyContents  {
         this.roundVase= new MyRoundVase(this, 0.8, 0xc8dfea, [0, 6, 21]);
         this.app.scene.add(this.roundVase);
 
-        this.flower = new MyFlower(this, 2, 0xffb6c1, [0, 5, 21], 0);
+        this.flower = new MyFlower(this, 2, 0xffb6c1, [0, 5.4, 21], 0);
         this.app.scene.add(this.flower);
-        this.flower = new MyFlower(this, 2, 0xffb6c1, [0.2, 4.5, 21],0);
-        this.app.scene.add(this.flower);
+
 
         this.jornal= new MyJornal(this, 1, [-10, 1.4, -1], Math.PI/16, 4, 0.5);
         this.app.scene.add(this.jornal);
 
     }
 
-    addSpotLightLamp(lampPosition,targetPostion, lightAngle){
+    addSpotLightLamp(lampPosition,targetPostion, lightAngle, shadows=false){
         let spotlightLamp = new THREE.SpotLight(0xffffff, 2, 0, lightAngle*(Math.PI/180), 1, 0);
+        if(shadows){
+            spotlightLamp.castShadow = true;
+            spotlightLamp.shadow.mapSize.width = this.mapSize;
+            spotlightLamp.shadow.mapSize.height = this.mapSize;
+            spotlightLamp.shadow.camera.near = 0.5;
+            spotlightLamp.shadow.camera.far = 25;
+        }
         spotlightLamp.position.set(lampPosition[0], lampPosition[1], lampPosition[2]);
         let target = new THREE.Object3D();
-        this.app.scene.add(target);
         target.position.set(targetPostion[0], targetPostion[1], targetPostion[2]);
+        this.app.scene.add(target);
         spotlightLamp.target = target;
         this.app.scene.add(spotlightLamp);
 

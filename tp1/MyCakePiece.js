@@ -13,15 +13,16 @@ class MyCakePiece extends THREE.Object3D {
      * @param {MyApp} app the application object
      * @param {hex} color hex color of the cake
      * @param {list} position position of the cake piece
+     * @param {bool} castShadow true if the cake piece casts shadows
      *
      */
-    constructor(app, color, position) {
+    constructor(app, color, position, castShadow=false) {
         super();
         this.type = 'Group';
         this.app = app;
         this.color = color;
 
-        this.plate = new MyPlate(this, 0.5, 0xf5e9dc, position);
+        this.plate = new MyPlate(this, 0.5, 0xf5e9dc, position, castShadow);
         this.add(this.plate);
         let plateHeight = this.plate.plateHeight();
 
@@ -37,6 +38,10 @@ class MyCakePiece extends THREE.Object3D {
         let geometry = new THREE.CylinderGeometry(pieceCakeInfo.radiusTop, pieceCakeInfo.radiusBottom, pieceCakeInfo.height, 32, 1, false, 0, Math.PI / 3);
 
         const cake = new THREE.Mesh(geometry, material);
+        if(castShadow){
+            cake.castShadow = true;
+            cake.receiveShadow = true;
+        }
 
         cake.position.set(position[0] -0.15  , position[1] + currentHeight + pieceCakeInfo.height / 2, position[2] -0.15 );
         this.add(cake);

@@ -48,25 +48,24 @@ class MyRoundVase extends THREE.Object3D {
         controlPoints1 = [
             // U = 0
             [
-                [-1.0, -1.0, 0.0, 1],
+                [-0.3, -1.0, 0.0, 1],
                 [-1.0, 0, 0.0, 1],
                 [0.5, 0.8, 0.0, 1],
-                [-1.0, 1, 0.0, 1],
+                [-0.5, 1, 0.0, 1],
             ],
             // U = 1
             [
-                [0, -1.0, 2.0, 1],
+                [0, -1.0, 0.3, 1],
                 [0, 0, 2, 1],
                 [0, 0.8,  -1, 1],
-                [0, 1.0, 2.0, 1],
+                [0, 1.0, 0.8, 1],
             ],
             // U = 2
-
             [
-                [1.0, -1.0, 0.0, 1],
+                [0.3, -1.0, 0.0, 1],
                 [1.0, 0, 0, 1],
                 [-0.5, 0.8, 0.0, 1],
-                [1.0, 1.0, 0.0, 1],
+                [0.5, 1.0, 0.0, 1],
             ],
 
 
@@ -91,7 +90,7 @@ class MyRoundVase extends THREE.Object3D {
 
         mesh2 = new THREE.Mesh(surfaceData1, this.material);
         mesh2.rotateY(Math.PI);
-        this.add(mesh2)
+        this.add(mesh2);
 
         this.meshes.push(mesh1);
     }
