@@ -84,6 +84,11 @@ class MyContents  {
         this.materialJornal =new THREE.TextureLoader().load('textures/jornal.jpg');
         this.materialJornal.wrapT = THREE.MirroredRepeat;
         this.materialJornal.repeat.y=-1;
+
+        this.textureVase = new THREE.TextureLoader().load("textures/jarTexture.jpg");
+        this.textureVase.wrapS = THREE.RepeatWrapping;
+        this.textureVase.wrapT = THREE.RepeatWrapping;
+
         
         // other attributes
         this.cake = null;
