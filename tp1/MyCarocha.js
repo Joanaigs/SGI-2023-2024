@@ -39,10 +39,11 @@ class MyCarocha extends THREE.Object3D {
 
         //weels
         // imagem tp 1 unidade 4 quadrados
+        let height = (4/3)*(3/4)
         const weel = new THREE.CubicBezierCurve3(
             new THREE.Vector3(0, 0, 0),        // Start point
-            new THREE.Vector3(0, 1, 0),        // Control point 1
-            new THREE.Vector3(6/4, 1, 0),        // Control point 2
+            new THREE.Vector3(0, height, 0),        // Control point 1
+            new THREE.Vector3(6/4, height, 0),        // Control point 2
             new THREE.Vector3(6/4, 0, 0)         // End point
         );
         const pointsWeel = weel.getPoints( this.numPoints );
@@ -57,9 +58,12 @@ class MyCarocha extends THREE.Object3D {
         this.add(weelObject2);
 
         //half sphere
-        const halfSphere = new THREE.QuadraticBezierCurve3(
+        height = (4/3)*(Math.sqrt(2)-1)*2
+        console.log(height)
+        const halfSphere = new THREE.CubicBezierCurve3(
             new THREE.Vector3(0, 0, 0),        // Start point
-            new THREE.Vector3(0, 2, 0),        // Control point 1
+            new THREE.Vector3(0, height, 0),        // Control point 1
+            new THREE.Vector3(2-height, 2, 0),        // Control point 2
             new THREE.Vector3(2, 2, 0)   
         );
         const pointsHalfSphere = halfSphere.getPoints( this.numPoints );

@@ -75,25 +75,53 @@ class MyApp  {
 
         // Create a basic perspective camera
         const perspective2 = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
-        perspective2.position.set(2,4,7)
-        perspective2.lookAt( new THREE.Vector3(0,5,0) );
+        perspective2.position.set(0,5,0)
         this.cameras['Robot'] = perspective2
 
         // Jornal Prespective Camera
         const perspective3 = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
         perspective3.position.set(-5, 5, -1)
-        perspective3.lookAt( new THREE.Vector3(-10, 1.4, -1) );
         this.cameras['Jornal'] = perspective3
+
+        //Cake Prespective Camera
+        const perspectiveCake = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
+        perspectiveCake.position.set(0, 5, 7)
+        this.cameras['Cake'] = perspectiveCake
+
+        // Vase Prespective Camera
+        const perspectiveVase = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
+        perspectiveVase.position.set(0, 5, 17)
+        this.cameras['Round Vase'] = perspectiveVase
+
+        // Coil Prespective Camera
+        const perspectiveCoil = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
+        perspectiveCoil.position.set(2, 5, 18)
+        this.cameras['Coil'] = perspectiveCoil
+
+        // Photo Frame Prespective Camera
+        const perspectivePhotoFrame = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
+        perspectivePhotoFrame.position.set(0, 8, 22)
+        this.cameras['Photo Frames'] = perspectivePhotoFrame
+
+        // Carocha Prespective Camera
+        const perspectiveCarocha = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
+        perspectiveCarocha.position.set(10, 8, 25)
+        this.cameras['Carocha'] = perspectiveCarocha
 
         //Vase Prespective Camera
         const perspective4 = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
         perspective4.position.set(-5, 3, -5)
-        this.cameras['Vase'] = perspective4
+        this.cameras['Vase Cylinder'] = perspective4
 
         //Left Side Room Prepective
         const perspective5 = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
         perspective5.position.set(0, 7, 10)
         this.cameras['Left Side Room Prepective'] = perspective5
+
+        // Right Side Room Prespective
+        const perspective6 = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
+        perspective6.position.set(0, 7, 10)
+        this.cameras['Right Side Room Prepective'] = perspective6
 
         // defines the frustum size for the orthographic cameras
         let left = -(this.frustumSize) / 2 * aspect -7.5
@@ -161,6 +189,43 @@ class MyApp  {
         this.activeCamera = this.cameras[this.activeCameraName]
     }
 
+    updateTarget(){
+        if(this.activeCameraName == 'Perspective' || this.activeCameraName == 'Top' || this.activeCameraName == 'Front' || this.activeCameraName == 'Back' || this.activeCameraName == 'Right' || this.activeCameraName == 'Left'){
+            this.controls.target = new THREE.Vector3(0, 0, 0)
+        }
+        else if(this.activeCameraName == 'Robot'){
+            this.controls.target = new THREE.Vector3(2, 0, 10)
+        }
+        else if(this.activeCameraName == 'Cake'){
+            this.controls.target = new THREE.Vector3(0, 2, 0)
+        }
+        else if(this.activeCameraName == 'Jornal'){
+            this.controls.target = new THREE.Vector3(-10, 1.4, -1)
+        }
+        else if(this.activeCameraName == 'Round Vase'){
+            this.controls.target = new THREE.Vector3(0, 5, 21)
+        }
+        else if(this.activeCameraName == 'Vase Cylinder'){
+            this.controls.target = new THREE.Vector3(-12.5, 0, -13)
+        }
+        else if(this.activeCameraName == 'Photo Frames'){
+            this.controls.target = new THREE.Vector3(0, 8, 30)
+        }
+        else if(this.activeCameraName == 'Coil'){
+            this.controls.target = new THREE.Vector3(2, 5, 21)
+        }
+        else if(this.activeCameraName == 'Carocha'){
+            this.controls.target = new THREE.Vector3(15, 8, 25)
+        }
+        else if(this.activeCameraName == 'Left Side Room Prepective'){
+            this.controls.target = new THREE.Vector3(0, 5, 30)
+        }
+        else if(this.activeCameraName == 'Right Side Room Prepective'){
+            this.controls.target = new THREE.Vector3(0, 5, -15)
+        }
+
+    }
+
     /**
      * updates the active camera if required
      * this function is called in the render loop
@@ -184,34 +249,13 @@ class MyApp  {
                 // Orbit controls allow the camera to orbit around a target.
                 this.controls = new OrbitControls( this.activeCamera, this.renderer.domElement );
                 this.controls.enableZoom = true;
+                this.updateTarget();
 
-                if(this.activeCameraName == 'Robot'){
-                    this.controls.target = new THREE.Vector3(0, 5, 0)
-                }
-                if(this.activeCameraName == 'Jornal'){
-                    this.controls.target = new THREE.Vector3(-10, 1.4, -1)
-                }
-                if(this.activeCameraName == 'Vase'){
-                    this.controls.target = new THREE.Vector3(-12.5, 0, -13)
-                }
-                if(this.activeCameraName == 'Left Side Room Prepective'){
-                    this.controls.target = new THREE.Vector3(0, 5, 30)
-                }
+                
             }
             else {
                 this.controls.object = this.activeCamera
-                if(this.activeCameraName == 'Robot'){
-                    this.controls.target = new THREE.Vector3(0, 5, 0)
-                }
-                if(this.activeCameraName == 'Jornal'){
-                    this.controls.target = new THREE.Vector3(-10, 1.4, -1)
-                }
-                if(this.activeCameraName == 'Vase'){
-                    this.controls.target = new THREE.Vector3(-12.5, 0, -13)
-                }
-                if(this.activeCameraName == 'Left Side Room Prepectives'){
-                    this.controls.target = new THREE.Vector3(0, 5, 30)
-                }
+                this.updateTarget();
             }
         }
     }
