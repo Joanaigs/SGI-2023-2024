@@ -92,14 +92,14 @@ class MyRoundVase extends THREE.Object3D {
         mesh1 = new THREE.Mesh(surfaceData1, this.material);
         if(this.shadow){
             mesh1.castShadow = true;
-            mesh1.receiveShadow = true;
+            //mesh1.receiveShadow = true;
         }
         this.add(mesh1);
 
         mesh2 = new THREE.Mesh(surfaceData1, this.material);
         if(this.shadow){
             mesh2.castShadow = true;
-            mesh2.receiveShadow = true;
+            //mesh2.receiveShadow = true;
         }
         mesh2.rotateY(Math.PI);
         this.add(mesh2);

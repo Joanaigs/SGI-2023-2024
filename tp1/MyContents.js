@@ -164,6 +164,7 @@ class MyContents  {
         this.spotlight.shadow.mapSize.height = this.mapSize;
         this.spotlight.shadow.camera.near = 0.5;
         this.spotlight.shadow.camera.far = 25;
+        //this.spotlight.shadow.bias = -0.001;
 
         this.spotlight.position.set(this.lightPosition.x, this.lightPosition.y, this.lightPosition.z);
         this.targetSpot = new THREE.Object3D();
@@ -194,6 +195,7 @@ class MyContents  {
         pointLight.shadow.mapSize.height = this.mapSize;
         pointLight.shadow.camera.near = 0.5;
         pointLight.shadow.camera.far = 25;
+        //pointLight.shadow.bias = -0.001;
         pointLight.position.set( 0, 14.5, 7.5 );
         this.app.scene.add( pointLight );
         const pontLightObject = new THREE.CylinderGeometry( 0.5, 0.5, 0.3, 32 );
@@ -344,6 +346,7 @@ class MyContents  {
             spotlightLamp.shadow.mapSize.height = this.mapSize;
             spotlightLamp.shadow.camera.near = 0.5;
             spotlightLamp.shadow.camera.far = 25;
+            //spotlightLamp.shadow.bias = -0.001;
         }
         spotlightLamp.position.set(lampPosition[0], lampPosition[1], lampPosition[2]);
         let target = new THREE.Object3D();

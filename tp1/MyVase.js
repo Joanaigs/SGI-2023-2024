@@ -28,17 +28,18 @@ class MyVase extends THREE.Object3D {
             specular: 0xffffff,  // Specular color
             shininess: 2,       // Shininess (higher values make it shinier)
             map: this.app.textureVase,
+            side: THREE.DoubleSide,
         });
         
 
         //vase base
         const baseHeight = 1 * this.size;
-        const geometryVaseBase = new THREE.CylinderGeometry( 1*this.size, this.size*0.5, baseHeight, 32 );
+        const geometryVaseBase = new THREE.CylinderGeometry( 1*this.size, this.size*0.5, baseHeight, 32, 1, true );
 
         let base = new THREE.Mesh( geometryVaseBase, material ); 
         if(shadows){
             base.castShadow = true;
-            base.receiveShadow = true;
+            //base.receiveShadow = true;
         }
         base.position.set(position[0],position[1] + baseHeight/2,position[2]);
         this.add( base );
@@ -46,11 +47,11 @@ class MyVase extends THREE.Object3D {
         //vase middle
 
         const middleHeight = 1.5 * this.size;
-        const geometryVaseMiddle = new THREE.CylinderGeometry( this.size*0.5, this.size*1, middleHeight, 32 );
+        const geometryVaseMiddle = new THREE.CylinderGeometry( this.size*0.5, this.size*1, middleHeight, 32,  1, true  );
         let middle = new THREE.Mesh( geometryVaseMiddle, material );
         if(shadows){
             middle.castShadow = true;
-            middle.receiveShadow = true;
+            //middle.receiveShadow = true;
         }
         middle.position.set(position[0],position[1]  + baseHeight + middleHeight/2,position[2]);
         this.add( middle );
@@ -59,11 +60,11 @@ class MyVase extends THREE.Object3D {
         this.texture.repeat.set(3, 1);
 
         const topHeight = 0.5 * this.size;
-        const geometryVaseTop = new THREE.CylinderGeometry( 0.7*this.size, this.size * 0.5, topHeight, 32 ); 
+        const geometryVaseTop = new THREE.CylinderGeometry( 0.7*this.size, this.size * 0.5, topHeight, 32, 1, true ); 
         let top = new THREE.Mesh( geometryVaseTop, material ); 
         if(shadows){
             top.castShadow = true;
-            top.receiveShadow = true;
+            //top.receiveShadow = true;
         }
         top.position.set(position[0],position[1]  + baseHeight + middleHeight + topHeight/2,position[2]);
         this.add( top );
