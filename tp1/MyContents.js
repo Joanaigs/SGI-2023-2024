@@ -92,6 +92,10 @@ class MyContents  {
         this.textureVase.wrapS = THREE.RepeatWrapping;
         this.textureVase.wrapT = THREE.RepeatWrapping;
 
+        this.textureRoundVase = new THREE.TextureLoader().load("textures/roundVase.jpg");
+        this.textureRoundVase.wrapS = THREE.RepeatWrapping;
+        this.textureRoundVase.wrapT = THREE.RepeatWrapping;
+
         
         // other attributes
         this.cake = null;

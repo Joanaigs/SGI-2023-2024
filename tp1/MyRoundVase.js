@@ -26,11 +26,14 @@ class MyRoundVase extends THREE.Object3D {
         this.samplesU = 20; // maximum defined in MyGuiInterface
         this.samplesV = 20; // maximum defined in MyGuiInterface
         this.builder = new MyNurbsBuilder();
+        this.texture = this.app.textureRoundVase;
+        this.texture.rotation = Math.PI/2;
+        this.texture.repeat.set(1, 2);
         this.material = new THREE.MeshPhongMaterial({
             color: this.color,
             side: THREE.DoubleSide,
             transparent: true,
-            opacity: 0.8,
+            map: this.texture,
         });
 
         this.createNurbsSurfaces();
@@ -44,7 +47,7 @@ class MyRoundVase extends THREE.Object3D {
         let controlPoints1;
         let surfaceData1;
         let mesh1, mesh2;
-        let orderU = 2; // Higher order for smoother curves
+        let orderU = 3; // Higher order for smoother curves
         let orderV = 3; // Higher order for smoother curves
 
         // Define control points for the first NURBS surface (lower part of the vase)
@@ -52,24 +55,31 @@ class MyRoundVase extends THREE.Object3D {
         controlPoints1 = [
             // U = 0
             [
-                [-0.3, -1.0, 0.0, 1],
-                [-1.0, 0, 0.0, 1],
-                [0.5, 0.8, 0.0, 1],
-                [-0.5, 1, 0.0, 1],
+                [-0.2, -1.0, 0.0, 1],
+                [-0.2, -1.0, (4/3)*0.2, 1],
+                [0.2,-1.0, (4/3)*0.2, 1],
+                [0.2, -1.0, 0.0, 1],
             ],
             // U = 1
             [
-                [0, -1.0, 0.3, 1],
-                [0, 0, 2, 1],
-                [0, 0.8,  -1, 1],
-                [0, 1.0, 0.8, 1],
+                [-0.8, 0, 0, 1],
+                [-0.8, 0, (4/3)*0.8, 1],
+                [0.8, 0,  (4/3)*0.8, 1],
+                [0.8, 0, 0, 1],
             ],
             // U = 2
             [
-                [0.3, -1.0, 0.0, 1],
-                [1.0, 0, 0, 1],
+                [0.5, 0.8, 0.0, 1],
+                [0.5, 0.8, -(4/3)*0.5, 1],
+                [-0.5, 0.8, -(4/3)*0.5, 1],
                 [-0.5, 0.8, 0.0, 1],
-                [0.5, 1.0, 0.0, 1],
+            ],
+            // U = 3
+            [
+                [-0.4, 1.0, 0.0, 1],
+                [-0.4, 1.0, (4/3)*0.4, 1],
+                [0.4, 1.0, (4/3)*0.4, 1],
+                [0.4, 1.0, 0.0, 1],
             ],
 
 
