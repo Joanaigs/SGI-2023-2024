@@ -2,9 +2,6 @@ import * as THREE from 'three';
 
 import { MyAxis } from './MyAxis.js';
 
-import { MyNurbsBuilder } from './MyNurbsBuilder.js';
-
-
 
 /**
 
@@ -12,8 +9,7 @@ import { MyNurbsBuilder } from './MyNurbsBuilder.js';
 
  */
 
-
-class MyContents {
+class MyContents  {
 
 
     /**
@@ -31,44 +27,37 @@ class MyContents {
         this.axis = null
 
 
-        const map =
+        // floor related attributes
 
-            new THREE.TextureLoader().load('textures/uv_grid_opengl.jpg');
+        this.diffuseFloorColor = "#7f7f7f"
 
-        map.wrapS = map.wrapT = THREE.RepeatWrapping;
+        this.specularFloorColor = "#000000"
 
-        map.anisotropy = 16;
+        this.shininessFloor = 30
 
-        map.colorSpace = THREE.SRGBColorSpace;
+        this.floorMaterial = new THREE.MeshPhongMaterial({
 
-        this.material = new THREE.MeshLambertMaterial({
-            map: map,
+                    color: this.diffuseFloorColor,
 
-            side: THREE.DoubleSide,
+                    specular: this.specularFloorColor,
 
-            transparent: true, opacity: 0.90
-        });
+                    emissive: "#000000", shininess: this.shininessFloor })
 
 
-        this.builder = new MyNurbsBuilder()
+        this.mapSize = 4096
+
+        this.nbrPolyg = 100
+
+        this.volumeDimX = 10
+
+        this.volumeDimY = 10
+
+        this.volumeDimZ = 10
 
 
-        this.meshes = []
-
-
-        this.samplesU = 16         // maximum defined in MyGuiInterface
-
-        this.samplesV = 16         // maximum defined in MyGuiInterface
-
-
-        this.init()
-
-
-        this.createNurbsSurfaces()
+        this.volumeMeshes = []
 
     }
-
-
 
 
     /**
@@ -79,7 +68,7 @@ class MyContents {
 
     init() {
 
-
+       
 
         // create once
 
@@ -93,376 +82,239 @@ class MyContents {
 
         }
 
+   
 
-        // add a point light on top of the model
+        // creates a directional light
 
-        const pointLight = new THREE.PointLight(0xffffff, 1000, 0);
+        const light1 = new THREE.DirectionalLight( 0xffffff, 1.5 );
 
-        pointLight.position.set(0, 20, 20);
+        light1.position.set( 0, 25, 0 );
 
-        this.app.scene.add(pointLight);
+        light1.castShadow = true;
+
+        light1.shadow.mapSize.width = this.mapSize;
+
+        light1.shadow.mapSize.height = this.mapSize;
+
+        light1.shadow.camera.near = 0.5;
+
+        light1.shadow.camera.far = 27;
+
+        light1.shadow.camera.left = -3;
+
+        light1.shadow.camera.right = 3;
+
+        light1.shadow.camera.bottom = -3;
+
+        light1.shadow.camera.top = 3;
+
+        this.app.scene.add( light1 );
 
 
-        // add a point light helper for the previous point light
+        // creates a helper for the light
 
-        const sphereSize = 0.5;
+        const helper1 = new THREE.DirectionalLightHelper( light1, 5 );
 
-        const pointLightHelper =
-
-            new THREE.PointLightHelper(pointLight, sphereSize);
-
-        this.app.scene.add(pointLightHelper);
+        this.app.scene.add( helper1 );
 
 
-        // add an ambient light
+        // creates a point light
 
-        const ambientLight = new THREE.AmbientLight(0x555555);
+        const light2 = new THREE.PointLight( 0xffffff, 1.5, 0, 0 );
 
-        this.app.scene.add(ambientLight);
+        light2.position.set( 7, 15, 7 );
+
+        light2.castShadow = true;
+
+        light2.shadow.mapSize.width = this.mapSize;
+
+        light2.shadow.mapSize.height = this.mapSize;
+
+        light2.shadow.camera.near = 0.5;
+
+        light2.shadow.camera.far = 100;
+
+        this.app.scene.add( light2 );
+
+
+        // creates a helper for the light
+
+        const helper2 = new THREE.PointLightHelper( light2, 1 );
+
+        this.app.scene.add( helper2 );
+
+
+        // creates the floating box
+
+        this.buildFloatingBox()
+
+
+        // creates the floor
+
+        this.buildFloor()
+
+
+        // creates the volume
+
+        this.buildVolume()
+
+
+    }
+
+   
+
+    buildFloatingBox() {
+
+
+        let box = new THREE.BoxGeometry(1,1,1);
+
+        let mesh = new THREE.Mesh( box,
+
+                        new THREE.MeshStandardMaterial({color: "#ffffff" }) );
+
+        mesh.position.set(0,8,0)
+
+
+        // cast and receives shadows
+
+        mesh.receiveShadow = true;
+
+        mesh.castShadow = true;
+
+        this.app.scene.add( mesh );
 
     }
 
 
     /**
 
-     * removes (if existing) and recreates the nurbs surfaces
+     * builds a floor
 
      */
 
-    createNurbsSurfaces() {
+    buildFloor() {    
+
+        // Create a plane Mesh with basic material
+
+        var floor = new THREE.BoxGeometry( 30, 0.1,30 );
+
+        let mesh = new THREE.Mesh( floor, this.floorMaterial );
+
+        //mesh.rotation.x =  -Math.PI / 2;
+
+        mesh.position.y = 0
+
+        // cast and receives shadows
+
+        mesh.receiveShadow = true;
+
+        mesh.castShadow = true;
+
+        this.app.scene.add( mesh );
+
+    }
 
 
-        // are there any meshes to remove?
+    rebuildVolume() {
 
-        if (this.meshes !== null) {
+        for ( let i = 0; i < this.nbrPolyg; i ++ ) {
 
-            // traverse mesh array
+            if (this.volumeMeshes[i] !== null) {
 
-            for (let i = 0; i < this.meshes.length; i++) {
-
-                // remove all meshes from the scene
-
-                this.app.scene.remove(this.meshes[i])
+                this.app.scene.remove(this.volumeMeshes[i])
 
             }
 
-            this.meshes = [] // empty the array  
+        }
+
+            this.buildVolume()
+
+    }
+
+   
+
+    buildVolume() {
+
+
+        const volumeDimXd2 = this.volumeDimX / 2
+
+        const volumeDimYd2 = this.volumeDimY / 2
+
+        const volumeDimZd2 = this.volumeDimZ / 2
+
+
+        const maxDimX = this.volumeDimX / 3
+
+        const maxDimY = this.volumeDimY / 3
+
+   
+
+
+        for ( let i = 0; i < this.nbrPolyg; i ++ ) {
+
+
+            const dimX = maxDimX * Math.random()
+
+            const dimY = maxDimY * Math.random()
+
+
+            const rotX = 2 * Math.PI * Math.random()
+
+            const rotY = 2 * Math.PI * Math.random()
+
+            const rotZ = 2 * Math.PI * Math.random()
+
+
+            const posX = this.volumeDimX * Math.random() - volumeDimXd2
+
+            const posY = this.volumeDimY * Math.random() - volumeDimYd2
+
+            const posZ = this.volumeDimZ * Math.random() - volumeDimZd2
+
+
+            const colorR = Math.random()
+
+            const colorG = Math.random()
+
+            const colorB = Math.random()
+
+            const colorP = new THREE.Color(colorR, colorG, colorB);
+
+            var smallP = new THREE.PlaneGeometry( dimX, dimY )
+
+            this.volumeMeshes[i] =
+
+                new THREE.Mesh( smallP,
+
+                    new THREE.MeshStandardMaterial({ color: colorP }) )
+
+       
+
+            this.volumeMeshes[i].rotation.x = rotX
+
+            this.volumeMeshes[i].rotation.y = rotY
+
+            this.volumeMeshes[i].rotation.z = rotZ  
+
+
+            this.volumeMeshes[i].position.x = posX
+
+            this.volumeMeshes[i].position.y = posY
+
+            this.volumeMeshes[i].position.z = posZ
+
+
+            this.volumeMeshes[i].receiveShadow = true
+
+            this.volumeMeshes[i].castShadow = true
+
+
+            this.app.scene.add( this.volumeMeshes[i] )
 
         }
 
 
-
-        // declare local variables
-
-        let controlPoints;
-
-        let surfaceData;
-
-        let mesh;
-
-        let orderU = 1
-
-        let orderV = 1
-
-
-        // build nurb #1
-
-        controlPoints =
-
-            [   // U = 0
-
-                [ // V = 0..1;
-
-                    [-2.0, -2.0, 0.0, 1],
-
-                    [-2.0, 2.0, 0.0, 1]
-
-                ],
-
-                // U = 1
-
-                [ // V = 0..1
-
-                    [2.0, -2.0, 0.0, 1],
-
-                    [2.0, 2.0, 0.0, 1]
-
-                ]
-
-            ]
-
-
-
-        surfaceData = this.builder.build(controlPoints,
-
-            orderU, orderV, this.samplesU,
-
-            this.samplesV, this.material)
-
-        mesh = new THREE.Mesh(surfaceData, this.material);
-
-        mesh.rotation.x = 0
-
-        mesh.rotation.y = 0
-
-        mesh.rotation.z = 0
-
-        mesh.scale.set(1, 1, 1)
-
-        mesh.position.set(0, 0, 0)
-
-        this.app.scene.add(mesh)
-
-
-
-        let controlPoints2;
-
-        let surfaceData2;
-
-        let mesh2;
-
-        let orderU2 = 2
-
-        let orderV2 = 1
-
-
-        // build nurb #2
-
-        controlPoints2 =
-
-            [   // U = 0
-
-                [ // V = 0..1;
-
-                    [-1.5, -1.5, 0.0, 1],
-
-                    [-1.5, 1.5, 0.0, 1]
-
-                ],
-
-                // U = 1
-
-                [ // V = 0..1
-
-                    [0, -1.5, 3.0, 1],
-
-                    [0, 1.5, 3.0, 1]
-
-                ],
-
-                // U = 2
-
-                [ // V = 0..1
-
-                    [1.5, -1.5, 0.0, 1],
-
-                    [1.5, 1.5, 0.0, 1]
-
-                ]
-
-            ]
-
-
-
-        surfaceData2 = this.builder.build(controlPoints2,
-
-            orderU2, orderV2, this.samplesU,
-
-            this.samplesV, this.material)
-
-
-        mesh2 = new THREE.Mesh(surfaceData2, this.material);
-
-        mesh2.rotation.x = 0
-
-        mesh2.rotation.y = 0
-
-        mesh2.rotation.z = 0
-
-        mesh2.scale.set(1, 1, 1)
-
-        mesh2.position.set(4, 3, 0)
-
-        this.app.scene.add(mesh2)
-
-
-        let controlPoints3;
-
-        let surfaceData3;
-
-        let mesh3;
-
-        let orderU3 = 2
-
-        let orderV3 = 2
-
-
-        // build nurb #2
-
-        controlPoints3 =
-
-            [   // U = 0
-
-                [ // V = 0..3;
-
-                    [-1.5, -1.5, 0.0, 1],
-
-                    [-2.0, -2.0, 2.0, 1],
-
-                    [-2.0, 2.0, 2.0, 1],
-
-                    [-1.5, 1.5, 0.0, 1]
-
-                ],
-
-                // U = 1
-
-                [ // V = 0..3
-
-                    [0.0, 0.0, 3.0, 1],
-
-                    [0.0, -2.0, 3.0, 1],
-
-                    [0.0, 2.0, 3.0, 1],
-
-                    [0.0, 0.0, 3.0, 1]
-
-                ],
-
-                // U = 2
-
-                [ // V = 0..3
-
-                    [1.5, -1.5, 0.0, 1],
-
-                    [2.0, -2.0, 2.0, 1],
-
-                    [2.0, 2.0, 2.0, 1],
-
-                    [1.5, 1.5, 0.0, 1]
-
-                ]
-
-            ]
-
-
-
-        surfaceData3 = this.builder.build(controlPoints3,
-
-            orderU3, orderV3, this.samplesU,
-
-            this.samplesV, this.material)
-
-
-        mesh3 = new THREE.Mesh(surfaceData3, this.material);
-
-        mesh3.rotation.x = 0
-
-        mesh3.rotation.y = 0
-
-        mesh3.rotation.z = 0
-
-        mesh3.scale.set(1, 1, 1)
-
-        mesh3.position.set(-4, -3, 0)
-
-        this.app.scene.add(mesh3)
-
-
-        let controlPoints4;
-
-        let surfaceData4;
-
-        let mesh4;
-
-        let orderU4 = 3
-
-        let orderV4 = 2
-
-
-        // build nurb #2
-
-        controlPoints4 =
-
-            [   // U = 0
-
-                [ // V = 0..2;
-
-                    [-2.0, -2.0, 1.0, 1],
-
-                    [0, -2.0, 0, 1],
-
-                    [2.0, -2.0, -1.0, 1]
-
-                ],
-
-                // U = 1
-
-                [ // V = 0..2
-
-                    [-2.0, -1.0, -2.0, 1],
-
-                    [0, -1.0, -1.0, 1],
-
-                    [2.0, -1.0, 2.0, 1]
-
-                ],
-
-                // U = 2
-
-                [ // V = 0..2
-
-                    [-2.0, 1.0, 5.0, 1],
-
-                    [0, 1.0, 1.5, 1],
-
-                    [2.0, 1.0, -5.0, 1]
-
-                ],
-
-                // U = 3
-
-                [ // V = 0..2
-
-                    [-2.0, 2.0, -1.0, 1],
-
-                    [0, 2.0, 0, 1],
-
-                    [2.0, 2.0, 1.0, 1]
-
-                ]
-
-            ]
-
-
-        surfaceData4 = this.builder.build(controlPoints4,
-
-            orderU4, orderV4, this.samplesU,
-
-            this.samplesV, this.material)
-
-
-        mesh4 = new THREE.Mesh(surfaceData4, this.material);
-
-        mesh4.rotation.x = 0
-
-        mesh4.rotation.y = 0
-
-        mesh4.rotation.z = 0
-
-        mesh4.scale.set(1, 1, 1)
-
-        mesh4.position.set(4, -3, 0)
-
-        this.app.scene.add(mesh4)
-
-
-        this.meshes.push(mesh)
-        this.meshes.push(mesh2)
-        this.meshes.push(mesh3)
-        this.meshes.push(mesh4)
     }
-
 
 
     /**
@@ -477,7 +329,7 @@ class MyContents {
 
     update() {
 
-
+       
 
     }
 
