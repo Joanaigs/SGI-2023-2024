@@ -23,8 +23,8 @@ export class MyCarpet extends THREE.Object3D {
         const materialCarpet = new THREE.MeshPhongMaterial( { color: this.color } );
         const carpet = new THREE.Mesh( geometryCarpet, materialCarpet );
         carpet.receiveShadow = true;
-        carpet.position.set(position[0],position[1]+0.01,position[2]);
         carpet.rotateX(-Math.PI / 2);
+        carpet.position.set(position[0],position[1]+0.01,position[2]);
         this.add( carpet );
     }
     

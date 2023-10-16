@@ -39,8 +39,8 @@ export class MyChair extends THREE.Object3D {
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.thinTexture });
 
         this.createChair(this.materialWood, this.materialThin);
-        this.position.set(position[0], position[1], position[2]);
         this.rotateY(rotation);
+        this.position.set(position[0], position[1], position[2]);
 
     }
 

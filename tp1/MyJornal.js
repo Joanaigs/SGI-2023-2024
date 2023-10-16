@@ -34,8 +34,8 @@ class MyJornal extends THREE.Object3D {
         this.height = height;
 
         this.createNurbsSurfaces();
-        this.position.set(position[0], position[1], position[2]);
         this.rotateZ(angle);
+        this.position.set(position[0], position[1], position[2]);
 
     }
 

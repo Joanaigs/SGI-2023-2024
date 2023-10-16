@@ -90,8 +90,8 @@ export class MyTable extends THREE.Object3D {
             tableTop.castShadow = true;
             tableTop.receiveShadow = true;
         }
-        tableTop.position.set(this.position.x, this.legHeight - 0.15, this.position.z + 0.05);
         tableTop.rotateX(-Math.PI / 2);
+        tableTop.position.set(this.position.x, this.legHeight - 0.15, this.position.z + 0.05);
         this.add(tableTop);
 
         const geometryThinTop = new THREE.BoxGeometry(this.topLength, this.topWidth, 0.1);
@@ -100,8 +100,8 @@ export class MyTable extends THREE.Object3D {
             thinTop.castShadow = true;
             thinTop.receiveShadow = true;
         }
-        thinTop.position.set(this.position.x, this.legHeight, this.position.z + 0.05);
         thinTop.rotateX(-Math.PI / 2);
+        thinTop.position.set(this.position.x, this.legHeight, this.position.z + 0.05);
         this.add(thinTop);
         
     }

@@ -79,16 +79,17 @@ class MyCake extends THREE.Object3D {
  
         
          const side1 = new THREE.Mesh(sideGeometry, sideMaterial);
-         side1.position.set( 0 , currentHeight - pieceCakeInfo.height/2 , pieceCakeInfo.radiusBottom/2  );
          side1.rotateY(-Math.PI / 2); // Rotate to match the angle of the cake slice
+         side1.position.set( 0 , currentHeight - pieceCakeInfo.height/2 , pieceCakeInfo.radiusBottom/2  );
          this.add(side1);
  
          const side2 = new THREE.Mesh(sideGeometry, sideMaterial);
+         side2.rotateY( Math.PI/6); // Rotate to match the angle of the cake slice
          side2.position.set(
             -(pieceCakeInfo.radiusTop/2)* Math.sin(Math.PI/3), // Adjust this value as needed
               + currentHeight - pieceCakeInfo.height / 2,
                 (pieceCakeInfo.radiusTop/2)* Math.cos(Math.PI/3) // Adjust this value as needed
-         );side2.rotateY( Math.PI/6); // Rotate to match the angle of the cake slice
+         );
          this.add(side2);
 
         // Candle

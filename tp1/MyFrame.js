@@ -75,15 +75,14 @@ class MyFrame extends THREE.Object3D {
                 //back
                 const geometryBack = new THREE.PlaneGeometry(this.length, heightSides);
                 let frameBack = new THREE.Mesh(geometryBack,this.contentMaterial);
-                frameBack.position.set(0, heightSides/2 + this.size/2, this.size/2 - 0.01);
                 frameBack.rotation.y = Math.PI;
+                frameBack.position.set(0, heightSides/2 + this.size/2, this.size/2 - 0.01);
                 this.add(frameBack);
         }
 
         
-
-        this.position.set(position[0], position[1], position[2]);
         this.rotateY(rotation); 
+        this.position.set(position[0], position[1], position[2]);
     }
 }
 MyFrame.prototype.isGroup = true;

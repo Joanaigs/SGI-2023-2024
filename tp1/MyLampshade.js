@@ -34,8 +34,8 @@ class MyLampshade extends THREE.Object3D {
         if(this.upsideDown) this.rotateAngle = -Math.PI;
         this.buildLamp();
 
-        this.position.set(position[0], position[1], position[2]);
         this.rotateX(this.rotateAngle);
+        this.position.set(position[0], position[1], position[2]);
 
     }
 

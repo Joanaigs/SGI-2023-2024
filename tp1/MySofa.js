@@ -90,9 +90,9 @@ class MySofa extends THREE.Object3D {
         if(shadows){
             armRestPillow.receiveShadow = true;
         }
-        armRestPillow.position.set(position[0] + sofaLength/2 + armRestLength/2, position[1] + armRestHeight  , position[2]);
         armRestPillow.rotateZ(Math.PI/2);
         armRestPillow.rotateX(Math.PI/2);
+        armRestPillow.position.set(position[0] + sofaLength/2 + armRestLength/2, position[1] + armRestHeight  , position[2]);
         this.add(armRestPillow);
 
         //Arm rest 2
@@ -108,9 +108,9 @@ class MySofa extends THREE.Object3D {
         if(shadows){
             armRestPillow2.receiveShadow = true;
         }
-        armRestPillow2.position.set(position[0] - sofaLength/2 - armRestLength/2, position[1] + armRestHeight  , position[2]);
         armRestPillow2.rotateZ(Math.PI/2);
         armRestPillow2.rotateX(Math.PI/2);
+        armRestPillow2.position.set(position[0] - sofaLength/2 - armRestLength/2, position[1] + armRestHeight  , position[2]);
         this.add(armRestPillow2);
 
         

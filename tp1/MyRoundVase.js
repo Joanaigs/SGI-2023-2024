@@ -37,8 +37,8 @@ class MyRoundVase extends THREE.Object3D {
         });
 
         this.createNurbsSurfaces();
-        this.position.set(position[0], position[1]*this.size, position[2]);
         this.scale.set(this.size, this.size, this.size);
+        this.position.set(position[0], position[1]*this.size, position[2]);
 
     }
 

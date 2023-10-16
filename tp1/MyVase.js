@@ -117,8 +117,8 @@ class MyVase extends THREE.Object3D {
 
             const flowerGeometry = new THREE.ConeGeometry(flowerRadius, flowerHeight, 32);
             let flower = new THREE.Mesh(flowerGeometry, flowerMaterial);
-            flower.position.set(stem.position.x, stem.position.y + stemHeight / 2, stem.position.z);
             flower.rotateX(-Math.PI); // Rotate the flower to be upright
+            flower.position.set(stem.position.x, stem.position.y + stemHeight / 2, stem.position.z);
             this.add(flower);
         }
 

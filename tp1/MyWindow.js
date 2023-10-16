@@ -34,20 +34,7 @@ class MyWindow extends THREE.Object3D {
 
         this.add(this.leftWindow);
         this.add(this.rightWindow);
-
-        //spotlight light
-/*
-        this.rectLight1 = new THREE.RectAreaLight( 0xffffff, 1, this.length, this.height );
-        this.rectLight1.position.set( position1[0], position1[1]+ this.height/2, position1[2] );
-        this.rectLight1.rotateY(-Math.PI/2)
-        this.add( this.rectLight1 );
-
-        this.rectLight2 = new THREE.RectAreaLight( 0xffffff, 1, this.length, this.height );
-        this.rectLight2.position.set( position2[0], position2[1]+ this.height/2, position2[2] );
-        this.rectLight2.rotateY(-Math.PI/2)
-        this.add( this.rectLight2 );*/
-
-        //sight
+ 
 
 
         this.contentTexture =new THREE.TextureLoader().load(contentTexturePath);
@@ -68,20 +55,20 @@ class MyWindow extends THREE.Object3D {
         let geometry = new THREE.CylinderGeometry( 0.1, 0.1, this.length, 32 );
         let material = new THREE.MeshPhongMaterial( {color: 0x000000} );
         let cylinder = new THREE.Mesh( geometry, material );
-        cylinder.position.set(position[0]+0.5, position[1], position[2]);
         cylinder.rotateX(Math.PI/2);
+        cylinder.position.set(position[0]+0.5, position[1], position[2]);
         this.add( cylinder );
 
         //stands
         let geometry2 = new THREE.CylinderGeometry( 0.1, 0.1, 0.5, 32 );
         let cylinder2 = new THREE.Mesh( geometry2, material );
-        cylinder2.position.set(position[0]+0.25, position[1], position[2]+this.length/2);
         cylinder2.rotateZ(Math.PI/2);
+        cylinder2.position.set(position[0]+0.25, position[1], position[2]+this.length/2);
         this.add( cylinder2 );
 
         let cylinder3 = new THREE.Mesh( geometry2, material );
-        cylinder3.position.set(position[0]+0.25, position[1], position[2]-this.length/2);
         cylinder3.rotateZ(Math.PI/2);
+        cylinder3.position.set(position[0]+0.25, position[1], position[2]-this.length/2);
         this.add( cylinder3 );
     }
     buildCurtains(position, rotation){
@@ -145,8 +132,8 @@ class MyWindow extends THREE.Object3D {
         // Create meshes for the two NURBS surfaces
         mesh1 = new THREE.Mesh(surfaceData1, this.material);
         mesh1.scale.set(1, this.height*0.55, 1);
-        mesh1.position.set(position[0], position[1], position[2]);
         mesh1.rotateY(rotation);
+        mesh1.position.set(position[0], position[1], position[2]);
         this.add(mesh1);
     }
 }
