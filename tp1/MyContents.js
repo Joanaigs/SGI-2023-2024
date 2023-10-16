@@ -34,13 +34,6 @@ class MyContents  {
         this.axis = null
         this.house = null
 
-        // box related attributes
-        this.boxMesh = null
-        this.boxMeshSize = 1.0
-        this.boxEnabled = false
-        this.lastBoxEnabled = null
-        this.boxDisplacement = new THREE.Vector3(0,2,0)
-
         //cake related attributes
         this.cake = null
         this.cakeSize = 1.0
@@ -70,7 +63,7 @@ class MyContents  {
         //spotlight
         this.lightColor = "#ffffff";
         this.lightIntensity = 2;
-        this.lightDistance = 0;
+        this.lightDistance = 40;
         this.lightAngle = 70;
         this.lightPenumbra = 1;
         this.lightDecay = 0;
@@ -102,19 +95,6 @@ class MyContents  {
         this.floor=null
     }
 
-    /**
-     * builds the box mesh with material assigned
-     */
-    buildBox() {    
-        let boxMaterial = new THREE.MeshPhongMaterial({ color: "#ffff77", 
-        specular: "#000000", emissive: "#000000", shininess: 90 })
-
-        // Create a Cube Mesh with basic material
-        let box = new THREE.BoxGeometry(  this.boxMeshSize,  this.boxMeshSize,  this.boxMeshSize );
-        this.boxMesh = new THREE.Mesh( box, boxMaterial );
-        this.boxMesh.rotation.x = -Math.PI / 2;
-        this.boxMesh.position.y = this.boxDisplacement.y;
-    }
 
     buildCake(){
         this.cake = new MyCake(this, 0xffdbe9);
@@ -224,7 +204,6 @@ class MyContents  {
         this.app.scene.add( ambientLight );
 
 
-        this.buildBox()
         this.buildCake()
         this.buildFloor()
         this.buildSpotlight()
@@ -251,7 +230,7 @@ class MyContents  {
         this.book2.rotateX(Math.PI);
         this.app.scene.add(this.book2);
 
-        this.robot = new MyRobot(this, 0x8ecccc, [-4, -0.3, 3.9]);
+        this.robot = new MyRobot(this, 0x8ecccc, [-4, -0.3, 3.9], true);
         this.app.scene.add(this.robot); 
         
         this.vase = new MyVase(this, 1, 0xc8dfea, [-12.5, 0, -13], true);
@@ -275,7 +254,7 @@ class MyContents  {
 
         // Pile of plates
         for(let i = 0; i < 5; i++){
-            let plate = new MyPlate(this, 0.5, 0xf5e9dc, [-2, 2, 0], true);
+            let plate = new MyPlate(this, 0.5, 0xf5e9dc, [-2, 2, 0]);
             plate.position.y += i*plate.plateHeight();
             this.app.scene.add(plate);
         }
@@ -343,7 +322,7 @@ class MyContents  {
     }
 
     addSpotLightLamp(lampPosition,targetPostion, lightAngle, shadows=false){
-        let spotlightLamp = new THREE.SpotLight(0xffffff, 2, 0, lightAngle*(Math.PI/180), 1, 0);
+        let spotlightLamp = new THREE.SpotLight(0xffffff, 2, 40, lightAngle*(Math.PI/180), 1, 0);
         if(shadows){
             spotlightLamp.castShadow = true;
             spotlightLamp.shadow.mapSize.width = this.mapSize;
@@ -391,18 +370,6 @@ class MyContents  {
         this.planeMaterial.shininess = this.planeShininess;
     }
     
-    /**
-     * rebuilds the box mesh if required
-     * this method is called from the gui interface
-     */
-    rebuildBox() {
-        // remove boxMesh if exists
-        if (this.boxMesh !== undefined && this.boxMesh !== null) {  
-            this.app.scene.remove(this.boxMesh);
-        }
-        this.buildBox();
-        this.lastBoxEnabled = null;
-    }
 
     rebuildFloor(){
         if(this.floor !== undefined && this.floor !== null){
@@ -420,23 +387,6 @@ class MyContents  {
         this.buildSpotlight();
     }
     
-    /**
-     * updates the box mesh if required
-     * this method is called from the render method of the app
-     * updates are trigered by boxEnabled property changes
-     */
-    updateBoxIfRequired() {
-        if (this.boxEnabled !== this.lastBoxEnabled) {
-            this.lastBoxEnabled = this.boxEnabled
-            if (this.boxEnabled) {
-                this.app.scene.add(this.boxMesh)
-            }
-            else {
-                this.app.scene.remove(this.boxMesh)
-            }
-        }
-    }
-
 
     /**
      * updates the contents
@@ -444,15 +394,6 @@ class MyContents  {
      * 
      */
     update() {
-        // check if box mesh needs to be updated
-        this.updateBoxIfRequired()
-
-        // sets the box mesh position based on the displacement vector
-        this.boxMesh.position.x = this.boxDisplacement.x
-        this.boxMesh.position.y = this.boxDisplacement.y
-        this.boxMesh.position.z = this.boxDisplacement.z
-
-        
     }
 
 }
