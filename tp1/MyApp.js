@@ -110,7 +110,7 @@ class MyApp  {
 
         //Vase Prespective Camera
         const perspective4 = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
-        perspective4.position.set(-5, 3, -5)
+        perspective4.position.set(-8, 3, -8)
         this.cameras['Vase Cylinder'] = perspective4
 
         //Left Side Room Prepective

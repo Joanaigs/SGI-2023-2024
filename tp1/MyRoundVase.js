@@ -26,7 +26,7 @@ class MyRoundVase extends THREE.Object3D {
         this.samplesU = 20; // maximum defined in MyGuiInterface
         this.samplesV = 20; // maximum defined in MyGuiInterface
         this.builder = new MyNurbsBuilder();
-        this.texture = this.app.textureRoundVase;
+        this.texture = this.app.textureVase;
         this.texture.rotation = Math.PI/2;
         this.texture.repeat.set(1, 2);
         this.material = new THREE.MeshPhongMaterial({
@@ -69,10 +69,10 @@ class MyRoundVase extends THREE.Object3D {
             ],
             // U = 2
             [
-                [0.5, 0.8, 0.0, 1],
-                [0.5, 0.8, -(4/3)*0.5, 1],
-                [-0.5, 0.8, -(4/3)*0.5, 1],
-                [-0.5, 0.8, 0.0, 1],
+                [0.4, 0.8, 0.0, 1],
+                [0.4, 0.8, -(4/3)*0.4, 1],
+                [-0.4, 0.8, -(4/3)*0.4, 1],
+                [-0.4, 0.8, 0.0, 1],
             ],
             // U = 3
             [
@@ -102,14 +102,14 @@ class MyRoundVase extends THREE.Object3D {
         mesh1 = new THREE.Mesh(surfaceData1, this.material);
         if(this.shadow){
             mesh1.castShadow = true;
-            //mesh1.receiveShadow = true;
+            mesh1.receiveShadow = true;
         }
         this.add(mesh1);
 
         mesh2 = new THREE.Mesh(surfaceData1, this.material);
         if(this.shadow){
             mesh2.castShadow = true;
-            //mesh2.receiveShadow = true;
+            mesh2.receiveShadow = true;
         }
         mesh2.rotateY(Math.PI);
         this.add(mesh2);
