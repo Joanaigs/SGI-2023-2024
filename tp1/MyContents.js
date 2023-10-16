@@ -78,6 +78,64 @@ class MyContents  {
         this.planeMesh.rotation.x = -Math.PI / 2;
         this.planeMesh.position.y = -0;
         this.app.scene.add( this.planeMesh );
+
+        //circle
+        let circle = new THREE.CircleGeometry( 1, 32 );
+        this.circleMesh = new THREE.Mesh( circle, this.planeMaterial );
+        this.circleMesh.position.set(2,1,0);
+        this.app.scene.add( this.circleMesh );
+        //sphere
+        let sphere = new THREE.SphereGeometry( 1, 32, 32 );
+        this.sphereMesh = new THREE.Mesh( sphere, this.planeMaterial );
+        this.sphereMesh.position.set(-4,1,0);
+        this.app.scene.add( this.sphereMesh );
+
+        //partial sphere
+        let partialSphere = new THREE.SphereGeometry( 1, 32, 32, 0, Math.PI/2, 0, Math.PI/2 );
+        this.partialSphereMesh = new THREE.Mesh( partialSphere, this.planeMaterial );
+        this.partialSphereMesh.position.set(-4,1,4);
+        this.app.scene.add( this.partialSphereMesh );
+
+        //cylinder
+        let cylinder = new THREE.CylinderGeometry( 1, 1, 2, 32 );
+        this.cylinderMesh = new THREE.Mesh( cylinder, this.planeMaterial );
+        this.cylinderMesh.position.set(2,1,4);
+        this.app.scene.add( this.cylinderMesh );
+
+        //partial cylinder
+        let partialCylinder = new THREE.CylinderGeometry( 1, 1, 2, 32, 0, Math.PI/2, 0, Math.PI/2 );
+        this.partialCylinderMesh = new THREE.Mesh( partialCylinder, this.planeMaterial );
+        this.partialCylinderMesh.position.set(2,1,0);
+        this.app.scene.add( this.partialCylinderMesh );
+
+        //cone
+        let cone = new THREE.ConeGeometry( 1, 2, 32 );
+        this.coneMesh = new THREE.Mesh( cone, this.planeMaterial );
+        this.coneMesh.position.set(-4,1,-4);
+        this.app.scene.add( this.coneMesh );
+
+        //polyhedron
+        const verticesOfCube = [
+            -1,-1,-1,    1,-1,-1,    1, 1,-1,    -1, 1,-1,
+            -1,-1, 1,    1,-1, 1,    1, 1, 1,    -1, 1, 1,
+        ];
+        
+        const indicesOfFaces = [
+            2,1,0,    0,3,2,
+            0,4,7,    7,3,0,
+            0,1,5,    5,4,0,
+            1,2,6,    6,5,1,
+            2,3,7,    7,6,2,
+            4,5,6,    6,7,4
+        ];
+        
+        const geometry = new THREE.PolyhedronGeometry( verticesOfCube, indicesOfFaces, 6, 2 );
+        this.polyhedronMesh = new THREE.Mesh( geometry, this.planeMaterial );
+        this.polyhedronMesh.position.set(2,1,-4);
+        this.polyhedronMesh.scale.set(0.2,0.2,0.2);
+        this.app.scene.add( this.polyhedronMesh );
+
+
     }
     
     /**
