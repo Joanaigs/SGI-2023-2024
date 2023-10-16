@@ -57,6 +57,25 @@ class MyGuiInterface  {
         // note that we are using a property from the app 
         cameraFolder.add(this.app.activeCamera.position, 'x', 0, 10).name("x coord")
         cameraFolder.open()
+
+        // SpotLight   
+        const lightFolder = this.datgui.addFolder( 'SpotLight cake' );
+        lightFolder.addColor( this.contents, 'lightColor' ).onChange( (value) => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents, 'lightIntensity', 0, 20).name("Intensity").onChange( (value) => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents, 'lightDistance', 0, 100).name("Distance").onChange( (value) => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents, 'lightAngle', 0, 90).name("Angle").onChange( (value) => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents, 'lightPenumbra', 0, 1).name("Penumbra").onChange( (value) => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents, 'lightDecay', 0, 1).name("Decay").onChange( (value) => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents.lightPosition, 'x', -5, 20).name("Position X").onChange( (value) => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents.lightPosition, 'y', -5, 20).name("Position Y").onChange( (value) => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents.lightPosition, 'z', -5, 20).name("Position Z").onChange( (value) => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents.lightTarget, 'x', -5, 20).name("Target X").onChange( (value) => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents.lightTarget, 'y', -5, 20).name("Target Y").onChange( (value) => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents.lightTarget, 'z', -5, 20).name("Target Z").onChange( (value) => { this.contents.rebuildSpotlight() } );
+
+
+
+
     }
 }
 

@@ -22,12 +22,44 @@ class MyContents  {
         this.boxDisplacement = new THREE.Vector3(0,2,0)
 
         // plane related attributes
-        this.diffusePlaneColor = "#00ffff"
-        this.specularPlaneColor = "#777777"
-        this.planeShininess = 30
+        this.diffusePlaneColor =  "rgb(128,128,128)"
+        this.specularPlaneColor = "rgb(128,128,128)"
+        this.planeShininess = 400
         this.planeMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
-            specular: this.diffusePlaneColor, emissive: "#000000", shininess: this.planeShininess })
+            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess })
+
+        //spotlight
+        this.lightColor = "#ffffff";
+        this.lightIntensity = 2;
+        this.lightDistance = 40;
+        this.lightAngle = 70;
+        this.lightPenumbra = 1;
+        this.lightDecay = 0;
+        this.lightPosition = new THREE.Vector3(0, 15, 0);
+        this.lightTarget = new THREE.Vector3(0, 2, -3);
+
     }
+
+    buildSpotlight(){
+        this.spotlight = new THREE.SpotLight(this.lightColor, this.lightIntensity, this.lightDistance, 
+            this.lightAngle*(Math.PI/180), this.lightPenumbra, this.lightDecay);
+        this.spotlight.castShadow = true;
+        this.spotlight.shadow.mapSize.width = this.mapSize;
+        this.spotlight.shadow.mapSize.height = this.mapSize;
+        this.spotlight.shadow.camera.near = 0.5;
+        this.spotlight.shadow.camera.far = 25;
+        this.spotlight.shadow.bias = -0.0003;
+
+        this.spotlight.position.set(this.lightPosition.x, this.lightPosition.y, this.lightPosition.z);
+        this.targetSpot = new THREE.Object3D();
+        this.targetSpot.position.set(this.lightTarget.x, this.lightTarget.y, this.lightTarget.z);
+        this.app.scene.add(this.targetSpot);
+        this.spotlight.target=this.targetSpot;
+        this.app.scene.add(this.spotlight);
+        //this.spotLightHelper = new THREE.SpotLightHelper(this.spotlight, 0xffffff );
+        //this.app.scene.add(this.spotLightHelper)
+    }
+
 
     /**
      * builds the box mesh with material assigned
@@ -56,9 +88,15 @@ class MyContents  {
         }
 
         // add a point light on top of the model
-        const pointLight = new THREE.PointLight( 0xffffff, 500, 0 );
+        const pointLight = new THREE.PointLight( 0xffffff, 5, 0, 0);
         pointLight.position.set( 0, 20, 0 );
-        this.app.scene.add( pointLight );
+        //this.app.scene.add( pointLight );
+
+        // directional light
+        const directionalLight = new THREE.DirectionalLight( 0xffffff, 1 );
+        directionalLight.position.set( 5, -10, -2 );
+        //this.app.scene.add( directionalLight );
+
 
         // add a point light helper for the previous point light
         const sphereSize = 0.5;
@@ -70,6 +108,7 @@ class MyContents  {
         this.app.scene.add( ambientLight );
 
         this.buildBox()
+        this.buildSpotlight()
         
         // Create a Plane Mesh with basic material
         
@@ -137,6 +176,17 @@ class MyContents  {
 
 
     }
+
+    rebuildSpotlight(){
+        if(this.spotlight !== undefined && this.spotlight !== null){
+            this.app.scene.remove(this.spotlight);
+            this.app.scene.remove(this.targetSpot);
+            //this.app.scene.remove(this.spotLightHelper);
+        }
+        this.buildSpotlight();
+    }
+    
+
     
     /**
      * updates the diffuse plane color and the material
