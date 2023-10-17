@@ -53,7 +53,7 @@ class MyWindow extends THREE.Object3D {
         this.contentTexture =new THREE.TextureLoader().load(contentTexturePath);
             this.diffusePlaneColor = "#FFFFFF";
             this.specularPlaneColor = "#000000";
-            this.planeShininess = 100;
+            this.planeShininess = 10;
             this.contentMaterial = new THREE.MeshBasicMaterial({ color: this.diffusePlaneColor, 
                  map: this.contentTexture });
 
