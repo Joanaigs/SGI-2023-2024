@@ -35,7 +35,7 @@ class MyRoundVase extends THREE.Object3D {
             transmission:1,
             roughness:0.05,
             thickness: 0.01,
-            depthWrite: false
+            //depthWrite: false
         });
 
         this.createNurbsSurfaces();
