@@ -27,7 +27,7 @@ class MyJornal extends THREE.Object3D {
         this.builder = new MyNurbsBuilder();
         this.shadows = shadows;
         this.jornalMaterial = this.app.materialJornal;
-        this.material = new THREE.MeshBasicMaterial({
+        this.material = new THREE.MeshStandardMaterial({
             color: 0x999999,
             side: THREE.DoubleSide,
             map: this.jornalMaterial

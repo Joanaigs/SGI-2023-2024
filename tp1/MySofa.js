@@ -21,8 +21,8 @@ class MySofa extends THREE.Object3D {
         this.app = app;
         this.size = size || 2;
 
-        const materialSofa = new THREE.MeshPhongMaterial( {color: colorBase} );
-        const materialPillow = new THREE.MeshPhongMaterial( {color: colorPillow} );
+        const materialSofa = new THREE.MeshStandardMaterial( {color: colorBase} );
+        const materialPillow = new THREE.MeshStandardMaterial( {color: colorPillow} );
 
         // Calculate heights and positions based on size
         const baseHeight = 0.8* this.size;
