@@ -69,6 +69,8 @@ class MyContents  {
         this.lightDecay = 0;
         this.lightPosition = new THREE.Vector3(0, 15, 0);
         this.lightTarget = new THREE.Vector3(0, 2, -3);
+        //light atributtes
+        this.bias = -0.0002
 
         //shadows
         this.mapSize = 4096
@@ -85,9 +87,10 @@ class MyContents  {
         this.textureVase.wrapS = THREE.RepeatWrapping;
         this.textureVase.wrapT = THREE.RepeatWrapping;
 
-        this.textureRoundVase = new THREE.TextureLoader().load("textures/roundVase.jpg");
-        this.textureRoundVase.wrapS = THREE.RepeatWrapping;
-        this.textureRoundVase.wrapT = THREE.RepeatWrapping;
+        this.textureCurtain = new THREE.TextureLoader().load("textures/curtain.jpg");
+        this.textureCurtain.wrapS = THREE.RepeatWrapping;
+        this.textureCurtain.wrapT = THREE.RepeatWrapping;
+        this.textureCurtain.repeat.set(1,  4)
 
         
         // other attributes
@@ -148,7 +151,7 @@ class MyContents  {
         this.spotlight.shadow.mapSize.height = this.mapSize;
         this.spotlight.shadow.camera.near = 0.5;
         this.spotlight.shadow.camera.far = 25;
-        this.spotlight.shadow.bias = -0.0004;
+        this.spotlight.shadow.bias = this.bias;
 
         this.spotlight.position.set(this.lightPosition.x, this.lightPosition.y, this.lightPosition.z);
         this.targetSpot = new THREE.Object3D();
@@ -159,6 +162,8 @@ class MyContents  {
         //this.spotLightHelper = new THREE.SpotLightHelper(this.spotlight, 0xffffff );
         //this.app.scene.add(this.spotLightHelper)
     }
+
+    
 
     /**
      * initializes the contents
@@ -173,31 +178,7 @@ class MyContents  {
         }
 
         // add a point light on top of the model
-        const pointLight = new THREE.PointLight( 0xffffff, 70, 0);
-        /*pointLight.castShadow = true;
-        pointLight.shadow.mapSize.width = this.mapSize;
-        pointLight.shadow.mapSize.height = this.mapSize;
-        pointLight.shadow.camera.near = 0.5;
-        pointLight.shadow.camera.far = 25;
-        pointLight.shadow.bias = -0.0003;*/
-        pointLight.position.set( 0, 14.5, 7.5 );
-        this.app.scene.add( pointLight );
-        const pontLightObject = new THREE.CylinderGeometry( 0.5, 0.5, 0.3, 32 );
-        const pontLightMaterial = new THREE.MeshPhongMaterial( {color: 0xffffff, emissive: 0xdddddd} );
-        const pointLightObject = new THREE.Mesh( pontLightObject, pontLightMaterial );
-        pointLightObject.position.set( 0, 14.7, 7.5 );
-        this.app.scene.add( pointLightObject );
-
-        const pointLightBase = new THREE.CylinderGeometry( 1, 0.5, 0.4, 32 );
-        const pointLightBaseMaterial = new THREE.MeshPhongMaterial( {color: 0x000000, emissive: 0x222222} );
-        const pointLightBaseObject = new THREE.Mesh( pointLightBase, pointLightBaseMaterial );
-        pointLightBaseObject.position.set( 0, 14.8, 7.5 );
-        this.app.scene.add( pointLightBaseObject );
-
-        // add a point light helper for the previous point light
-        const sphereSize = 0.5;
-        //const pointLightHelper = new THREE.PointLightHelper( pointLight, sphereSize );
-        //this.app.scene.add( pointLightHelper );
+        this.addPointLight()
 
         // add an ambient light
         const ambientLight = new THREE.AmbientLight( 0xeeeeee, 0.05 );
@@ -327,7 +308,7 @@ class MyContents  {
             spotlightLamp.shadow.mapSize.height = this.mapSize;
             spotlightLamp.shadow.camera.near = 0.5;
             spotlightLamp.shadow.camera.far = 45;
-            spotlightLamp.shadow.bias = -0.0004;
+            spotlightLamp.shadow.bias = this.bias;
         }
         spotlightLamp.position.set(lampPosition[0], lampPosition[1], lampPosition[2]);
         let target = new THREE.Object3D();
@@ -341,6 +322,30 @@ class MyContents  {
 
         console.log('Light position:', spotlightLamp.position);
         console.log('Light target position:', spotlightLamp.target.position);
+    }
+
+    addPointLight(){
+        // add a point light on top of the model
+        const pointLight = new THREE.PointLight( 0xffffff, 70, 0);
+        /*pointLight.castShadow = true;
+        pointLight.shadow.mapSize.width = this.mapSize;
+        pointLight.shadow.mapSize.height = this.mapSize;
+        pointLight.shadow.camera.near = 0.5;
+        pointLight.shadow.camera.far = 25;
+        pointLight.shadow.bias = this.bias;*/
+        pointLight.position.set( 0, 14.5, 7.5 );
+        this.app.scene.add( pointLight );
+        const pontLightObject = new THREE.CylinderGeometry( 0.5, 0.5, 0.3, 32 );
+        const pontLightMaterial = new THREE.MeshPhongMaterial( {color: 0xffffff, emissive: 0xdddddd} );
+        const pointLightObject = new THREE.Mesh( pontLightObject, pontLightMaterial );
+        pointLightObject.position.set( 0, 14.7, 7.5 );
+        this.app.scene.add( pointLightObject );
+
+        const pointLightBase = new THREE.CylinderGeometry( 1, 0.5, 0.4, 32 );
+        const pointLightBaseMaterial = new THREE.MeshPhongMaterial( {color: 0x000000, emissive: 0x222222} );
+        const pointLightBaseObject = new THREE.Mesh( pointLightBase, pointLightBaseMaterial );
+        pointLightBaseObject.position.set( 0, 14.8, 7.5 );
+        this.app.scene.add( pointLightBaseObject );
     }
     
     /**

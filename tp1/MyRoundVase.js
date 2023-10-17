@@ -29,11 +29,13 @@ class MyRoundVase extends THREE.Object3D {
         this.texture = this.app.textureVase;
         this.texture.rotation = Math.PI/2;
         this.texture.repeat.set(1, 2);
-        this.material = new THREE.MeshPhongMaterial({
+        this.material = new THREE.MeshPhysicalMaterial({
             color: this.color,
             side: THREE.DoubleSide,
-            transparent: true,
-            map: this.texture,
+            transmission:1,
+            roughness:0.05,
+            thickness: 0.01,
+            depthWrite: false
         });
 
         this.createNurbsSurfaces();
@@ -118,6 +120,7 @@ class MyRoundVase extends THREE.Object3D {
     }
 
 }
+
 /*
   controlPoints1 = [
             // U = 0

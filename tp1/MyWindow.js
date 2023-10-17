@@ -17,6 +17,7 @@ class MyWindow extends THREE.Object3D {
      */
     constructor(app, contentTexturePath, frameTexturePath) {
         super();
+        this.app = app;
         this.type = 'Group';
         RectAreaLightUniformsLib.init();
         this.height = 10;
@@ -74,10 +75,11 @@ class MyWindow extends THREE.Object3D {
     buildCurtains(position, rotation) {
 
         this.material = new THREE.MeshPhongMaterial({
-            color: 0x8eb1c2,
+            color: 0xc0d3dd,
             side: THREE.DoubleSide,
             opacity: 0.8,
             transparent: true,
+            map: this.app.textureCurtain,
         });
         // Declare local variables
         let controlPoints1;
