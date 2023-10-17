@@ -26,7 +26,7 @@ class MyVase extends THREE.Object3D {
         this.textureVase1.repeat.set( 3, 1 );
 
         const material1 = new THREE.MeshPhongMaterial({
-            specular: 0xffffff,  // Specular color
+            specular: 0xaaaaaa,  // Specular color
             shininess: 2,       // Shininess (higher values make it shinier)
             side: THREE.DoubleSide,
             map: this.textureVase1
@@ -52,7 +52,7 @@ class MyVase extends THREE.Object3D {
         this.textureVase3.repeat.set( 3, 1.5 );
 
         const material3 = new THREE.MeshPhongMaterial({
-            specular: 0xffffff,  // Specular color
+            specular: 0xaaaaaa,  // Specular color
             shininess: 2,       // Shininess (higher values make it shinier)
             side: THREE.DoubleSide,
             map: this.textureVase3
@@ -75,7 +75,7 @@ class MyVase extends THREE.Object3D {
         this.textureVase2.repeat.set( 3, 0.5 );
         this.textureVase2.offset.set( 0, 0.5 );
         const material2 = new THREE.MeshPhongMaterial({
-            specular: 0xffffff,  // Specular color
+            specular: 0xaaaaaa,  // Specular color
             shininess: 2,       // Shininess (higher values make it shinier)
             side: THREE.DoubleSide,
             map: this.textureVase2
