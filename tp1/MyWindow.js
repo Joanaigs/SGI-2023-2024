@@ -43,7 +43,7 @@ class MyWindow extends THREE.Object3D {
             color: this.diffusePlaneColor,
             map: this.contentTexture
         });
-        let ratio = 2400/1615;
+        let ratio = 608/402;
         this.contentPlane = new THREE.Mesh(new THREE.PlaneGeometry(ratio * 25, 25 / ratio), this.contentMaterial);
         this.contentPlane.rotateY(Math.PI / 2);
         this.contentPlane.position.set(-16, 5, 7.5);

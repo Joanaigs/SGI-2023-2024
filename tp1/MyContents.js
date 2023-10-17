@@ -314,7 +314,7 @@ class MyContents  {
         this.flower = new MyFlower(this, 2, 0xffb6c1, [0, 5.4, 21], 0, true);
         this.app.scene.add(this.flower);
 
-        this.jornal= new MyJornal(this, 1, [-10, 1.4, -1], Math.PI/16, 4, 0.5);
+        this.jornal= new MyJornal(this, 1, [-10, 1.44, -1], Math.PI/20, 4, 0.5, true);
         this.app.scene.add(this.jornal);
 
     }

@@ -15,8 +15,9 @@ class MyJornal extends THREE.Object3D {
      * @param {number} angle the angle of the Jornal
      * @param {number} num_pages the number of pages
      * @param {number} height the height of the jornal
+     * @param {boolean} shadows if the jornal has shadows
      */
-    constructor(app, size, position, angle, num_pages=5, height=0.4) {
+    constructor(app, size, position, angle, num_pages=5, height=0.4, shadows=false) {
         super();
         this.app = app;
         this.size = size || 2;
@@ -24,6 +25,7 @@ class MyJornal extends THREE.Object3D {
         this.samplesU = 20; // maximum defined in MyGuiInterface
         this.samplesV = 20; // maximum defined in MyGuiInterface
         this.builder = new MyNurbsBuilder();
+        this.shadows = shadows;
         this.jornalMaterial = this.app.materialJornal;
         this.material = new THREE.MeshBasicMaterial({
             color: 0x999999,
@@ -84,6 +86,10 @@ class MyJornal extends THREE.Object3D {
             );
             // Create meshes for the two NURBS surfaces
             mesh = new THREE.Mesh(surfaceData, this.material);
+            if(this.shadows){
+                mesh.castShadow = true;
+                mesh.receiveShadow = true;
+            }
             this.scale.set(this.size*3, this.height, this.size*2);
             this.add(mesh);
 
