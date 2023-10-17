@@ -70,7 +70,7 @@ export class MyBook extends THREE.Object3D {
     }
 
     getRandomColor() {
-        const colors =   ['#FFC0CB', '#AEC6CF', '#B2FF66', '#FFF68F', '#B19CD9', '#FFD700'];
+        const colors =  ["#D3D3D3", "#C0C0C0", "#DCDCDC", "#808080", "#696969", "#A9A9A9", "#708090", "#778899", "#2F4F4F", "#36454F"];
         const randomIndex = Math.floor(Math.random() * colors.length);
         const randomColor = colors[randomIndex];
 

@@ -239,17 +239,14 @@ class MyContents  {
         this.carpet = new MyCarpet(this,0x8eb1c2, [0, 0, 0]);
         this.app.scene.add(this.carpet); 
 
-        this.book =  new MyBook(this, 1, 0.7, 0.1, 8, [0, 0, 0]);
-        this.book.position.set(-7.5, 5.7, -13.5);
-        this.book.rotateZ(Math.PI/2);
-        this.book.rotateX(Math.PI);
-        this.app.scene.add(this.book);
-
-        this.book2 =  new MyBook(this, 1, 0.7, 0.1, 8, [0, 0, 0]);
-        this.book2.position.set(-7.5, 6.9, -13.5);
-        this.book2.rotateZ(Math.PI/2);
-        this.book2.rotateX(Math.PI);
-        this.app.scene.add(this.book2);
+        //  books on bookshelf next to TV
+        for (let i = 0; i < 4; i++) {
+            const book = new MyBook(this, 1, 0.7, 0.1, 15, [0, 0, 0]);
+            book.position.set(-7.9, 5.6 + i * 1.2, -13.9);
+            book.rotateZ(Math.PI/2);
+            book.rotateX(Math.PI);
+            this.app.scene.add(book);
+        }
 
         this.robot = new MyRobot(this, 0x8ecccc, [-4, -0.3, 3.9]);
         this.app.scene.add(this.robot); 
@@ -307,6 +304,16 @@ class MyContents  {
          this.bookshelf2.rotateY(-Math.PI/2)
          this.app.scene.add(this.bookshelf2);
 
+        // books on bookshelf next to the door
+        for (let i = 0; i < 5; i++) {
+            this.book2  =  new MyBook(this, 1, 1, 0.1, 32, [0, 0, 0]);
+            this.book2.position.set(14.1, 2.9 +  i*1.9, 0.1);
+            this.book2.rotateZ(Math.PI/2);
+            this.book2.rotateX(Math.PI/2);
+            this.app.scene.add(this.book2);
+        }
+        
+
         //back table
         this.backTable = new MyTable(this, 12, 5,4, "textures/top.jpg","textures/tableLegs.jpg", [0, 0, 10.5], true, true);
         this.app.scene.add(this.backTable); 
@@ -333,7 +340,7 @@ class MyContents  {
         this.roundVase= new MyRoundVase(this, 0.8, 0xc8dfea, [0, 6, 21], true);
         this.app.scene.add(this.roundVase);
 
-        this.flower = new MyFlower(this, 2, 0xffb6c1, [0, 5.4, 21], 0, true);
+        this.flower = new MyFlower(this, 2, 0xffb6c1, [0, 5.4, 21], Math.PI , true);
         this.app.scene.add(this.flower);
 
 
