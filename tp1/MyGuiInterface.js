@@ -45,28 +45,28 @@ class MyGuiInterface  {
         // adds a folder to the gui interface for the textures
         const textureFolder = this.datgui.addFolder( 'Textures Plane Settings' );
         const wrappingModeOptions = ['ClampToEdge', 'Repeat', 'MirroredRepeat'];
-        textureFolder.add(this.contents, 'wrapping_mode_u', wrappingModeOptions).name('Wrapping U').onChange( (value) => { this.contents.rebuildFloor() } );
-        textureFolder.add(this.contents, 'wrapping_mode_v', wrappingModeOptions).name('Wrapping V').onChange( (value) => { this.contents.rebuildFloor() } );
-        textureFolder.add(this.contents, 'repeat_u', 1, 10).name('Repeat U').onChange((value) => { this.contents.rebuildFloor() });
-        textureFolder.add(this.contents, 'repeat_v', 1, 10).name('Repeat V').onChange((value) => { this.contents.rebuildFloor() });
-        textureFolder.add(this.contents, 'offset_u', 0, 1).name('Offset U').onChange((value) => { this.contents.rebuildFloor() });
-        textureFolder.add(this.contents, 'offset_v', 0, 1).name('Offset V').onChange((value) => { this.contents.rebuildFloor() });
-        textureFolder.add(this.contents, 'rotation', 0, 360).name('Rotation').onChange((value) => { this.contents.rebuildFloor() });
+        textureFolder.add(this.contents, 'wrapping_mode_u', wrappingModeOptions).name('Wrapping U').onChange( () => { this.contents.rebuildFloorWrapping() } );
+        textureFolder.add(this.contents, 'wrapping_mode_v', wrappingModeOptions).name('Wrapping V').onChange( () => { this.contents.rebuildFloorWrapping() } );
+        textureFolder.add(this.contents, 'repeat_u', 1, 10).name('Repeat U').onChange(() => { this.contents.rebuildFloor() });
+        textureFolder.add(this.contents, 'repeat_v', 1, 10).name('Repeat V').onChange(() => { this.contents.rebuildFloor() });
+        textureFolder.add(this.contents, 'offset_u', 0, 1).name('Offset U').onChange(() => { this.contents.rebuildFloor() });
+        textureFolder.add(this.contents, 'offset_v', 0, 1).name('Offset V').onChange(() => { this.contents.rebuildFloor() });
+        textureFolder.add(this.contents, 'rotation', 0, 360).name('Rotation').onChange(() => { this.contents.rebuildFloor() });
 
 
         const lightFolder = this.datgui.addFolder( 'SpotLight cake' );
-        lightFolder.addColor( this.contents, 'lightColor' ).onChange( (value) => { this.contents.rebuildSpotlight() } );
-        lightFolder.add(this.contents, 'lightIntensity', 0, 20).name("Intensity").onChange( (value) => { this.contents.rebuildSpotlight() } );
-        lightFolder.add(this.contents, 'lightDistance', 0, 100).name("Distance").onChange( (value) => { this.contents.rebuildSpotlight() } );
-        lightFolder.add(this.contents, 'lightAngle', 0, 90).name("Angle").onChange( (value) => { this.contents.rebuildSpotlight() } );
-        lightFolder.add(this.contents, 'lightPenumbra', 0, 1).name("Penumbra").onChange( (value) => { this.contents.rebuildSpotlight() } );
-        lightFolder.add(this.contents, 'lightDecay', 0, 1).name("Decay").onChange( (value) => { this.contents.rebuildSpotlight() } );
-        lightFolder.add(this.contents.lightPosition, 'x', -5, 20).name("Position X").onChange( (value) => { this.contents.rebuildSpotlight() } );
-        lightFolder.add(this.contents.lightPosition, 'y', -5, 20).name("Position Y").onChange( (value) => { this.contents.rebuildSpotlight() } );
-        lightFolder.add(this.contents.lightPosition, 'z', -5, 20).name("Position Z").onChange( (value) => { this.contents.rebuildSpotlight() } );
-        lightFolder.add(this.contents.lightTarget, 'x', -5, 20).name("Target X").onChange( (value) => { this.contents.rebuildSpotlight() } );
-        lightFolder.add(this.contents.lightTarget, 'y', -5, 20).name("Target Y").onChange( (value) => { this.contents.rebuildSpotlight() } );
-        lightFolder.add(this.contents.lightTarget, 'z', -5, 20).name("Target Z").onChange( (value) => { this.contents.rebuildSpotlight() } );
+        lightFolder.addColor( this.contents, 'lightColor' ).onChange( () => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents, 'lightIntensity', 0, 20).name("Intensity").onChange( () => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents, 'lightDistance', 0, 100).name("Distance").onChange( () => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents, 'lightAngle', 0, 90).name("Angle").onChange( () => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents, 'lightPenumbra', 0, 1).name("Penumbra").onChange( () => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents, 'lightDecay', 0, 1).name("Decay").onChange( () => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents.lightPosition, 'x', -5, 20).name("Position X").onChange( () => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents.lightPosition, 'y', -5, 20).name("Position Y").onChange( () => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents.lightPosition, 'z', -5, 20).name("Position Z").onChange( () => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents.lightTarget, 'x', -5, 20).name("Target X").onChange( () => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents.lightTarget, 'y', -5, 20).name("Target Y").onChange( () => { this.contents.rebuildSpotlight() } );
+        lightFolder.add(this.contents.lightTarget, 'z', -5, 20).name("Target Z").onChange( () => { this.contents.rebuildSpotlight() } );
 
 
 

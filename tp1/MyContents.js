@@ -76,6 +76,10 @@ class MyContents  {
         this.mapSize = 4096
 
         //textures
+        this.planetexturePath = "textures/floor.jpg"
+
+        this.planeTexture =new THREE.TextureLoader().load(this.planetexturePath);
+
         this.materialJornal =new THREE.TextureLoader().load('textures/jornal.jpg');
         this.materialJornal.wrapT = THREE.MirroredRepeatWrapping;
         this.materialJornal.rotation = Math.PI/2;
@@ -109,7 +113,7 @@ class MyContents  {
     }
 
     buildFloor(){
-        let planeTexture =new THREE.TextureLoader().load('textures/floor.jpg');
+        let planeTexture =this.planeTexture
         if(this.wrapping_mode_u === 'ClampToEdge'){
             planeTexture.wrapS = THREE.ClampToEdgeWrapping;
         }
@@ -379,6 +383,11 @@ class MyContents  {
         if(this.floor !== undefined && this.floor !== null){
             this.app.scene.remove(this.floor);
         }
+    }
+
+    rebuildFloorWrapping(){
+        this.planeTexture =new THREE.TextureLoader().load(this.planetexturePath);
+        this.rebuildFloor();
     }
 
     rebuildSpotlight(){
