@@ -21,7 +21,7 @@ class MyApp  {
         this.activeCameraName = null
         this.lastCameraName = null
         this.cameras = []
-        this.frustumSize = 45
+        this.frustumSize = 23
         // other attributes
         this.renderer = null
         this.controls = null
@@ -133,7 +133,7 @@ class MyApp  {
         console.log(left, right, top, bottom, near, far)
 
         // create a left view orthographic camera
-        const orthoLeft = new THREE.OrthographicCamera( left +15, right+15, top, bottom, near, far);
+        const orthoLeft = new THREE.OrthographicCamera( left +15, right+15, top, bottom, -15, far);
         orthoLeft.up = new THREE.Vector3(0,1,0);
         orthoLeft.position.set(-this.frustumSize /4,0,0) 
         orthoLeft.lookAt( new THREE.Vector3(0,0,0) );
@@ -146,6 +146,17 @@ class MyApp  {
         orthoRight.lookAt( new THREE.Vector3(0,0,0) );
         this.cameras['Right'] = orthoRight
 
+        this.frustumSize = 45
+
+        // defines the frustum size for the orthographic cameras
+        left = -(this.frustumSize) / 2 * aspect
+        right = (this.frustumSize) /2 * aspect 
+        top = this.frustumSize / 2 +7.5
+        bottom = -this.frustumSize / 2+7.5 
+        near = -this.frustumSize /2
+        far =  this.frustumSize
+        console.log(left, right, top, bottom, near, far)
+
         // create a top view orthographic camera
         const orthoTop = new THREE.OrthographicCamera( left, right, top, bottom, near, far);
         orthoTop.up = new THREE.Vector3(0,0,1);
@@ -153,7 +164,7 @@ class MyApp  {
         orthoTop.lookAt( new THREE.Vector3(0,0,0) );
         this.cameras['Top'] = orthoTop
 
-        this.frustumSize = 30
+        this.frustumSize = 15
 
         // defines the frustum size for the orthographic cameras
         left = -(this.frustumSize) / 2 * aspect
@@ -165,14 +176,14 @@ class MyApp  {
         console.log(left, right, top, bottom, near, far)
 
         // create a front view orthographic camera
-        const orthoFront = new THREE.OrthographicCamera( left, right, top, bottom, near, far+15);
+        const orthoFront = new THREE.OrthographicCamera( left, right, top, bottom, near, far+40);
         orthoFront.up = new THREE.Vector3(0,1,0);
         orthoFront.position.set(0,0, this.frustumSize /4) 
         orthoFront.lookAt( new THREE.Vector3(0,0,0) );
         this.cameras['Front'] = orthoFront
 
         // create a back view orthographic camera
-        const orthoBack = new THREE.OrthographicCamera( left, right, top, bottom, near, far+15);
+        const orthoBack = new THREE.OrthographicCamera( left, right, top, bottom, near, far+40);
         orthoBack.up = new THREE.Vector3(0,1,0);
         orthoBack.position.set(0,0, -this.frustumSize /4)
         orthoBack.lookAt( new THREE.Vector3(0,0,0) );
