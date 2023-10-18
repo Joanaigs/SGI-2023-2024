@@ -33,7 +33,7 @@ class MyCoil extends THREE.Object3D {
      * Created the coil
      */
     buidCoil(){
-        const material = new THREE.MeshPhongMaterial({ color: 0xff0000 });
+        const material = this.app.materialLightMetal;
     
         const halfCircle = new THREE.CubicBezierCurve3(
             new THREE.Vector3(-this.radius, 0, 0),        // Start point

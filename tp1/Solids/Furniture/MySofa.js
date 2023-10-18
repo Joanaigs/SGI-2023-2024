@@ -57,6 +57,7 @@ class MySofa extends THREE.Object3D {
         let sofaBackPillow = new THREE.Mesh(geometryBackPillow, materialPillow);
         if(shadows){
             sofaBackPillow.receiveShadow = true;
+            sofaBackPillow.castShadow = true;
         }
         sofaBackPillow.position.set(position[0], position[1]  + baseHeight + backHeight/2 , position[2]+sofaWidth/2- (3*backWidth)/2);
         this.add(sofaBackPillow); 
@@ -67,6 +68,7 @@ class MySofa extends THREE.Object3D {
         let sofabasePillow = new THREE.Mesh(geometryBasePillow, materialPillow);
         if(shadows){
             sofabasePillow.receiveShadow = true;
+            sofabasePillow.castShadow = true;
         }
         sofabasePillow.position.set(position[0], position[1]  + (3*baseHeight)/2 , position[2]-backWidth/2 - backWidth/2);
         this.add(sofabasePillow);
@@ -88,6 +90,7 @@ class MySofa extends THREE.Object3D {
         let armRestPillow = new THREE.Mesh(geometryArmRestPillow, materialPillow);
         if(shadows){
             armRestPillow.receiveShadow = true;
+            armRestPillow.castShadow = true;
         }
         armRestPillow.rotateZ(Math.PI/2);
         armRestPillow.rotateX(Math.PI/2);
@@ -106,6 +109,7 @@ class MySofa extends THREE.Object3D {
         let armRestPillow2 = new THREE.Mesh(geometryArmRestPillow, materialPillow);
         if(shadows){
             armRestPillow2.receiveShadow = true;
+            armRestPillow2.castShadow = true;
         }
         armRestPillow2.rotateZ(Math.PI/2);
         armRestPillow2.rotateX(Math.PI/2);

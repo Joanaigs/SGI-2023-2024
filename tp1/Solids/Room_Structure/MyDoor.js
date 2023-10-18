@@ -12,7 +12,6 @@ class MyDoor extends THREE.Object3D {
      * @param {number} width the width of the door
      * @param {number} lenght the lenght of the door
      * @param {number} height the height of the door
-     * @param {hex} color the color of the door
      * @param {string} knobTexturePath the path of the knob texture
      * @param {list} position the position of the door
      */
