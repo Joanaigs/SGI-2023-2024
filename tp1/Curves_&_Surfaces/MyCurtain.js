@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { MyNurbsBuilder } from '../../Curves & Surfaces/MyNurbsBuilder.js';
+import { MyNurbsBuilder } from './MyNurbsBuilder.js';
 
 /**
  * This class contains a Window representation

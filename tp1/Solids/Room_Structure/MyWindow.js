@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { MyFrame } from '../Decoration/MyFrame.js';
-import { MyCurtain } from '../House Structure/MyCurtain.js';
+import { MyCurtain } from '../../Curves_&_Surfaces/MyCurtain.js';
 
 /**
  * This class contains a Window representation

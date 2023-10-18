@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
-import { MyHouse } from './Solids/House Structure/MyHouse.js';
+import { MyHouse } from './Solids/Room_Structure/MyHouse.js';
 import { MyTable } from './Solids/Furniture/MyTable.js';
 import { MyPlate } from './Solids/Decoration/MyPlate.js';
 import { MyCake } from './Solids/Cake/MyCake.js';
@@ -13,13 +13,13 @@ import { MyCakePiece } from './Solids/Cake/MyCakePiece.js';
 import { MySofa } from './Solids/Furniture/MySofa.js';
 import { MyFrame } from './Solids/Decoration/MyFrame.js';
 import { MyCabinet } from './Solids/Furniture/MyCabinet.js';
-import { MyDoor } from './Solids/House Structure/MyDoor.js';
-import { MyWindow } from './Solids/House Structure/MyWindow.js';
-import { MyCarocha } from './Curves & Surfaces/MyCarocha.js';
-import { MyCoil } from './Curves & Surfaces/MyCoil.js';
-import { MyRoundVase } from './Curves & Surfaces/MyRoundVase.js';
-import {MyFlower} from './Curves & Surfaces/MyFlower.js';
-import { MyJornal } from './Curves & Surfaces/MyJornal.js';
+import { MyDoor } from './Solids/Room_Structure/MyDoor.js';
+import { MyWindow } from './Solids/Room_Structure/MyWindow.js';
+import { MyCarocha } from './Curves_&_Surfaces/MyCarocha.js';
+import { MyCoil } from './Curves_&_Surfaces/MyCoil.js';
+import { MyRoundVase } from './Curves_&_Surfaces/MyRoundVase.js';
+import {MyFlower} from './Curves_&_Surfaces/MyFlower.js';
+import { MyJornal } from './Curves_&_Surfaces/MyJornal.js';
 /**
  *  This class contains the contents of out application
  */
