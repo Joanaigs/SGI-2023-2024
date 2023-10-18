@@ -116,12 +116,12 @@ class MyApp  {
         //Left Side Room Prepective
         const perspective5 = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
         perspective5.position.set(0, 7, 10)
-        this.cameras['Left Side Room Prepective'] = perspective5
+        this.cameras['Dining Side Prepective'] = perspective5
 
         // Right Side Room Prespective
         const perspective6 = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
         perspective6.position.set(0, 7, 10)
-        this.cameras['Right Side Room Prepective'] = perspective6
+        this.cameras['Television Side Prepective'] = perspective6
 
         // defines the frustum size for the orthographic cameras
         let left = -(this.frustumSize) / 2 * aspect -7.5
@@ -225,10 +225,10 @@ class MyApp  {
         else if(this.activeCameraName == 'Carocha'){
             this.controls.target = new THREE.Vector3(15, 8, 25)
         }
-        else if(this.activeCameraName == 'Left Side Room Prepective'){
+        else if(this.activeCameraName == 'Dining Side Prepective'){
             this.controls.target = new THREE.Vector3(0, 5, 30)
         }
-        else if(this.activeCameraName == 'Right Side Room Prepective'){
+        else if(this.activeCameraName == 'Television Side Prepective'){
             this.controls.target = new THREE.Vector3(0, 5, -15)
         }
 

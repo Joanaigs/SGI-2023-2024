@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { MyApp } from '../../MyApp.js';
 
 /**
- * This class contains a Cabinet representation, it can build a bookshelf or a simple cabinet, or both
+ * This class contains a Cabinet representation, it can build a bookshelf or a simple cabinet
  */
 class MyCabinet extends THREE.Object3D {
 

@@ -50,6 +50,10 @@ class MyPlate extends THREE.Object3D {
         
     }
 
+    /**
+     * 
+     * @returns the height of the plate
+     */
     plateHeight(){
         return this.height;
     }

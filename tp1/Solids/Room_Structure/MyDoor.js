@@ -35,7 +35,7 @@ class MyDoor extends THREE.Object3D {
         this.add(door);   
         
         // knob
-        const cylinderGeometry = new THREE.CylinderGeometry(0.4, 0.2, 0.5, 32); // Adjust size and segments
+        const cylinderGeometry = new THREE.CylinderGeometry(0.4, 0.2, 0.5, 32); 
         const cylinderMesh = new THREE.Mesh(cylinderGeometry, materialKnob);
         cylinderMesh.rotateZ(Math.PI/2);
         cylinderMesh.position.set(position[0] - 0.5, position[1] + this.lenght/2, position[2] - this.width/2 + this.width/7);

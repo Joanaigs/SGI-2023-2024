@@ -29,16 +29,33 @@ export class MyRobot extends THREE.Object3D {
     }
 
 
+    /**
+     * 
+     * @param {number} radiusTop the radius of the top of the cylinder
+     * @param {number} radiusBottom the radius of the bottom of the cylinder
+     * @param {number} height the height of the cylinder
+     * @param {number} segments the number of segments of the cylinder
+     * @param {THREE.MeshPhongMaterial} material the material of the cylinder
+     * @returns 
+     */
     createCylinder(radiusTop, radiusBottom, height, segments, material) {
         const geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, segments);
         const mesh = new THREE.Mesh(geometry, material);
         return mesh;
     }
 
+    /**
+     * 
+     * @param {hex} color the color of the material
+     * @returns the material
+     */
     createMaterial(color) {
         return new THREE.MeshPhongMaterial({ color });
     }
 
+    /**
+     * Creates the robot head
+     */
     createRobotHead(){
         // Head
         const cylinder = new THREE.CylinderGeometry(0.6, 0.6,1, 32, 1, false);
@@ -110,6 +127,9 @@ export class MyRobot extends THREE.Object3D {
         this.add(meshAntenna2);
     }
 
+    /**
+     * Creates the robot face
+     */
     createRobotFace(){
 
         const glassesMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
@@ -158,6 +178,9 @@ export class MyRobot extends THREE.Object3D {
 
     }
 
+    /**
+     * Creates the robot body
+     */
     createRobotBody(){
         const cylinder = new THREE.CylinderGeometry(0.6, 0.6,0.9, 32, 1, false);
         const chest = new THREE.Mesh(cylinder, this.materialRobot);
@@ -292,6 +315,9 @@ export class MyRobot extends THREE.Object3D {
         this.add(rightElbow);
     }
 
+    /**
+     * Creates the robot legs
+     */
     createRobotLegs() {
         const legMaterial2 = new THREE.MeshPhongMaterial({ color: 0x000000 });
     

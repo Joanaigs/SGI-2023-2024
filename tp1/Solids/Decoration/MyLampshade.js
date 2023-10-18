@@ -38,6 +38,9 @@ class MyLampshade extends THREE.Object3D {
 
     }
 
+    /**
+     * Builds the lampshade
+     */
     buildLampshade(){
         const materialLampshade = new THREE.MeshPhongMaterial({ color: this.lampshadeColor,  emissive: "#aaaaaa", side: THREE.DoubleSide, side: THREE.DoubleSide, transparent: true, opacity: 0.9 });
         const materialBulb = new THREE.MeshPhongMaterial({ color: 0xffffdd, emissive: "#ffffdd"});

@@ -9,6 +9,12 @@ class MyFlower extends THREE.Object3D {
 
     /**
      * 
+     * @param {MyApp} app the application object
+     * @param {number} size the size of the flower
+     * @param {hex} color the color of the flower
+     * @param {list} position the position of the flower
+     * @param {number} angle the angle of rotation of the flower in y axis
+     * @param {boolean} shadow if the object has shadow or not
      */
     constructor(app, size, color, position, angle, shadow=false) {
         super();
@@ -31,6 +37,9 @@ class MyFlower extends THREE.Object3D {
 
     }
 
+    /**
+     * Creates the flower
+     */
     createFLower() {
        
         // Center of the flower
@@ -40,9 +49,9 @@ class MyFlower extends THREE.Object3D {
 
         // Extrude the shape to give it thickness
         const extrusionSettings = {
-            steps: 1, // Number of depth layers
-            depth: 0.01, // Adjust the thickness here
-            bevelEnabled: false, // No bevel
+            steps: 1, 
+            depth: 0.01, 
+            bevelEnabled: false,
         };
 
         const flowerCenterGeometry = new THREE.ExtrudeGeometry(flowerCenterShape, extrusionSettings);
@@ -55,7 +64,7 @@ class MyFlower extends THREE.Object3D {
         this.add(flowerCenterMesh);
 
         // Petals
-        const numPetals = 17; // Adjust the number of petals as needed
+        const numPetals = 17; 
         const petalAngleIncrement = (Math.PI * 2) / numPetals;
 
         for (let i = 0; i < numPetals; i++) {
@@ -68,10 +77,10 @@ class MyFlower extends THREE.Object3D {
 
             // Position each petal around the flower center
             const angle = i * petalAngleIncrement;
-            const radius = 0.29; // Adjust the radius as needed
+            const radius = 0.29; 
             const x = radius * Math.cos(angle);
             const z = 0;
-            const y = 1.3 + radius * Math.sin(angle); // Adjust the height of the petals as needed
+            const y = 1.3 + radius * Math.sin(angle); 
             petalMesh.position.set(x, y, z);
 
             // Rotate petals to face outward
@@ -86,7 +95,7 @@ class MyFlower extends THREE.Object3D {
             coneMesh.rotateY()
         
             // Position the cone
-            coneMesh.position.set(0, 1.3, 0); // Adjust the position as needed
+            coneMesh.position.set(0, 1.3, 0); 
             if (this.shadow) {
                 coneMesh.castShadow = true;
             }
@@ -101,7 +110,7 @@ class MyFlower extends THREE.Object3D {
          const flowerBackMesh = new THREE.Mesh(flowerBackGeometry, material);
          flowerBackMesh.rotateX(-Math.PI/2);
          // Position the cone
-         flowerBackMesh.position.set(0, 1.3, -backHeight/2-0.005); // Adjust the position as needed
+         flowerBackMesh.position.set(0, 1.3, -backHeight/2-0.005); 
  
          this.add(flowerBackMesh);
          // Stem of the flower
@@ -112,8 +121,8 @@ class MyFlower extends THREE.Object3D {
              new THREE.Vector3(0, 1.2, -backHeight-0.1),
              new THREE.Vector3(0, 1.3, -backHeight+0.01)
          ]);
-         const tubeRadius = 0.01; // Adjust this value to control the stem's radius
-         const tubeSegments = 100; // Adjust this value to control the smoothness of the tube
+         const tubeRadius = 0.01; 
+         const tubeSegments = 100; 
  
          const geometryStem = new THREE.TubeGeometry(stem, tubeSegments, tubeRadius, 8, false);
          const stemObject = new THREE.Mesh(geometryStem, material);
@@ -123,6 +132,9 @@ class MyFlower extends THREE.Object3D {
          this.add(stemObject);
     }
 
+    /**
+     * Creates the petal shape
+     */
     createPetalShape() {
         const petalShape = new THREE.Shape();
         petalShape.ellipse(0, 0, 0.06, 0.12, 0, Math.PI * 2, false, 0);

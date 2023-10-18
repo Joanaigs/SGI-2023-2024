@@ -12,7 +12,7 @@ export class MyBook extends THREE.Object3D {
      * @param {number} length length of the book
      * @param {number} height height of the book
      * @param {number} numBooks number of books on the pile
-     * @param {number[]} position an array with x, y, z coordinates
+     * @param {list} position an array with x, y, z coordinates
      */
     constructor(app, width, length, height, numBooks, position) {
         super();
@@ -28,6 +28,11 @@ export class MyBook extends THREE.Object3D {
         this.createBookPile(position);
     }
 
+    /**
+     * 
+     * @param {list} position the position of the book
+     * @param {hex} color the color of the book
+     */
     createBook(position, color) {
         this.position.set(position[0], position[1], position[2]);
 
@@ -42,8 +47,6 @@ export class MyBook extends THREE.Object3D {
         const geometryPages = new THREE.BoxGeometry(this.length, this.height, this.width);
         const pages = new THREE.Mesh(geometryPages, materialPages);
         pages.position.set(position[0], position[1], position[2]);
-
-        // Cover
 
         // front and back cover
         const geometryCover = new THREE.BoxGeometry(this.length, this.coverThickness, this.width);
@@ -68,6 +71,10 @@ export class MyBook extends THREE.Object3D {
         
     }
 
+    /**
+     * 
+     * @returns a random color from a list of colors
+     */
     getRandomColor() {
         const colors =  ["#D3D3D3", "#C0C0C0", "#DCDCDC", "#808080", "#696969", "#A9A9A9", "#708090", "#778899", "#2F4F4F", "#36454F"];
         const randomIndex = Math.floor(Math.random() * colors.length);
@@ -77,6 +84,10 @@ export class MyBook extends THREE.Object3D {
         return threeColor;
     }
 
+    /**
+     * 
+     * @param {list} startPosition the position of the first book in the pile
+     */
     createBookPile(startPosition) {
         const spacing = this.height/2 + 0.01;
     

@@ -39,6 +39,9 @@ export class MyTable extends THREE.Object3D {
 
     }
 
+    /**
+     * Creates the table legs
+     */
     createTableLegs(){
         const legPositions = [
             [-(this.topLength / 2) +0.3, -(this.topWidth / 2) +0.3],
@@ -63,6 +66,9 @@ export class MyTable extends THREE.Object3D {
         }
     }
 
+    /**
+     * Creates the table top
+     */
     createTableTop(){
         const geometryTop = new THREE.BoxGeometry(this.topLength, this.topWidth, 0.2);
         const tableTop = new THREE.Mesh(geometryTop, this.materialTableLegs);
@@ -86,6 +92,9 @@ export class MyTable extends THREE.Object3D {
         
     }
 
+    /**
+     * Creates the chairs around the table
+     */
     createChair(){
         const chairPositions = [
             [this.position.x + this.topLength/4, this.position.y, this.position.z - this.topWidth/2, Math.PI],

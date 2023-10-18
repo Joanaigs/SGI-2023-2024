@@ -41,16 +41,17 @@ class MyJornal extends THREE.Object3D {
 
     }
 
+    /**
+     * Creates the jornal
+     */
     createNurbsSurfaces() {
-        // Declare local variables
         let controlPoints;
         let surfaceData;
         let mesh;
-        let orderU = 1; // Higher order for smoother curves
-        let orderV = 2; // Higher order for smoother curves
+        let orderU = 1;
+        let orderV = 2;
 
-        // Define control points for the first NURBS surface (lower part of the vase)
-
+        // Define control points for jornal
         controlPoints = [
             // U = 0
             [
@@ -64,9 +65,6 @@ class MyJornal extends THREE.Object3D {
                 [0, 0, 1, 1],
                 [1, -0.2, 1, 1],
             ],
-
-
-
         ];
         let space = (this.height / this.num_pages);
         for (let i = 0; i < this.num_pages; i++) {
@@ -75,7 +73,6 @@ class MyJornal extends THREE.Object3D {
             controlPoints[1][0][1] = (1 - i * space) / 2;
             controlPoints[1][2][1] = -(1 - i * space) / 2;
 
-            // Build the first NURBS surface (lower part of the vase)
             surfaceData = this.builder.build(
                 controlPoints,
                 orderU,
@@ -84,7 +81,6 @@ class MyJornal extends THREE.Object3D {
                 this.samplesV,
                 this.material
             );
-            // Create meshes for the two NURBS surfaces
             mesh = new THREE.Mesh(surfaceData, this.material);
             if(this.shadows){
                 mesh.castShadow = true;
@@ -95,10 +91,7 @@ class MyJornal extends THREE.Object3D {
 
             this.meshes.push(mesh);
         }
-
-
     }
-
 }
 MyJornal.prototype.isGroup = true;
 export { MyJornal };

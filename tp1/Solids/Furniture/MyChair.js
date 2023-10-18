@@ -30,6 +30,9 @@ export class MyChair extends THREE.Object3D {
     }
 
 
+    /**
+     * Creates the chair
+     */
     createChair(){
         let legHeight = 2.5*this.size;
         let legrad = 0.2*this.size;

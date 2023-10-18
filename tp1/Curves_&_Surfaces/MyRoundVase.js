@@ -23,8 +23,8 @@ class MyRoundVase extends THREE.Object3D {
         this.shadow = shadow;
         this.color = color;
         this.meshes = [];
-        this.samplesU = 20; // maximum defined in MyGuiInterface
-        this.samplesV = 20; // maximum defined in MyGuiInterface
+        this.samplesU = 20; 
+        this.samplesV = 20; 
         this.builder = new MyNurbsBuilder();
         this.texture = this.app.textureVase;
         this.texture.rotation = Math.PI/2;
@@ -44,16 +44,17 @@ class MyRoundVase extends THREE.Object3D {
 
     }
 
+    /**
+     * Creates the vase
+     */
     createNurbsSurfaces() {
-        // Declare local variables
         let controlPoints1;
         let surfaceData1;
         let mesh1, mesh2;
-        let orderU = 3; // Higher order for smoother curves
-        let orderV = 3; // Higher order for smoother curves
+        let orderU = 3; 
+        let orderV = 3; 
 
-        // Define control points for the first NURBS surface (lower part of the vase)
-
+        // Define control points for half of the vase
         controlPoints1 = [
             // U = 0
             [
@@ -83,12 +84,7 @@ class MyRoundVase extends THREE.Object3D {
                 [0.4, 1.0, (4/3)*0.4, 1],
                 [0.4, 1.0, 0.0, 1],
             ],
-
-
-
         ];
-
-        // Build the first NURBS surface (lower part of the vase)
         surfaceData1 = this.builder.build(
             controlPoints1,
             orderU,
@@ -98,9 +94,6 @@ class MyRoundVase extends THREE.Object3D {
             this.material
         );
 
-
-
-        // Create meshes for the two NURBS surfaces
         mesh1 = new THREE.Mesh(surfaceData1, this.material);
         if(this.shadow){
             mesh1.castShadow = true;
@@ -120,34 +113,5 @@ class MyRoundVase extends THREE.Object3D {
     }
 
 }
-
-/*
-  controlPoints1 = [
-            // U = 0
-            [
-                [-1.0, -1.0, 0.0, 1],
-                [-1.0, 0,0.0, 1],
-                [-1.0, 0.8,-1, 1],
-                [-1.0, 1, 0.0, 1],
-            ],
-            // U = 1
-            [
-                [0, -1.0, 2.0, 1],
-                [0, 0, 2, 1],
-                [0, 0.8, -1, 1],
-                [0, 1.0, 2.0, 1],
-            ],
-            // U = 2
-            [
-                [1.0, -1.0, 0.0, 1],
-                [1.0, 0, 0, 1],
-                [1.0, 0.8, -1, 1],
-                [1.0, 1.0, 0.0, 1],
-            ],
-
-
-            
-        ];
- */
 MyRoundVase.prototype.isGroup = true;
 export { MyRoundVase };

@@ -246,69 +246,86 @@ class MyContents  {
 
     
     /**
-     * initializes the contents
+     * Initializes the contents
      */
     init() {
-       
-        // create once 
+
+        // Create and attach the axis to the scene
         if (this.axis === null) {
-            // create and attach the axis to the scene
             this.axis = new MyAxis(this);
             this.app.scene.add(this.axis);
         }
 
-        // add a point light on top of the model
-        this.addPointLight()
+        // Add a point light on top of the model
+        this.addPointLight();
 
-        // add an ambient light
-        const ambientLight = new THREE.AmbientLight( 0xeeeeee, 0.05 );
-        this.app.scene.add( ambientLight );
-
-
-        this.buildCake()
-        this.buildFloor()
-        this.buildSpotlightCake()
-
-        // walls of the house
-        if(this.house === null){      
-            this.house = new  MyHouse(this);
+        // Add an ambient light
+        const ambientLight = new THREE.AmbientLight(0xeeeeee, 0.05);
+        this.app.scene.add(ambientLight);
+        
+        // Create the room structure
+        this.buildFloor();
+        if (this.house === null) {
+            this.house = new MyHouse(this);
             this.app.scene.add(this.house);
         }
 
-        // coffee table
-        this.table = new MyTable(this, 6,3.5,1.95,this.materialOakWood, this.materialTableLegs, [0, 0, 0], false, true);
-        this.app.scene.add(this.table); 
+        // Build Cake and elements related to it
+        this.buildCake();
+        this.buildSpotlightCake();
+        this.cakePiece = new MyCakePiece(this, 0xffdbe9, [1.2, 2.42, 6.8], true);
+        this.app.scene.add(this.cakePiece);
 
-        // carpet
-        this.carpet = new MyCarpet(this,0x8eb1c2, [0, 0, 0]);
-        this.app.scene.add(this.carpet); 
+        // Create the Center table
+        this.centerTable = new MyTable(this, 6, 3.5, 1.95, this.materialOakWood, this.materialTableLegs, [0, 0, 0], false, true);
+        this.app.scene.add(this.centerTable);
 
-        //  books on bookshelf next to TV
+        // Create a carpet
+        this.carpet = new MyCarpet(this, 0x8eb1c2, [0, 0, 0]);
+        this.app.scene.add(this.carpet);
+
+
+        // Create a bookshelf 
+        this.bookshelf = new MyCabinet(this, 4, 2, 5, this.materialOakWood, this.materialWhiteWood, [-8,5, -14], true, 3, true );
+        this.app.scene.add(this.bookshelf);
+
+        //bookshelf cabinet
+        this.bookshelf2 = new MyCabinet(this, 8, 2, 10, this.materialOakWood, this.materialWhiteWood, [0,2, -14], true,4, true);
+        this.bookshelf2.rotateY(-Math.PI/2)
+        this.app.scene.add(this.bookshelf2);
+
+        // books on bookshelf next to the door
+        for (let i = 0; i < 5; i++) {
+            this.book2  =  new MyBook(this, 1, 1.2, 0.3, 10, [0, 0, 0]);
+            this.book2.position.set(14.1, 3.1 +  i*1.9, 0.25);
+            this.book2.rotateZ(Math.PI/2);
+            this.book2.rotateX(Math.PI/2);
+            this.app.scene.add(this.book2);
+        }
+
+        // Create books on bookshelves
         for (let i = 0; i < 4; i++) {
             const book = new MyBook(this, 1, 0.7, 0.2, 8, [0, 0, 0]);
             book.position.set(-7.9, 5.6 + i * 1.2, -13.8);
-            book.rotateZ(Math.PI/2);
+            book.rotateZ(Math.PI / 2);
             book.rotateX(Math.PI);
             this.app.scene.add(book);
         }
 
-        // robot
+        // Create a lampshade on the ground
+        this.lampshade = new MyLampshade(this, 7, 1.75, 1.5, this.materialLightMetal, 0xffffff, [12, 0, -12]);
+        this.app.scene.add(this.lampshade);
+        this.addSpotLightLamp(0xf8f9EB,  1, 30,[12, 7.5, -12], [12, 0, -12], 40, 1, 0)
+        this.addSpotLightLamp(0xf8f9eb,  1, 30, [12, 7.5, -12], [12, 15, -12], 60, 1, 0)
+
+
+        //robot
         this.robot = new MyRobot(this, 0x8ecccc, [-4, -0.3, 3.9], true);
         this.app.scene.add(this.robot); 
         
         // cylinder vase
         this.vase = new MyVase(this, 1, 0xc8dfea, [-12.5, 0, -13], true);
         this.app.scene.add(this.vase);
-
-        // standing lampshade
-        this.lampshade = new MyLampshade(this, 7, 1.75, 1.5, this.materialLightMetal, 0xffffff, [12, 0, -12]);
-        this.app.scene.add(this.lampshade);
-        this.addSpotLightLamp(0xf8f9EB,  1, 30,[12, 7.5, -12], [12, 0, -12], 40, 1, 0)
-        this.addSpotLightLamp(0xf8f9eb,  1, 30, [12, 7.5, -12], [12, 15, -12], 60, 1, 0)
-
-        // cake piece
-        this.cakePiece = new MyCakePiece(this, 0xffdbe9, [1.2, 2.42, 6.8], true);
-        this.app.scene.add(this.cakePiece);
         
         // Big sofa
         this.sofa1 = new MySofa(this, 1, 0x365563, 0x446879, [0,0, 9], 10, true );
@@ -345,27 +362,8 @@ class MyContents  {
         this.app.scene.add(this.television);
 
         // televison Bottom cabinet
-        this.televisionBottomCabinet = new MyCabinet(this, 16, 2, 3, this.materialOakWood, this.materialWhiteWood, [-2,0, -14], false, 0);
+        this.televisionBottomCabinet = new MyCabinet(this, 16, 2, 3, this.materialOakWood, this.materialWhiteWood, [-2,0, -14], false, 0, true);
         this.app.scene.add(this.televisionBottomCabinet);
-
-        //bookshelf cabinet
-        this.bookshelf = new MyCabinet(this, 4, 2, 5, this.materialOakWood, this.materialWhiteWood, [-8,5, -14], true, 3 );
-        this.app.scene.add(this.bookshelf);
-
-         //bookshelf cabinet
-         this.bookshelf2 = new MyCabinet(this, 8, 2, 10, this.materialOakWood, this.materialWhiteWood, [0,2, -14], true,4, true);
-         this.bookshelf2.rotateY(-Math.PI/2)
-         this.app.scene.add(this.bookshelf2);
-
-        // books on bookshelf next to the door
-        for (let i = 0; i < 5; i++) {
-            this.book2  =  new MyBook(this, 1, 1.2, 0.3, 10, [0, 0, 0]);
-            this.book2.position.set(14.1, 3.1 +  i*1.9, 0.25);
-            this.book2.rotateZ(Math.PI/2);
-            this.book2.rotateX(Math.PI/2);
-            this.app.scene.add(this.book2);
-        }
-
 
         //back table
         this.backTable = new MyTable(this, 12, 5,4, this.materialOakWood, this.materialTableLegs, [0, 0, 10.5], true, true);
@@ -405,6 +403,18 @@ class MyContents  {
 
     }
 
+    /**
+     * 
+     * @param {hex} lightColor the color of the light
+     * @param {number} intensity the intensity of the light
+     * @param {number} distance the distance of the light
+     * @param {list} lampPosition the position of the lamp
+     * @param {list} targetPostion the position of the target
+     * @param {number} lightAngle the angle of the light
+     * @param {number} penumbra the penumbra of the light
+     * @param {number} decay the decay of the light
+     * @param {boolean} shadows if the light produces shadows or not
+     */
     addSpotLightLamp(lightColor, intensity, distance, lampPosition,targetPostion, lightAngle, penumbra, decay, shadows=false){
         let spotlightLamp = new THREE.SpotLight(lightColor, intensity, distance, lightAngle*(Math.PI/180), penumbra, decay);
         if(shadows){
@@ -426,6 +436,9 @@ class MyContents  {
         //this.app.scene.add(spotLightLampHelper);
     }
 
+    /**
+     * adds a point light on top of the model
+     */
     addPointLight(){
         // add a point light on top of the model
         const pointLight = new THREE.PointLight( 0xffffff, 70, 0);
@@ -475,6 +488,9 @@ class MyContents  {
         this.planeMaterial.shininess = this.planeShininess;
     }
     
+    /**
+     * updates the plane texture and the material
+     */
     rebuildFloor(){
         this.buildFloor();
         if(this.floor !== undefined && this.floor !== null){
@@ -482,11 +498,17 @@ class MyContents  {
         }
     }
 
+    /**
+     * updates the plane texture and the material with reload of the texture
+     */
     rebuildFloorWrapping(){
         this.planeTexture =new THREE.TextureLoader().load(this.planetexturePath);
         this.rebuildFloor();
     }
 
+    /**
+     * updated the spotlight parameters and rebuilds it
+     */
     rebuildSpotlight(){
         if(this.spotlight !== undefined && this.spotlight !== null){
             this.app.scene.remove(this.spotlight);

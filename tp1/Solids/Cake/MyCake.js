@@ -51,11 +51,8 @@ class MyCake extends THREE.Object3D {
                 cake.castShadow = true;
             }
             cake.castShadow = true;
-
             cake.receiveShadow = true;
 
-
-    
             // Toppings
             for (let j = 0; j < 6; j++) {
                 if(i==cakeTiers.length-1 && j==2)
@@ -76,7 +73,6 @@ class MyCake extends THREE.Object3D {
          // Add rectangles to close the sides
          const sideGeometry = new THREE.PlaneGeometry(pieceCakeInfo.radiusBottom , pieceCakeInfo.height);
          const sideMaterial = new THREE.MeshPhongMaterial({ color: 0Xffc2d9});
- 
         
          const side1 = new THREE.Mesh(sideGeometry, sideMaterial);
          side1.rotateY(-Math.PI / 2); // Rotate to match the angle of the cake slice
@@ -86,9 +82,9 @@ class MyCake extends THREE.Object3D {
          const side2 = new THREE.Mesh(sideGeometry, sideMaterial);
          side2.rotateY( Math.PI/6); // Rotate to match the angle of the cake slice
          side2.position.set(
-            -(pieceCakeInfo.radiusTop/2)* Math.sin(Math.PI/3), // Adjust this value as needed
+            -(pieceCakeInfo.radiusTop/2)* Math.sin(Math.PI/3), 
               + currentHeight - pieceCakeInfo.height / 2,
-                (pieceCakeInfo.radiusTop/2)* Math.cos(Math.PI/3) // Adjust this value as needed
+                (pieceCakeInfo.radiusTop/2)* Math.cos(Math.PI/3) 
          );
          this.add(side2);
 
