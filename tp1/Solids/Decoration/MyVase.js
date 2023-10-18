@@ -98,7 +98,7 @@ class MyVase extends THREE.Object3D {
         const materialStem = new THREE.MeshPhongMaterial( {color: 0xbdecb6} );
         const flowerRadius = 0.2 * this.size;
         const flowerHeight = 0.35 * this.size;
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 3; i++) {
             const randomColor = Math.random() * 0xffffff; // Random color
             const flowerMaterial = new THREE.MeshPhongMaterial({ color: randomColor });
 

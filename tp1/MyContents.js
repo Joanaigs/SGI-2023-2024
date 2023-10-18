@@ -204,9 +204,9 @@ class MyContents  {
         this.app.scene.add(this.carpet); 
 
         //  books on bookshelf next to TV
-        for (let i = 0; i < 4; i++) {
-            const book = new MyBook(this, 1, 0.7, 0.1, 15, [0, 0, 0]);
-            book.position.set(-7.9, 5.6 + i * 1.2, -13.9);
+        for (let i = 0; i < 2; i++) {
+            const book = new MyBook(this, 1, 0.8, 0.4, 2, [0, 0, 0]);
+            book.position.set(-7.9+0.5, 5.6 + i*2 * 1.2, -14.5);
             book.rotateZ(Math.PI/2);
             book.rotateX(Math.PI);
             this.app.scene.add(book);
@@ -235,7 +235,7 @@ class MyContents  {
         this.app.scene.add(this.sofa2);
 
         // Pile of plates
-        for(let i = 0; i < 5; i++){
+        for(let i = 0; i < 3; i++){
             let plate = new MyPlate(this, 0.5, 0xf5e9dc, [-2, 2, 0], true);
             plate.position.y += i*plate.plateHeight();
             this.app.scene.add(plate);
@@ -269,9 +269,9 @@ class MyContents  {
          this.app.scene.add(this.bookshelf2);
 
         // books on bookshelf next to the door
-        for (let i = 0; i < 5; i++) {
-            this.book2  =  new MyBook(this, 1, 1, 0.1, 32, [0, 0, 0]);
-            this.book2.position.set(14.1, 2.9 +  i*1.9, 0.1);
+        for (let i = 0; i < 2; i++) {
+            this.book2  =  new MyBook(this, 1, 1.2, 0.6, 3, [0, 0, 0]);
+            this.book2.position.set(14.1, 3.1 +  (i+1)*2*1.9-1.9, 0.5+0.3);
             this.book2.rotateZ(Math.PI/2);
             this.book2.rotateX(Math.PI/2);
             this.app.scene.add(this.book2);

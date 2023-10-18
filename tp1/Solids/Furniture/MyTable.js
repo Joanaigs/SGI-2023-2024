@@ -108,12 +108,10 @@ export class MyTable extends THREE.Object3D {
 
     createChair(){
         const chairPositions = [
-            [this.position.x + this.topLength/2, this.position.y, this.position.z, Math.PI/2],
-            [this.position.x - this.topLength/2, this.position.y, this.position.z, -Math.PI/2],
-            [this.position.x + this.topLength/6, this.position.y, this.position.z - this.topWidth/2, Math.PI],
-            [this.position.x + this.topLength/6, this.position.y, this.position.z + this.topWidth/2, 0],
-            [this.position.x - this.topLength/6, this.position.y, this.position.z - this.topWidth/2, Math.PI],
-            [this.position.x - this.topLength/6, this.position.y, this.position.z + this.topWidth/2, 0],
+            [this.position.x + this.topLength/4, this.position.y, this.position.z - this.topWidth/2, Math.PI],
+            [this.position.x + this.topLength/4, this.position.y, this.position.z + this.topWidth/2, 0],
+            [this.position.x - this.topLength/4, this.position.y, this.position.z - this.topWidth/2, Math.PI],
+            [this.position.x - this.topLength/4, this.position.y, this.position.z + this.topWidth/2, 0],
             ];
 
         for (const chairPos of chairPositions) {
