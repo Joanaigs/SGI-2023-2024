@@ -130,7 +130,6 @@ class MyApp  {
         let bottom = -this.frustumSize / 2 +7.5
         let near = -this.frustumSize /2
         let far =  this.frustumSize
-        console.log(left, right, top, bottom, near, far)
 
         // create a left view orthographic camera
         const orthoLeft = new THREE.OrthographicCamera( left +15, right+15, top, bottom, -15, far);
@@ -155,7 +154,6 @@ class MyApp  {
         bottom = -this.frustumSize / 2+7.5 
         near = -this.frustumSize /2
         far =  this.frustumSize
-        console.log(left, right, top, bottom, near, far)
 
         // create a top view orthographic camera
         const orthoTop = new THREE.OrthographicCamera( left, right, top, bottom, near, far);
@@ -173,7 +171,6 @@ class MyApp  {
         bottom = -this.frustumSize / 2+7.5 
         near = -this.frustumSize /2
         far =  this.frustumSize
-        console.log(left, right, top, bottom, near, far)
 
         // create a front view orthographic camera
         const orthoFront = new THREE.OrthographicCamera( left, right, top, bottom, near, far+40);

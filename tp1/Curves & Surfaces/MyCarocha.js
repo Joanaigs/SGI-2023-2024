@@ -58,8 +58,7 @@ class MyCarocha extends THREE.Object3D {
         this.add(weelObject2);
 
         //half sphere
-        height = (4/3)*(Math.sqrt(2)-1)*2
-        console.log(height)
+        height = (4/3)*(Math.sqrt(2)-1)*2;
         const halfSphere = new THREE.CubicBezierCurve3(
             new THREE.Vector3(0, 0, 0),        // Start point
             new THREE.Vector3(0, height, 0),        // Control point 1
