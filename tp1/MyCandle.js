@@ -22,7 +22,7 @@ class MyCandle extends THREE.Object3D {
         this.color = color
 
         const materialCandle = new THREE.MeshPhongMaterial( {color: color} );
-        const materialFlame = new THREE.MeshPhongMaterial( {color: 0xff4500} );
+        const materialFlame = new THREE.MeshBasicMaterial( {color: 0xff4500} );
         const materialWick = new THREE.MeshPhongMaterial( {color: 0x000000} );
 
         // Calculate heights and positions based on size
@@ -48,14 +48,21 @@ class MyCandle extends THREE.Object3D {
         this.add(candleTop);
 
         // Candle flame
+        const sphereGeometryFlame = new THREE.SphereGeometry(0.03 * this.size, 32, 32, 0, Math.PI*2, 0, Math.PI/2);
+        let sphereFlame = new THREE.Mesh(sphereGeometryFlame, materialFlame);
+        sphereFlame.rotation.x = Math.PI;
+        sphereFlame.position.set(position[0], position[1] + baseHeight + topHeight + 0.03*this.size, position[2]);
+
+        this.add(sphereFlame);
+
         const geometryFlame = new THREE.ConeGeometry(0.03 * this.size, flameHeight);
         let flame = new THREE.Mesh(geometryFlame, materialFlame);
-        flame.position.set(position[0], position[1] + baseHeight + topHeight + flameHeight/2, position[2]);
+        flame.position.set(position[0], position[1] + baseHeight + topHeight + flameHeight/2 +0.03 * this.size, position[2]);
         this.add(flame);
 
         // Candle light
         const light = new THREE.PointLight( 0xff4500, 0.5, 1 );
-        light.position.set(position[0], position[1] + baseHeight + topHeight + flameHeight/2, position[2]);
+        light.position.set(position[0], position[1] + baseHeight + topHeight +0.03 * this.size, position[2]);
         this.add(light);
         
 

@@ -22,13 +22,18 @@ class MyPlate extends THREE.Object3D {
         this.color = color
         
 
-        const material = new THREE.MeshPhongMaterial( {color: color} ); 
+        const material = new THREE.MeshPhongMaterial( {color: color,
+            specular: "#ffffff", emissive: "#000000", shininess: 5} ); 
 
 
         //plate base
         const baseHeight = 0.05 * this.size;
         const geometryPlateBase = new THREE.CylinderGeometry( 0.3 * this.size, 0.3 * this.size, baseHeight, 32 ); 
         let plateBase = new THREE.Mesh( geometryPlateBase, material ); 
+        if(castShadow){
+            plateBase.receiveShadow = true;
+            plateBase.castShadow = true;
+        }
         plateBase.position.set(position[0],position[1]  +baseHeight / 2,position[2]);
         this.add( plateBase );
 

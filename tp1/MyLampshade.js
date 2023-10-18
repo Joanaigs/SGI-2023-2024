@@ -34,8 +34,8 @@ class MyLampshade extends THREE.Object3D {
         if(this.upsideDown) this.rotateAngle = -Math.PI;
         this.buildLamp();
 
-        this.position.set(position[0], position[1], position[2]);
         this.rotateX(this.rotateAngle);
+        this.position.set(position[0], position[1], position[2]);
 
     }
 
@@ -47,8 +47,8 @@ class MyLampshade extends THREE.Object3D {
         const  materialBase = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.baseTexture });
 
-        const materialLampshade = new THREE.MeshPhongMaterial({ color: this.lampshadeColor,  emissive: "#aaaaaa", side: THREE.DoubleSide, side: THREE.DoubleSide });
-        const materialBulb = new THREE.MeshPhongMaterial({ color: 0xffffdd });
+        const materialLampshade = new THREE.MeshPhongMaterial({ color: this.lampshadeColor,  emissive: "#aaaaaa", side: THREE.DoubleSide, side: THREE.DoubleSide, transparent: true, opacity: 0.9 });
+        const materialBulb = new THREE.MeshPhongMaterial({ color: 0xffffdd, emissive: "#ffffdd"});
 
         // Cone at the base of the cylinder
         const coneHeight = this.height / 16;

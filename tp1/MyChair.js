@@ -39,8 +39,8 @@ export class MyChair extends THREE.Object3D {
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.thinTexture });
 
         this.createChair(this.materialWood, this.materialThin);
-        this.position.set(position[0], position[1], position[2]);
         this.rotateY(rotation);
+        this.position.set(position[0], position[1], position[2]);
 
     }
 
@@ -103,7 +103,7 @@ export class MyChair extends THREE.Object3D {
         back2.position.set(this.position.x-seatLength/2+backLenght/2, legHeight + seatHeight + backHeight/2, this.position.z+ seatLength/2-backWidth/2);
         this.add(back2);
 
-        const geometryBackHorrizontal = new THREE.BoxGeometry(seatLength, backLinesHeight, backWidth);
+        const geometryBackHorrizontal = new THREE.BoxGeometry(seatLength-backLenght*2, backLinesHeight, backWidth);
         const back3 = new THREE.Mesh(geometryBackHorrizontal, materialWood);
         if(this.castShadow){
             back3.castShadow = true;

@@ -25,8 +25,8 @@ class MyCoil extends THREE.Object3D {
         this.seperation = seperation;
         this.shadow = shadow;
         this.buidCoil();
-        this.position.set(position[0],position[1],position[2]+seperation);
         this.rotateY(rotation);
+        this.position.set(position[0],position[1],position[2]+seperation);
 
     }
 
@@ -56,8 +56,8 @@ class MyCoil extends THREE.Object3D {
                 halfCircleObject1.receiveShadow = true;
             }
             let offset = (i % 2 === 0) ? 0 : this.seperation * 2; // Alternate rotation between 0 and π
-            halfCircleObject1.position.set(0, 0, previous);
             halfCircleObject1.rotation.x = rotationX;
+            halfCircleObject1.position.set(0, 0, previous);
             this.add(halfCircleObject1);
             previous += offset;
         }

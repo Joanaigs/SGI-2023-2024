@@ -44,8 +44,8 @@ class MyDoor extends THREE.Object3D {
 
         const geometry = new THREE.BoxGeometry( this.lenght, this.height, this.width);
         let door = new THREE.Mesh(geometry, materialDoor);
-        door.position.set(position[0],position[1] + this.width + 1 ,position[2]);
         door.rotateZ(-Math.PI/2);
+        door.position.set(position[0],position[1] + this.width + 1 ,position[2]);
         this.add(door);   
         
         const cylinderGeometry = new THREE.CylinderGeometry(0.4, 0.2, 0.5, 32); // Adjust size and segments
