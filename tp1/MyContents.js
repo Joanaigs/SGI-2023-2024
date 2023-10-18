@@ -76,6 +76,15 @@ class MyContents  {
         this.mapSize = 4096
 
         //Textures
+        this.initTextures()
+
+        
+        // other attributes
+        this.cake = null;
+        this.floor=null
+    }
+
+    initTextures(){
         this.planetexturePath = "Textures/floor.jpg"
 
         this.planeTexture =new THREE.TextureLoader().load(this.planetexturePath);
@@ -108,6 +117,19 @@ class MyContents  {
             map: this.lightMetalTexture
         });
 
+        this.televisionMaterial = new THREE.MeshPhongMaterial({ color: "#000000", 
+            specular: "#ffffff", emissive: "#000000", shininess: 100, reflectivity: 0 });
+
+        this.televisionFrameMaterial = new THREE.MeshPhongMaterial({ color: "#000000", 
+            specular: "#000000", emissive: "#000000", shininess: 0, reflectivity:0 });
+        
+    
+        this.lightWoodTexture =new THREE.TextureLoader().load("Textures/floor1.jpg");
+        this.diffusePlaneColor = "#FFFFFF";
+        this.specularPlaneColor = "#777777";
+        this.planeShininess = 100;
+        this.lightWoodMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
+            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.lightWoodTexture });
         this.lightMetalTextureHead =new THREE.TextureLoader().load("Textures/metal.jpg");
         this.lightMetalTextureHead.wrapS = THREE.MirroredRepeatWrapping;
         this.lightMetalTextureHead.wrapT = THREE.MirroredRepeatWrapping;
@@ -120,12 +142,18 @@ class MyContents  {
             map: this.lightMetalTextureHead
         });
 
-        
-        // other attributes
-        this.cake = null;
-        this.floor=null
     }
 
+    getPaintingTexture(paitingTexturePath){
+        const paitingTexture =new THREE.TextureLoader().load(paitingTexturePath);
+        const diffusePlaneColor = "#FFFFFF";
+        const specularPlaneColor = "#777777";
+        const planeShininess = 100;
+        const paitingMaterial = new THREE.MeshPhongMaterial({ color: diffusePlaneColor, 
+            specular: specularPlaneColor, emissive: "#000000", shininess: planeShininess, map:paitingTexture });
+
+        return paitingMaterial
+    }
 
     buildCake(){
         this.cake = new MyCake(this, 0xffdbe9);
@@ -168,9 +196,10 @@ class MyContents  {
         this.floor.position.z = 15 / 3 + 2.5;
         
         this.app.scene.add(this.floor);
-
-
     }
+
+
+
     buildSpotlightCake(){
         this.spotlight = new THREE.SpotLight(this.lightColor, this.lightIntensity, this.lightDistance, 
             this.lightAngle*(Math.PI/180), this.lightPenumbra, this.lightDecay);
@@ -266,18 +295,20 @@ class MyContents  {
             this.app.scene.add(plate);
         }
 
-        // frame
-        this.joanaPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [3.2, 6, 30-0.25],0, "Textures/flowersPainting.jpg", "Textures/floor1.jpg", false);
-        this.app.scene.add(this.joanaPhoto);
+        // Painting frames on the wall
+        const flowerPaintingMaterial = this.getPaintingTexture("Textures/flowersPainting.jpg");
+        this.flowersPainting = new MyFrame(this, 0.5,4, 4, [3.2, 6, 30-0.25],0, flowerPaintingMaterial, this.lightWoodMaterial, false);
+        this.app.scene.add(this.flowersPainting);
 
-        this.inesPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [-3.2, 5.3, 30-0.25],0, "Textures/housePainting.jpg", "Textures/floor1.jpg", false);
-        this.app.scene.add(this.inesPhoto);
+        const housePaintingMaterial = this.getPaintingTexture("Textures/housePainting.jpg");
+        this.housePainting = new MyFrame(this, 0.5,4, 4, [-3.2, 5.3, 30-0.25],0, housePaintingMaterial,this.lightWoodMaterial, false);
+        this.app.scene.add(this.housePainting);
 
         this.window = new MyWindow(this, "Textures/transferir.jpg", "Textures/metal.jpg", true);
         this.app.scene.add(this.window);
 
         //televison
-        this.television= new MyFrame(this, 0.3,10, 5, 0x5d2906, [0, 5, -15+0.25],Math.PI);
+        this.television= new MyFrame(this, 0.3,10, 5, [0, 5, -15+0.25], Math.PI, this.televisionMaterial, this.televisionFrameMaterial);
         this.app.scene.add(this.television);
 
         // televison Bottom cabinet
@@ -320,7 +351,7 @@ class MyContents  {
         this.app.scene.add(this.lampshadeCeiling2);
         this.addSpotLightLamp(0xffffff, 2, 40, [0, 15, 18], [0, 0, 21], 70,1, 0, true)
 
-        this.carocha = new MyCarocha(this, "Textures/floor1.jpg", [14.75, 6, 22], -Math.PI/2, 1);
+        this.carocha = new MyCarocha(this, this.lightWoodMaterial, [14.75, 6, 22], -Math.PI/2, 1);
         this.app.scene.add(this.carocha);
 
         //coil

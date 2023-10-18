@@ -2,18 +2,17 @@ import * as THREE from 'three';
 import { MyApp } from '../../MyApp.js';
 
 /**
- * This class contains a carpet representation
+ * This class contains a book representation
  */
 export class MyBook extends THREE.Object3D {
     /**
      * 
      * @param {MyApp} app the application object
-     * @param {number} width
-     * @param {number} length
-     * @param {number} height
-     * @param {string} color
-     * @param {number} numBooks
-     * @param {number[]} position - An array with x, y, z coordinates
+     * @param {number} width width of the book
+     * @param {number} length length of the book
+     * @param {number} height height of the book
+     * @param {number} numBooks number of books on the pile
+     * @param {number[]} position an array with x, y, z coordinates
      */
     constructor(app, width, length, height, numBooks, position) {
         super();

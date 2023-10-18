@@ -10,16 +10,16 @@ class MyCarocha extends THREE.Object3D {
     /**
      * 
      * @param {MyApp} app the application object
-     * @param {string} frameTexturePath the path to the frame texture
+     * @param {Three mesh} frameMaterial material of the frame
      * @param {list} position the position of the carocha
      * @param {number} rotation the angle of rotation of the carocha in y axis
      * @param {number} scale the scale of the carocha 
      */
-    constructor(app, frameTexturePath, position, rotation, scale) {
+    constructor(app, frameMaterial, position, rotation, scale) {
         super();
         this.type = 'Group';
         this.app = app;
-        this.frameTexturePath = frameTexturePath;
+        this.frameMaterial = frameMaterial;
         this.positionL=position;
         this.rotationA=rotation;
         this.width=0.5;
@@ -87,7 +87,7 @@ class MyCarocha extends THREE.Object3D {
     }
 
     buildFrame(){
-        this.frame= new MyFrame(this.app, this.width ,this.length, this.height , 0x5d2906, this.position,-Math.PI/2, this.frameTexturePath, this.frameTexturePath);
+        this.frame = new MyFrame(this.app, this.width ,this.length, this.height, this.position,-Math.PI/2, this.frameMaterial, this.frameMaterial);
         this.frame.position.set(this.length/2,0,0);
         this.frame.rotateY(-Math.PI/2);
         this.add(this.frame);

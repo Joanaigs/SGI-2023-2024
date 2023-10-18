@@ -12,36 +12,24 @@ class MyFrame extends THREE.Object3D {
      * @param {number} size the width of the frame
      * @param {number} length the length of the frame
      * @param {number} height the height of the frame
-     * @param {hex} color the color of the frame
      * @param {list} position the position of the frame
      * @param {number} rotation the rotation of the frame
-     * @param {string} contentTexturePath the path to the content texture
-     * @param {string} frameTexturePath the path to the frame texture
+     * @param {Three mesh} contentMaterial content material
+     * @param {Three mesh} frameMaterial material of the frames 
      * @param {boolean} window is a window or not
      */
-    constructor(app, size, length, height, color, position, rotation, contentTexturePath, frameTexturePath, window = false) {
+    constructor(app, size, length, height, position, rotation, contentMaterial, frameMaterial, window = false) {
         super();
         this.type = 'Group';
         this.app = app;
         this.size = size || 2;
-        this.color = color;
         this.length = length;
         this.height = height;
         this.window = window;
-        this.contentTexturePath = contentTexturePath;
-        this.frameTexturePath = frameTexturePath;
-
-
-        this.frameTexture =new THREE.TextureLoader().load(frameTexturePath);
-        this.diffusePlaneColor = "#FFFFFF";
-        this.specularPlaneColor = "#777777";
-        this.planeShininess = 100;
-        this.frameMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
-            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.frameTexture });
-        
-       
+        this.contentMaterial = contentMaterial;
+        this.frameMaterial = frameMaterial;            
+            
         //frame top
-        const baseHeight = 0.1 * this.size;
         const geometry = new THREE.BoxGeometry( this.length, this.size, this.size);
         let frameTop = new THREE.Mesh(geometry, this.frameMaterial);
         frameTop.position.set(0,this.height,0);
@@ -65,19 +53,12 @@ class MyFrame extends THREE.Object3D {
         this.add(frameRight);
 
         if(!window){
-            this.contentTexture =new THREE.TextureLoader().load(contentTexturePath);
-            this.diffusePlaneColor = "#FFFFFF";
-            this.specularPlaneColor = "#ffffff";
-            this.planeShininess = 40;
-            this.contentMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
-                specular: this.specularPlaneColor, emissive: "#000000", shininess: 100, map: this.contentTexture });
-
-                //back
-                const geometryBack = new THREE.PlaneGeometry(this.length, heightSides);
-                let frameBack = new THREE.Mesh(geometryBack,this.contentMaterial);
-                frameBack.rotation.y = Math.PI;
-                frameBack.position.set(0, heightSides/2 + this.size/2, this.size/2 - 0.01);
-                this.add(frameBack);
+            // content of the frame (the paiting)
+            const geometryBack = new THREE.PlaneGeometry(this.length, heightSides);
+            let frameBack = new THREE.Mesh(geometryBack,this.contentMaterial);
+            frameBack.rotation.y = Math.PI;
+            frameBack.position.set(0, heightSides/2 + this.size/2, this.size/2 - 0.01);
+            this.add(frameBack);
         }
 
         

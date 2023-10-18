@@ -131,12 +131,7 @@ class MyVase extends THREE.Object3D {
             flower.rotateX(-Math.PI); // Rotate the flower to be upright
             flower.position.set(stem.position.x, stem.position.y + stemHeight / 2, stem.position.z);
             this.add(flower);
-        }
-
-
-
-
-        
+        } 
     }
 
 }
