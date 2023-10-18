@@ -76,7 +76,7 @@ class MyContents  {
         this.mapSize = 4096
 
         //Textures
-        this.initTextures()
+        this.initMaterials()
 
         
         // other attributes
@@ -84,28 +84,31 @@ class MyContents  {
         this.floor=null
     }
 
-    initTextures(){
-        this.planetexturePath = "Textures/floor.jpg"
+    initMaterials(){
 
+        // floor material
+        this.planetexturePath = "Textures/floor.jpg"
         this.planeTexture =new THREE.TextureLoader().load(this.planetexturePath);
 
+        // jornal material
         this.materialJornal =new THREE.TextureLoader().load('Textures/jornal.jpg');
         this.materialJornal.wrapT = THREE.MirroredRepeatWrapping;
         this.materialJornal.rotation = Math.PI/2;
         this.materialJornal.repeat.set(1,  -1)
         console.log(this.materialJornal.repeat)
 
-
+        // vase material
         this.textureVase = new THREE.TextureLoader().load("Textures/flowersPattern.jpg");
         this.textureVase.wrapS = THREE.RepeatWrapping;
         this.textureVase.wrapT = THREE.RepeatWrapping;
 
+        // curtain material
         this.textureCurtain = new THREE.TextureLoader().load("Textures/curtain.jpg");
         this.textureCurtain.wrapS = THREE.RepeatWrapping;
         this.textureCurtain.wrapT = THREE.RepeatWrapping;
         this.textureCurtain.repeat.set(1,  4);
 
-
+        // metal material
         this.lightMetalTexture =new THREE.TextureLoader().load("Textures/metal.jpg");
         this.lightMetalTexture.wrapS = THREE.MirroredRepeatWrapping;
         this.lightMetalTexture.wrapT = THREE.MirroredRepeatWrapping;
@@ -117,13 +120,13 @@ class MyContents  {
             map: this.lightMetalTexture
         });
 
+        // television material
         this.televisionMaterial = new THREE.MeshPhongMaterial({ color: "#000000", 
             specular: "#ffffff", emissive: "#000000", shininess: 100, reflectivity: 0 });
-
         this.televisionFrameMaterial = new THREE.MeshPhongMaterial({ color: "#000000", 
             specular: "#000000", emissive: "#000000", shininess: 0, reflectivity:0 });
         
-    
+        // light wood material
         this.lightWoodTexture =new THREE.TextureLoader().load("Textures/floor1.jpg");
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#777777";
@@ -141,6 +144,20 @@ class MyContents  {
             reflectivity: 0.8,  
             map: this.lightMetalTextureHead
         });
+
+        // oak wood material
+        this.oakTexture =new THREE.TextureLoader().load("Textures/top.jpg");
+        this.materialOakWood = new THREE.MeshPhongMaterial({ color: "#FFFFFF", 
+            specular: "#777777", emissive: "#000000", shininess: 40, map: this.oakTexture });
+        
+        // white wood material
+        this.whiteWoodTexture =new THREE.TextureLoader().load("Textures/tableLegs.jpg");
+        this.materialWhiteWood = new THREE.MeshPhongMaterial({ color: "#FFFFFF", 
+            specular: 0, emissive: "#000000", shininess: 25, map: this.whiteWoodTexture });
+
+        // white wood used for tableLegs
+        this.materialTableLegs = new THREE.MeshPhongMaterial({ color: "#FFFFFF", emissive: "#000000", map: this.whiteWoodTexture });
+
 
     }
 
@@ -250,7 +267,8 @@ class MyContents  {
             this.house = new  MyHouse(this);
             this.app.scene.add(this.house);
         }
-        this.table = new MyTable(this, 6,3.5,1.95,"Textures/top.jpg", "Textures/tableLegs.jpg", [0, 0, 0], false, true);
+
+        this.table = new MyTable(this, 6,3.5,1.95,this.materialOakWood, this.materialTableLegs, [0, 0, 0], false, true);
         this.app.scene.add(this.table); 
 
         this.carpet = new MyCarpet(this,0x8eb1c2, [0, 0, 0]);
@@ -337,11 +355,11 @@ class MyContents  {
         
 
         //back table
-        this.backTable = new MyTable(this, 12, 5,4, "Textures/top.jpg","Textures/tableLegs.jpg", [0, 0, 10.5], true, true);
+        this.backTable = new MyTable(this, 12, 5,4, this.materialOakWood, this.materialTableLegs, [0, 0, 10.5], true, true);
         this.app.scene.add(this.backTable); 
 
         // door
-        this.door = new MyDoor(this, 5, 12,0.5, "Textures/top.jpg", "Textures/metal.jpg", [7.4, 0, 8]);
+        this.door = new MyDoor(this, 5, 12,0.5, this.materialOakWood, this.materialLightMetal, [7.4, 0, 8]);
         this.app.scene.add(this.door); 
 
         this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, "Textures/metal.jpg", 0xffffff, [0, 15, 0],0, true);

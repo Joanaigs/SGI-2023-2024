@@ -19,45 +19,27 @@ export class MyTable extends THREE.Object3D {
      * @param {bool} chair has chairs or not
      * @param {bool} shadows has shadows or not
      */
-    constructor(app, topLength, topWidth, legHeight, color, topColor, position, chair=false, shadows=false) {
+    constructor(app, topLength, topWidth, legHeight, materialTableBase, materialTableLegs, position, chair=false, shadows=false) {
         super();
         this.type = 'Group';
         this.app = app;
         this.topLength = topLength;
         this.topWidth = topWidth;
         this.legHeight = legHeight;
-        this.color = color;
-        this.topColor = topColor;
-        this.shadows = shadows;
-        console.log(this.shadows);
+        this.materialTableLegs = materialTableLegs
+        this.materialTableBase = materialTableBase
         this.position.set(position[0], position[1], position[2]);
+        this.shadows = shadows;
 
-        // Material for the table
-        this.materialTexture =new THREE.TextureLoader().load(this.topColor);
-        this.diffusePlaneColor = "#FFFFFF";
-        this.specularPlaneColor = "#777777";
-        this.planeShininess = 25;
-        this.materialWood = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
-            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.materialTexture });
-
-
-        this.thinTexture =new THREE.TextureLoader().load(this.color);
-        this.diffusePlaneColor = "#FFFFFF";
-        this.specularPlaneColor = "#777777";
-        this.planeShininess = 25;
-        this.materialThin = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
-            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.thinTexture });
-
-
-        this.createTableTop(this.materialWood, this.materialThin);
-        this.createTableLegs(this.materialWood);
+        this.createTableTop();
+        this.createTableLegs();
         if(chair){
-            this.createChair(this.color);
+            this.createChair();
         }
 
     }
 
-    createTableLegs(materialWood){
+    createTableLegs(){
         const legPositions = [
             [-(this.topLength / 2) +0.3, -(this.topWidth / 2) +0.3],
             [-(this.topLength / 2) +0.3, this.topWidth / 2 -0.3 ],
@@ -67,14 +49,13 @@ export class MyTable extends THREE.Object3D {
 
         for (const [legX, legZ] of legPositions) {
             const geometryLeg = new THREE.CylinderGeometry(0.2, 0.05, this.legHeight, 32);
-            const tableLeg = new THREE.Mesh(geometryLeg, materialWood);
+            const tableLeg = new THREE.Mesh(geometryLeg, this.materialTableLegs);
             tableLeg.position.set(
                 this.position.x + legX,
                 this.legHeight / 2,
                 this.position.z + legZ
             );
             if(this.shadows){
-                console.log("shadows");
                 tableLeg.castShadow = true;
                 tableLeg.receiveShadow = true;
             }
@@ -82,9 +63,9 @@ export class MyTable extends THREE.Object3D {
         }
     }
 
-    createTableTop(materialWood, materialThin){
+    createTableTop(){
         const geometryTop = new THREE.BoxGeometry(this.topLength, this.topWidth, 0.2);
-        const tableTop = new THREE.Mesh(geometryTop, materialWood);
+        const tableTop = new THREE.Mesh(geometryTop, this.materialTableLegs);
         console.log(this.shadows);
         if(this.shadows){
             tableTop.castShadow = true;
@@ -95,7 +76,7 @@ export class MyTable extends THREE.Object3D {
         this.add(tableTop);
 
         const geometryThinTop = new THREE.BoxGeometry(this.topLength, this.topWidth, 0.1);
-        const thinTop = new THREE.Mesh(geometryThinTop, materialThin);
+        const thinTop = new THREE.Mesh(geometryThinTop, this.materialTableBase);
         if(this.shadows){
             thinTop.castShadow = true;
             thinTop.receiveShadow = true;

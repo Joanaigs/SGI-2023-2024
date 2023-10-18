@@ -113,9 +113,6 @@ class MyWindow extends THREE.Object3D {
             ],
 
 
-
-
-
         ];
 
         // Build the first NURBS surface (lower part of the vase)
@@ -127,8 +124,7 @@ class MyWindow extends THREE.Object3D {
             20,
             this.material
         );
-
-
+        
 
         // Create meshes for the two NURBS surfaces
         mesh1 = new THREE.Mesh(surfaceData1, this.material);
