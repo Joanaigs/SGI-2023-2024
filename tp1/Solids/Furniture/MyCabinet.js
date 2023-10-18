@@ -16,8 +16,9 @@ class MyCabinet extends THREE.Object3D {
      * @param {list} position the position of the cabinet
      * @param {boolean} bookshelf if the cabinet is a bookshelf or not
      * @param {number} numShelves the number of shelves of the bookshelf
+     * @param {boolean} shadows if the cabinet has shadows or not
      */
-    constructor(app, length, width, height, colorBase,  position, bookshelf, numShelves) {
+    constructor(app, length, width, height, colorBase,  position, bookshelf, numShelves, shadows=false) {
         super();
         this.app = app;
         this.length = length;
@@ -26,6 +27,7 @@ class MyCabinet extends THREE.Object3D {
         this.colorBase = colorBase;
         this.bookshelf = bookshelf;
         this.numShelves = numShelves + 2;
+        this.shadows = shadows;
 
         this.thinTexture =new THREE.TextureLoader().load("Textures/top.jpg");
         this.diffusePlaneColor = "#FFFFFF";
@@ -61,15 +63,27 @@ class MyCabinet extends THREE.Object3D {
     createCabinetBase(length, width, height, position, material, secondaryMaterial){
         const geometryBase = new THREE.BoxGeometry( length, height, width);
         let cabinetBase = new THREE.Mesh(geometryBase, material);
+        if(this.shadows){
+            cabinetBase.castShadow = true;
+            cabinetBase.receiveShadow = true;
+        }
         cabinetBase.position.set(position[0], position[1]+height/2, position[2]);
         this.add(cabinetBase);
 
         const geometryThinLayer = new THREE.BoxGeometry( length+0.1, 0.2, width + 0.1);
         let thinLayer = new THREE.Mesh(geometryThinLayer, secondaryMaterial);
+        if(this.shadows){
+            thinLayer.castShadow = true;
+            thinLayer.receiveShadow = true;
+        }
         thinLayer.position.set(position[0], position[1]+height/2, position[2]);
         this.add(thinLayer);
 
         let thinTopLayer = new THREE.Mesh(geometryThinLayer, secondaryMaterial);
+        if(this.shadows){
+            thinTopLayer.castShadow = true;
+            thinTopLayer.receiveShadow = true;
+        }
         thinTopLayer.position.set(position[0], position[1]+height, position[2]);
         this.add(thinTopLayer);
     }
@@ -88,6 +102,10 @@ class MyCabinet extends THREE.Object3D {
         // Compact side (left side)
         const compactGeometry = new THREE.BoxGeometry(length / 2, height, width);
         const compactCabinet = new THREE.Mesh(compactGeometry, secondaryMaterial);
+        if(this.shadows){
+            compactCabinet.castShadow = true;
+            compactCabinet.receiveShadow = true;
+        }
         compactCabinet.position.set(position[0] - length / 4, position[1] + height / 2, position[2]);
         this.add(compactCabinet);
     
@@ -97,12 +115,20 @@ class MyCabinet extends THREE.Object3D {
         // wall part
         const wallPartGeometry = new THREE.BoxGeometry(length / 2, height, width - width + 0.1);
         const wallPartCabinet = new THREE.Mesh(wallPartGeometry, material);
+        if(this.shadows){
+            wallPartCabinet.castShadow = true;
+            wallPartCabinet.receiveShadow = true;
+        }
         wallPartCabinet.position.set(position[0] + length / 4, position[1] + height / 2, position[2] - width/2);
         this.add(wallPartCabinet);
 
         //right 
         const rightGeometry = new THREE.BoxGeometry(0.3, height, width - width + 0.3);
         const rightLayer = new THREE.Mesh(rightGeometry, material);
+        if(this.shadows){
+            rightLayer.castShadow = true;
+            rightLayer.receiveShadow = true;
+        }
         rightLayer.position.set(position[0] + length / 4 + length / 4, position[1] + height / 2, position[2] - width / 4 + 0.3);
         rightLayer.rotateY(-Math.PI / 2);
         this.add(rightLayer);
@@ -116,6 +142,10 @@ class MyCabinet extends THREE.Object3D {
         for (let i = 0; i < this.numShelves ; i++) {          
             const shelfGeometry = new THREE.BoxGeometry(length / 2, shelfHeight, shelfWidth);
             const shelf = new THREE.Mesh(shelfGeometry, material);
+            if(this.shadows){
+                shelf.castShadow = true;
+                shelf.receiveShadow = true;
+            }
             shelf.position.set(position[0] + length / 4, position[1] + i*shelfSpacing + shelfHeight/2, position[2]  );
             this.add(shelf);
         }

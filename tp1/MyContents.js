@@ -281,15 +281,15 @@ class MyContents  {
         this.app.scene.add(this.television);
 
         // televison Bottom cabinet
-        this.televisionBottomCabinet = new MyCabinet(this, 16, 2, 3, 0x373737, [-2,0, -14], false, 0);
+        this.televisionBottomCabinet = new MyCabinet(this, 16, 2, 3, 0x373737, [-2,0, -14], false, 0, true);
         this.app.scene.add(this.televisionBottomCabinet);
 
         //bookshelf cabinet
-        this.bookshelf = new MyCabinet(this, 4, 2, 5, 0x373737, [-8,5, -14], true, 3 );
+        this.bookshelf = new MyCabinet(this, 4, 2, 5, 0x373737, [-8,5, -14], true, 3, true );
         this.app.scene.add(this.bookshelf);
 
          //bookshelf cabinet
-         this.bookshelf2 = new MyCabinet(this, 8, 2, 10, 0x373737, [0,2, -14], true,4);
+         this.bookshelf2 = new MyCabinet(this, 8, 2, 10, 0x373737, [0,2, -14], true,4, true);
          this.bookshelf2.rotateY(-Math.PI/2)
          this.app.scene.add(this.bookshelf2);
 

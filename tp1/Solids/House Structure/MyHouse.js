@@ -39,6 +39,7 @@ class MyHouse extends THREE.Object3D {
         const materialPaper = new THREE.MeshPhongMaterial({ color: 0xffffff, map: textureWallPaper});
 
         const wall1 = new THREE.Mesh(new THREE.PlaneGeometry(wallDimensions[0].width, wallDimensions[0].height), material);
+        wall1.receiveShadow = true;
         wall1.rotation.y = -Math.PI / 2;
         wall1.position.x = size;
         wall1.position.y = wallDimensions[0].height / 2;
@@ -46,12 +47,14 @@ class MyHouse extends THREE.Object3D {
         this.add(wall1);
 
         const wall2 = new THREE.Mesh(new THREE.PlaneGeometry(wallDimensions[1].width, wallDimensions[1].height), material);
+        wall2.receiveShadow = true;
         wall2.rotation.y = -Math.PI;
         wall2.position.z = size * 2;
         wall2.position.y = wallDimensions[1].height / 2;
         this.add(wall2);
         
         const wall3 = new THREE.Mesh(new THREE.PlaneGeometry(wallDimensions[2].width, wallDimensions[2].height), materialPaper);
+        wall3.receiveShadow = true;
         wall3.rotation.y = 0;
         wall3.position.z = -size;
         wall3.position.y = wallDimensions[2].height / 2;
@@ -59,6 +62,7 @@ class MyHouse extends THREE.Object3D {
 
         //wall windows
         const wallLateralMidle = new THREE.Mesh(new THREE.PlaneGeometry(6, 10), material);
+        wallLateralMidle.receiveShadow = true;
         wallLateralMidle.rotation.y = Math.PI / 2;
         wallLateralMidle.position.x = -size;
         wallLateralMidle.position.y = 5;
@@ -66,6 +70,7 @@ class MyHouse extends THREE.Object3D {
         this.add(wallLateralMidle);
 
         const wallLateralRight = new THREE.Mesh(new THREE.PlaneGeometry(6, 10), material);
+        wallLateralRight.receiveShadow = true;
         wallLateralRight.rotation.y = Math.PI / 2;
         wallLateralRight.position.x = -size;
         wallLateralRight.position.y = 5;
@@ -73,6 +78,7 @@ class MyHouse extends THREE.Object3D {
         this.add(wallLateralRight);
 
         const wallLateralLeft = new THREE.Mesh(new THREE.PlaneGeometry(6, 10), material);
+        wallLateralLeft.receiveShadow = true;
         wallLateralLeft.rotation.y = Math.PI / 2;
         wallLateralLeft.position.x = -size;
         wallLateralLeft.position.y = 5;
@@ -80,6 +86,7 @@ class MyHouse extends THREE.Object3D {
         this.add(wallLateralLeft);
 
         const wallTop = new THREE.Mesh(new THREE.PlaneGeometry(45, 5), material);
+        wallTop.receiveShadow = true;
         wallTop.rotation.y = Math.PI/2;
         wallTop.position.x = -15;
         wallTop.position.y = 10+2.5;

@@ -102,9 +102,13 @@ class MyVase extends THREE.Object3D {
             const randomColor = Math.random() * 0xffffff; // Random color
             const flowerMaterial = new THREE.MeshPhongMaterial({ color: randomColor });
 
-            const stemHeight = (0.7 + Math.random() * 1.4) * this.size;
+            const stemHeight = position[1] + baseHeight + middleHeight + (0.7 + Math.random() * 1.4) * this.size;
             const geometryStem = new THREE.CylinderGeometry(0.02 * this.size, 0.02 * this.size, stemHeight, 32);
             let stem = new THREE.Mesh(geometryStem, materialStem);
+            if(shadows){
+                stem.castShadow = true;
+                stem.receiveShadow = true;
+            }
 
             // Distribute flowers evenly around the top of the vase
             const angle = (i / 6) * Math.PI * 2;
@@ -113,13 +117,17 @@ class MyVase extends THREE.Object3D {
 
             stem.position.set(
                 position[0] + x,
-                position[1] + baseHeight + middleHeight + stemHeight / 2,
+                stemHeight / 2,
                 position[2] + z
             );
             this.add(stem);
 
             const flowerGeometry = new THREE.ConeGeometry(flowerRadius, flowerHeight, 32);
             let flower = new THREE.Mesh(flowerGeometry, flowerMaterial);
+            if(shadows){
+                flower.castShadow = true;
+                flower.receiveShadow = true;
+            }
             flower.rotateX(-Math.PI); // Rotate the flower to be upright
             flower.position.set(stem.position.x, stem.position.y + stemHeight / 2, stem.position.z);
             this.add(flower);
