@@ -11,18 +11,18 @@ class MyLampshade extends THREE.Object3D {
      * @param {number} height the height of the lampshade
      * @param {number} cylinderHeight the height of the cylinder
      * @param {number} radius the radius of the lampshade
-     * @param {string} baseTexturePath the path of the base texture
+     * @param {THREE.MeshPhongMaterial} materialBase the material of the base of the lampshade
      * @param {hex} lampshadeColor the color of the lampshade
      * @param {list} position the position of the lampshade
      * @param {number} angle the angle of the lampshade
      * @param {bool} upsideDown true if the lampshade is upside down
      */
-    constructor(app, height, cylinderHeight, radius, baseTexturePath, lampshadeColor, position, angle=0, upsideDown = false) {
+    constructor(app, height, cylinderHeight, radius, materialBase, lampshadeColor, position, angle=0, upsideDown = false) {
         super();
         this.type = 'Group';
         this.app = app;
         this.height = height;
-        this.baseTexturePath = baseTexturePath;
+        this.materialBase = materialBase;
         this.lampshadeColor = lampshadeColor;
         this.radius = radius;
         this.upsideDown = upsideDown;
@@ -32,37 +32,30 @@ class MyLampshade extends THREE.Object3D {
 
         this.rotateAngle = 0;
         if(this.upsideDown) this.rotateAngle = -Math.PI;
-        this.buildLamp();
-
+        this.buildLampshade();
         this.rotateX(this.rotateAngle);
         this.position.set(position[0], position[1], position[2]);
 
     }
 
-    buildLamp(){
-        this.baseTexture =new THREE.TextureLoader().load(this.baseTexturePath);
-        this.diffusePlaneColor = "#FFFFFF";
-        this.specularPlaneColor = "#000000";
-        this.planeShininess = 100;
-        const  materialBase = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
-            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.baseTexture });
-
+    buildLampshade(){
         const materialLampshade = new THREE.MeshPhongMaterial({ color: this.lampshadeColor,  emissive: "#aaaaaa", side: THREE.DoubleSide, side: THREE.DoubleSide, transparent: true, opacity: 0.9 });
         const materialBulb = new THREE.MeshPhongMaterial({ color: 0xffffdd, emissive: "#ffffdd"});
 
-        // Cone at the base of the cylinder
+        // Cone on the bottom of the base 
         const coneHeight = this.height / 16;
         const geometryCone = new THREE.ConeGeometry(this.radius / 2, coneHeight, 32);
-        const cone = new THREE.Mesh(geometryCone, materialBase);
+        const cone = new THREE.Mesh(geometryCone, this.materialBase);
         cone.position.set(0,  coneHeight/2, 0);
         this.add(cone);
 
-
         // Lampshade base
         const geometryBase = new THREE.CylinderGeometry(this.radius / 16, this.radius / 8, this.height, 32, 1);
-        const base = new THREE.Mesh(geometryBase, materialBase);
+        const base = new THREE.Mesh(geometryBase, this.materialBase);
         base.position.set(0,  this.height / 2 + coneHeight/2, 0);
         this.add(base);
+
+        // Bulb
         const sphereRadius = this.radius / 4; 
         const geometrySphere = new THREE.SphereGeometry(sphereRadius, 32, 32);
         const sphere = new THREE.Mesh(geometrySphere, materialBulb);
@@ -70,7 +63,7 @@ class MyLampshade extends THREE.Object3D {
         sphere.position.set(0,  this.height + coneHeight/2 , 0); 
         this.add(sphere);
 
-        
+        // Defining if it's upsideDown or not, so it can be used on the ceiling and on the ground
         let geometryCylinder;
         if(this.upsideDown) 
             geometryCylinder = new THREE.CylinderGeometry(sphereRadius * 4, sphereRadius * 3, this.cylinderHeight, 32, 1, true); 

@@ -20,10 +20,8 @@ class MyPlate extends THREE.Object3D {
         this.app = app;
         this.size = size || 2;
         this.color = color
-        
 
-        const material = new THREE.MeshPhongMaterial( {color: color,
-            specular: "#ffffff", emissive: "#000000", shininess: 5} ); 
+        const material = new THREE.MeshPhongMaterial( {color: color, specular: "#ffffff", emissive: "#000000", shininess: 5} ); 
 
 
         //plate base
@@ -48,9 +46,7 @@ class MyPlate extends THREE.Object3D {
         plate.position.set(position[0],position[1] + baseHeight + plateHeight / 2,position[2]);
         this.add( plate );
         
-
         this.height=plateHeight+baseHeight;
-
         
     }
 

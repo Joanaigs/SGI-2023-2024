@@ -272,7 +272,7 @@ class MyContents  {
         this.vase = new MyVase(this, 1, 0xc8dfea, [-12.5, 0, -13], true);
         this.app.scene.add(this.vase);
 
-        this.lampshade = new MyLampshade(this, 7, 1.75, 1.5, "Textures/metal.jpg", 0xffffff, [12, 0, -12]);
+        this.lampshade = new MyLampshade(this, 7, 1.75, 1.5, this.materialLightMetal, 0xffffff, [12, 0, -12]);
         this.app.scene.add(this.lampshade);
         this.addSpotLightLamp(0xf8f9EB,  1, 30,[12, 7.5, -12], [12, 0, -12], 40, 1, 0)
         this.addSpotLightLamp(0xf8f9eb,  1, 30, [12, 7.5, -12], [12, 15, -12], 60, 1, 0)

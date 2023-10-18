@@ -18,7 +18,6 @@ export class MyCarpet extends THREE.Object3D {
         this.color = color;
         this.position.set(position[0], position[1], position[2]);
 
-        //carpet
         const geometryCarpet = new THREE.CircleGeometry( 5, 32 );
         const materialCarpet = new THREE.MeshPhongMaterial( { color: this.color } );
         const carpet = new THREE.Mesh( geometryCarpet, materialCarpet );
