@@ -20,20 +20,23 @@ export class MyRobot extends THREE.Object3D {
         this.color = color;
         this.shadows = shadows;
         this.position.set(position[0], position[1], position[2]);
-
-        // Material for the table
-        this.robotxi =new THREE.TextureLoader().load("Textures/robot.jpg");
-        this.materialRobot = new THREE.MeshPhongMaterial({
-            specular: 0xffffff, // Specular color
-            shininess: 100,       // Shininess (higher values make it shinier)
-            reflectivity: 1,   // Reflectivity (higher values increase reflectivity)
-            map: this.robotxi
-        });
+        this.materialRobot = this.app.lightMetalTexture
 
         this.createRobotHead();
         this.createRobotFace();
         this.createRobotBody();
         this.createRobotLegs();
+    }
+
+
+    createCylinder(radiusTop, radiusBottom, height, segments, material) {
+        const geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, segments);
+        const mesh = new THREE.Mesh(geometry, material);
+        return mesh;
+    }
+
+    createMaterial(color) {
+        return new THREE.MeshPhongMaterial({ color });
     }
 
     createRobotHead(){
@@ -82,7 +85,6 @@ export class MyRobot extends THREE.Object3D {
         }
         middleNeck.position.set(halfSphere.position.x, halfSphere.position.y - 1.05, halfSphere.position.z);
         this.add(middleNeck);
-
 
         // Antennas
         const antennaMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
@@ -136,7 +138,7 @@ export class MyRobot extends THREE.Object3D {
         const glasses = new THREE.Mesh(halfCylinderGeometry , glassesMaterial);
         glasses.position.set(this.position.x + 10, this.position.y + 5.3, this.position.z - 0.6);
         glasses.scale.set(2,2.8,2)
-        const rectangleGeometry = new THREE.BoxGeometry(0.7, 0.2, 0.1); 
+        const rectangleGeometry = new THREE.BoxGeometry(0.73, 0.2, 0.1); 
         const glasses2 = new THREE.Mesh(rectangleGeometry, new THREE.MeshPhongMaterial({ color: 0x000000 }))
         glasses2.position.set(this.position.x + 10, this.position.y + 5.2, this.position.z - 0.55);
 
@@ -291,7 +293,6 @@ export class MyRobot extends THREE.Object3D {
     }
 
     createRobotLegs() {
-        const legMaterial = new THREE.MeshPhongMaterial({ color: 0x00ff00 });
         const legMaterial2 = new THREE.MeshPhongMaterial({ color: 0x000000 });
     
         // Create leg
@@ -318,11 +319,11 @@ export class MyRobot extends THREE.Object3D {
 
         // Create ankles
         const ankle = new THREE.CylinderGeometry(0.2, 0.18, 1.8, 32);
-        const meshLeftAnkle = new THREE.Mesh(ankle, legMaterial);
+        const meshLeftAnkle = new THREE.Mesh(ankle, this.materialRobot);
         meshLeftAnkle.position.set(this.position.x + 10.25, this.position.y + 1.6, this.position.z - 1.1);
         this.add(meshLeftAnkle);
 
-        const meshRightAnkle = new THREE.Mesh(ankle, legMaterial);
+        const meshRightAnkle = new THREE.Mesh(ankle, this.materialRobot);
         meshRightAnkle.position.set(this.position.x + 9.75, this.position.y + 1.6, this.position.z - 1.1);
         this.add(meshRightAnkle);
 

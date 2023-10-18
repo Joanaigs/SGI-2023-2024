@@ -94,7 +94,16 @@ class MyContents  {
         this.textureCurtain = new THREE.TextureLoader().load("Textures/curtain.jpg");
         this.textureCurtain.wrapS = THREE.RepeatWrapping;
         this.textureCurtain.wrapT = THREE.RepeatWrapping;
-        this.textureCurtain.repeat.set(1,  4)
+        this.textureCurtain.repeat.set(1,  4);
+
+
+        this.lightMetalTexture =new THREE.TextureLoader().load("Textures/metal.jpg");
+        this.materialLightMetal = new THREE.MeshPhongMaterial({
+            specular: 0xffffff, 
+            shininess: 100,      
+            reflectivity: 0.8,  
+            map: this.lightMetalTexture
+        });
 
         
         // other attributes

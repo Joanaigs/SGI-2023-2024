@@ -34,7 +34,6 @@ class MyCandle extends THREE.Object3D {
         const geometryBase = new THREE.CylinderGeometry(0.04 * this.size, 0.05 * this.size, baseHeight, 32, 1);
         let candleBase = new THREE.Mesh(geometryBase, materialCandle);
         if(shadows){
-            console.log("candle shadows");
             candleBase.castShadow = true;
             candleBase.receiveShadow = true;
         }
@@ -63,12 +62,7 @@ class MyCandle extends THREE.Object3D {
         // Candle light
         const light = new THREE.PointLight( 0xff4500, 0.5, 1 );
         light.position.set(position[0], position[1] + baseHeight + topHeight +0.03 * this.size, position[2]);
-        this.add(light);
-        
-
-
-
-        
+        this.add(light);    
     }
 }
 MyCandle.prototype.isGroup = true;

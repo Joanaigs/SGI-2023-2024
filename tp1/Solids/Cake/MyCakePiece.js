@@ -46,7 +46,7 @@ class MyCakePiece extends THREE.Object3D {
         cake.position.set(position[0] -0.15  , position[1] + currentHeight + pieceCakeInfo.height / 2, position[2] -0.15 );
         this.add(cake);
 
-        // Toppingsf
+        // Toppings
         const ang = (2 * Math.PI) / 6;
         const top = new THREE.Mesh(topping, toppingMaterial);
         top.position.set(position[0] + (pieceCakeInfo.radiusBottom - 0.1) * Math.cos(ang) - 0.15, position[1] + currentHeight + pieceCakeInfo.height, position[2] + (pieceCakeInfo.radiusBottom - 0.1) * Math.sin(ang) - 0.15);
@@ -64,9 +64,9 @@ class MyCakePiece extends THREE.Object3D {
         const side2 = new THREE.Mesh(sideGeometry, sideMaterial);
         side2.rotateY(Math.PI / 2 + Math.PI/3); // Rotate to match the angle of the cake slice
         side2.position.set(
-            position[0] + (pieceCakeInfo.radiusTop/2)* Math.sin(Math.PI/3) -0.15 , // Adjust this value as needed
+            position[0] + (pieceCakeInfo.radiusTop/2)* Math.sin(Math.PI/3) -0.15 ,
             position[1] + currentHeight + pieceCakeInfo.height / 2,
-            position[2]  + (pieceCakeInfo.radiusTop/2)* Math.cos(Math.PI/3) -0.15// Adjust this value as needed
+            position[2]  + (pieceCakeInfo.radiusTop/2)* Math.cos(Math.PI/3) -0.15
         );
         this.add(side2);
     }

@@ -38,14 +38,14 @@ export class MyChair extends THREE.Object3D {
         this.materialThin = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.thinTexture });
 
-        this.createChair(this.materialWood, this.materialThin);
+        this.createChair(this.materialWood);
         this.rotateY(rotation);
         this.position.set(position[0], position[1], position[2]);
 
     }
 
 
-    createChair(materialWood, materialThin){
+    createChair(materialWood){
         let legHeight = 2.5*this.size;
         let legrad = 0.2*this.size;
         let legSeparation = 0.9*this.size;
@@ -118,12 +118,8 @@ export class MyChair extends THREE.Object3D {
             back4.receiveShadow = true;
         }
         back4.position.set(this.position.x, legHeight + seatHeight + backHeight - backLinesHeight/2 - space , this.position.z+ seatLength/2-backWidth/2);
-        this.add(back4);
-
-
-        
+        this.add(back4);  
     }
-    
 }
 
 MyChair.prototype.isGroup = true;

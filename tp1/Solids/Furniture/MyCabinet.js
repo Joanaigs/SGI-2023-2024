@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { MyApp } from '../../MyApp.js';
 
 /**
- * This class contains a Cabinet representation, it can build a bookshelf or a cabinet base
+ * This class contains a Cabinet representation, it can build a bookshelf or a simple cabinet, or both
  */
 class MyCabinet extends THREE.Object3D {
 
@@ -26,7 +26,6 @@ class MyCabinet extends THREE.Object3D {
         this.colorBase = colorBase;
         this.bookshelf = bookshelf;
         this.numShelves = numShelves + 2;
-        console.log(this.numShelves);
 
         this.thinTexture =new THREE.TextureLoader().load("Textures/top.jpg");
         this.diffusePlaneColor = "#FFFFFF";
@@ -51,7 +50,7 @@ class MyCabinet extends THREE.Object3D {
     }
 
     /**
-     * Builds the cabinet base
+     * Builds the simple cabinet
      * @param {number} length 
      * @param {number} width 
      * @param {number} height 
@@ -112,12 +111,12 @@ class MyCabinet extends THREE.Object3D {
         // Shelves
         const shelfHeight =  (height/4) / (this.numShelves) ; 
         console.log(shelfHeight, height);
-        const shelfSpacing = (height-shelfHeight) / (this.numShelves-1); // Evenly spaced shelves
+        const shelfSpacing = (height-shelfHeight) / (this.numShelves-1); 
 
         for (let i = 0; i < this.numShelves ; i++) {          
             const shelfGeometry = new THREE.BoxGeometry(length / 2, shelfHeight, shelfWidth);
             const shelf = new THREE.Mesh(shelfGeometry, material);
-            shelf.position.set(position[0] + length / 4, position[1] + i*shelfSpacing + shelfHeight/2, position[2]  ); // Adjusted position
+            shelf.position.set(position[0] + length / 4, position[1] + i*shelfSpacing + shelfHeight/2, position[2]  );
             this.add(shelf);
         }
     
