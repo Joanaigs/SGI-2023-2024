@@ -96,7 +96,7 @@ export class MyTable extends THREE.Object3D {
             ];
 
         for (const chairPos of chairPositions) {
-            const chair = new MyChair(this.app, 1, [chairPos[0], chairPos[1], chairPos[2]], chairPos[3], this.color, this.shadows);
+            const chair = new MyChair(this.app, 1, [chairPos[0], chairPos[1], chairPos[2]], chairPos[3], this.materialTableBase, this.shadows);
             this.add(chair);
         }
 

@@ -15,37 +15,22 @@ export class MyChair extends THREE.Object3D {
      * @param {hex} color the color of the chair
      * @param {bool} castShadow true if the chair casts shadows
      */
-    constructor(app, size,  position, rotation, color, castShadow=false) {
+    constructor(app, size,  position, rotation, material, castShadow=false) {
         super();
         this.type = 'Group';
         this.app = app;
         this.size = size;
-        this.color = color;
+        this.material = material;
         this.castShadow = castShadow;
 
-        // Material for the table
-        this.materialTexture =new THREE.TextureLoader().load("Textures/top.jpg");
-        this.diffusePlaneColor = "#FFFFFF";
-        this.specularPlaneColor = "#777777";
-        this.planeShininess = 25;
-        this.materialWood = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
-            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.materialTexture });
-        
-        this.thinTexture =new THREE.TextureLoader().load("Textures/tableLegs.jpg");
-        this.diffusePlaneColor = "#FFFFFF";
-        this.specularPlaneColor = "#777777";
-        this.planeShininess = 25;
-        this.materialThin = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
-            specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.thinTexture });
-
-        this.createChair(this.materialWood);
+        this.createChair();
         this.rotateY(rotation);
         this.position.set(position[0], position[1], position[2]);
 
     }
 
 
-    createChair(materialWood){
+    createChair(){
         let legHeight = 2.5*this.size;
         let legrad = 0.2*this.size;
         let legSeparation = 0.9*this.size;
@@ -62,7 +47,7 @@ export class MyChair extends THREE.Object3D {
         //legs
         for(let i=0; i<4; i++){
             const geometryLeg = new THREE.BoxGeometry(legrad, legHeight, legrad, 32);
-            const tableLeg = new THREE.Mesh(geometryLeg, materialWood);
+            const tableLeg = new THREE.Mesh(geometryLeg, this.material);
             if(this.castShadow){
                 tableLeg.castShadow = true;
                 tableLeg.receiveShadow = true;
@@ -77,7 +62,7 @@ export class MyChair extends THREE.Object3D {
 
         //seat
         const geometrySeat = new THREE.BoxGeometry(seatLength, seatHeight, seatLength);
-        const seat = new THREE.Mesh(geometrySeat, materialWood);
+        const seat = new THREE.Mesh(geometrySeat, this.material);
         if(this.castShadow){
             seat.castShadow = true;
             seat.receiveShadow = true;
@@ -87,7 +72,7 @@ export class MyChair extends THREE.Object3D {
 
         //back
         const geometryBack = new THREE.BoxGeometry(backLenght, backHeight, backWidth);
-        const backSideRight = new THREE.Mesh(geometryBack, materialWood);
+        const backSideRight = new THREE.Mesh(geometryBack, this.material);
         if (this.castShadow) {
             backSideRight.castShadow = true;
             backSideRight.receiveShadow = true;
@@ -95,7 +80,7 @@ export class MyChair extends THREE.Object3D {
         backSideRight.position.set(this.position.x+seatLength/2-backLenght/2, legHeight + seatHeight + backHeight/2, this.position.z+ seatLength/2 - backWidth/2);
         this.add(backSideRight);
 
-        const backSideLeft = new THREE.Mesh(geometryBack, materialWood);
+        const backSideLeft = new THREE.Mesh(geometryBack, this.material);
         if(this.castShadow){
             backSideLeft.castShadow = true;
             backSideLeft.receiveShadow = true;
@@ -104,7 +89,7 @@ export class MyChair extends THREE.Object3D {
         this.add(backSideLeft);
 
         const geometryBackHorrizontal = new THREE.BoxGeometry(seatLength-backLenght*2, backLinesHeight, backWidth);
-        const backMiddleTop = new THREE.Mesh(geometryBackHorrizontal, materialWood);
+        const backMiddleTop = new THREE.Mesh(geometryBackHorrizontal, this.material);
         if(this.castShadow){
             backMiddleTop.castShadow = true;
             backMiddleTop.receiveShadow = true;
@@ -112,7 +97,7 @@ export class MyChair extends THREE.Object3D {
         backMiddleTop.position.set(this.position.x, legHeight + seatHeight + backHeight - backLinesHeight/2, this.position.z+ seatLength/2-backWidth/2);
         this.add(backMiddleTop);
 
-        const backMiddleBottom = new THREE.Mesh(geometryBackHorrizontal, materialWood);
+        const backMiddleBottom = new THREE.Mesh(geometryBackHorrizontal, this.material);
         if(this.castShadow){
             backMiddleBottom.castShadow = true;
             backMiddleBottom.receiveShadow = true;
