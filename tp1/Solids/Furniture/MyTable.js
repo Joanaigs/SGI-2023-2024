@@ -35,7 +35,7 @@ export class MyTable extends THREE.Object3D {
         this.materialTexture =new THREE.TextureLoader().load(this.topColor);
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#777777";
-        this.planeShininess = 25;
+        this.planeShininess = 50;
         this.materialWood = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.materialTexture });
 
@@ -43,7 +43,7 @@ export class MyTable extends THREE.Object3D {
         this.thinTexture =new THREE.TextureLoader().load(this.color);
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#777777";
-        this.planeShininess = 25;
+        this.planeShininess = 50;
         this.materialThin = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.thinTexture });
 
