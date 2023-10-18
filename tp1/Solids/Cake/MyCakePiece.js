@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { MyApp } from './MyApp.js';
-import { MyPlate } from './MyPlate.js';
+import { MyApp } from '../../MyApp.js';
+import { MyPlate } from '../Decoration/MyPlate.js';
 import { MyCandle } from './MyCandle.js';
 
 /**

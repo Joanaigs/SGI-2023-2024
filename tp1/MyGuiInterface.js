@@ -42,7 +42,7 @@ class MyGuiInterface  {
         planeFolder.add(this.contents, 'planeShininess', 0, 1000).name("shininess").onChange( (value) => { this.contents.updatePlaneShininess(value) } );
         planeFolder.open();
 
-        // adds a folder to the gui interface for the textures
+        // adds a folder to the gui interface for the Textures
         const textureFolder = this.datgui.addFolder( 'Textures Plane Settings' );
         const wrappingModeOptions = ['ClampToEdge', 'Repeat', 'MirroredRepeat'];
         textureFolder.add(this.contents, 'wrapping_mode_u', wrappingModeOptions).name('Wrapping U').onChange( () => { this.contents.rebuildFloorWrapping() } );

@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import { RectAreaLightHelper } from 'three/addons/helpers/RectAreaLightHelper.js';
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
-import { MyFrame } from './MyFrame.js';
-import { MyNurbsBuilder } from './MyNurbsBuilder.js';
+import { MyFrame } from '../Decoration/MyFrame.js';
+import { MyNurbsBuilder } from '../../Curves & Surfaces/MyNurbsBuilder.js';
 
 /**
  * This class contains a Window representation
@@ -44,7 +44,7 @@ class MyWindow extends THREE.Object3D {
             color: this.diffusePlaneColor,
             map: this.contentTexture
         });
-        let ratio = 608/402;
+        let ratio = 4589/3092;
         this.contentPlane = new THREE.Mesh(new THREE.PlaneGeometry(ratio * 25, 25 / ratio), this.contentMaterial);
         this.contentPlane.rotateY(Math.PI / 2);
         this.contentPlane.position.set(-16, 5, 7.5);

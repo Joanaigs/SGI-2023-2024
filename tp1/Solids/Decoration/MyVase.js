@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { MyApp } from './MyApp.js';
+import { MyApp } from '../../MyApp.js';
 
 /**
  * This class contains a Vase representation
@@ -20,7 +20,7 @@ class MyVase extends THREE.Object3D {
         this.size = size || 2;
         this.color = color
  
-        this.textureVase1 = new THREE.TextureLoader().load("textures/flowersPattern.jpg");
+        this.textureVase1 = new THREE.TextureLoader().load("Textures/flowersPattern.jpg");
         this.textureVase1.wrapS = THREE.RepeatWrapping;
         this.textureVase1.wrapT = THREE.RepeatWrapping;
         this.textureVase1.repeat.set( 3, 1 );
@@ -47,7 +47,7 @@ class MyVase extends THREE.Object3D {
         this.add( base );
 
         //vase middle
-        this.textureVase3 = new THREE.TextureLoader().load("textures/flowersPattern.jpg");
+        this.textureVase3 = new THREE.TextureLoader().load("Textures/flowersPattern.jpg");
         this.textureVase3.wrapS = THREE.RepeatWrapping;
         this.textureVase3.wrapT = THREE.RepeatWrapping;
         this.textureVase3.repeat.set( 3, 1.5 );
@@ -71,7 +71,7 @@ class MyVase extends THREE.Object3D {
         this.add( middle );
 
         //vase top
-        this.textureVase2 = new THREE.TextureLoader().load("textures/flowersPattern.jpg");
+        this.textureVase2 = new THREE.TextureLoader().load("Textures/flowersPattern.jpg");
         this.textureVase2.wrapS = THREE.RepeatWrapping;
         this.textureVase2.wrapT = THREE.RepeatWrapping;
         this.textureVase2.repeat.set( 3, 0.5 );

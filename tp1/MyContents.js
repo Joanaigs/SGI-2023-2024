@@ -1,25 +1,25 @@
 import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
-import { MyHouse } from './MyHouse.js';
-import { MyTable } from './MyTable.js';
-import { MyPlate } from './MyPlate.js';
-import { MyCake } from './MyCake.js';
-import { MyVase } from './MyVase.js';
-import { MyCarpet } from './MyCarpet.js';
-import { MyBook } from './MyBook.js';
-import { MyLampshade } from './MyLampshade.js';
-import { MyRobot } from './MyRobot.js';
-import { MyCakePiece } from './MyCakePiece.js';
-import { MySofa } from './MySofa.js';
-import { MyFrame } from './MyFrame.js';
-import { MyCabinet } from './MyCabinet.js';
-import { MyDoor } from './MyDoor.js';
-import { MyWindow } from './MyWindow.js';
-import { MyCarocha } from './MyCarocha.js';
-import { MyCoil } from './MyCoil.js';
-import { MyRoundVase } from './MyRoundVase.js';
-import {MyFlower} from './MyFlower.js';
-import { MyJornal } from './MyJornal.js';
+import { MyHouse } from './Solids/House Structure/MyHouse.js';
+import { MyTable } from './Solids/Furniture/MyTable.js';
+import { MyPlate } from './Solids/Decoration/MyPlate.js';
+import { MyCake } from './Solids/Cake/MyCake.js';
+import { MyVase } from './Solids/Decoration/MyVase.js';
+import { MyCarpet } from './Solids/Decoration/MyCarpet.js';
+import { MyBook } from './Solids/Decoration/MyBook.js';
+import { MyLampshade } from './Solids/Decoration/MyLampshade.js';
+import { MyRobot } from './Solids/MyRobot.js';
+import { MyCakePiece } from './Solids/Cake/MyCakePiece.js';
+import { MySofa } from './Solids/Furniture/MySofa.js';
+import { MyFrame } from './Solids/Decoration/MyFrame.js';
+import { MyCabinet } from './Solids/Furniture/MyCabinet.js';
+import { MyDoor } from './Solids/House Structure/MyDoor.js';
+import { MyWindow } from './Solids/House Structure/MyWindow.js';
+import { MyCarocha } from './Curves & Surfaces/MyCarocha.js';
+import { MyCoil } from './Curves & Surfaces/MyCoil.js';
+import { MyRoundVase } from './Curves & Surfaces/MyRoundVase.js';
+import {MyFlower} from './Curves & Surfaces/MyFlower.js';
+import { MyJornal } from './Curves & Surfaces/MyJornal.js';
 /**
  *  This class contains the contents of out application
  */
@@ -75,23 +75,23 @@ class MyContents  {
         //shadows
         this.mapSize = 4096
 
-        //textures
-        this.planetexturePath = "textures/floor.jpg"
+        //Textures
+        this.planetexturePath = "Textures/floor.jpg"
 
         this.planeTexture =new THREE.TextureLoader().load(this.planetexturePath);
 
-        this.materialJornal =new THREE.TextureLoader().load('textures/jornal.jpg');
+        this.materialJornal =new THREE.TextureLoader().load('Textures/jornal.jpg');
         this.materialJornal.wrapT = THREE.MirroredRepeatWrapping;
         this.materialJornal.rotation = Math.PI/2;
         this.materialJornal.repeat.set(1,  -1)
         console.log(this.materialJornal.repeat)
 
 
-        this.textureVase = new THREE.TextureLoader().load("textures/flowersPattern.jpg");
+        this.textureVase = new THREE.TextureLoader().load("Textures/flowersPattern.jpg");
         this.textureVase.wrapS = THREE.RepeatWrapping;
         this.textureVase.wrapT = THREE.RepeatWrapping;
 
-        this.textureCurtain = new THREE.TextureLoader().load("textures/curtain.jpg");
+        this.textureCurtain = new THREE.TextureLoader().load("Textures/curtain.jpg");
         this.textureCurtain.wrapS = THREE.RepeatWrapping;
         this.textureCurtain.wrapT = THREE.RepeatWrapping;
         this.textureCurtain.repeat.set(1,  4)
@@ -197,7 +197,7 @@ class MyContents  {
             this.house = new  MyHouse(this);
             this.app.scene.add(this.house);
         }
-        this.table = new MyTable(this, 6,3.5,1.95,"textures/top.jpg", "textures/tableLegs.jpg", [0, 0, 0], false, true);
+        this.table = new MyTable(this, 6,3.5,1.95,"Textures/top.jpg", "Textures/tableLegs.jpg", [0, 0, 0], false, true);
         this.app.scene.add(this.table); 
 
         this.carpet = new MyCarpet(this,0x8eb1c2, [0, 0, 0]);
@@ -218,7 +218,7 @@ class MyContents  {
         this.vase = new MyVase(this, 1, 0xc8dfea, [-12.5, 0, -13], true);
         this.app.scene.add(this.vase);
 
-        this.lampshade = new MyLampshade(this, 7, 1.75, 1.5, "textures/metal.jpg", 0xffffff, [12, 0, -12]);
+        this.lampshade = new MyLampshade(this, 7, 1.75, 1.5, "Textures/metal.jpg", 0xffffff, [12, 0, -12]);
         this.app.scene.add(this.lampshade);
         this.addSpotLightLamp(0xf8f9EB,  1, 30,[12, 7.5, -12], [12, 0, -12], 40, 1, 0)
         this.addSpotLightLamp(0xf8f9eb,  1, 30, [12, 7.5, -12], [12, 15, -12], 60, 1, 0)
@@ -242,13 +242,13 @@ class MyContents  {
         }
 
         // frame
-        this.joanaPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [3.2, 6, 30-0.25],0, "textures/flowersPainting.jpg", "textures/floor1.jpg", false);
+        this.joanaPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [3.2, 6, 30-0.25],0, "Textures/flowersPainting.jpg", "Textures/floor1.jpg", false);
         this.app.scene.add(this.joanaPhoto);
 
-        this.inesPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [-3.2, 5.3, 30-0.25],0, "textures/housePainting.jpg", "textures/floor1.jpg", false);
+        this.inesPhoto = new MyFrame(this, 0.5,4, 4, 0x5d2906, [-3.2, 5.3, 30-0.25],0, "Textures/housePainting.jpg", "Textures/floor1.jpg", false);
         this.app.scene.add(this.inesPhoto);
 
-        this.window = new MyWindow(this, "textures/transferir.jpg", "textures/metal.jpg", true);
+        this.window = new MyWindow(this, "Textures/transferir.jpg", "Textures/metal.jpg", true);
         this.app.scene.add(this.window);
 
         //televison
@@ -279,21 +279,21 @@ class MyContents  {
         
 
         //back table
-        this.backTable = new MyTable(this, 12, 5,4, "textures/top.jpg","textures/tableLegs.jpg", [0, 0, 10.5], true, true);
+        this.backTable = new MyTable(this, 12, 5,4, "Textures/top.jpg","Textures/tableLegs.jpg", [0, 0, 10.5], true, true);
         this.app.scene.add(this.backTable); 
 
         // door
-        this.door = new MyDoor(this, 5, 12,0.5, "textures/top.jpg", "textures/metal.jpg", [7.4, 0, 8]);
+        this.door = new MyDoor(this, 5, 12,0.5, "Textures/top.jpg", "Textures/metal.jpg", [7.4, 0, 8]);
         this.app.scene.add(this.door); 
 
-        this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, "textures/metal.jpg", 0xffffff, [0, 15, 0],0, true);
+        this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, "Textures/metal.jpg", 0xffffff, [0, 15, 0],0, true);
         this.app.scene.add(this.lampshadeCeiling1);
 
-        this.lampshadeCeiling2 = new MyLampshade(this, 0.7, 0.6, 0.5, "textures/metal.jpg", 0xffffff, [0, 15, 18], 0, true);
+        this.lampshadeCeiling2 = new MyLampshade(this, 0.7, 0.6, 0.5, "Textures/metal.jpg", 0xffffff, [0, 15, 18], 0, true);
         this.app.scene.add(this.lampshadeCeiling2);
         this.addSpotLightLamp(0xffffff, 2, 40, [0, 15, 18], [0, 0, 21], 70,1, 0, true)
 
-        this.carocha = new MyCarocha(this, "textures/floor1.jpg", [14.75, 6, 22], -Math.PI/2, 1);
+        this.carocha = new MyCarocha(this, "Textures/floor1.jpg", [14.75, 6, 22], -Math.PI/2, 1);
         this.app.scene.add(this.carocha);
 
         //coil

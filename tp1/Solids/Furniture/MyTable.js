@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { MyChair } from './MyChair.js';
-import { MyApp } from './MyApp.js';
+import { MyApp } from '../../MyApp.js';
 
 
 /**

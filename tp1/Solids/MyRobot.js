@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { MyApp } from './MyApp.js';
+import { MyApp } from '../MyApp.js';
 
 
 /**
@@ -22,7 +22,7 @@ export class MyRobot extends THREE.Object3D {
         this.position.set(position[0], position[1], position[2]);
 
         // Material for the table
-        this.robotxi =new THREE.TextureLoader().load("textures/robot.jpg");
+        this.robotxi =new THREE.TextureLoader().load("Textures/robot.jpg");
         this.materialRobot = new THREE.MeshPhongMaterial({
             specular: 0xffffff, // Specular color
             shininess: 100,       // Shininess (higher values make it shinier)

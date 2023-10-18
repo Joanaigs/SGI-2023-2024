@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { MyFrame } from './MyFrame.js';
-import { MyApp } from './MyApp.js';
+import { MyFrame } from '../Solids/Decoration/MyFrame.js';
+import { MyApp } from '../MyApp.js';
 
 /**
  * This class contains a Frame with a Carocha drawing eith cuves

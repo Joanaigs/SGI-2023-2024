@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { MyFrame } from './MyFrame.js';
+import { MyFrame } from '../Solids/Decoration/MyFrame.js';
 
 /**
  * This class contains a Coil representation

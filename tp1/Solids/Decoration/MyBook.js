@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { MyApp } from './MyApp.js';
+import { MyApp } from '../../MyApp.js';
 
 /**
  * This class contains a carpet representation
@@ -33,7 +33,7 @@ export class MyBook extends THREE.Object3D {
         this.position.set(position[0], position[1], position[2]);
 
         // Pages
-        this.pagesTexture = new THREE.TextureLoader().load("textures/pages.jpg");
+        this.pagesTexture = new THREE.TextureLoader().load("Textures/pages.jpg");
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#777777";
         this.planeShininess = 25;

@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { MyApp } from './MyApp.js';
+import { MyApp } from '../../MyApp.js';
 
 /**
  * This class contains a House walls representation
@@ -31,7 +31,7 @@ class MyHouse extends THREE.Object3D {
         ];
 
         const material = new THREE.MeshPhongMaterial({ color: 0xffffff });
-        const textureWallPaper = new THREE.TextureLoader().load('textures/wallPaper1.jpg');
+        const textureWallPaper = new THREE.TextureLoader().load('Textures/wallPaper1.jpg');
         textureWallPaper.wrapS = THREE.RepeatWrapping;
         textureWallPaper.wrapT = THREE.RepeatWrapping;
         textureWallPaper.rotation = this.rotate

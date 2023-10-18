@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { MyApp } from './MyApp.js';
+import { MyApp } from '../MyApp.js';
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
 
 /**
@@ -21,7 +21,7 @@ class MyFlower extends THREE.Object3D {
         this.samplesV = 20; // maximum defined in MyGuiInterface
         this.builder = new MyNurbsBuilder();
 
-        this.petalTexture = new THREE.TextureLoader().load("textures/petal.jpg");
+        this.petalTexture = new THREE.TextureLoader().load("Textures/petal.jpg");
         this.petalTexture.repeat.set(5, 5);
         this.materialPetal = new THREE.MeshPhongMaterial({shininess: 50,  map: this.petalTexture, side: THREE.DoubleSide });
 
