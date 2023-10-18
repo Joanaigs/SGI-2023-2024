@@ -37,8 +37,8 @@ class MyCoil extends THREE.Object3D {
     
         const halfCircle = new THREE.CubicBezierCurve3(
             new THREE.Vector3(-this.radius, 0, 0),        // Start point
-            new THREE.Vector3(-this.radius, this.radius * 1.4, 0),        // Control point 1
-            new THREE.Vector3(this.radius, this.radius * 1.4, 0),        // Control point 2
+            new THREE.Vector3(-this.radius, this.radius * 4/3, 0),        // Control point 1
+            new THREE.Vector3(this.radius, this.radius * 4/3, 0),        // Control point 2
             new THREE.Vector3(this.radius, 0, this.seperation)         // End point
         );
     
