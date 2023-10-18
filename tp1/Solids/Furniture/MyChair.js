@@ -87,38 +87,38 @@ export class MyChair extends THREE.Object3D {
 
         //back
         const geometryBack = new THREE.BoxGeometry(backLenght, backHeight, backWidth);
-        const back1 = new THREE.Mesh(geometryBack, materialWood);
+        const backSideRight = new THREE.Mesh(geometryBack, materialWood);
         if (this.castShadow) {
-            back1.castShadow = true;
-            back1.receiveShadow = true;
+            backSideRight.castShadow = true;
+            backSideRight.receiveShadow = true;
         }
-        back1.position.set(this.position.x+seatLength/2-backLenght/2, legHeight + seatHeight + backHeight/2, this.position.z+ seatLength/2 - backWidth/2);
-        this.add(back1);
+        backSideRight.position.set(this.position.x+seatLength/2-backLenght/2, legHeight + seatHeight + backHeight/2, this.position.z+ seatLength/2 - backWidth/2);
+        this.add(backSideRight);
 
-        const back2 = new THREE.Mesh(geometryBack, materialWood);
+        const backSideLeft = new THREE.Mesh(geometryBack, materialWood);
         if(this.castShadow){
-            back2.castShadow = true;
-            back2.receiveShadow = true;
+            backSideLeft.castShadow = true;
+            backSideLeft.receiveShadow = true;
         }
-        back2.position.set(this.position.x-seatLength/2+backLenght/2, legHeight + seatHeight + backHeight/2, this.position.z+ seatLength/2-backWidth/2);
-        this.add(back2);
+        backSideLeft.position.set(this.position.x-seatLength/2+backLenght/2, legHeight + seatHeight + backHeight/2, this.position.z+ seatLength/2-backWidth/2);
+        this.add(backSideLeft);
 
         const geometryBackHorrizontal = new THREE.BoxGeometry(seatLength-backLenght*2, backLinesHeight, backWidth);
-        const back3 = new THREE.Mesh(geometryBackHorrizontal, materialWood);
+        const backMiddleTop = new THREE.Mesh(geometryBackHorrizontal, materialWood);
         if(this.castShadow){
-            back3.castShadow = true;
-            back3.receiveShadow = true;
+            backMiddleTop.castShadow = true;
+            backMiddleTop.receiveShadow = true;
         }
-        back3.position.set(this.position.x, legHeight + seatHeight + backHeight - backLinesHeight/2, this.position.z+ seatLength/2-backWidth/2);
-        this.add(back3);
+        backMiddleTop.position.set(this.position.x, legHeight + seatHeight + backHeight - backLinesHeight/2, this.position.z+ seatLength/2-backWidth/2);
+        this.add(backMiddleTop);
 
-        const back4 = new THREE.Mesh(geometryBackHorrizontal, materialWood);
+        const backMiddleBottom = new THREE.Mesh(geometryBackHorrizontal, materialWood);
         if(this.castShadow){
-            back4.castShadow = true;
-            back4.receiveShadow = true;
+            backMiddleBottom.castShadow = true;
+            backMiddleBottom.receiveShadow = true;
         }
-        back4.position.set(this.position.x, legHeight + seatHeight + backHeight - backLinesHeight/2 - space , this.position.z+ seatLength/2-backWidth/2);
-        this.add(back4);
+        backMiddleBottom.position.set(this.position.x, legHeight + seatHeight + backHeight - backLinesHeight/2 - space , this.position.z+ seatLength/2-backWidth/2);
+        this.add(backMiddleBottom);
 
 
         
