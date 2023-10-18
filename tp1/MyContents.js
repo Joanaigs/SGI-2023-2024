@@ -160,6 +160,55 @@ class MyContents  {
 
     }
 
+    /**
+     * Initializes the contents
+     */
+    init() {
+
+        // Create and attach the axis to the scene
+        if (this.axis === null) {
+            this.axis = new MyAxis(this);
+            this.app.scene.add(this.axis);
+        }
+        
+        this.buildRoomStructure();
+        this.buildSolids();
+        this.buildCurvesAndSurfaces();
+        this.buildLampshades();
+
+    }
+
+
+    buildRoomStructure(){
+        // Create the room structure
+        this.buildFloor();
+        if (this.house === null) {
+            this.house = new MyHouse(this);
+            this.app.scene.add(this.house);
+        }
+        this.window = new MyWindow(this, "Textures/transferir.jpg", true);
+        this.app.scene.add(this.window);
+        this.door = new MyDoor(this, 5, 12,0.5, this.materialOakWood, this.materialLightMetal, [7.4, 0, 8]);
+        this.app.scene.add(this.door); 
+    }
+    
+    buildCurvesAndSurfaces(){
+        this.carocha = new MyCarocha(this, this.lightWoodMaterial, [14.75, 6, 22], -Math.PI/2, 1, true);
+        this.app.scene.add(this.carocha);
+
+        this.coil = new MyCoil(this, 0.5, 8, 0.07, [2, 4.6, 21], Math.PI/4, true);
+        this.app.scene.add(this.coil);
+
+        this.roundVase= new MyRoundVase(this, 0.8, 0xc8dfea, [0, 6, 21], true);
+        this.app.scene.add(this.roundVase);
+
+        this.flower = new MyFlower(this, 2, 0xffb6c1, [0, 5.4, 21], Math.PI , true);
+        this.app.scene.add(this.flower);
+
+        this.jornal= new MyJornal(this, 1, [-10, 1.44, -1], Math.PI/20, 4, 0.5, true);
+        this.app.scene.add(this.jornal);
+    }
+
     getPaintingTexture(paitingTexturePath){
         const paitingTexture =new THREE.TextureLoader().load(paitingTexturePath);
         const diffusePlaneColor = "#FFFFFF";
@@ -215,7 +264,6 @@ class MyContents  {
     }
 
 
-
     buildSpotlightCake(){
         this.spotlight = new THREE.SpotLight(this.lightColor, this.lightIntensity, this.lightDistance, 
             this.lightAngle*(Math.PI/180), this.lightPenumbra, this.lightDecay);
@@ -236,71 +284,7 @@ class MyContents  {
         //this.app.scene.add(this.spotLightHelper)
     }
 
-    
-    /**
-     * Initializes the contents
-     */
-    init() {
-
-        // Create and attach the axis to the scene
-        if (this.axis === null) {
-            this.axis = new MyAxis(this);
-            this.app.scene.add(this.axis);
-        }
-        
-        // Create the room structure
-        this.buildFloor();
-        if (this.house === null) {
-            this.house = new MyHouse(this);
-            this.app.scene.add(this.house);
-        }
-
-        // Build Cake and elements related to it
-        this.buildCake();
-        this.buildSpotlightCake();
-        this.cakePiece = new MyCakePiece(this, 0xffdbe9, [1.2, 2.42, 6.8], true);
-        this.app.scene.add(this.cakePiece);
-
-        // Create the Center table
-        this.centerTable = new MyTable(this, 6, 3.5, 1.95, this.materialOakWood, this.materialTableLegs, [0, 0, 0], false, true);
-        this.app.scene.add(this.centerTable);
-
-        // Create a carpet
-        this.carpet = new MyCarpet(this, 0x8eb1c2, [0, 0, 0]);
-        this.app.scene.add(this.carpet);
-
-
-        // Create a bookshelf 
-        this.bookshelf = new MyCabinet(this, 4, 2, 5, this.materialOakWood, this.materialWhiteWood, [-8,5, -14], true, 3 );
-        this.app.scene.add(this.bookshelf);
-
-            //bookshelf cabinet
-            this.bookshelf2 = new MyCabinet(this, 8, 2, 10, this.materialOakWood, this.materialWhiteWood, [0,2, -14], true,4, true);
-            this.bookshelf2.rotateY(-Math.PI/2)
-            this.app.scene.add(this.bookshelf2);
-
-        // books on bookshelf next to the door
-        for (let i = 0; i < 5; i++) {
-            this.book2  =  new MyBook(this, 1, 1.2, 0.3, 10, [0, 0, 0]);
-            this.book2.position.set(14.1, 3.1 +  i*1.9, 0.25);
-            this.book2.rotateZ(Math.PI/2);
-            this.book2.rotateX(Math.PI/2);
-            this.app.scene.add(this.book2);
-        }
-
-        // Create books on bookshelves
-        for (let i = 0; i < 4; i++) {
-            const book = new MyBook(this, 1, 0.7, 0.2, 8, [0, 0, 0]);
-            book.position.set(-7.9, 5.6 + i * 1.2, -13.8);
-            book.rotateZ(Math.PI / 2);
-            book.rotateX(Math.PI);
-            this.app.scene.add(book);
-        }
-
-
-
-
-
+    buildLampshades(){
         // Add a point light on top of the model
         this.addPointLight();
 
@@ -311,33 +295,98 @@ class MyContents  {
         // Create a lampshade on the ground
         this.lampshade = new MyLampshade(this, 7, 1.75, 1.5, this.materialLightMetal, 0xffffff, [12, 0, -12]);
         this.app.scene.add(this.lampshade);
-        this.addSpotLightLamp(0xf8f9EB,  1, 30,[12, 7.5, -12], [12, 0, -12], 40, 1, 0)
-        this.addSpotLightLamp(0xf8f9eb,  1, 30, [12, 7.5, -12], [12, 15, -12], 60, 1, 0)
+        this.addSpotLightLamp(0xf8f9EB,  1, 30,[12, 7.5, -12], [12, 0, -12], 40, 1, 0);
+        this.addSpotLightLamp(0xf8f9eb,  1, 30, [12, 7.5, -12], [12, 15, -12], 60, 1, 0);
 
+        this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, this.materialLightMetal, 0xffffff, [0, 15, 0],0, true);
+        this.app.scene.add(this.lampshadeCeiling1);
 
-        this.robot = new MyRobot(this, 0x8ecccc, [-4, -0.3, 3.9], true);
-        this.app.scene.add(this.robot); 
-        
-        this.vase = new MyVase(this, 1, 0xc8dfea, [-12.5, 0, -13], true);
-        this.app.scene.add(this.vase);
+        this.lampshadeCeiling2 = new MyLampshade(this, 0.7, 0.6, 0.5, this.materialLightMetal, 0xffffff, [0, 15, 18], 0, true);
+        this.app.scene.add(this.lampshadeCeiling2);
+        this.addSpotLightLamp(0xffffff, 2, 40, [0, 15, 18], [0, 0, 21], 70,1, 0, true);
+    }
 
-        
-        this.sofa1 = new MySofa(this, 1, 0x365563, 0x446879, [0,0, 9], 10, true );
-        this.app.scene.add(this.sofa1);
+    buildSolids(){
+        // Build Cake and elements related to it
+        this.buildCake();
+        this.buildSpotlightCake();
+        this.cakePiece = new MyCakePiece(this, 0xffdbe9, [1.2, 2.42, 6.8], true);
+        this.app.scene.add(this.cakePiece);
 
-        this.sofa2 = new MySofa(this, 1, 0X365563, 0x446879, [0,0, 0], 5, true );
-        this.sofa2.rotation.y = -Math.PI/2;
-        this.sofa2.position.x = -9;
-        this.app.scene.add(this.sofa2);
-
-        // Pile of plates
+        // Pile of plates next to the cake
         for(let i = 0; i < 4; i++){
             let plate = new MyPlate(this, 0.5, 0xf5e9dc, [-2, 2, 0], true);
             plate.position.y += i*plate.plateHeight();
             this.app.scene.add(plate);
         }
 
-        // Painting frames on the wall
+        // Create the Center table
+        this.centerTable = new MyTable(this, 6, 3.5, 1.95, this.materialOakWood, this.materialTableLegs, [0, 0, 0], false, true);
+        this.app.scene.add(this.centerTable);
+
+        // Create a carpet
+        this.carpet = new MyCarpet(this, 0x8eb1c2, [0, 0, 0]);
+        this.app.scene.add(this.carpet);
+
+        // Create a sofa and an armchair
+        this.sofa = new MySofa(this, 1, 0x365563, 0x446879, [0,0, 9], 10, true );
+        this.app.scene.add(this.sofa);
+
+        this.armchair = new MySofa(this, 1, 0X365563, 0x446879, [0,0, 0], 5, true );
+        this.armchair.rotation.y = -Math.PI/2;
+        this.armchair.position.x = -9;
+        this.app.scene.add(this.armchair);
+
+        // Create a television
+        this.television= new MyFrame(this, 0.3,10, 5, [0, 5, -15+0.25], Math.PI, this.televisionMaterial, this.televisionFrameMaterial, false, true);
+        this.app.scene.add(this.television);
+
+        // Create a cabinet bellow the television
+        this.televisionBottomCabinet = new MyCabinet(this, 16, 2, 3, this.materialOakWood, this.materialWhiteWood, [-2,0, -14], false, 0);
+        this.app.scene.add(this.televisionBottomCabinet);
+
+        // Create a bookshelf  next to the television
+        this.bookshelf = new MyCabinet(this, 4, 2, 5, this.materialOakWood, this.materialWhiteWood, [-8,5, -14], true, 3 );
+        this.app.scene.add(this.bookshelf);
+
+        // Create a bookshelf  next to the door
+        this.bookshelf2 = new MyCabinet(this, 8, 2, 10, this.materialOakWood, this.materialWhiteWood, [0,2, -14], true,4, true);
+        this.bookshelf2.rotateY(-Math.PI/2)
+        this.app.scene.add(this.bookshelf2);
+
+        // Create books on  the bookshelf next to the door
+        for (let i = 0; i < 5; i++) {
+            this.book2  =  new MyBook(this, 1, 1.2, 0.3, 10, [0, 0, 0]);
+            this.book2.position.set(14.1, 3.1 +  i*1.9, 0.25);
+            this.book2.rotateZ(Math.PI/2);
+            this.book2.rotateX(Math.PI/2);
+            this.app.scene.add(this.book2);
+        }
+
+        // Create books on bookshelf next to the television
+        for (let i = 0; i < 4; i++) {
+            const book = new MyBook(this, 1, 0.7, 0.2, 8, [0, 0, 0]);
+            book.position.set(-7.9, 5.6 + i * 1.2, -13.8);
+            book.rotateZ(Math.PI / 2);
+            book.rotateX(Math.PI);
+            this.app.scene.add(book);
+        }
+
+        // Create a vase with flowers next to the television  
+        this.vase = new MyVase(this, 1, 0xc8dfea, [-12.5, 0, -13], true);
+        this.app.scene.add(this.vase);
+
+
+        // Create Robot sitted on the sofa    
+        this.robot = new MyRobot(this, 0x8ecccc, [-4, -0.3, 3.9], true);
+        this.app.scene.add(this.robot); 
+
+        // Create Robot sitted on the sofa    
+        this.robot = new MyRobot(this, 0x8ecccc, [-4, -0.3, 3.9], true);
+        this.app.scene.add(this.robot); 
+
+
+        // Painting frames on the back wall
         const flowerPaintingMaterial = this.getPaintingTexture("Textures/flowersPainting.jpg");
         this.flowersPainting = new MyFrame(this, 0.5,4, 4, [3.2, 6, 30-0.25],0, flowerPaintingMaterial, this.lightWoodMaterial, false, true);
         this.app.scene.add(this.flowersPainting);
@@ -346,49 +395,11 @@ class MyContents  {
         this.housePainting = new MyFrame(this, 0.5,4, 4, [-3.2, 5.3, 30-0.25],0, housePaintingMaterial,this.lightWoodMaterial, false, true);
         this.app.scene.add(this.housePainting);
 
-        this.window = new MyWindow(this, "Textures/transferir.jpg", "Textures/metal.jpg", true);
-        this.app.scene.add(this.window);
-
-        //televison
-        this.television= new MyFrame(this, 0.3,10, 5, [0, 5, -15+0.25], Math.PI, this.televisionMaterial, this.televisionFrameMaterial, false, true);
-        this.app.scene.add(this.television);
-
-        // televison Bottom cabinet
-        this.televisionBottomCabinet = new MyCabinet(this, 16, 2, 3, this.materialOakWood, this.materialWhiteWood, [-2,0, -14], false, 0);
-        this.app.scene.add(this.televisionBottomCabinet);
-
-        //back table
+        // Create a dining table 
         this.backTable = new MyTable(this, 12, 5,4, this.materialOakWood, this.materialTableLegs, [0, 0, 10.5], true, true);
         this.app.scene.add(this.backTable); 
-
-        // door
-        this.door = new MyDoor(this, 5, 12,0.5, this.materialOakWood, this.materialLightMetal, [7.4, 0, 8]);
-        this.app.scene.add(this.door); 
-
-        this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, "Textures/metal.jpg", 0xffffff, [0, 15, 0],0, true);
-        this.app.scene.add(this.lampshadeCeiling1);
-
-        this.lampshadeCeiling2 = new MyLampshade(this, 0.7, 0.6, 0.5, "Textures/metal.jpg", 0xffffff, [0, 15, 18], 0, true);
-        this.app.scene.add(this.lampshadeCeiling2);
-        this.addSpotLightLamp(0xffffff, 2, 40, [0, 15, 18], [0, 0, 21], 70,1, 0, true)
-
-        this.carocha = new MyCarocha(this, this.lightWoodMaterial, [14.75, 6, 22], -Math.PI/2, 1, true);
-        this.app.scene.add(this.carocha);
-
-        //coil
-        this.coil = new MyCoil(this, 0.5, 8, 0.07, [2, 4.6, 21], Math.PI/4, true);
-        this.app.scene.add(this.coil);
-
-        this.roundVase= new MyRoundVase(this, 0.8, 0xc8dfea, [0, 6, 21], true);
-        this.app.scene.add(this.roundVase);
-
-        this.flower = new MyFlower(this, 2, 0xffb6c1, [0, 5.4, 21], Math.PI , true);
-        this.app.scene.add(this.flower);
-
-        this.jornal= new MyJornal(this, 1, [-10, 1.44, -1], Math.PI/20, 4, 0.5, true);
-        this.app.scene.add(this.jornal);
-
     }
+
 
     addSpotLightLamp(lightColor, intensity, distance, lampPosition,targetPostion, lightAngle, penumbra, decay, shadows=false){
         let spotlightLamp = new THREE.SpotLight(lightColor, intensity, distance, lightAngle*(Math.PI/180), penumbra, decay);

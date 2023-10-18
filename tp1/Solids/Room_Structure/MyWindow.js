@@ -11,9 +11,8 @@ class MyWindow extends THREE.Object3D {
      * 
      * @param {MyApp} app the application object
      * @param {string} contentTexturePath the path to the place texture 
-     * @param {string} frameTexturePath the path to the frame texture
      */
-    constructor(app, contentTexturePath, frameTexturePath) {
+    constructor(app, contentTexturePath) {
         super();
         this.app = app;
         this.type = 'Group';
