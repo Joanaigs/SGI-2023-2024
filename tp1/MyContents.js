@@ -147,12 +147,12 @@ class MyContents  {
         // oak wood material
         this.oakTexture =new THREE.TextureLoader().load("Textures/top.jpg");
         this.materialOakWood = new THREE.MeshPhongMaterial({ color: "#FFFFFF", 
-            specular: "#777777", emissive: "#000000", shininess: 40, map: this.oakTexture });
+            specular: "#777777", emissive: "#000000", shininess: 50, map: this.oakTexture });
         
         // white wood material
         this.whiteWoodTexture =new THREE.TextureLoader().load("Textures/tableLegs.jpg");
         this.materialWhiteWood = new THREE.MeshPhongMaterial({ color: "#FFFFFF", 
-            specular: 0, emissive: "#000000", shininess: 25, map: this.whiteWoodTexture });
+            specular: "#777777", emissive: "#000000", shininess: 50, map: this.whiteWoodTexture });
 
         // white wood used for tableLegs
         this.materialTableLegs = new THREE.MeshPhongMaterial({ color: "#FFFFFF", emissive: "#000000", map: this.whiteWoodTexture });
