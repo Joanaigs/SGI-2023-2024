@@ -106,7 +106,7 @@ class MyFlower extends THREE.Object3D {
          this.add(flowerBackMesh);
          // Stem of the flower
          const stem = new THREE.CatmullRomCurve3([
-             new THREE.Vector3(0, 0, 0),
+             new THREE.Vector3(0, -1.2, 0),
              new THREE.Vector3(0, 0.7, 0),
              new THREE.Vector3(0, 1, -0.2),
              new THREE.Vector3(0, 1.2, -backHeight-0.1),
