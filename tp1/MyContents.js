@@ -60,6 +60,7 @@ class MyContents  {
         this.planeShininess = 50;
         this.planeMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess });
+            
         //spotlight
         this.lightColor = "#ffffff";
         this.lightIntensity = 2;
@@ -69,6 +70,7 @@ class MyContents  {
         this.lightDecay = 0;
         this.lightPosition = new THREE.Vector3(0, 15, 0);
         this.lightTarget = new THREE.Vector3(0, 2, -3);
+        
         //light atributtes
         this.bias = -0.0002
 
@@ -178,7 +180,6 @@ class MyContents  {
 
     }
 
-
     buildRoomStructure(){
         // Create the room structure
         this.buildFloor();
@@ -207,81 +208,6 @@ class MyContents  {
 
         this.jornal= new MyJornal(this, 1, [-10, 1.44, -1], Math.PI/20, 4, 0.5, true);
         this.app.scene.add(this.jornal);
-    }
-
-    getPaintingTexture(paitingTexturePath){
-        const paitingTexture =new THREE.TextureLoader().load(paitingTexturePath);
-        const diffusePlaneColor = "#FFFFFF";
-        const specularPlaneColor = "#777777";
-        const planeShininess = 100;
-        const paitingMaterial = new THREE.MeshPhongMaterial({ color: diffusePlaneColor, 
-            specular: specularPlaneColor, emissive: "#000000", shininess: planeShininess, map:paitingTexture });
-
-        return paitingMaterial
-    }
-
-    buildCake(){
-        this.cake = new MyCake(this, 0xffdbe9);
-        this.cake.scale.set(this.cakeSize,this.cakeSize,this.cakeSize);
-        this.cake.position.x = this.cakeDisplacement.x;
-        this.cake.position.y = this.cakeDisplacement.y;
-        this.cake.position.z = this.cakeDisplacement.z;
-        this.app.scene.add(this.cake);
-    }
-
-    buildFloor(){
-        let planeTexture =this.planeTexture
-        if(this.wrapping_mode_u === 'ClampToEdge'){
-            planeTexture.wrapS = THREE.ClampToEdgeWrapping;
-        }
-        else if(this.wrapping_mode_u === 'Repeat'){
-            planeTexture.wrapS = THREE.RepeatWrapping;
-        }
-        else if(this.wrapping_mode_u === 'MirroredRepeat'){
-            planeTexture.wrapS = THREE.MirroredRepeatWrapping;
-        }
-        if(this.wrapping_mode_v === 'ClampToEdge'){
-            planeTexture.wrapT = THREE.ClampToEdgeWrapping;
-        }
-        else if(this.wrapping_mode_v === 'Repeat'){
-            planeTexture.wrapT = THREE.RepeatWrapping;
-        }
-        else if(this.wrapping_mode_v === 'MirroredRepeat'){
-            planeTexture.wrapT = THREE.MirroredRepeatWrapping;
-        }
-        planeTexture.repeat.set(this.repeat_u, this.repeat_v);
-        planeTexture.rotation = this.rotation;
-        planeTexture.offset = new THREE.Vector2(this.offset_u,this.offset_v);
-        this.planeMaterial.map = planeTexture;
-        var plane = new THREE.PlaneGeometry( 30, 45 );
-        this.floor = new THREE.Mesh( plane, this.planeMaterial );
-        this.floor.receiveShadow = true;
-        this.floor.rotation.x = -Math.PI / 2;
-        this.floor.position.y = 0;
-        this.floor.position.z = 15 / 3 + 2.5;
-        
-        this.app.scene.add(this.floor);
-    }
-
-
-    buildSpotlightCake(){
-        this.spotlight = new THREE.SpotLight(this.lightColor, this.lightIntensity, this.lightDistance, 
-            this.lightAngle*(Math.PI/180), this.lightPenumbra, this.lightDecay);
-        this.spotlight.castShadow = true;
-        this.spotlight.shadow.mapSize.width = this.mapSize;
-        this.spotlight.shadow.mapSize.height = this.mapSize;
-        this.spotlight.shadow.camera.near = 0.5;
-        this.spotlight.shadow.camera.far = 25;
-        this.spotlight.shadow.bias = this.bias;
-
-        this.spotlight.position.set(this.lightPosition.x, this.lightPosition.y, this.lightPosition.z);
-        this.targetSpot = new THREE.Object3D();
-        this.targetSpot.position.set(this.lightTarget.x, this.lightTarget.y, this.lightTarget.z);
-        this.app.scene.add(this.targetSpot);
-        this.spotlight.target=this.targetSpot;
-        this.app.scene.add(this.spotlight);
-        //this.spotLightHelper = new THREE.SpotLightHelper(this.spotlight, 0xffffff );
-        //this.app.scene.add(this.spotLightHelper)
     }
 
     buildLampshades(){
@@ -401,6 +327,83 @@ class MyContents  {
     }
 
 
+    getPaintingTexture(paitingTexturePath){
+        const paitingTexture =new THREE.TextureLoader().load(paitingTexturePath);
+        const diffusePlaneColor = "#FFFFFF";
+        const specularPlaneColor = "#777777";
+        const planeShininess = 100;
+        const paitingMaterial = new THREE.MeshPhongMaterial({ color: diffusePlaneColor, 
+            specular: specularPlaneColor, emissive: "#000000", shininess: planeShininess, map:paitingTexture });
+
+        return paitingMaterial
+    }
+
+    buildCake(){
+        this.cake = new MyCake(this, 0xffdbe9);
+        this.cake.scale.set(this.cakeSize,this.cakeSize,this.cakeSize);
+        this.cake.position.x = this.cakeDisplacement.x;
+        this.cake.position.y = this.cakeDisplacement.y;
+        this.cake.position.z = this.cakeDisplacement.z;
+        this.app.scene.add(this.cake);
+    }
+
+    buildFloor(){
+        let planeTexture =this.planeTexture
+        if(this.wrapping_mode_u === 'ClampToEdge'){
+            planeTexture.wrapS = THREE.ClampToEdgeWrapping;
+        }
+        else if(this.wrapping_mode_u === 'Repeat'){
+            planeTexture.wrapS = THREE.RepeatWrapping;
+        }
+        else if(this.wrapping_mode_u === 'MirroredRepeat'){
+            planeTexture.wrapS = THREE.MirroredRepeatWrapping;
+        }
+        if(this.wrapping_mode_v === 'ClampToEdge'){
+            planeTexture.wrapT = THREE.ClampToEdgeWrapping;
+        }
+        else if(this.wrapping_mode_v === 'Repeat'){
+            planeTexture.wrapT = THREE.RepeatWrapping;
+        }
+        else if(this.wrapping_mode_v === 'MirroredRepeat'){
+            planeTexture.wrapT = THREE.MirroredRepeatWrapping;
+        }
+        planeTexture.repeat.set(this.repeat_u, this.repeat_v);
+        planeTexture.rotation = this.rotation;
+        planeTexture.offset = new THREE.Vector2(this.offset_u,this.offset_v);
+        this.planeMaterial.map = planeTexture;
+        var plane = new THREE.PlaneGeometry( 30, 45 );
+        this.floor = new THREE.Mesh( plane, this.planeMaterial );
+        this.floor.receiveShadow = true;
+        this.floor.rotation.x = -Math.PI / 2;
+        this.floor.position.y = 0;
+        this.floor.position.z = 15 / 3 + 2.5;
+        
+        this.app.scene.add(this.floor);
+    }
+
+
+    buildSpotlightCake(){
+        this.spotlight = new THREE.SpotLight(this.lightColor, this.lightIntensity, this.lightDistance, 
+            this.lightAngle*(Math.PI/180), this.lightPenumbra, this.lightDecay);
+        this.spotlight.castShadow = true;
+        this.spotlight.shadow.mapSize.width = this.mapSize;
+        this.spotlight.shadow.mapSize.height = this.mapSize;
+        this.spotlight.shadow.camera.near = 0.5;
+        this.spotlight.shadow.camera.far = 25;
+        this.spotlight.shadow.bias = this.bias;
+
+        this.spotlight.position.set(this.lightPosition.x, this.lightPosition.y, this.lightPosition.z);
+        this.targetSpot = new THREE.Object3D();
+        this.targetSpot.position.set(this.lightTarget.x, this.lightTarget.y, this.lightTarget.z);
+        this.app.scene.add(this.targetSpot);
+        this.spotlight.target=this.targetSpot;
+        this.app.scene.add(this.spotlight);
+        //this.spotLightHelper = new THREE.SpotLightHelper(this.spotlight, 0xffffff );
+        //this.app.scene.add(this.spotLightHelper)
+    }
+
+
+
     addSpotLightLamp(lightColor, intensity, distance, lampPosition,targetPostion, lightAngle, penumbra, decay, shadows=false){
         let spotlightLamp = new THREE.SpotLight(lightColor, intensity, distance, lightAngle*(Math.PI/180), penumbra, decay);
         if(shadows){
@@ -417,7 +420,6 @@ class MyContents  {
         this.app.scene.add(target);
         spotlightLamp.target = target;
         this.app.scene.add(spotlightLamp);
-
         //let spotLightLampHelper = new THREE.SpotLightHelper(spotlightLamp);
         //this.app.scene.add(spotLightLampHelper);
     }
