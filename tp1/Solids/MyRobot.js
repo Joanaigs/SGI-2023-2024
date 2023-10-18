@@ -20,7 +20,7 @@ export class MyRobot extends THREE.Object3D {
         this.color = color;
         this.shadows = shadows;
         this.position.set(position[0], position[1], position[2]);
-        this.materialRobot = this.app.lightMetalTexture
+        this.materialRobot = this.app.materialLightMetal
 
         this.createRobotHead();
         this.createRobotFace();
@@ -51,7 +51,7 @@ export class MyRobot extends THREE.Object3D {
         this.add(halfCylinder);
         const sphere = new THREE.SphereGeometry(0.6, 32, 32, 0, Math.PI);
 
-        const halfSphere= new THREE.Mesh(sphere, this.materialRobot);
+        const halfSphere= new THREE.Mesh(sphere, this.app.materialLightMetalHead);
         if(this.shadows){
             halfSphere.castShadow = true;
             halfSphere.receiveShadow = true;

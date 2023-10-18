@@ -53,7 +53,7 @@ class MyFrame extends THREE.Object3D {
         this.add(frameRight);
 
         if(!window){
-            //back
+            // content of the frame (the paiting)
             const geometryBack = new THREE.PlaneGeometry(this.length, heightSides);
             let frameBack = new THREE.Mesh(geometryBack,this.contentMaterial);
             frameBack.rotation.y = Math.PI;

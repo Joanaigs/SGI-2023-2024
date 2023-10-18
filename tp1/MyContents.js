@@ -76,6 +76,15 @@ class MyContents  {
         this.mapSize = 4096
 
         //Textures
+        this.initTextures()
+
+        
+        // other attributes
+        this.cake = null;
+        this.floor=null
+    }
+
+    initTextures(){
         this.planetexturePath = "Textures/floor.jpg"
 
         this.planeTexture =new THREE.TextureLoader().load(this.planetexturePath);
@@ -98,6 +107,9 @@ class MyContents  {
 
 
         this.lightMetalTexture =new THREE.TextureLoader().load("Textures/metal.jpg");
+        this.lightMetalTexture.wrapS = THREE.MirroredRepeatWrapping;
+        this.lightMetalTexture.wrapT = THREE.MirroredRepeatWrapping;
+        this.lightMetalTexture.repeat.set(2,  2);
         this.materialLightMetal = new THREE.MeshPhongMaterial({
             specular: 0xffffff, 
             shininess: 100,      
@@ -118,14 +130,17 @@ class MyContents  {
         this.planeShininess = 100;
         this.lightWoodMaterial = new THREE.MeshPhongMaterial({ color: this.diffusePlaneColor, 
             specular: this.specularPlaneColor, emissive: "#000000", shininess: this.planeShininess, map: this.lightWoodTexture });
-
-        
-        // other attributes
-        this.cake = null;
-        this.floor=null
-    }
-
-    initTextures(){
+        this.lightMetalTextureHead =new THREE.TextureLoader().load("Textures/metal.jpg");
+        this.lightMetalTextureHead.wrapS = THREE.MirroredRepeatWrapping;
+        this.lightMetalTextureHead.wrapT = THREE.MirroredRepeatWrapping;
+        this.lightMetalTextureHead.rotation = Math.PI/2;
+        this.lightMetalTextureHead.repeat.set(2,  2);
+        this.materialLightMetalHead = new THREE.MeshPhongMaterial({
+            specular: 0xffffff, 
+            shininess: 100,      
+            reflectivity: 0.8,  
+            map: this.lightMetalTextureHead
+        });
 
     }
 
@@ -242,13 +257,14 @@ class MyContents  {
         this.app.scene.add(this.carpet); 
 
         //  books on bookshelf next to TV
-        for (let i = 0; i < 2; i++) {
-            const book = new MyBook(this, 1, 0.8, 0.4, 2, [0, 0, 0]);
-            book.position.set(-7.9+0.6, 5.6 + i*2 * 1.2, -14.5);
+        for (let i = 0; i < 4; i++) {
+            const book = new MyBook(this, 1, 0.7, 0.2, 8, [0, 0, 0]);
+            book.position.set(-7.9, 5.6 + i * 1.2, -13.8);
             book.rotateZ(Math.PI/2);
             book.rotateX(Math.PI);
             this.app.scene.add(book);
         }
+
 
         this.robot = new MyRobot(this, 0x8ecccc, [-4, -0.3, 3.9], true);
         this.app.scene.add(this.robot); 
@@ -273,7 +289,7 @@ class MyContents  {
         this.app.scene.add(this.sofa2);
 
         // Pile of plates
-        for(let i = 0; i < 3; i++){
+        for(let i = 0; i < 4; i++){
             let plate = new MyPlate(this, 0.5, 0xf5e9dc, [-2, 2, 0], true);
             plate.position.y += i*plate.plateHeight();
             this.app.scene.add(plate);
@@ -309,13 +325,15 @@ class MyContents  {
          this.app.scene.add(this.bookshelf2);
 
         // books on bookshelf next to the door
-        for (let i = 0; i < 2; i++) {
-            this.book2  =  new MyBook(this, 1, 1.3, 0.7, 2, [0, 0, 0]);
-            this.book2.position.set(14.1, 3.1 +  (i+1)*2*1.9-1.9, 1.6);
+        for (let i = 0; i < 5; i++) {
+            this.book2  =  new MyBook(this, 1, 1.2, 0.3, 10, [0, 0, 0]);
+            this.book2.position.set(14.1, 3.1 +  i*1.9, 0.25);
             this.book2.rotateZ(Math.PI/2);
             this.book2.rotateX(Math.PI/2);
             this.app.scene.add(this.book2);
         }
+
+
         
 
         //back table
