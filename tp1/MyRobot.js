@@ -20,11 +20,12 @@ export class MyRobot extends THREE.Object3D {
         this.position.set(position[0], position[1], position[2]);
 
         // Material for the table
+        this.robotxi =new THREE.TextureLoader().load("textures/robot.jpg");
         this.materialRobot = new THREE.MeshPhongMaterial({
-            color: this.color,  // Base color
-            specular: this.color,  // Specular color
+            specular: 0xffffff, // Specular color
             shininess: 100,       // Shininess (higher values make it shinier)
             reflectivity: 1,   // Reflectivity (higher values increase reflectivity)
+            map: this.robotxi
         });
 
         this.createRobotHead();
