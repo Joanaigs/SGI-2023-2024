@@ -205,7 +205,7 @@ class MyApp  {
             this.controls.target = new THREE.Vector3(0, 0, 0)
         }
         else if(this.activeCameraName == 'Robot'){
-            this.controls.target = new THREE.Vector3(2, 0, 10)
+            this.controls.target = new THREE.Vector3(2, 3, 10)
         }
         else if(this.activeCameraName == 'Cake'){
             this.controls.target = new THREE.Vector3(0, 2, 0)
