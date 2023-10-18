@@ -206,7 +206,7 @@ class MyContents  {
         //  books on bookshelf next to TV
         for (let i = 0; i < 2; i++) {
             const book = new MyBook(this, 1, 0.8, 0.4, 2, [0, 0, 0]);
-            book.position.set(-7.9+0.5, 5.6 + i*2 * 1.2, -14.5);
+            book.position.set(-7.9+0.6, 5.6 + i*2 * 1.2, -14.5);
             book.rotateZ(Math.PI/2);
             book.rotateX(Math.PI);
             this.app.scene.add(book);
@@ -270,8 +270,8 @@ class MyContents  {
 
         // books on bookshelf next to the door
         for (let i = 0; i < 2; i++) {
-            this.book2  =  new MyBook(this, 1, 1.2, 0.6, 3, [0, 0, 0]);
-            this.book2.position.set(14.1, 3.1 +  (i+1)*2*1.9-1.9, 0.5+0.3);
+            this.book2  =  new MyBook(this, 1, 1.3, 0.7, 2, [0, 0, 0]);
+            this.book2.position.set(14.1, 3.1 +  (i+1)*2*1.9-1.9, 1.6);
             this.book2.rotateZ(Math.PI/2);
             this.book2.rotateX(Math.PI/2);
             this.app.scene.add(this.book2);
