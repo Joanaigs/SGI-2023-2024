@@ -148,12 +148,12 @@ class MyContents  {
         // oak wood material
         this.oakTexture =new THREE.TextureLoader().load("Textures/top.jpg");
         this.materialOakWood = new THREE.MeshPhongMaterial({ color: "#FFFFFF", 
-            specular: "#777777", emissive: "#000000", shininess: 50, map: this.oakTexture });
+            specular: "#777777", emissive: "#000000", shininess: 60, map: this.oakTexture });
         
         // white wood material
         this.whiteWoodTexture =new THREE.TextureLoader().load("Textures/tableLegs.jpg");
         this.materialWhiteWood = new THREE.MeshPhongMaterial({ color: "#FFFFFF", 
-            specular: "#777777", emissive: "#000000", shininess: 50, map: this.whiteWoodTexture });
+            specular: "#777777", emissive: "#000000", shininess: 60, map: this.whiteWoodTexture });
 
         // white wood used for tableLegs
         this.materialTableLegs = new THREE.MeshPhongMaterial({ color: "#FFFFFF", emissive: "#000000", map: this.whiteWoodTexture });
@@ -171,6 +171,9 @@ class MyContents  {
         return paitingMaterial
     }
 
+    /**
+     * builds the cake
+     */
     buildCake(){
         this.cake = new MyCake(this, 0xffdbe9);
         this.cake.scale.set(this.cakeSize,this.cakeSize,this.cakeSize);
@@ -180,6 +183,9 @@ class MyContents  {
         this.app.scene.add(this.cake);
     }
 
+    /**
+     * builds the floor according to the values in interface
+     */
     buildFloor(){
         let planeTexture =this.planeTexture
         if(this.wrapping_mode_u === 'ClampToEdge'){
@@ -215,7 +221,9 @@ class MyContents  {
     }
 
 
-
+    /**
+     * builds the spotlight on top of the cake according to the values in interface
+     */
     buildSpotlightCake(){
         this.spotlight = new THREE.SpotLight(this.lightColor, this.lightIntensity, this.lightDistance, 
             this.lightAngle*(Math.PI/180), this.lightPenumbra, this.lightDecay);
@@ -261,14 +269,17 @@ class MyContents  {
         this.buildFloor()
         this.buildSpotlightCake()
 
+        // walls of the house
         if(this.house === null){      
             this.house = new  MyHouse(this);
             this.app.scene.add(this.house);
         }
 
+        // coffee table
         this.table = new MyTable(this, 6,3.5,1.95,this.materialOakWood, this.materialTableLegs, [0, 0, 0], false, true);
         this.app.scene.add(this.table); 
 
+        // carpet
         this.carpet = new MyCarpet(this,0x8eb1c2, [0, 0, 0]);
         this.app.scene.add(this.carpet); 
 
@@ -281,24 +292,29 @@ class MyContents  {
             this.app.scene.add(book);
         }
 
-
+        // robot
         this.robot = new MyRobot(this, 0x8ecccc, [-4, -0.3, 3.9], true);
         this.app.scene.add(this.robot); 
         
+        // cylinder vase
         this.vase = new MyVase(this, 1, 0xc8dfea, [-12.5, 0, -13], true);
         this.app.scene.add(this.vase);
 
+        // standing lampshade
         this.lampshade = new MyLampshade(this, 7, 1.75, 1.5, this.materialLightMetal, 0xffffff, [12, 0, -12]);
         this.app.scene.add(this.lampshade);
         this.addSpotLightLamp(0xf8f9EB,  1, 30,[12, 7.5, -12], [12, 0, -12], 40, 1, 0)
         this.addSpotLightLamp(0xf8f9eb,  1, 30, [12, 7.5, -12], [12, 15, -12], 60, 1, 0)
 
+        // cake piece
         this.cakePiece = new MyCakePiece(this, 0xffdbe9, [1.2, 2.42, 6.8], true);
         this.app.scene.add(this.cakePiece);
         
+        // Big sofa
         this.sofa1 = new MySofa(this, 1, 0x365563, 0x446879, [0,0, 9], 10, true );
         this.app.scene.add(this.sofa1);
 
+        // Small sofa
         this.sofa2 = new MySofa(this, 1, 0X365563, 0x446879, [0,0, 0], 5, true );
         this.sofa2.rotation.y = -Math.PI/2;
         this.sofa2.position.x = -9;
@@ -320,6 +336,7 @@ class MyContents  {
         this.housePainting = new MyFrame(this, 0.5,4, 4, [-3.2, 5.3, 30-0.25],0, housePaintingMaterial,this.lightWoodMaterial, false, true);
         this.app.scene.add(this.housePainting);
 
+        //Windows
         this.window = new MyWindow(this, "Textures/transferir.jpg", "Textures/metal.jpg", true);
         this.app.scene.add(this.window);
 
@@ -358,13 +375,16 @@ class MyContents  {
         this.door = new MyDoor(this, 5, 12,0.5, this.materialOakWood, this.materialLightMetal, [7.4, 0, 8]);
         this.app.scene.add(this.door); 
 
+        //lampshade ceiling cake
         this.lampshadeCeiling1 = new MyLampshade(this, 0.7, 0.6, 0.5, "Textures/metal.jpg", 0xffffff, [0, 15, 0],0, true);
         this.app.scene.add(this.lampshadeCeiling1);
 
+        //lampshade ceiling dinning table
         this.lampshadeCeiling2 = new MyLampshade(this, 0.7, 0.6, 0.5, "Textures/metal.jpg", 0xffffff, [0, 15, 18], 0, true);
         this.app.scene.add(this.lampshadeCeiling2);
         this.addSpotLightLamp(0xffffff, 2, 40, [0, 15, 18], [0, 0, 21], 70,1, 0, true)
 
+        //carocha neon sign
         this.carocha = new MyCarocha(this, this.lightWoodMaterial, [14.75, 6, 22], -Math.PI/2, 1, true);
         this.app.scene.add(this.carocha);
 
@@ -372,12 +392,14 @@ class MyContents  {
         this.coil = new MyCoil(this, 0.5, 8, 0.07, [2, 4.6, 21], Math.PI/4, true);
         this.app.scene.add(this.coil);
 
+        //round vase and flower
         this.roundVase= new MyRoundVase(this, 0.8, 0xc8dfea, [0, 6, 21], true);
         this.app.scene.add(this.roundVase);
 
         this.flower = new MyFlower(this, 2, 0xffb6c1, [0, 5.4, 21], Math.PI , true);
         this.app.scene.add(this.flower);
 
+        //jornal
         this.jornal= new MyJornal(this, 1, [-10, 1.44, -1], Math.PI/20, 4, 0.5, true);
         this.app.scene.add(this.jornal);
 
@@ -453,7 +475,6 @@ class MyContents  {
         this.planeMaterial.shininess = this.planeShininess;
     }
     
-
     rebuildFloor(){
         this.buildFloor();
         if(this.floor !== undefined && this.floor !== null){

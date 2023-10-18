@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { MyNurbsBuilder } from './MyNurbsBuilder.js';
 
 /**
- * This class contains a Window representation
+ * This class contains a Curtain representation
  */
 class MyCurtain extends THREE.Object3D {
 
@@ -26,6 +26,11 @@ class MyCurtain extends THREE.Object3D {
         this.metalRod(positionMetalRod);
 
     }
+
+    /**
+     * Adds a metal rod to the window
+     * @param {list} position the position of the metal rod
+     */
     metalRod(position) {
         let geometry = new THREE.CylinderGeometry(0.1, 0.1, this.length, 32);
         let material = new THREE.MeshPhongMaterial({ color: 0x000000 });
@@ -46,6 +51,12 @@ class MyCurtain extends THREE.Object3D {
         cylinder3.position.set(position[0] + 0.25, position[1], position[2] - this.length / 2);
         this.add(cylinder3);
     }
+
+    /**
+     * Builds the curtains
+     * @param {list} position the position of the curtain
+     * @param {number} rotation the angle of rotation of the curtain
+     */
     buildCurtains(position, rotation) {
 
         this.material = new THREE.MeshPhongMaterial({
@@ -55,15 +66,14 @@ class MyCurtain extends THREE.Object3D {
             transparent: true,
             map: this.app.textureCurtain,
         });
-        // Declare local variables
+
         let controlPoints1;
         let surfaceData1;
         let mesh1;
-        let orderU = 3; // Higher order for smoother curves
-        let orderV = 1; // Higher order for smoother curves
+        let orderU = 3; 
+        let orderV = 1; 
 
-        // Define control points for the first NURBS surface (lower part of the vase)
-
+        // Define control points for curtains
         controlPoints1 = [
             // U = 0
             [
@@ -76,24 +86,17 @@ class MyCurtain extends THREE.Object3D {
                 [0, 1.0, 3.0, 1],
             ],
             // U = 2
-
             [
                 [1.0, -1.0, 0.0, 1],
                 [1.0, 1.0, 0.0, 1],
             ],
-
+            // U = 3
             [
                 [2.0, -1.0, 2.0, 1],
                 [2.0, 1.0, 2.0, 1],
             ],
-
-
-
-
-
         ];
 
-        // Build the first NURBS surface (lower part of the vase)
         surfaceData1 = this.builder.build(
             controlPoints1,
             orderU,
@@ -103,9 +106,6 @@ class MyCurtain extends THREE.Object3D {
             this.material
         );
 
-
-
-        // Create meshes for the two NURBS surfaces
         mesh1 = new THREE.Mesh(surfaceData1, this.material);
         mesh1.scale.set(1, this.height * 0.55, 1);
         mesh1.rotateY(rotation);

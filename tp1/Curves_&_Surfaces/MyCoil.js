@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { MyFrame } from '../Solids/Decoration/MyFrame.js';
 
 /**
  * This class contains a Coil representation
@@ -43,7 +42,7 @@ class MyCoil extends THREE.Object3D {
             new THREE.Vector3(this.radius, 0, this.seperation)         // End point
         );
     
-        const tubeSegments = 20; // Adjust this value to control the smoothness of the tube
+        const tubeSegments = 20; // Number of segments
         const geometryHalfCircle = new THREE.TubeGeometry(halfCircle, tubeSegments, 0.03, 8, false);
     
         let previous = 0;
@@ -55,7 +54,7 @@ class MyCoil extends THREE.Object3D {
                 halfCircleObject1.castShadow = true;
                 halfCircleObject1.receiveShadow = true;
             }
-            let offset = (i % 2 === 0) ? 0 : this.seperation * 2; // Alternate rotation between 0 and π
+            let offset = (i % 2 === 0) ? 0 : this.seperation * 2; 
             halfCircleObject1.rotation.x = rotationX;
             halfCircleObject1.position.set(0, 0, previous);
             this.add(halfCircleObject1);

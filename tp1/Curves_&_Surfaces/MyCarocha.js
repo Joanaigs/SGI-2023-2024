@@ -36,11 +36,13 @@ class MyCarocha extends THREE.Object3D {
        
     }
 
+    /**
+     * Creates the carocha drawing
+     */
     buildCar(){
         const material = new THREE.LineBasicMaterial( { color: 0xff0000 } );
 
-        //weels
-        // imagem tp 1 unidade 4 quadrados
+        //weels - half circle
         let height = (4/3)*(3/4)
         const weel = new THREE.CubicBezierCurve3(
             new THREE.Vector3(0, 0, 0),        // Start point
@@ -59,7 +61,7 @@ class MyCarocha extends THREE.Object3D {
         weelObject2.position.set(2.5+0.8,0.5,0);
         this.add(weelObject2);
 
-        //half sphere
+        //quarter circle
         height = (4/3)*(Math.sqrt(2)-1)*2
         const halfSphere = new THREE.CubicBezierCurve3(
             new THREE.Vector3(0, 0, 0),        // Start point
@@ -87,6 +89,9 @@ class MyCarocha extends THREE.Object3D {
         this.add(bottomLeftObject);
     }
 
+    /**
+     * Creates the frame for the carocha
+     */
     buildFrame(){
         this.frame = new MyFrame(this.app, this.width ,this.length, this.height, this.position,-Math.PI/2, this.frameMaterial, this.frameMaterial, false, this.shadows);
         this.frame.position.set(this.length/2,0,0);
