@@ -10,12 +10,13 @@ class MyCarocha extends THREE.Object3D {
     /**
      * 
      * @param {MyApp} app the application object
-     * @param {Three mesh} frameMaterial material of the frame
+     * @param {THREE.MeshPhongMaterial} frameMaterial material of the frame
      * @param {list} position the position of the carocha
      * @param {number} rotation the angle of rotation of the carocha in y axis
      * @param {number} scale the scale of the carocha 
+     * @param {boolean} shadows has shadows or not
      */
-    constructor(app, frameMaterial, position, rotation, scale) {
+    constructor(app, frameMaterial, position, rotation, scale, shadows = false) {
         super();
         this.type = 'Group';
         this.app = app;
@@ -26,6 +27,7 @@ class MyCarocha extends THREE.Object3D {
         this.height=3;
         this.length=5.5;
         this.numPoints=20
+        this.shadows = shadows;
         this.buildCar();
         this.buildFrame();
         this.rotateY(rotation);
@@ -58,7 +60,7 @@ class MyCarocha extends THREE.Object3D {
         this.add(weelObject2);
 
         //half sphere
-        height = (4/3)*(Math.sqrt(2)-1)*2;
+        height = (4/3)*(Math.sqrt(2)-1)*2
         const halfSphere = new THREE.CubicBezierCurve3(
             new THREE.Vector3(0, 0, 0),        // Start point
             new THREE.Vector3(0, height, 0),        // Control point 1
@@ -86,7 +88,7 @@ class MyCarocha extends THREE.Object3D {
     }
 
     buildFrame(){
-        this.frame = new MyFrame(this.app, this.width ,this.length, this.height, this.position,-Math.PI/2, this.frameMaterial, this.frameMaterial);
+        this.frame = new MyFrame(this.app, this.width ,this.length, this.height, this.position,-Math.PI/2, this.frameMaterial, this.frameMaterial, false, this.shadows);
         this.frame.position.set(this.length/2,0,0);
         this.frame.rotateY(-Math.PI/2);
         this.add(this.frame);

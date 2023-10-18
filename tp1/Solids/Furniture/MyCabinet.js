@@ -16,8 +16,9 @@ class MyCabinet extends THREE.Object3D {
      * @param {list} position the position of the cabinet
      * @param {boolean} bookshelf if the cabinet is a bookshelf or not
      * @param {number} numShelves the number of shelves of the bookshelf
+     * @param {boolean} shadows if the cabinet has shadows or not
      */
-    constructor(app, length, width, height, primaryMaterial, secondaryMaterial, position, bookshelf, numShelves) {
+    constructor(app, length, width, height, primaryMaterial, secondaryMaterial, position, bookshelf, numShelves, shadows=false) {
         super();
         this.app = app;
         this.length = length;
@@ -27,6 +28,7 @@ class MyCabinet extends THREE.Object3D {
         this.secondaryMaterial = secondaryMaterial;
         this.bookshelf = bookshelf;
         this.numShelves = numShelves + 2;
+        this.shadows = shadows;
 
         if (this.bookshelf)
             this.createBookShelf(position);
@@ -42,15 +44,27 @@ class MyCabinet extends THREE.Object3D {
     createCabinetBase(position) {
         const geometryBase = new THREE.BoxGeometry(this.length, this.height, this.width);
         let cabinetBase = new THREE.Mesh(geometryBase, this.material);
+        if(this.shadows){
+            cabinetBase.castShadow = true;
+            cabinetBase.receiveShadow = true;
+        }
         cabinetBase.position.set(position[0], position[1] + this.height / 2, position[2]);
         this.add(cabinetBase);
 
         const geometryThinLayer = new THREE.BoxGeometry(this.length + 0.1, 0.2, this.width + 0.1);
         let thinLayer = new THREE.Mesh(geometryThinLayer, this.secondaryMaterial);
+        if(this.shadows){
+            thinLayer.castShadow = true;
+            thinLayer.receiveShadow = true;
+        }
         thinLayer.position.set(position[0], position[1] + this.height / 2, position[2]);
         this.add(thinLayer);
 
         let thinTopLayer = new THREE.Mesh(geometryThinLayer, this.secondaryMaterial);
+        if(this.shadows){
+            thinTopLayer.castShadow = true;
+            thinTopLayer.receiveShadow = true;
+        }
         thinTopLayer.position.set(position[0], position[1] + this.height, position[2]);
         this.add(thinTopLayer);
     }
@@ -63,6 +77,10 @@ class MyCabinet extends THREE.Object3D {
         const compactGeometry = new THREE.BoxGeometry(this.length / 2, this.height, this.width);
         const compactCabinet = new THREE.Mesh(compactGeometry, this.secondaryMaterial);
         compactCabinet.position.set(position[0] - this.length / 4, position[1] + this.height / 2, position[2]);
+        if(this.shadows){
+            compactCabinet.castShadow = true;
+            compactCabinet.receiveShadow = true;
+        }
         this.add(compactCabinet);
 
         const shelfWidth = this.width;
@@ -70,12 +88,20 @@ class MyCabinet extends THREE.Object3D {
         const wallPartGeometry = new THREE.BoxGeometry(this.length / 2, this.height, this.width - this.width + 0.1);
         const wallPartCabinet = new THREE.Mesh(wallPartGeometry, this.material);
         wallPartCabinet.position.set(position[0] + this.length / 4, position[1] + this.height / 2, position[2] - this.width / 2);
+        if(this.shadows){
+            wallPartCabinet.castShadow = true;
+            wallPartCabinet.receiveShadow = true;
+        }
         this.add(wallPartCabinet);
 
         const rightGeometry = new THREE.BoxGeometry(0.3, this.height, this.width - this.width + 0.3);
         const rightLayer = new THREE.Mesh(rightGeometry, this.material);
         rightLayer.position.set(position[0] + this.length / 4 + this.length / 4, position[1] + this.height / 2, position[2] - this.width / 4 + 0.3);
         rightLayer.rotateY(-Math.PI / 2);
+        if(this.shadows){
+            rightLayer.castShadow = true;
+            rightLayer.receiveShadow = true;
+        }
         this.add(rightLayer);
 
         const shelfHeight = (this.height / 4) / (this.numShelves);
@@ -85,6 +111,10 @@ class MyCabinet extends THREE.Object3D {
             const shelfGeometry = new THREE.BoxGeometry(this.length / 2, shelfHeight, shelfWidth);
             const shelf = new THREE.Mesh(shelfGeometry, this.material);
             shelf.position.set(position[0] + this.length / 4, position[1] + i * shelfSpacing + shelfHeight / 2, position[2]);
+            if(this.shadows){
+                shelf.castShadow = true;
+                shelf.receiveShadow = true;
+            }
             this.add(shelf);
         }
     }

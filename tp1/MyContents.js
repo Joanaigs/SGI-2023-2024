@@ -94,7 +94,8 @@ class MyContents  {
         this.materialJornal =new THREE.TextureLoader().load('Textures/jornal.jpg');
         this.materialJornal.wrapT = THREE.MirroredRepeatWrapping;
         this.materialJornal.rotation = Math.PI/2;
-        this.materialJornal.repeat.set(1,  -1);
+        this.materialJornal.repeat.set(1,  -1)
+
 
         // vase material
         this.textureVase = new THREE.TextureLoader().load("Textures/flowersPattern.jpg");
@@ -312,18 +313,18 @@ class MyContents  {
 
         // Painting frames on the wall
         const flowerPaintingMaterial = this.getPaintingTexture("Textures/flowersPainting.jpg");
-        this.flowersPainting = new MyFrame(this, 0.5,4, 4, [3.2, 6, 30-0.25],0, flowerPaintingMaterial, this.lightWoodMaterial, false);
+        this.flowersPainting = new MyFrame(this, 0.5,4, 4, [3.2, 6, 30-0.25],0, flowerPaintingMaterial, this.lightWoodMaterial, false, true);
         this.app.scene.add(this.flowersPainting);
 
         const housePaintingMaterial = this.getPaintingTexture("Textures/housePainting.jpg");
-        this.housePainting = new MyFrame(this, 0.5,4, 4, [-3.2, 5.3, 30-0.25],0, housePaintingMaterial,this.lightWoodMaterial, false);
+        this.housePainting = new MyFrame(this, 0.5,4, 4, [-3.2, 5.3, 30-0.25],0, housePaintingMaterial,this.lightWoodMaterial, false, true);
         this.app.scene.add(this.housePainting);
 
         this.window = new MyWindow(this, "Textures/transferir.jpg", "Textures/metal.jpg", true);
         this.app.scene.add(this.window);
 
         //televison
-        this.television= new MyFrame(this, 0.3,10, 5, [0, 5, -15+0.25], Math.PI, this.televisionMaterial, this.televisionFrameMaterial);
+        this.television= new MyFrame(this, 0.3,10, 5, [0, 5, -15+0.25], Math.PI, this.televisionMaterial, this.televisionFrameMaterial, false, true);
         this.app.scene.add(this.television);
 
         // televison Bottom cabinet
@@ -335,7 +336,7 @@ class MyContents  {
         this.app.scene.add(this.bookshelf);
 
          //bookshelf cabinet
-         this.bookshelf2 = new MyCabinet(this, 8, 2, 10, this.materialOakWood, this.materialWhiteWood, [0,2, -14], true,4);
+         this.bookshelf2 = new MyCabinet(this, 8, 2, 10, this.materialOakWood, this.materialWhiteWood, [0,2, -14], true,4, true);
          this.bookshelf2.rotateY(-Math.PI/2)
          this.app.scene.add(this.bookshelf2);
 
@@ -364,7 +365,7 @@ class MyContents  {
         this.app.scene.add(this.lampshadeCeiling2);
         this.addSpotLightLamp(0xffffff, 2, 40, [0, 15, 18], [0, 0, 21], 70,1, 0, true)
 
-        this.carocha = new MyCarocha(this, this.lightWoodMaterial, [14.75, 6, 22], -Math.PI/2, 1);
+        this.carocha = new MyCarocha(this, this.lightWoodMaterial, [14.75, 6, 22], -Math.PI/2, 1, true);
         this.app.scene.add(this.carocha);
 
         //coil
