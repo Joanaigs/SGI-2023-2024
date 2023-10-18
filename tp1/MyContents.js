@@ -93,7 +93,6 @@ class MyContents  {
         this.materialJornal.wrapT = THREE.MirroredRepeatWrapping;
         this.materialJornal.rotation = Math.PI/2;
         this.materialJornal.repeat.set(1,  -1)
-        console.log(this.materialJornal.repeat)
 
 
         this.textureVase = new THREE.TextureLoader().load("Textures/flowersPattern.jpg");
@@ -389,8 +388,6 @@ class MyContents  {
         //let spotLightLampHelper = new THREE.SpotLightHelper(spotlightLamp);
         //this.app.scene.add(spotLightLampHelper);
 
-        console.log('Light position:', spotlightLamp.position);
-        console.log('Light target position:', spotlightLamp.target.position);
     }
 
     addPointLight(){

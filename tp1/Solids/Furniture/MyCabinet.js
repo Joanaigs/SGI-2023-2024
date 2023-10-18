@@ -136,7 +136,6 @@ class MyCabinet extends THREE.Object3D {
 
         // Shelves
         const shelfHeight =  (height/4) / (this.numShelves) ; 
-        console.log(shelfHeight, height);
         const shelfSpacing = (height-shelfHeight) / (this.numShelves-1); 
 
         for (let i = 0; i < this.numShelves ; i++) {          

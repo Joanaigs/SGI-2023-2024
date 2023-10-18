@@ -29,7 +29,6 @@ export class MyTable extends THREE.Object3D {
         this.color = color;
         this.topColor = topColor;
         this.shadows = shadows;
-        console.log(this.shadows);
         this.position.set(position[0], position[1], position[2]);
 
         // Material for the table
@@ -74,7 +73,6 @@ export class MyTable extends THREE.Object3D {
                 this.position.z + legZ
             );
             if(this.shadows){
-                console.log("shadows");
                 tableLeg.castShadow = true;
                 tableLeg.receiveShadow = true;
             }
@@ -85,7 +83,6 @@ export class MyTable extends THREE.Object3D {
     createTableTop(materialWood, materialThin){
         const geometryTop = new THREE.BoxGeometry(this.topLength, this.topWidth, 0.2);
         const tableTop = new THREE.Mesh(geometryTop, materialWood);
-        console.log(this.shadows);
         if(this.shadows){
             tableTop.castShadow = true;
             tableTop.receiveShadow = true;
