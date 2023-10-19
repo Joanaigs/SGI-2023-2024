@@ -137,7 +137,7 @@ export class MyRobot extends THREE.Object3D {
 
         // Eyes
         const eyeGeometry = new THREE.SphereGeometry(0.08, 32, 32); 
-        const eyeMaterial = new THREE.MeshBasicMaterial({ color: 0x777777,map: this.app.eyesTexture }); 
+        const eyeMaterial = new THREE.MeshBasicMaterial({ color: 0xaaaaaa,map: this.app.eyesTexture }); 
         const leftEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
         const rightEye = new THREE.Mesh(eyeGeometry, eyeMaterial);
         leftEye.position.set(this.position.x + 9.9, this.position.y + 5.4, this.position.z - 0.6);
