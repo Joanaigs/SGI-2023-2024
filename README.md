@@ -19,18 +19,21 @@
 - Implementation of different cameras:
     - Prepective cameras that allow to see closely diferent relevant objects (e.g: Robot, Carocha)
     - Orthographic cameras: Left, Right, Top, Front, Back
+- Additional section of the interface to make the axis visible or invisible.
 - Additional section of the interface to control the texture of the floor.
 - Additional section of the interface controls the diffuse and specular colors, as well as the shininess of the floor.
 - Additional section of the interface is responsible for managing all the parameters of the spotlight positioned above the cake, such as: turn off, turn on, change its color.
 
 
 #### Scene 
-
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/overall.png?ref_type=heads)
-
 Our scene represents the living room of a lonely robot on its birthday.
 
+`Figure 1 `
+![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/overall.png?ref_type=heads)
+
+`Figure 2`
 ![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/robot.png)
+
 
 In figure 3 it's possible to see:
 * **Coffe Table:** On the coffee table, there is a **three-layered cake** with a lit **candle** emitting a soft light, and a **stack of plates**.
@@ -40,7 +43,9 @@ In figure 3 it's possible to see:
 * **Artsy Vase**: A **vase made of cylinders** with paper flowers. The colors are chosen randomly and change every time the page refreshes.
 * **Robot**: There is also a robot holding a plate with a piece of **cake**.
 
+`Figure 3`
 ![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/tv_side.png)
+
 
 In figure 4 it's possible to see:
 * **Dining table** where it's place **glass vase** holding a beautiful **sunflower** and a **metal coil** (made of curves with tube geometry).
@@ -48,8 +53,10 @@ In figure 4 it's possible to see:
 * **Car neon sign** made of curves
 * **Large windows** featuring curtain rods and curtains made from curved surfaces.
 
+`Figure 4`
 ![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/dinning_table.png?ref_type=heads)
 
+`Figure 5`
 ![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/tv_side.png?ref_type=heads)
 
 
