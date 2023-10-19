@@ -162,6 +162,12 @@ class MyContents  {
         // white wood used for tableLegs
         this.materialTableLegs = new THREE.MeshPhongMaterial({ color: "#FFFFFF", emissive: "#000000", map: this.whiteWoodTexture });
 
+        // eyes texture
+        this.eyesTexture =new THREE.TextureLoader().load("Textures/eye.jpg");
+        this.eyesTexture.wrapS = THREE.RepeatWrapping;
+        this.eyesTexture.wrapT = THREE.RepeatWrapping;
+        this.eyesTexture.repeat.set(2,  1);
+        this.eyesTexture.offset = new THREE.Vector2(-0.1,0.13);
     }
 
     /**
