@@ -69,9 +69,7 @@ In figure 4 it's possible to see:
 | Sofas, Tables and Chairs | Solids     | 
 | Cabinets (Two bookshelves, and a television cabinet on the ground)  | Solids   | 
 | Cake, Piece of Cake, Plates and Candle | Solids   | 
-| Books  | Solids     | 
-| Frames  | Solids     | 
-| Carpet  | Solids     | 
+| Books, Frames and Carpet  | Solids     | 
 | Lampshades | Solids     | 
 | Flower    | Solids & Curves | 
 | Carocha   | Curves  |
