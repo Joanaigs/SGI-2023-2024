@@ -35,7 +35,7 @@ class MyWindow extends THREE.Object3D {
 
         //landscape
         this.contentTexture = new THREE.TextureLoader().load(contentTexturePath);
-        this.diffusePlaneColor = "#aaaaaa";
+        this.diffusePlaneColor = "#777777";
         this.contentMaterial = new THREE.MeshBasicMaterial({
             color: this.diffusePlaneColor,
             map: this.contentTexture

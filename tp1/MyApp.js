@@ -197,6 +197,9 @@ class MyApp  {
         this.activeCamera = this.cameras[this.activeCameraName]
     }
 
+    /**
+     * updates the target of the active camera
+     */
     updateTarget(){
         if(this.activeCameraName == 'Perspective' || this.activeCameraName == 'Top' || this.activeCameraName == 'Front' || this.activeCameraName == 'Back' || this.activeCameraName == 'Right' || this.activeCameraName == 'Left'){
             this.controls.target = new THREE.Vector3(0, 0, 0)
@@ -214,7 +217,7 @@ class MyApp  {
             this.controls.target = new THREE.Vector3(0, 5, 21)
         }
         else if(this.activeCameraName == 'Vase Cylinder'){
-            this.controls.target = new THREE.Vector3(-12.5, 0, -13)
+            this.controls.target = new THREE.Vector3(-12.5, 2, -13)
         }
         else if(this.activeCameraName == 'Photo Frames'){
             this.controls.target = new THREE.Vector3(0, 8, 30)
