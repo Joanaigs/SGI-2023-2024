@@ -124,6 +124,19 @@ class MyContents  {
             map: this.lightMetalTexture
         });
 
+        // dark metal material
+        this.darkMetalTexture =new THREE.TextureLoader().load("Textures/metal.jpg");
+        this.darkMetalTexture.wrapS = THREE.MirroredRepeatWrapping;
+        this.darkMetalTexture.wrapT = THREE.MirroredRepeatWrapping;
+        this.darkMetalTexture.repeat.set(2,  2);
+        this.materialDarkMetal = new THREE.MeshPhongMaterial({
+            color: 0x000000,
+            specular: 0xffffff, 
+            shininess: 70,      
+            reflectivity: 0.8,  
+            map: this.darkMetalTexture
+        });
+
         // television material
         this.televisionMaterial = new THREE.MeshPhongMaterial({ color: "#000000", 
             specular: "#ffffff", emissive: "#000000", shininess: 100, reflectivity: 0 });
