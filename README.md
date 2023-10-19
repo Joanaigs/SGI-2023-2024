@@ -57,7 +57,7 @@ In figure 4 it's possible to see:
 ![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/dinning_table.png?ref_type=heads)
 
 `Figure 5`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/tv_side.png?ref_type=heads)
+![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/curved_flower.png?ref_type=heads)
 
 
 #### Items present in the scene 
