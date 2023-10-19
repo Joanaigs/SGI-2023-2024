@@ -341,7 +341,7 @@ class MyContents  {
         this.app.scene.add(this.vase);
 
         // Create Robot sitted on the sofa    
-        this.robot = new MyRobot(this, 0x8ecccc, [-4, -0.3, 3.9], true);
+        this.robot = new MyRobot(this, [-4, -0.3, 3.9], true);
         this.app.scene.add(this.robot); 
 
         // Painting frames on the back wall

@@ -9,15 +9,13 @@ export class MyRobot extends THREE.Object3D {
     /**
      * 
      * @param {MyApp} app the application object
-     * @param {hex} color the color of the robot
      * @param {list} position the position of the robot
      * @param {boolean} shadows if the robot has shadows
      */
-    constructor(app,color, position, shadows=false) {
+    constructor(app,position, shadows=false) {
         super();
         this.type = 'Group';
         this.app = app;
-        this.color = color;
         this.shadows = shadows;
         this.position.set(position[0], position[1], position[2]);
         this.materialRobot = this.app.materialLightMetal;

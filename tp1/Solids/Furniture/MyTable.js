@@ -13,8 +13,8 @@ export class MyTable extends THREE.Object3D {
      * @param {number} topLength the length of the table top
      * @param {number} topWidth the width of the table top
      * @param {number} legHeight the height of the table legs
-     * @param {hex} color the color of the table legs
-     * @param {hex} topColor the color of the table top
+     * @param {THREE.MeshPhongMaterial} materialTableBase the material of the table base (the plank)
+     * @param {THREE.MeshPhongMaterial} materialTableLegs the material of the legs of the table
      * @param {list} position the position of the table
      * @param {bool} chair has chairs or not
      * @param {bool} shadows has shadows or not

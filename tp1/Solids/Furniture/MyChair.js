@@ -12,7 +12,7 @@ export class MyChair extends THREE.Object3D {
      * @param {number} size the size of each axis
      * @param {list} position the position of the chair
      * @param {number} rotation the angle of rotation of the chair in y axis
-     * @param {hex} color the color of the chair
+     * @param {THREE.MeshPhongMaterial} material material of the chair
      * @param {bool} castShadow true if the chair casts shadows
      */
     constructor(app, size,  position, rotation, material, castShadow=false) {

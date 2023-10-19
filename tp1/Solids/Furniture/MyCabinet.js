@@ -12,7 +12,8 @@ class MyCabinet extends THREE.Object3D {
      * @param {number} length the length of the cabinet
      * @param {number} width the width of the cabinet
      * @param {number} height the height of the cabinet
-     * @param {hex} colorBase the color of the base of the cabinet
+     * @param {THREE.MeshPhongMaterial} primaryMaterial  primary material of the the cabinet
+     * @param {THREE.MeshPhongMaterial} secondaryMaterial  secondary material of the the cabinet
      * @param {list} position the position of the cabinet
      * @param {boolean} bookshelf if the cabinet is a bookshelf or not
      * @param {number} numShelves the number of shelves of the bookshelf
