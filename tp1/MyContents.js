@@ -20,6 +20,8 @@ import { MyCoil } from './Curves_&_Surfaces/MyCoil.js';
 import { MyRoundVase } from './Curves_&_Surfaces/MyRoundVase.js';
 import {MyFlower} from './Curves_&_Surfaces/MyFlower.js';
 import { MyJornal } from './Curves_&_Surfaces/MyJornal.js';
+import { MyPillow } from './Curves_&_Surfaces/MyPillow.js';
+
 /**
  *  This class contains the contents of out application
  */
@@ -70,7 +72,7 @@ class MyContents  {
         this.lightDecay = 0;
         this.lightPosition = new THREE.Vector3(0, 15, 0);
         this.lightTarget = new THREE.Vector3(0, 2, -3);
-        
+
         //light atributtes
         this.bias = -0.0002
 
@@ -126,7 +128,7 @@ class MyContents  {
         this.televisionMaterial = new THREE.MeshPhongMaterial({ color: "#000000", 
             specular: "#ffffff", emissive: "#000000", shininess: 100, reflectivity: 0 });
         this.televisionFrameMaterial = new THREE.MeshPhongMaterial({ color: "#000000", 
-            specular: "#000000", emissive: "#000000", shininess: 0, reflectivity:0 });
+            specular: "#000000", emissive: "#000000", shininess: 0, reflectivity:0.25 });
         
         // light wood material
         this.lightWoodTexture =new THREE.TextureLoader().load("Textures/floor1.jpg");
@@ -208,6 +210,19 @@ class MyContents  {
 
         this.jornal= new MyJornal(this, 1, [-10, 1.44, -1], Math.PI/20, 4, 0.5, true);
         this.app.scene.add(this.jornal);
+
+        this.pillow = new MyPillow(this, 6, 6, 7, 0xc8dfea, [-9.8, 2, 0], false);
+        this.pillow.rotateX(-Math.PI/12);
+        this.app.scene.add(this.pillow);
+
+        this.pillow2 = new MyPillow(this, 4, 4, 5, 0xcccccc, [-9.3, 2, 0], false);
+        this.pillow2.rotateX(-Math.PI/12);
+        this.app.scene.add(this.pillow2);
+
+        this.pillow3 = new MyPillow(this, 6, 6, 7, 0xcccccc, [0, 2, -2], false);
+        this.pillow3.rotateY(Math.PI/2);
+        this.app.scene.add(this.pillow3);
+
     }
 
     buildLampshades(){
@@ -268,7 +283,7 @@ class MyContents  {
         this.app.scene.add(this.television);
 
         // Create a cabinet bellow the television
-        this.televisionBottomCabinet = new MyCabinet(this, 16, 2, 3, this.materialOakWood, this.materialWhiteWood, [-2,0, -14], false, 0, true);
+        this.televisionBottomCabinet = new MyCabinet(this, 16, 2, 3, this.materialOakWood, this.materialWhiteWood, [-2,0, -14], false, 0, false);
         this.app.scene.add(this.televisionBottomCabinet);
 
         // Create a bookshelf  next to the television
