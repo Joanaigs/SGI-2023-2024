@@ -144,7 +144,7 @@ class MyContents  {
             specular: "#000000", emissive: "#000000", shininess: 0, reflectivity:0.25 });
         
         // light wood material
-        this.lightWoodTexture =new THREE.TextureLoader().load("Textures/floor1.jpg");
+        this.lightWoodTexture =new THREE.TextureLoader().load("Textures/lightWood.jpg");
         this.diffusePlaneColor = "#FFFFFF";
         this.specularPlaneColor = "#777777";
         this.planeShininess = 100;
@@ -163,12 +163,12 @@ class MyContents  {
         });
 
         // oak wood material
-        this.oakTexture =new THREE.TextureLoader().load("Textures/top.jpg");
+        this.oakTexture =new THREE.TextureLoader().load("Textures/oak.jpg");
         this.materialOakWood = new THREE.MeshPhongMaterial({ color: "#FFFFFF", 
             specular: "#777777", emissive: "#000000", shininess: 60, map: this.oakTexture });
         
         // white wood material
-        this.whiteWoodTexture =new THREE.TextureLoader().load("Textures/tableLegs.jpg");
+        this.whiteWoodTexture =new THREE.TextureLoader().load("Textures/whiteWood.jpg");
         this.materialWhiteWood = new THREE.MeshPhongMaterial({ color: "#FFFFFF", 
             specular: "#777777", emissive: "#000000", shininess: 60, map: this.whiteWoodTexture });
 
@@ -195,6 +195,9 @@ class MyContents  {
 
     }
 
+    /**
+     * Creates all elements related to the room structure
+     */
     buildRoomStructure(){
         // Create the room structure
         this.buildFloor();
@@ -202,12 +205,15 @@ class MyContents  {
             this.house = new MyHouse(this);
             this.app.scene.add(this.house);
         }
-        this.window = new MyWindow(this, "Textures/transferir.jpg", true);
+        this.window = new MyWindow(this, "Textures/landscape.jpg", true);
         this.app.scene.add(this.window);
         this.door = new MyDoor(this, 5, 12,0.5, this.materialOakWood, this.materialLightMetal, [7.4, 0, 8]);
         this.app.scene.add(this.door); 
     }
     
+    /**
+     * Creates all the curved and surfaces objects
+     */
     buildCurvesAndSurfaces(){
         this.carocha = new MyCarocha(this, this.lightWoodMaterial, [14.75, 6, 22], -Math.PI/2, 1, true);
         this.app.scene.add(this.carocha);
@@ -228,6 +234,10 @@ class MyContents  {
 
     }
 
+
+    /**
+     * Creates all lights and lampshades
+     */
     buildLampshades(){
         // Add a point light on top of the model
         this.addPointLight();
@@ -250,6 +260,9 @@ class MyContents  {
         this.addSpotLightLamp(0xffffff, 2, 40, [0, 15, 18], [0, 0, 21], 70,1, 0, true);
     }
 
+    /**
+     * Creates all the solids objects of the scene
+     */
     buildSolids(){
         // Build Cake and elements related to it
         this.buildCake();
@@ -286,7 +299,7 @@ class MyContents  {
         this.app.scene.add(this.television);
 
         // Create a cabinet bellow the television
-        this.televisionBottomCabinet = new MyCabinet(this, 16, 2, 3, this.materialOakWood, this.materialWhiteWood, [-2,0, -14], false, 0, false);
+        this.televisionBottomCabinet = new MyCabinet(this, 16, 2, 3, this.materialOakWood, this.materialWhiteWood, [-2,0, -14], false, 0, true);
         this.app.scene.add(this.televisionBottomCabinet);
 
         // Create a bookshelf  next to the television
@@ -338,7 +351,11 @@ class MyContents  {
         this.app.scene.add(this.backTable); 
     }
 
-
+    /**
+     * 
+     * @param {THREE.MeshPhongMaterial} paitingTexturePath 
+     * @returns 
+     */
     getPaintingTexture(paitingTexturePath){
         const paitingTexture =new THREE.TextureLoader().load(paitingTexturePath);
         const diffusePlaneColor = "#FFFFFF";
