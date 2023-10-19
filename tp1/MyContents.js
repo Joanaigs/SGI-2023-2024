@@ -34,6 +34,7 @@ class MyContents  {
     constructor(app) {
         this.app = app
         this.axis = null
+        this.axisVisible = false
         this.house = null
 
         //cake related attributes
@@ -189,7 +190,7 @@ class MyContents  {
     init() {
 
         // Create and attach the axis to the scene
-        if (this.axis === null) {
+        if (this.axis === null && this.axisVisible) {
             this.axis = new MyAxis(this);
             this.app.scene.add(this.axis);
         }
@@ -581,6 +582,20 @@ class MyContents  {
         }
         this.buildSpotlightCake();
     }
+
+    /**
+     * updates the axis visibility
+     */
+    rebuildAxis(){
+        if(this.axis !== undefined && this.axis !== null && !this.axisVisible){
+            this.app.scene.remove(this.axis);
+        }
+        else if(this.axisVisible){
+            this.axis = new MyAxis(this);
+            this.app.scene.add(this.axis);
+        }
+    }
+
     
 
     /**
