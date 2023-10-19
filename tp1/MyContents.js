@@ -215,13 +215,24 @@ class MyContents  {
         this.pillow.rotateX(-Math.PI/12);
         this.app.scene.add(this.pillow);
 
-        this.pillow2 = new MyPillow(this, 4, 4, 5, 0xcccccc, [-9.3, 2, 0], false);
+        this.pillow2 = new MyPillow(this, 4, 4, 5, 0x8eb1c2, [-9.3, 2, 0], false);
         this.pillow2.rotateX(-Math.PI/12);
         this.app.scene.add(this.pillow2);
 
-        this.pillow3 = new MyPillow(this, 6, 6, 7, 0xcccccc, [0, 2, -2], false);
+        this.pillow3 = new MyPillow(this, 5, 5, 7, 0xc8dfea, [-0.6, 2, 9.8], false);
         this.pillow3.rotateY(Math.PI/2);
+        this.pillow3.rotateX(-Math.PI/12);
         this.app.scene.add(this.pillow3);
+
+        this.pillow4 = new MyPillow(this, 5, 4, 5, 0xcccccc, [-2, 2, 9.3], false);
+        this.pillow4.rotateY(Math.PI/2);
+        this.pillow4.rotateX(-Math.PI/8);
+        this.app.scene.add(this.pillow4);
+
+        this.pillow5 = new MyPillow(this, 5, 5, 7, 0x8eb1c2, [-3, 2, 9.8], false);
+        this.pillow5.rotateY(Math.PI/2);
+        this.pillow5.rotateX(-Math.PI/12);
+        this.app.scene.add(this.pillow5);
 
     }
 
