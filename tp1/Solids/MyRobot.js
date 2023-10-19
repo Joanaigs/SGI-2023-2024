@@ -21,36 +21,12 @@ export class MyRobot extends THREE.Object3D {
         this.shadows = shadows;
         this.position.set(position[0], position[1], position[2]);
         this.materialRobot = this.app.materialLightMetal
+        this.materialDarkMetal = new THREE.MeshPhongMaterial({ color: 0x000000 });
 
         this.createRobotHead();
         this.createRobotFace();
         this.createRobotBody();
         this.createRobotLegs();
-    }
-
-
-    /**
-     * 
-     * @param {number} radiusTop the radius of the top of the cylinder
-     * @param {number} radiusBottom the radius of the bottom of the cylinder
-     * @param {number} height the height of the cylinder
-     * @param {number} segments the number of segments of the cylinder
-     * @param {THREE.MeshPhongMaterial} material the material of the cylinder
-     * @returns 
-     */
-    createCylinder(radiusTop, radiusBottom, height, segments, material) {
-        const geometry = new THREE.CylinderGeometry(radiusTop, radiusBottom, height, segments);
-        const mesh = new THREE.Mesh(geometry, material);
-        return mesh;
-    }
-
-    /**
-     * 
-     * @param {hex} color the color of the material
-     * @returns the material
-     */
-    createMaterial(color) {
-        return new THREE.MeshPhongMaterial({ color });
     }
 
     /**
@@ -66,8 +42,8 @@ export class MyRobot extends THREE.Object3D {
         }
         halfCylinder.position.set(this.position.x + 10, this.position.y + 5, this.position.z);
         this.add(halfCylinder);
-        const sphere = new THREE.SphereGeometry(0.6, 32, 32, 0, Math.PI);
 
+        const sphere = new THREE.SphereGeometry(0.6, 32, 32, 0, Math.PI);
         const halfSphere= new THREE.Mesh(sphere, this.app.materialLightMetalHead);
         if(this.shadows){
             halfSphere.castShadow = true;
@@ -77,16 +53,16 @@ export class MyRobot extends THREE.Object3D {
         halfSphere.rotateX(-Math.PI / 2);
         this.add(halfSphere);
 
-        // Neck
+        // Neck - It is made up of 3 cylinders: Two short ones connected by a third longer one.
         const cylinder2 =  new THREE.CylinderGeometry(0.2, 0.2, 0.05, 32, 1, false);
-        const topNeck =  new THREE.Mesh(cylinder2, new THREE.MeshPhongMaterial({ color: 0x000000 }));
+        const topNeck =  new THREE.Mesh(cylinder2, this.materialDarkMetal);
         if(this.shadows){
             topNeck.castShadow = true;
             topNeck.receiveShadow = true;
         }
         topNeck.position.set(halfSphere.position.x, halfSphere.position.y - 1.01, halfSphere.position.z);
         this.add(topNeck); 
-        const bottomNeck =  new THREE.Mesh(cylinder2, new THREE.MeshPhongMaterial({ color: 0x000000 }));
+        const bottomNeck =  new THREE.Mesh(cylinder2,this.materialDarkMetal);
         if(this.shadows){
             bottomNeck.castShadow = true;
             bottomNeck.receiveShadow = true;
@@ -95,7 +71,7 @@ export class MyRobot extends THREE.Object3D {
         this.add(bottomNeck); 
 
         const cylinder3 =  new THREE.CylinderGeometry(0.07, 0.07, 0.5, 32, 1, false);
-        const middleNeck =  new THREE.Mesh(cylinder3, new THREE.MeshPhongMaterial({ color: 0x000000 }));
+        const middleNeck =  new THREE.Mesh(cylinder3, this.materialDarkMetal);
         if(this.shadows){
             middleNeck.castShadow = true;
             middleNeck.receiveShadow = true;
@@ -104,10 +80,8 @@ export class MyRobot extends THREE.Object3D {
         this.add(middleNeck);
 
         // Antennas
-        const antennaMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
-        
-        const antenna1 = new THREE.CylinderGeometry(0.03, 0.03, 0.5, 32);
-        const meshAntenna1 = new THREE.Mesh(antenna1, antennaMaterial);
+        const antenna = new THREE.CylinderGeometry(0.03, 0.03, 0.5, 32);
+        const meshAntenna1 = new THREE.Mesh(antenna, this.materialDarkMetal);
         if(this.shadows){
             meshAntenna1.castShadow = true;
             meshAntenna1.receiveShadow = true;
@@ -116,8 +90,7 @@ export class MyRobot extends THREE.Object3D {
         meshAntenna1.rotateZ(Math.PI / 4);
         this.add(meshAntenna1);
         
-        const antenna2 = new THREE.CylinderGeometry(0.03, 0.03, 0.5, 32);
-        const meshAntenna2 = new THREE.Mesh(antenna2, antennaMaterial);
+        const meshAntenna2 = new THREE.Mesh(antenna, this.materialDarkMetal);
         if(this.shadows){
             meshAntenna2.castShadow = true;
             meshAntenna2.receiveShadow = true;
@@ -131,8 +104,6 @@ export class MyRobot extends THREE.Object3D {
      * Creates the robot face
      */
     createRobotFace(){
-
-        const glassesMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
 
         // Geometry of half cylinder 
         const halfCylinderShape = new THREE.Shape();
@@ -150,18 +121,17 @@ export class MyRobot extends THREE.Object3D {
 
         // Mouth
         const halfCylinderGeometry = new THREE.ExtrudeGeometry(halfCylinderShape, extrudeSettings);
-        const mouth = new THREE.Mesh(halfCylinderGeometry , glassesMaterial);
+        const mouth = new THREE.Mesh(halfCylinderGeometry , this.materialDarkMetal);
         mouth.position.set(this.position.x + 10, this.position.y + 4.8, this.position.z - 0.6);
         this.add(mouth);
 
         // Glasses
-        const glasses = new THREE.Mesh(halfCylinderGeometry , glassesMaterial);
+        const glasses = new THREE.Mesh(halfCylinderGeometry , this.materialDarkMetal);
         glasses.position.set(this.position.x + 10, this.position.y + 5.3, this.position.z - 0.6);
         glasses.scale.set(2,2.8,2)
         const rectangleGeometry = new THREE.BoxGeometry(0.73, 0.2, 0.1); 
         const glasses2 = new THREE.Mesh(rectangleGeometry, new THREE.MeshPhongMaterial({ color: 0x000000 }))
         glasses2.position.set(this.position.x + 10, this.position.y + 5.2, this.position.z - 0.55);
-
         this.add(glasses);
         this.add(glasses2);
 
@@ -182,6 +152,7 @@ export class MyRobot extends THREE.Object3D {
      * Creates the robot body
      */
     createRobotBody(){
+        // Chest 
         const cylinder = new THREE.CylinderGeometry(0.6, 0.6,0.9, 32, 1, false);
         const chest = new THREE.Mesh(cylinder, this.materialRobot);
         if(this.shadows){
@@ -191,6 +162,7 @@ export class MyRobot extends THREE.Object3D {
         chest.position.set(this.position.x + 10, this.position.y + 3.7, this.position.z);
         this.add(chest);
 
+        // Abdomen
         const cylinder2 = new THREE.CylinderGeometry(0.4, 0.4,0.5, 32, 1, false);
         const abdomen = new THREE.Mesh(cylinder2, this.materialRobot);
         if(this.shadows){
@@ -200,7 +172,7 @@ export class MyRobot extends THREE.Object3D {
         abdomen.position.set(chest.position.x , chest.position.y - 0.6, chest.position.z);
         this.add(abdomen);
         
-        // hips
+        // Hips
         const hipsGeometry = new THREE.BoxGeometry(1, 0.7, 0.4);
         const hips = new THREE.Mesh(hipsGeometry, this.materialRobot);
         if(this.shadows){
@@ -210,7 +182,7 @@ export class MyRobot extends THREE.Object3D {
         hips.position.set(abdomen.position.x, abdomen.position.y - 0.5, abdomen.position.z);
         this.add(hips);
 
-        // shoulders
+        // Shoulders
         const sphereGeometry = new THREE.SphereGeometry(0.2, 32, 32); 
         const sphereMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 }); 
         const leftSphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
@@ -228,14 +200,14 @@ export class MyRobot extends THREE.Object3D {
         this.add(leftSphere);
         this.add(rightSphere);
 
-        // arms 
+        // Arms 
         const armMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 }); 
 
         const armRadius = 0.1; 
         const armHeight = 1; 
         const armGeometry = new THREE.CylinderGeometry(armRadius, armRadius, armHeight, 32);
 
-        const rightArm = new THREE.Mesh(armGeometry, armMaterial);
+        const rightArm = new THREE.Mesh(armGeometry, this.materialDarkMetal);
         if(this.shadows){
             rightArm.castShadow = true;
             rightArm.receiveShadow = true;
@@ -251,11 +223,11 @@ export class MyRobot extends THREE.Object3D {
         this.add(leftArm);
         this.add(rightArm);
 
-        // forearm
+        // Forearm
         const forearmHeight = 1;
         const forearmGeometry = new THREE.CylinderGeometry(armRadius, armRadius, forearmHeight, 32);
 
-        const leftForearm = new THREE.Mesh(forearmGeometry, armMaterial);
+        const leftForearm = new THREE.Mesh(forearmGeometry, this.materialDarkMetal);
         if(this.shadows){
             leftForearm.castShadow = true;
             leftForearm.receiveShadow = true;
@@ -264,7 +236,7 @@ export class MyRobot extends THREE.Object3D {
         leftForearm.rotateX(Math.PI/4);
         this.add(leftForearm);
 
-        const rightForearm = new THREE.Mesh(forearmGeometry, armMaterial);
+        const rightForearm = new THREE.Mesh(forearmGeometry, this.materialDarkMetal);
         if(this.shadows){
             rightForearm.castShadow = true;
             rightForearm.receiveShadow = true;
@@ -276,9 +248,8 @@ export class MyRobot extends THREE.Object3D {
         // Hands
         const handRadius = 0.15; 
         const handGeometry = new THREE.SphereGeometry(handRadius, 32, 32);
-        const handMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
 
-        const leftHand = new THREE.Mesh(handGeometry, handMaterial);
+        const leftHand = new THREE.Mesh(handGeometry, this.materialDarkMetal);
         if(this.shadows){
             leftHand.castShadow = true;
             leftHand.receiveShadow = true;
@@ -286,7 +257,7 @@ export class MyRobot extends THREE.Object3D {
         leftHand.position.set(leftForearm.position.x, leftForearm.position.y - 0.35, leftForearm.position.z - 0.4);
         this.add(leftHand);
 
-        const rightHand = new THREE.Mesh(handGeometry, handMaterial);
+        const rightHand = new THREE.Mesh(handGeometry, this.materialDarkMetal);
         if(this.shadows){
             rightHand.castShadow = true;
             rightHand.receiveShadow = true;
@@ -298,7 +269,7 @@ export class MyRobot extends THREE.Object3D {
         const elbowRadius = 0.15; 
         const elbowGeometry = new THREE.SphereGeometry(elbowRadius, 32, 32);
 
-        const leftElbow = new THREE.Mesh(elbowGeometry, handMaterial);
+        const leftElbow = new THREE.Mesh(elbowGeometry,this.materialDarkMetal);
         if(this.shadows){
             leftElbow.castShadow = true;
             leftElbow.receiveShadow = true;
@@ -306,7 +277,7 @@ export class MyRobot extends THREE.Object3D {
         leftElbow.position.set(leftArm.position.x, leftArm.position.y - 0.3, leftArm.position.z + 0.3);
         this.add(leftElbow);
 
-        const rightElbow = new THREE.Mesh(elbowGeometry, handMaterial);
+        const rightElbow = new THREE.Mesh(elbowGeometry, this.materialDarkMetal);
         if(this.shadows){
             rightElbow.castShadow = true;
             rightElbow.receiveShadow = true;
@@ -319,9 +290,8 @@ export class MyRobot extends THREE.Object3D {
      * Creates the robot legs
      */
     createRobotLegs() {
-        const legMaterial2 = new THREE.MeshPhongMaterial({ color: 0x000000 });
     
-        // Create leg
+        // Create Thigh
         const leg = new THREE.CylinderGeometry(0.2, 0.18, 1, 32);
         const meshLeftLeg = new THREE.Mesh(leg, this.materialRobot);
         meshLeftLeg.position.set(this.position.x + 10.25, this.position.y + 2.5, this.position.z - 0.5);
@@ -333,17 +303,17 @@ export class MyRobot extends THREE.Object3D {
         meshRightLeg.rotateX(-Math.PI/2);
         this.add(meshRightLeg);
 
-        // Create joints
+        // Create Joints
         const jointGeometry = new THREE.SphereGeometry(0.25, 32, 32);
-        const meshJointLeft = new THREE.Mesh(jointGeometry, legMaterial2);
+        const meshJointLeft = new THREE.Mesh(jointGeometry, this.materialDarkMetal);
         meshJointLeft.position.set(this.position.x + 10.25, this.position.y + 2.5, this.position.z - 1.1);
         this.add(meshJointLeft);
 
-        const meshJointRight = new THREE.Mesh(jointGeometry, legMaterial2);
+        const meshJointRight = new THREE.Mesh(jointGeometry, this.materialDarkMetal);
         meshJointRight.position.set(this.position.x + 9.75, this.position.y + 2.5, this.position.z - 1.1);
         this.add(meshJointRight);
 
-        // Create ankles
+        // Create Ankles
         const ankle = new THREE.CylinderGeometry(0.2, 0.18, 1.8, 32);
         const meshLeftAnkle = new THREE.Mesh(ankle, this.materialRobot);
         meshLeftAnkle.position.set(this.position.x + 10.25, this.position.y + 1.6, this.position.z - 1.1);
@@ -353,7 +323,7 @@ export class MyRobot extends THREE.Object3D {
         meshRightAnkle.position.set(this.position.x + 9.75, this.position.y + 1.6, this.position.z - 1.1);
         this.add(meshRightAnkle);
 
-        // Create feet
+        // Create Feet
         const footShape = new THREE.Shape();
         footShape.moveTo(-0.18, 0);
         footShape.absarc(0, 0, 0.18, 0, Math.PI, false);
@@ -367,11 +337,11 @@ export class MyRobot extends THREE.Object3D {
         };
 
         const footGeometry = new THREE.ExtrudeGeometry(footShape, extrudeSettings);
-        const meshLeftFoot = new THREE.Mesh(footGeometry, legMaterial2);
+        const meshLeftFoot = new THREE.Mesh(footGeometry, this.materialDarkMetal);
         meshLeftFoot.position.set(this.position.x + 10.25, this.position.y + 0.6, this.position.z - 1.4);
         this.add(meshLeftFoot);
 
-        const meshRightFoot = new THREE.Mesh(footGeometry, legMaterial2);
+        const meshRightFoot = new THREE.Mesh(footGeometry, this.materialDarkMetal);
         meshRightFoot.position.set(this.position.x + 9.75, this.position.y + 0.6, this.position.z - 1.4);
         this.add(meshRightFoot);
 
