@@ -211,28 +211,7 @@ class MyContents  {
         this.jornal= new MyJornal(this, 1, [-10, 1.44, -1], Math.PI/20, 4, 0.5, true);
         this.app.scene.add(this.jornal);
 
-        this.pillow = new MyPillow(this, 6, 6, 7, 0xc8dfea, [-9.8, 2, 0], false);
-        this.pillow.rotateX(-Math.PI/12);
-        this.app.scene.add(this.pillow);
-
-        this.pillow2 = new MyPillow(this, 4, 4, 5, 0x8eb1c2, [-9.3, 2, 0], false);
-        this.pillow2.rotateX(-Math.PI/12);
-        this.app.scene.add(this.pillow2);
-
-        this.pillow3 = new MyPillow(this, 5, 5, 7, 0xc8dfea, [-0.6, 2, 9.8], false);
-        this.pillow3.rotateY(Math.PI/2);
-        this.pillow3.rotateX(-Math.PI/12);
-        this.app.scene.add(this.pillow3);
-
-        this.pillow4 = new MyPillow(this, 5, 4, 5, 0xcccccc, [-2, 2, 9.3], false);
-        this.pillow4.rotateY(Math.PI/2);
-        this.pillow4.rotateX(-Math.PI/8);
-        this.app.scene.add(this.pillow4);
-
-        this.pillow5 = new MyPillow(this, 5, 5, 7, 0x8eb1c2, [-3, 2, 9.8], false);
-        this.pillow5.rotateY(Math.PI/2);
-        this.pillow5.rotateX(-Math.PI/12);
-        this.app.scene.add(this.pillow5);
+        this.buildPillows();
 
     }
 
@@ -277,7 +256,7 @@ class MyContents  {
         this.app.scene.add(this.centerTable);
 
         // Create a carpet
-        this.carpet = new MyCarpet(this, 0x8eb1c2, [0, 0, 0]);
+        this.carpet = new MyCarpet(this, 0xacc8d7, [0, 0, 0]);
         this.app.scene.add(this.carpet);
 
         // Create a sofa and an armchair
@@ -431,6 +410,26 @@ class MyContents  {
         //this.app.scene.add(this.spotLightHelper)
     }
 
+    buildPillows(){
+        const pillows = [
+            { sizeX: 6, sizeY: 6, sizeZ: 7, color: 0xc8dfea, position: [-9.8, 2, 0], rotation: -Math.PI/12 },
+            { sizeX: 4, sizeY: 4, sizeZ: 5, color: 0x8eb1c2, position: [-9.3, 2, 0], rotation: -Math.PI/12 },
+            { sizeX: 5, sizeY: 5, sizeZ: 7, color: 0xc8dfea, position: [-0.6, 2, 9.8], rotationY: Math.PI/2, rotationX: -Math.PI/12 },
+            { sizeX: 5, sizeY: 4, sizeZ: 5, color: 0xcccccc, position: [-2, 2, 9.3], rotationY: Math.PI/2, rotationX: -Math.PI/8 },
+            { sizeX: 5, sizeY: 5, sizeZ: 7, color: 0x8eb1c2, position: [-3, 2, 9.8], rotationY: Math.PI/2, rotationX: -Math.PI/12 }
+        ];
+    
+        pillows.forEach(pillowData => {
+            const pillow = new MyPillow(this, pillowData.sizeX, pillowData.sizeY, pillowData.sizeZ, pillowData.color, pillowData.position, false);
+            if (pillowData.rotationY) {
+                pillow.rotateY(pillowData.rotationY);
+            }
+            if (pillowData.rotationX) {
+                pillow.rotateX(pillowData.rotationX);
+            }
+            this.app.scene.add(pillow);
+        });
+    }
 
 
     /**

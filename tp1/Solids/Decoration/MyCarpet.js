@@ -19,7 +19,8 @@ export class MyCarpet extends THREE.Object3D {
         this.position.set(position[0], position[1], position[2]);
 
         const geometryCarpet = new THREE.CircleGeometry( 5, 32 );
-        const materialCarpet = new THREE.MeshPhongMaterial( { color: this.color } );
+        const materialTexture = new THREE.TextureLoader().load("Textures/carpet.jpg");
+        const materialCarpet = new THREE.MeshPhongMaterial( { color: this.color, map: materialTexture} );
         const carpet = new THREE.Mesh( geometryCarpet, materialCarpet );
         carpet.receiveShadow = true;
         carpet.rotateX(-Math.PI / 2);
