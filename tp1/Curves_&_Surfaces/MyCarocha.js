@@ -93,7 +93,8 @@ class MyCarocha extends THREE.Object3D {
      * Creates the frame for the carocha
      */
     buildFrame(){
-        this.frame = new MyFrame(this.app, this.width ,this.length, this.height, this.position,-Math.PI/2, this.frameMaterial, this.frameMaterial, false, this.shadows);
+        this.material = new THREE.MeshPhongMaterial( {color: "#d3d3d3", specular: "#000000", emissive: "#000000", shininess:10} ); 
+        this.frame = new MyFrame(this.app, this.width ,this.length, this.height, this.position,-Math.PI/2, this.material, this.frameMaterial, false, this.shadows);
         this.frame.position.set(this.length/2,0,0);
         this.frame.rotateY(-Math.PI/2);
         this.add(this.frame);
