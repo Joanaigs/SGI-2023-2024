@@ -26,11 +26,11 @@
 
 #### Scene 
 
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/-/blob/main/tp1/Screenshots/overall.png?ref_type=heads)
+![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/overall.png?ref_type=heads)
 
 Our scene represents the living room of a lonely robot on its birthday.
 
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/-/blob/main/tp1/Screenshots/robot.png)
+![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/robot.png)
 
 In figure 3 it's possible to see:
 * **Coffe Table:** On the coffee table, there is a **three-layered cake** with a lit **candle** emitting a soft light, and a **stack of plates**.
@@ -40,7 +40,7 @@ In figure 3 it's possible to see:
 * **Artsy Vase**: A **vase made of cylinders** with paper flowers. The colors are chosen randomly and change every time the page refreshes.
 * **Robot**: There is also a robot holding a plate with a piece of **cake**.
 
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/-/blob/main/tp1/Screenshots/tv_side.png)
+![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/tv_side.png)
 
 In figure 4 it's possible to see:
 * **Dining table** where it's place **glass vase** holding a beautiful **sunflower** and a **metal coil** (made of curves with tube geometry).
@@ -48,9 +48,9 @@ In figure 4 it's possible to see:
 * **Car neon sign** made of curves
 * **Large windows** featuring curtain rods and curtains made from curved surfaces.
 
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/-/blob/main/tp1/Screenshots/dinning_table.png?ref_type=heads)
+![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/dinning_table.png?ref_type=heads)
 
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/-/blob/main/tp1/Screenshots/tv_side.png?ref_type=heads)
+![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/tv_side.png?ref_type=heads)
 
 
 #### Items present in the scene 
