@@ -24,6 +24,6 @@ class MyScene{
     getMaterial(id){
         return this.materials.get(id);
     }
-    
+
 }
 export { MyScene };
