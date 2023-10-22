@@ -18,7 +18,11 @@ class MyContents  {
         this.myScene = new MyScene(this.app);
 
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-		this.reader.open("scenes/demo/demo.xml");		
+		this.reader.open("scenes/demo/demo.xml");
+        this.textures = new Map();
+        this.materials = new Map();
+        this.ligts = new Map();
+        this.objects = new Map();		
     }
 
     /**
@@ -52,10 +56,11 @@ class MyContents  {
         // to see the data structure for each item
 
         this.output(data.options)
+
         console.log("textures:")
         for (var key in data.textures) {
             let texture = data.textures[key]
-            this.myScene.addTexture(texture.id, new MyTexture(this.app, texture));
+            this.textures.set(texture.id, new MyTexture(texture));
             this.output(texture, 1)
         }
         console.log(this.myScene);
