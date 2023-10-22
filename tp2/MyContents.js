@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
 import { MyFileReader } from './parser/MyFileReader.js';
-import { MyScene } from './MyScene.js';
 import { MyTexture } from './MyTexture.js';
 /**
  *  This class contains the contents of out application
@@ -15,8 +14,6 @@ class MyContents  {
     constructor(app) {
         this.app = app
         this.axis = null
-        this.myScene = new MyScene(this.app);
-
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
 		this.reader.open("scenes/demo/demo.xml");
         this.textures = new Map();
@@ -56,6 +53,7 @@ class MyContents  {
         // to see the data structure for each item
 
         this.output(data.options)
+        this.app.scene.updateGlobals(data.options)
 
         console.log("textures:")
         for (var key in data.textures) {
