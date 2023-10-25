@@ -38,14 +38,18 @@ class MyApp  {
                 
         // Create an empty scene
         this.scene = new MyScene(this);
-        this.scene.background = new THREE.Color( 0x101010 );
 
         this.stats = new Stats()
         this.stats.showPanel(1) // 0: fps, 1: ms, 2: mb, 3+: custom
         document.body.appendChild(this.stats.dom)
 
-        this.initCameras();
+        //delete later
+        const aspect = window.innerWidth / window.innerHeight;
+        const perspective1 = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
+        perspective1.position.set(10,10,3)
+        this.cameras['Perspective'] = perspective1
         this.setActiveCamera('Perspective')
+
 
         // Create a renderer with Antialiasing
         this.renderer = new THREE.WebGLRenderer({antialias:true});
@@ -62,45 +66,28 @@ class MyApp  {
         window.addEventListener('resize', this.onResize.bind(this), false );
     }
 
-    /**
-     * initializes all the cameras
-     */
-    initCameras() {
+    initCameras(cameras, activeCameraId) {
+        this.cameras = [];
         const aspect = window.innerWidth / window.innerHeight;
-
-        // Create a basic perspective camera
-        const perspective1 = new THREE.PerspectiveCamera( 75, aspect, 0.1, 1000 )
-        perspective1.position.set(10,10,3)
-        this.cameras['Perspective'] = perspective1
-
-        // defines the frustum size for the orthographic cameras
-        const left = -this.frustumSize / 2 * aspect
-        const right = this.frustumSize /2 * aspect 
-        const top = this.frustumSize / 2 
-        const bottom = -this.frustumSize / 2
-        const near = -this.frustumSize /2
-        const far =  this.frustumSize
-
-        // create a left view orthographic camera
-        const orthoLeft = new THREE.OrthographicCamera( left, right, top, bottom, near, far);
-        orthoLeft.up = new THREE.Vector3(0,1,0);
-        orthoLeft.position.set(-this.frustumSize /4,0,0) 
-        orthoLeft.lookAt( new THREE.Vector3(0,0,0) );
-        this.cameras['Left'] = orthoLeft
-
-        // create a top view orthographic camera
-        const orthoTop = new THREE.OrthographicCamera( left, right, top, bottom, near, far);
-        orthoTop.up = new THREE.Vector3(0,0,1);
-        orthoTop.position.set(0, this.frustumSize /4, 0) 
-        orthoTop.lookAt( new THREE.Vector3(0,0,0) );
-        this.cameras['Top'] = orthoTop
-
-        // create a front view orthographic camera
-        const orthoFront = new THREE.OrthographicCamera( left, right, top, bottom, near, far);
-        orthoFront.up = new THREE.Vector3(0,1,0);
-        orthoFront.position.set(0,0, this.frustumSize /4) 
-        orthoFront.lookAt( new THREE.Vector3(0,0,0) );
-        this.cameras['Front'] = orthoFront
+        console.log(cameras);
+        for(let camera in cameras) {
+            switch(cameras[camera].type) {
+                case "perspective":
+                    let cameraTemp1 = new THREE.PerspectiveCamera(cameras[camera].angle, aspect, cameras[camera].near, cameras[camera].far);
+                    cameraTemp1.position.set(cameras[camera].location[0], cameras[camera].location[1], cameras[camera].location[2]);
+                    cameraTemp1.lookAt(new THREE.Vector3(cameras[camera].target[0], cameras[camera].target[1], cameras[camera].target[2]));
+                    this.cameras[cameras[camera].id] = cameraTemp1;
+                   break;
+                case "orthogonal":
+                    console.log("hi", camera.location);
+                    let cameraTemp2 = new THREE.OrthographicCamera(cameras[camera].left, cameras[camera].right, cameras[camera].top, cameras[camera].bottom, cameras[camera].near, cameras[camera].far);
+                    cameraTemp2.position.set(cameras[camera].location[0], cameras[camera].location[1], cameras[camera].location[2]);
+                    cameraTemp2.lookAt(new THREE.Vector3(cameras[camera].target[0], cameras[camera].target[1], cameras[camera].target[2]));
+                    this.cameras[cameras[camera].id] = cameraTemp2;
+                    break;
+            }
+        }
+        this.setActiveCamera(activeCameraId);
     }
 
     /**

@@ -7,7 +7,7 @@ import { MyApp } from './MyApp.js';
 class MyTexture extends THREE.Texture{
 
 
-    constructor(textureData ) {
+    constructor(textureData) {
         super();
         this.image = textureData.filepath;
         this.isVideo = textureData.isVideo;

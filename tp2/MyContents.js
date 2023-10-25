@@ -18,7 +18,7 @@ class MyContents  {
 		this.reader.open("scenes/demo/demo.xml");
         this.textures = new Map();
         this.materials = new Map();
-        this.ligts = new Map();
+        this.lights = new Map();
         this.objects = new Map();		
     }
 
@@ -48,12 +48,13 @@ class MyContents  {
     }
 
     onAfterSceneLoadedAndBeforeRender(data) {
-       
         // refer to descriptors in class MySceneData.js
         // to see the data structure for each item
 
         this.output(data.options)
         this.app.scene.updateGlobals(data.options)
+        this.app.initCameras(data.cameras, data.activeCameraId)
+
 
         console.log("textures:")
         for (var key in data.textures) {
@@ -67,12 +68,6 @@ class MyContents  {
         for (var key in data.materials) {
             let material = data.materials[key]
             this.output(material, 1)
-        }
-
-        console.log("cameras:")
-        for (var key in data.cameras) {
-            let camera = data.cameras[key]
-            this.output(camera, 1)
         }
 
         console.log("nodes:")
