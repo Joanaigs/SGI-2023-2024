@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
 import { MyFileReader } from './parser/MyFileReader.js';
-import { MyScene } from './MyScene.js';
 import { MyTexture } from './MyTexture.js';
 import { MyMaterial } from './MyMaterial.js';
 /**
@@ -16,13 +15,11 @@ class MyContents  {
     constructor(app) {
         this.app = app
         this.axis = null
-        this.myScene = new MyScene(this.app);
-
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
 		this.reader.open("scenes/demo/demo.xml");
         this.textures = new Map();
         this.materials = new Map();
-        this.ligts = new Map();
+        this.lights = new Map();
         this.objects = new Map();		
     }
 
@@ -52,11 +49,13 @@ class MyContents  {
     }
 
     onAfterSceneLoadedAndBeforeRender(data) {
-       
         // refer to descriptors in class MySceneData.js
         // to see the data structure for each item
 
         this.output(data.options)
+        this.app.scene.updateGlobals(data.options)
+        this.app.initCameras(data.cameras, data.activeCameraId)
+
 
         console.log("textures:")
         for (var key in data.textures) {
@@ -72,13 +71,6 @@ class MyContents  {
             let texture = this.getTexture(material.textureref);
             this.materials.set(1, new MyMaterial(material, texture));
             this.output(material, 1);
-        }
-
-        console.log("cameras:")
-        for (var key in data.cameras) {
-            let camera = data.cameras[key]
-            this.output(camera, 1)
-
         }
 
         console.log("nodes:")
