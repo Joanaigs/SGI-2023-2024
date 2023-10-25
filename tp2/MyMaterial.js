@@ -6,13 +6,13 @@ import { MyApp } from './MyApp.js';
  */
 class MyMaterial extends THREE.Material{
 
-    constructor(app, materialData ) {
-        this.app = app;
+    constructor(materialData, texture ) {
+        super();
         this.specular = materialData.color;
         this.shininess = materialData.shininess;
         this.emissive  = materialData.emissive;
         this.wireframe = materialData.wireframe;
-        this.texture = this.app.getTexture(materialData.textureref);
+        this.texture = texture;
     }
 
     updateMaterial(materialData){

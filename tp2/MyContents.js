@@ -3,6 +3,7 @@ import { MyAxis } from './MyAxis.js';
 import { MyFileReader } from './parser/MyFileReader.js';
 import { MyScene } from './MyScene.js';
 import { MyTexture } from './MyTexture.js';
+import { MyMaterial } from './MyMaterial.js';
 /**
  *  This class contains the contents of out application
  */
@@ -67,14 +68,17 @@ class MyContents  {
 
         console.log("materials:")
         for (var key in data.materials) {
-            let material = data.materials[key]
-            this.output(material, 1)
+            let material = data.materials[key];
+            let texture = this.getTexture(material.textureref);
+            this.materials.set(1, new MyMaterial(material, texture));
+            this.output(material, 1);
         }
 
         console.log("cameras:")
         for (var key in data.cameras) {
             let camera = data.cameras[key]
             this.output(camera, 1)
+
         }
 
         console.log("nodes:")
@@ -94,6 +98,10 @@ class MyContents  {
                 }
             }
         }
+    }
+
+    getTexture(id){
+        return this.textures.get(id);
     }
 
     update() {
