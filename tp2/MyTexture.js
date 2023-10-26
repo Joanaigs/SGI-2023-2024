@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { MyApp } from './MyApp.js';
 
 /**
- * This class creates a texture
+ * This class creates a Texture
  */
 class MyTexture extends THREE.Texture{
 
