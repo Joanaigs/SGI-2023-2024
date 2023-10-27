@@ -12,7 +12,7 @@ class MyMaterial extends THREE.MeshPhongMaterial{
         this.shininess = materialData.shininess;
         this.emissive  = materialData.emissive;
         this.wireframe = materialData.wireframe;
-        this.texture = texture;
+        this.map = texture;
     }
 
     updateMaterial(materialData){

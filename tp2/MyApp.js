@@ -22,6 +22,7 @@ class MyApp  {
         this.activeCameraName = null
         this.lastCameraName = null
         this.cameras = []
+        this.camerasNames = []
         this.frustumSize = 20
 
         // other attributes
@@ -63,6 +64,7 @@ class MyApp  {
         const aspect = window.innerWidth / window.innerHeight;
         console.log(cameras);
         for(let camera in cameras) {
+            this.camerasNames.push(cameras[camera].id);
             switch(cameras[camera].type) {
                 case "perspective":
                     let cameraTemp1 = new THREE.PerspectiveCamera(cameras[camera].angle, aspect, cameras[camera].near, cameras[camera].far);

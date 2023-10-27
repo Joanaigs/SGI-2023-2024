@@ -3,6 +3,7 @@ import { MyAxis } from './MyAxis.js';
 import { MyFileReader } from './parser/MyFileReader.js';
 import { MyTexture } from './MyTexture.js';
 import { MyMaterial } from './MyMaterial.js';
+import { MyLights } from './MyLights.js';
 /**
  *  This class contains the contents of out application
  */
@@ -15,10 +16,13 @@ class MyContents  {
     constructor(app) {
         this.app = app
         this.axis = null
+        this.myLights = new MyLights(this)
         this.textures = new Map();
         this.materials = new Map();
         this.lights = new Map();
-        this.objects = new Map();	
+        this.primitivesObjects = new Map();	
+        this.lights = new Map();
+        this.lightEnabled = new Map();
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
 		this.reader.open("scenes/demo/demo.xml");	
     }
@@ -33,6 +37,10 @@ class MyContents  {
             this.axis = new MyAxis(this)
             this.app.scene.add(this.axis)
         }
+
+        //Ambient Light
+        const ambientLight = new THREE.AmbientLight(0xeeeeee, 1);
+        this.app.scene.add(ambientLight);
 
         // cube
         let geometry = new THREE.BoxGeometry(1, 1, 1)
@@ -54,29 +62,22 @@ class MyContents  {
     }
 
     onAfterSceneLoadedAndBeforeRender(data) {
-        // refer to descriptors in class MySceneData.js
-        // to see the data structure for each item
 
-        this.output(data.options)
         this.app.scene.updateGlobals(data.options)
+
         this.app.initCameras(data.cameras, data.activeCameraId)
 
-
-        console.log("textures:")
         for (var key in data.textures) {
             let texture = data.textures[key]
-            console.log( new MyTexture(texture))
-            this.textures.set(texture.id, new MyTexture(texture));
-            this.output(texture, 1)
+            let myTexture = new MyTexture(texture);
+            myTexture = new THREE.TextureLoader().load(texture.filepath);
+            this.textures.set(texture.id, myTexture);        
         }
-        console.log(this.myScene);
 
-        console.log("materials:")
         for (var key in data.materials) {
             let material = data.materials[key];
             let texture = this.getTexture(material.textureref);
             this.materials.set(material.id, new MyMaterial(material, texture));
-            this.output(material, 1);
         }
 
         console.log("nodes:")

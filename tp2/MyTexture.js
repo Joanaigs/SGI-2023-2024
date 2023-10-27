@@ -9,7 +9,6 @@ class MyTexture extends THREE.Texture{
 
     constructor(textureData) {
         super();
-        this.image = textureData.filepath;
         this.isVideo = textureData.isVideo;
         this.magFilter = textureData.magFilter;
         this.minFilter = textureData.minFilter;
@@ -18,7 +17,6 @@ class MyTexture extends THREE.Texture{
     }
 
     updateTexture(textureData){
-        this.image = textureData.filepath;
         this.isVideo = textureData.isVideo;
         this.magFilter = textureData.magFilter;
         this.minFilter = textureData.minFilter;

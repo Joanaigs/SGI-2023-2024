@@ -4,18 +4,16 @@ import { MyContents } from "./MyContents.js";
 /**
  
 This class creates lights*/
-class MyLights extends THREE.Object3D {
+class MyLights {
   /**
    * @param {MyContents} content The contents object
    */
   constructor(content) {
     this.content = content;
-    this.content.lights = new Map();
-    this.content.lightEnabled = new Map();
   }
   createLight(lightData) {
     switch (lightData.type) {
-      case "DirectionalLight":
+      case "directionallight":
         let directionalLight = new THREE.DirectionalLight(
           lightData.color,
           lightData.intensity
