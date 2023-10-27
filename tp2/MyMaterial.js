@@ -13,13 +13,17 @@ class MyMaterial extends THREE.MeshPhongMaterial{
         this.emissive  = materialData.emissive;
         this.wireframe = materialData.wireframe;
         this.map = texture;
+        this.side = (materialData.twosided)? THREE.DoubleSide: THREE.FrontSide;
+        this.flatShading = (materialData.shading == "flat")? true : false;
     }
 
-    updateMaterial(materialData){
+    updateMaterial(materialData, texture){
         this.specular = materialData.color;
         this.shininess = materialData.shininess;
         this.emissive  = materialData.emissive;
-        this.wireframe = materialData.wireframe;          
+        this.wireframe = materialData.wireframe;     
+        this.texture = texture;
+        this.side = (materialData.twosided)? THREE.DoubleSide: THREE.FrontSide;     
     }
 
 }
