@@ -79,7 +79,6 @@ class MyApp  {
                     this.cameras[cameras[camera].id] = cameraTemp1;
                    break;
                 case "orthogonal":
-                    console.log("hi", camera.location);
                     let cameraTemp2 = new THREE.OrthographicCamera(cameras[camera].left, cameras[camera].right, cameras[camera].top, cameras[camera].bottom, cameras[camera].near, cameras[camera].far);
                     cameraTemp2.position.set(cameras[camera].location[0], cameras[camera].location[1], cameras[camera].location[2]);
                     cameraTemp2.lookAt(new THREE.Vector3(cameras[camera].target[0], cameras[camera].target[1], cameras[camera].target[2]));
