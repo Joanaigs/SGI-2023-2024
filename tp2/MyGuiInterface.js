@@ -30,33 +30,15 @@ class MyGuiInterface {
   init() {
     // adds a folder to the gui interface for the camera
     const cameraFolder = this.datgui.addFolder("Camera");
-    cameraFolder
-      .add(this.app, "activeCameraName", this.app.camerasNames)
-      .name("active camera");
+    cameraFolder.add(this.app, "activeCameraName", this.app.camerasNames).name("active camera");
     cameraFolder.open();
 
-    const lightFolder = this.datgui.addFolder("Lights");
-    lightFolder.add(
-      this.contents,
-      "lightEnabled",
-      this.contents.lightEnabled.keys()
-    );
+    const lightFolder = this.datgui.addFolder('Lights');
+    console.log(this.contents.lightEnabled);
+    for( let key of this.contents.lights.keys()){
+      lightFolder.add(this.contents.lightEnabled, key).onChange(() => { this.contents.updateLights(key); console.log(this.contents.lightEnabled); });
 
-    // Iterate through the keys of your lightEnabled map
-    for (const key in this.contents.lightEnabled) {
-      if (this.contents.lightEnabled.hasOwnProperty(key)) {
-        // Add a checkbox for each light, displaying its key (ID) and its enabled status
-        lightFolder
-          .add(this.contents.lightEnabled, key)
-          .name(`${key}`)
-          .onChange((value) => {
-            if (value) {
-            } else {
-            }
-          });
-      }
     }
-
     lightFolder.open();
   }
 }
