@@ -15,12 +15,12 @@ class MyContents  {
     constructor(app) {
         this.app = app
         this.axis = null
-        this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-		this.reader.open("scenes/demo/demo.xml");
         this.textures = new Map();
         this.materials = new Map();
         this.lights = new Map();
-        this.objects = new Map();		
+        this.objects = new Map();	
+        this.reader = new MyFileReader(app, this, this.onSceneLoaded);
+		this.reader.open("scenes/demo/demo.xml");	
     }
 
     /**
@@ -33,6 +33,11 @@ class MyContents  {
             this.axis = new MyAxis(this)
             this.app.scene.add(this.axis)
         }
+
+        // cube
+        let geometry = new THREE.BoxGeometry(1, 1, 1)
+        let cube = new THREE.Mesh(geometry, this.materials.get("tableApp"))
+        this.app.scene.add(cube)
     }
 
     /**
@@ -60,6 +65,7 @@ class MyContents  {
         console.log("textures:")
         for (var key in data.textures) {
             let texture = data.textures[key]
+            console.log( new MyTexture(texture))
             this.textures.set(texture.id, new MyTexture(texture));
             this.output(texture, 1)
         }
@@ -69,7 +75,7 @@ class MyContents  {
         for (var key in data.materials) {
             let material = data.materials[key];
             let texture = this.getTexture(material.textureref);
-            this.materials.set(1, new MyMaterial(material, texture));
+            this.materials.set(material.id, new MyMaterial(material, texture));
             this.output(material, 1);
         }
 

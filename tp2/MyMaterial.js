@@ -4,7 +4,7 @@ import { MyApp } from './MyApp.js';
 /**
  * This class creates a Material
  */
-class MyMaterial extends THREE.Material{
+class MyMaterial extends THREE.MeshPhongMaterial{
 
     constructor(materialData, texture ) {
         super();
