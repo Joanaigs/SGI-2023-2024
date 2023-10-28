@@ -14,7 +14,7 @@ class MyCylinder extends THREE.CylinderGeometry{
         this.heightSegments = primitiveData.stacks;
         this.openEnded = primitiveData.capsclose;
         this.thetaStart  = primitiveData.thetastart;
-        this.thetaLengtg = primitiveData.thetalength;
+        this.thetaLength = primitiveData.thetalength;
 
     }
 
