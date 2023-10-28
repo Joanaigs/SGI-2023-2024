@@ -16,7 +16,6 @@ class MyMaterial extends THREE.MeshPhongMaterial{
         this.side = (materialData.twosided)? THREE.DoubleSide: THREE.FrontSide;
         this.flatShading = (materialData.shading == "flat")? true : false;
         this.map = this.texture
-
     }
 
     updateMaterial(materialData, texture){
