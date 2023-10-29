@@ -3,17 +3,17 @@ import * as THREE from 'three';
 /**
  * This class creates a Triangle
  */
-class MyTriangle extends THREE.TriangleGeometry{
+class MyTriangle{
 
     constructor(primitiveData) {
-        super();
         this.a = primitiveData.xyz1;
         this.b = primitiveData.xyz2;
         this.c = primitiveData.xyz3;
+        this.triangle = new THREE.Triangle(this.a, this.b, this.c);
     }
 
     addMaterial(material){
-        let object = new THREE.Mesh(this, material);
+        let object = new THREE.Mesh(this.triangle, material);
         return object
     }
 }

@@ -3,10 +3,9 @@ import * as THREE from 'three';
 /**
  * This class creates a Cylinder
  */
-class MyCylinder extends THREE.CylinderGeometry{
+class MyCylinder{
 
     constructor(primitiveData) {
-        super();
         this.radiusTop = primitiveData.top;
         this.radiusBottom = primitiveData.base;
         this.height = primitiveData.height;
@@ -15,11 +14,12 @@ class MyCylinder extends THREE.CylinderGeometry{
         this.openEnded = primitiveData.capsclose;
         this.thetaStart  = primitiveData.thetastart;
         this.thetaLength = primitiveData.thetalength;
+        this.cylinder = new THREE.CylinderGeometry(this.radiusTop, this.radiusBottom, this.height, this.radialSegments, this.heightSegments, this.openEnded, this.thetaStart, this.thetaLength);
 
     }
 
     addMaterial(material){
-        let object = new THREE.Mesh(this, material);
+        let object = new THREE.Mesh(this.cylinder, material);
         return object
     }
 

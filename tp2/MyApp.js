@@ -62,7 +62,6 @@ class MyApp  {
     initCameras(cameras, activeCameraId) {
         this.cameras = [];
         const aspect = window.innerWidth / window.innerHeight;
-        console.log(cameras);
         for(let camera in cameras) {
             this.camerasNames.push(cameras[camera].id);
             switch(cameras[camera].type) {

@@ -34,9 +34,8 @@ class MyGuiInterface {
     cameraFolder.open();
 
     const lightFolder = this.datgui.addFolder('Lights');
-    console.log(this.contents.lightEnabled);
     for( let key of this.contents.lights.keys()){
-      lightFolder.add(this.contents.lightEnabled, key).onChange(() => { this.contents.updateLights(key); console.log(this.contents.lightEnabled); });
+      lightFolder.add(this.contents.lightEnabled, key).onChange(() => { this.contents.updateLights(key)});
 
     }
     lightFolder.open();

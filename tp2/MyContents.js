@@ -21,6 +21,7 @@ class MyContents  {
         this.textures = new Map();
         this.materials = new Map();
         this.primitivesObjects = new Map();	
+        this.nodeObjects = new Map();
         this.lights = new Map();
         this.lightsHelper = new Map();
         this.lightEnabled = {};
@@ -45,7 +46,12 @@ class MyContents  {
         let cube = new THREE.Mesh(geometry, this.materials.get("tableApp"))
         this.app.scene.add(cube)
 
+        const ambientLight = new THREE.AmbientLight(0xeeeeee, 1);
+        this.app.scene.add(ambientLight);
+
+
         this.addLights();
+        console.log(this.app.scene)
     }
 
     /**
@@ -58,7 +64,7 @@ class MyContents  {
     }
 
     output(obj, indent = 0) {
-        console.log("" + new Array(indent * 4).join(' ') + " - " + obj.type + " " + (obj.id !== undefined ? "'" + obj.id + "'" : ""))
+        //console.log("" + new Array(indent * 4).join(' ') + " - " + obj.type + " " + (obj.id !== undefined ? "'" + obj.id + "'" : ""))
     }
 
     onAfterSceneLoadedAndBeforeRender(data) {
@@ -82,7 +88,6 @@ class MyContents  {
 
         this.nodeParser= new MyNodeParser(this, data);
         this.nodeParser.init();
-        console.log(this.lightEnabled)
 
     }
 
@@ -101,7 +106,6 @@ class MyContents  {
     }
 
     updateLights(id){
-        console.log(id);
         if(this.lightEnabled[id]){
             this.app.scene.add(this.lights.get(id));
             this.app.scene.add(this.lightsHelper.get(id));
