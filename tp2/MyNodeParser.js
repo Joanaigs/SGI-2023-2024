@@ -65,7 +65,7 @@ class MyNodeParser {
       if (child.type === "primitive") {
         this.material = this.contents.materials.get(materialID);
         switch (child.subtype) {
-          /*case "box":
+          case "box":
             console.log("box", child.representations[0])
             let box = new MyBox(child.representations[0])
             let boxObject = box.addMaterial(this.material);
@@ -99,7 +99,7 @@ class MyNodeParser {
             let triangleObject = triangle.addMaterial(this.material);
             this.contents.primitivesObjects.set(child.id, triangleObject);
             children.push(triangleObject);
-            break;*/
+            break;
           case "nurbs":
             console.log("nurbs", child)
             let nurbs = new MyNurbs(child.representations[0]);
