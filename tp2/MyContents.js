@@ -40,12 +40,6 @@ class MyContents  {
             this.app.scene.add(this.axis)
         }
 
-
-        // cube
-        let geometry = new THREE.BoxGeometry(1, 1, 1)
-        let cube = new THREE.Mesh(geometry, this.materials.get("tableApp"))
-        this.app.scene.add(cube)
-
         const ambientLight = new THREE.AmbientLight(0xeeeeee, 1);
         this.app.scene.add(ambientLight);
 

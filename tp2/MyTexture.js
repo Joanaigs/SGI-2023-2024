@@ -24,6 +24,10 @@ class MyTexture extends THREE.Texture{
         this.anisotropy = textureData.anisotropy;        
         
     }
+
+    setRepeat(x,y){
+        this.repeat.set(x,y);
+    }
 }
 
 

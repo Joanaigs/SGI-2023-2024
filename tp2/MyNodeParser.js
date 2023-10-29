@@ -6,6 +6,7 @@ import { MyRectangle } from "./Primitives/MyRectangle.js"
 import { MySphere } from "./Primitives/MySphere.js"
 import { MyTriangle } from "./Primitives/MyTriangle.js"
 import { MyCylinder } from "./Primitives/MyCylinder.js"
+import { MyNurbs } from "./Primitives/MyNurbs.js"
 
 /**
  * This class creates a Texture
@@ -45,21 +46,26 @@ class MyNodeParser {
         }
       }
     }
-    children = this.children(this.rootId, position);
+    let materialID = null;
+    if(this.nodes[this.rootId].materialIds){
+      materialID = this.nodes[this.rootId].materialIds[0];
+    }
+    children = this.children(this.rootId, position, materialID);
     for (let child of children) {
       mainGroup.add(child);
     }
     this.contents.app.scene.add(mainGroup);
   }
 
-  children(nodeId, position) {
+  children(nodeId, position, materialID) {
     let children = [];
     let node = this.nodes[nodeId];
     for (let i = 0; i < node.children.length; i++) {
       let child = node.children[i];
       if (child.type === "primitive") {
+        this.material = this.contents.materials.get(materialID);
         switch (child.subtype) {
-          case "box":
+          /*case "box":
             console.log("box", child.representations[0])
             let box = new MyBox(child.representations[0])
             let boxObject = box.addMaterial(this.material);
@@ -82,17 +88,25 @@ class MyNodeParser {
             break;
           case "sphere":
             console.log("sphere", child)
-            let sphere = new MySphere(child.data.representations[0]);
+            let sphere = new MySphere(child.representations[0]);
             let sphereObject = sphere.addMaterial(this.material);
             this.contents.primitivesObjects.set(child.id, sphereObject);
             children.push(sphereObject);
             break;
           case "triangle":
             console.log("tri", child)
-            let triangle = new MyTriangle(child.data.representations[0])
+            let triangle = new MyTriangle(child.representations[0])
             let triangleObject = triangle.addMaterial(this.material);
             this.contents.primitivesObjects.set(child.id, triangleObject);
             children.push(triangleObject);
+            break;*/
+          case "nurbs":
+            console.log("nurbs", child)
+            let nurbs = new MyNurbs(child.representations[0]);
+            let nurbsObject = nurbs.addMaterial(this.material);
+            console.log("nurbsObject", nurbsObject);
+            this.contents.primitivesObjects.set(child.id, nurbsObject);
+            children.push(nurbsObject);
             break;
           default:
             break;
@@ -111,7 +125,6 @@ class MyNodeParser {
             for (let trans of child.transformations) {
               switch (trans.type) {
                 case "T":
-                  console.log("hi")
                   newPosition = [position[0] + trans.translate[0], position[1] + trans.translate[1], position[2] + trans.translate[2],];
                   childGroup.position.set(trans.translate[0], trans.translate[1], trans.translate[2]);
                   break;
@@ -124,7 +137,11 @@ class MyNodeParser {
               }
             }
           }
-          let tempChildren = this.children(child.id, newPosition);
+          if(child.materialIds.length > 0){
+            materialID = child.materialIds[0];
+            console.log("materialID", materialID);
+          }
+          let tempChildren = this.children(child.id, newPosition, materialID);
           for (let tempChild of tempChildren) {
             childGroup.add(tempChild);
           }
