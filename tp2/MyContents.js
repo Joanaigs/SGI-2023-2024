@@ -26,7 +26,7 @@ class MyContents  {
         this.lightsHelper = new Map();
         this.lightEnabled = {};
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-		this.reader.open("scenes/demo/demo.xml");	
+		this.reader.open("scenes/demo/scene.xml");	
     }
 
     /**
@@ -39,9 +39,6 @@ class MyContents  {
             this.axis = new MyAxis(this)
             this.app.scene.add(this.axis)
         }
-
-        const ambientLight = new THREE.AmbientLight(0xeeeeee, 1);
-        this.app.scene.add(ambientLight);
 
 
         this.addLights();

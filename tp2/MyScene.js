@@ -8,6 +8,11 @@ class MyScene extends THREE.Scene{
         if(globalData.fog !== undefined){
             this.fog = new THREE.Fog(globalData.fog.color, globalData.fog.near, globalData.fog.far);
         }
+        //ambient light
+        if(globalData.ambient){
+            const ambientLight = new THREE.AmbientLight(globalData.ambient, 1);
+            this.add(ambientLight);
+        }
         this.background = new THREE.Color(globalData.background);
     }
 

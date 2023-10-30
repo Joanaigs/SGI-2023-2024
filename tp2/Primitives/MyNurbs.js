@@ -18,8 +18,6 @@ class MyNurbs{
                 points[i][j] = [list.xx, list.yy, list.zz, 1];
             }
         }
-        console.log(points)
-    
         this.nurb = this.builder.build(
             points,
             primitiveData.degree_u,

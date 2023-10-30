@@ -12,8 +12,10 @@ class MyCylinder{
         this.radialSegments = primitiveData.slices;
         this.heightSegments = primitiveData.stacks;
         this.openEnded = primitiveData.capsclose;
-        this.thetaStart  = primitiveData.thetastart;
-        this.thetaLength = primitiveData.thetalength;
+        if(primitiveData.thetaStart)
+            this.thetaStart  = primitiveData.thetastart * Math.PI / 180;
+        if(primitiveData.thetaLength)
+            this.thetaLength = primitiveData.thetalength * Math.PI / 180;
         this.cylinder = new THREE.CylinderGeometry(this.radiusTop, this.radiusBottom, this.height, this.radialSegments, this.heightSegments, this.openEnded, this.thetaStart, this.thetaLength);
 
     }
