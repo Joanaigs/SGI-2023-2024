@@ -32,6 +32,7 @@
 		<texture id="wallTex" filepath="scenes/demo/textures/wallPaper.jpg" />
         <texture id ="lightMetalTex" filepath = "scenes/demo/textures/metal.jpg" />
         <texture id ="curtainTex" filepath = "scenes/demo/textures/curtain.jpg" />
+        <texture id ="oakTex" filepath = "scenes/demo/textures/oak.jpg" />
     </textures> 
 
     <materials> 
@@ -103,6 +104,15 @@
             specular="0 0 0 0"
             shininess="0"
         />
+
+        <material id="oakApp"
+            emissive="0.0 0.0 0.0 1"
+            color="1 1 1 1.0"
+            specular="0.47 0.47 0.47 1"
+            shininess="60"
+            textureref="oakTex"
+        />
+
             
 
 
@@ -127,6 +137,9 @@
                 <noderef id="bigTable" />
                 <noderef id="window1" />
                 <noderef id="window2" />
+                <noderef id="door" />
+                <noderef id="paiting1" />
+                <noderef id="paiting2" />
 
 
 				
@@ -391,7 +404,7 @@
             <materialref id="sofaPillowApp" />
             <children>             
                 <primitive>
-                    <cylinder base="0.25" top="0.25" height= "4" slices="32" stacks="1" thetastart="0" thetalength="180" />
+                    <cylinder base="0.25" top="0.25" height= "4" slices="32" stacks="1" thetastart="0" thetalength="3.1415" />
                 </primitive>
                 
             </children>
@@ -685,7 +698,7 @@
 
         <node id= "curtainWindow1">
             <transforms>
-                <translate value3="1.5 0.2 -6.5" />
+                <translate value3="1.5 0.5 -6.5" />
                 <rotate value3="0 -60 0" />
                 <scale value3="1 5.5 1" />
             </transforms> 
@@ -705,7 +718,7 @@
 
             <children>             
                 <primitive>
-                    <cylinder base="0.1" top="0.1" height= "0.5" slices="32" stacks="1" thetastart="0" thetalength="360" />
+                    <cylinder base="0.1" top="0.1" height= "0.5" slices="32" stacks="1" />
                 </primitive>
             </children>
         </node>
@@ -718,7 +731,7 @@
 
             <children>             
                 <primitive>
-                    <cylinder base="0.1" top="0.1" height= "0.5" slices="32" stacks="1" thetastart="0" thetalength="360" />
+                    <cylinder base="0.1" top="0.1" height= "0.5" slices="32" stacks="1" />
                 </primitive>
             </children>
         </node>
@@ -731,7 +744,7 @@
 
             <children>             
                 <primitive>
-                    <cylinder base="0.1" top="0.1" height= "13.4" slices="32" stacks="1" thetastart="0" thetalength="360" />
+                    <cylinder base="0.1" top="0.1" height= "13.4" slices="32" stacks="1" />
                 </primitive>
             </children>
         </node>
@@ -764,7 +777,7 @@
 
         <node id= "curtainWindow2">
             <transforms>
-                <translate value3="1.5 0.2 4.5" />
+                <translate value3="1.5 0.5 4.5" />
                 <rotate value3="0 -60 0" />
                 <scale value3="1 5.5 1" />
             </transforms> 
@@ -787,6 +800,47 @@
                 <noderef id="windowFrame" />
                 <noderef id="curtainRod" />
                 <noderef id="curtainWindow2" />
+            </children>
+        </node>
+
+
+        <node id="doorStructure">
+            <transforms>
+                <translate value3="0 0 -0.25" />
+            </transforms> 
+
+            <materialref id="oakApp" />
+            
+            <children>             
+                <primitive>
+                    <box xyz1 = "0 0 0" xyz2 = "5 12 -0.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id= "doorNob">
+            <transforms>
+                <translate value3="-1.5 0 0.25" />
+                <rotate value3="90 0 0" />
+            </transforms> 
+
+            <materialref id="lightMetalApp" />
+            
+            <children>             
+                <primitive>
+                    <cylinder base="0.2" top="0.4" height="0.5" slices="32" stacks="1"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="door">
+            <transforms>
+                <translate value3="14.5 6 15" />
+                <rotate value3="0 -90 0" />
+            </transforms>             
+            <children>             
+                <noderef id="doorStructure" />
+                <noderef id="doorNob" />
             </children>
         </node>
 
