@@ -1,137 +1,82 @@
 <?xml version="1.0" encoding="UTF-16" standalone="yes"?>
-<yaf> 
+<yaf>
 
-	<!-- Credits of the original file go to Group 1, class 1 of course LAIG school year 2013/2014, FEUP, University of Porto -->
-	
-    <globals background="0 0 0 1" ambient="1 1 1 1" /> 
+    <!-- Credits of the original file go to Group 1, class 1 of course LAIG school year 2013/2014,
+    FEUP, University of Porto -->
+
+    <globals background="0 0 0 1" ambient="1 1 1 1" />
 
     <fog color="1.0 1.0 1.0 1.0" near="0.0" far="100.0" />
 
-    <cameras initial="cam1" > 
-        <perspective id="cam1" 
-            angle="60" 
-            near="0.1" 
-            far="1000" 
-            location="15 15 15" 
-            target="0 0.0 0" /> 
+    <cameras initial="cam1">
+        <perspective id="cam1" angle="60" near="0.1" far="1000" location="15 15 15" target="0 0.0 0" />
 
-        <orthogonal id="cam2" 
-            near="0.1" 
-            far="1000" 
-            location="0 15 15" 
-            target="0.0 15 0.0" 
-            left="-5" 
-            right="5" 
-            bottom="-5" 
-            top="5" /> 
-    </cameras> 
+        <orthogonal id="cam2" near="0.1" far="1000" location="0 15 15" target="0.0 15 0.0" left="-5"
+            right="5" bottom="-5" top="5" />
+    </cameras>
 
-    <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas --> 
-    <textures>        
+    <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas
+    texturas -->
+    <textures>
         <texture id="floorTex" filepath="scenes/demo/textures/floor.jpg" />
-		<texture id="wallTex" filepath="scenes/demo/textures/wallPaper.jpg" />
-        <texture id ="lightMetalTex" filepath = "scenes/demo/textures/metal.jpg" />
-        <texture id ="curtainTex" filepath = "scenes/demo/textures/curtain.jpg" />
-        <texture id ="oakTex" filepath = "scenes/demo/textures/oak.jpg" />
-    </textures> 
+        <texture id="wallTex" filepath="scenes/demo/textures/wallPaper.jpg" />
+        <texture id="lightMetalTex" filepath="scenes/demo/textures/metal.jpg" />
+        <texture id="curtainTex" filepath="scenes/demo/textures/curtain.jpg" />
+        <texture id="oakTex" filepath="scenes/demo/textures/oak.jpg" />
+        <texture id="painting1Tex" filepath="scenes/demo/textures/flowersPainting.jpg" />
+        <texture id="painting2Tex" filepath="scenes/demo/textures/housePainting.jpg" />
+    </textures>
 
-    <materials> 
+    <materials>
 
-        <material id="floorApp" 
-            color="1 1 1 1.0" 
-            emissive="0.0 0.0 0.0 0.0" 
-			specular="0.47 0.47 0.47 1" 
-            shininess="50" 
-            textureref="floorTex" 
-            texlength_s="3" 
+        <material id="floorApp" color="1 1 1 1.0" emissive="0.0 0.0 0.0 0.0"
+            specular="0.47 0.47 0.47 1" shininess="50" textureref="floorTex" texlength_s="3"
             texlength_t="6.7" />
-			
-		<material id="wallPaperApp" 
-            emissive="0.0 0.0 0.0 1" 
-			color="1 1 1 1.0" 
-            specular="0 0 0 0" 
-            shininess="0" 
-            textureref="wallTex" 
-            texlength_s="2" 
-            texlength_t="3" 
-            />
 
-        <material id="wallApp" 
-            emissive="0.0 0.0 0.0 1" 
-			color="1 1 1 1.0" 
-            specular="0 0 0 0" 
-            shininess="0" 
-        />
+        <material id="wallPaperApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="0 0 0 0"
+            shininess="0" textureref="wallTex" texlength_s="2" texlength_t="3" />
 
-        <material id= "sofaApp"
-            emissive="0.0 0.0 0.0 1"
-            color="0.21 0.33 0.39 1.0"
-            specular="0 0 0 0"
-            shininess="0"
-        />
+        <material id="wallApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="0 0 0 0"
+            shininess="0" />
 
-        <material id = "sofaPillowApp"
-            emissive="0.0 0.0 0.0 1"
-            color="0.26 0.41 0.47 1.0"
-            specular="0 0 0 0"
-            shininess="0"
-        />
+        <material id="sofaApp" emissive="0.0 0.0 0.0 1" color="0.21 0.33 0.39 1.0"
+            specular="0 0 0 0" shininess="0" />
 
-        <material id = "lightMetalApp"
-            emissive="0.0 0.0 0.0 1"
-            color="1 1 1 1.0"
-            specular="1 1 1 1"
-            shininess="100" 
-            textureref="lightMetalTex" 
-            texlength_s="2" 
-            texlength_t="2" 
-        />
+        <material id="sofaPillowApp" emissive="0.0 0.0 0.0 1" color="0.26 0.41 0.47 1.0"
+            specular="0 0 0 0" shininess="0" />
 
-        <material id = "curtainApp"
-            emissive="0.0 0.0 0.0 1"
-            color="0.75 0.83 0.87 0.8"
-            specular="0 0 0 0"
-            shininess="0"
-            twosided="true"
-            textureref="curtainTex"
-            texlength_s="1"
-            texlength_t="4"
-        />
+        <material id="lightMetalApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="1 1 1 1"
+            shininess="100" textureref="lightMetalTex" texlength_s="2" texlength_t="2" />
 
-        <material id="blackApp" 
-            emissive="0.0 0.0 0.0 1"
-            color="0 0 0 1.0"
-            specular="0 0 0 0"
-            shininess="0"
-        />
+        <material id="curtainApp" emissive="0.0 0.0 0.0 1" color="0.75 0.83 0.87 0.8"
+            specular="0 0 0 0" shininess="0" twosided="true" textureref="curtainTex" texlength_s="1"
+            texlength_t="4" />
 
-        <material id="oakApp"
-            emissive="0.0 0.0 0.0 1"
-            color="1 1 1 1.0"
-            specular="0.47 0.47 0.47 1"
-            shininess="60"
-            textureref="oakTex"
-        />
+        <material id="blackApp" emissive="0.0 0.0 0.0 1" color="0 0 0 1.0" specular="0 0 0 0"
+            shininess="0" />
 
-            
+        <material id="oakApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="0.47 0.47 0.47 1"
+            shininess="60" textureref="oakTex" />
+
+        <material id="painting1App" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
+            specular="0.47 0.47 0.47 1" shininess="100" textureref="painting1Tex" />
+
+        <material id="painting2App" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
+            specular="0.47 0.47 0.47 1" shininess="100" textureref="painting2Tex" />
 
 
-            
-		
-		
-			
-    </materials> 
+    </materials>
 
-    <graph rootid="scene"> 
-		
-		<node id="scene"> 
-            <children> 
-                <noderef id="leftWall" /> 
-				<noderef id="rightWall" /> 
+    <graph rootid="scene">
+
+        <node id="scene">
+            <children>
+                <noderef id="leftWall" />
+                <noderef id="rightWall" />
                 <noderef id="frontWall" />
                 <noderef id="backWall" />
-				<noderef id="floor" /> 
-				<noderef id="sofa" /> 
+                <noderef id="floor" />
+                <noderef id="sofa" />
                 <noderef id="armchair" />
                 <noderef id="smallTable" />
                 <noderef id="bigTable" />
@@ -142,99 +87,67 @@
                 <noderef id="paiting2" />
 
 
-				
+                <pointlight id="light1" enabled="true" color="0.5 0.6 0.8 1" intensity="1.0"
+                    distance="1000" decay="2.0" castshadow="false" position="33.75 37.3 33.75" />
 
-                <pointlight id="light1" enabled="true" 
-                    color="0.5 0.6 0.8 1" 
-                    intensity="1.0"
-                    distance="1000"
-                    decay="2.0"
-                    castshadow="false"
-                    position="33.75 37.3 33.75" 
-                /> 
+                <pointlight id="light2" enabled="true" color="0.5 0.6 0.8 1" intensity="1.0"
+                    distance="1000" decay="2.0" castshadow="false" position="11.25 7.3 3.75" />
 
-                <pointlight id="light2" enabled="true" 
-                    color="0.5 0.6 0.8 1" 
-                    intensity="1.0"
-                    distance="1000"
-                    decay="2.0"
-                    castshadow="false"
-                    position="11.25 7.3 3.75"
-                /> 
-                
-                <pointlight id="light3" enabled="true" 
-                    color="0.5 0.6 0.8 1" 
-                    intensity="1.0"
-                    distance="1000"
-                    decay="2.0"
-                    castshadow="false"
-                    position="11.25 7.3 3.75"  
-                /> 
-			              
-                <spotlight id="light4" enabled="true" 
-                    color="1.0 1.0 1.0 1" 
-                    intensity="1.0"
-                    distance="1000"
-                    decay="2.0"
-                    castshadow="true"
-                    position="2 2 4" 
-                    target="0 0 0"
-                    penumbra="1.0"
-                    angle="10.0" 
-                /> 
+                <pointlight id="light3" enabled="true" color="0.5 0.6 0.8 1" intensity="1.0"
+                    distance="1000" decay="2.0" castshadow="false" position="11.25 7.3 3.75" />
 
-                <directionallight id="light5" enabled="true" 
-                    color="1.0 1.0 1.0 1" 
-                    intensity="1.0"
-                    castshadow="true"
-                    position="2 2 4" 
-                /> 
-            </children> 
+                <spotlight id="light4" enabled="true" color="1.0 1.0 1.0 1" intensity="1.0"
+                    distance="1000" decay="2.0" castshadow="true" position="2 2 4" target="0 0 0"
+                    penumbra="1.0" angle="10.0" />
+
+                <directionallight id="light5" enabled="true" color="1.0 1.0 1.0 1" intensity="1.0"
+                    castshadow="true" position="2 2 4" />
+            </children>
         </node>
-		
-		<node id="floor">
-			<transforms>
-                <translate value3="0 0 7.5" />
-				<rotate value3="-90 0.0 0.0" />
-            </transforms> 
 
-			<materialref id="floorApp" />
-			
-            <children>             
+        <node id="floor">
+            <transforms>
+                <translate value3="0 0 7.5" />
+                <rotate value3="-90 0.0 0.0" />
+            </transforms>
+
+            <materialref id="floorApp" />
+
+            <children>
                 <primitive>
                     <rectangle xy1="-15 -22.5" xy2="15 22.5" />
                 </primitive>
-            </children> 
+            </children>
         </node>
-		
-		
-		<node id="leftWall">
-			<transforms>
-				<translate value3="0 7.5 -15" />
-				<rotate value3="0.0 0.0 0.0" />
-            </transforms> 
 
-			<materialref id="wallPaperApp" />
-			
-            <children>             
+
+        <node id="leftWall">
+            <transforms>
+                <translate value3="0 7.5 -15" />
+                <rotate value3="0.0 0.0 0.0" />
+            </transforms>
+
+            <materialref id="wallPaperApp" />
+
+            <children>
                 <primitive>
                     <rectangle xy1="0 0" xy2="30 15" />
                 </primitive>
-            </children> 
+            </children>
         </node>
-		
-		<node id="rightWall">
+
+        <node id="rightWall">
             <transforms>
                 <translate value3="0 7.5 30" />
                 <rotate value3="0.0 180 0.0" />
             </transforms>
-			<materialref id="wallApp" />
-			
-            <children>             
+            <materialref id="wallApp" />
+
+            <children>
                 <primitive>
                     <rectangle xy1="0 0" xy2="30 15" />
                 </primitive>
-            </children> 
+            </children>
         </node>
 
         <node id="wallFrontMiddle">
@@ -242,7 +155,7 @@
                 <translate value3="0 -2.5 0" />
                 <rotate value3="0.0 0 0.0" />
             </transforms>
-            <children>             
+            <children>
                 <primitive>
                     <rectangle xy1="0 0" xy2="6 10" />
                 </primitive>
@@ -253,7 +166,7 @@
             <transforms>
                 <translate value3="19.5 -2.5 0" />
             </transforms>
-            <children>             
+            <children>
                 <primitive>
                     <rectangle xy1="0 0" xy2="6 10" />
                 </primitive>
@@ -264,7 +177,7 @@
             <transforms>
                 <translate value3="-19.5 -2.5 0" />
             </transforms>
-            <children>             
+            <children>
                 <primitive>
                     <rectangle xy1="0 0" xy2="6 10" />
                 </primitive>
@@ -276,7 +189,7 @@
                 <translate value3="0 5 0" />
             </transforms>
             <materialref id="wallApp" />
-            <children>             
+            <children>
                 <primitive>
                     <rectangle xy1="0 0" xy2="45 5" />
                 </primitive>
@@ -289,12 +202,12 @@
                 <rotate value3="0.0 90 0.0" />
             </transforms>
             <materialref id="wallApp" />
-            <children>             
+            <children>
                 <noderef id="wallFrontMiddle" />
                 <noderef id="wallFrontLeft" />
                 <noderef id="wallFrontRight" />
                 <noderef id="topFrontWall" />
-            </children> 
+            </children>
         </node>
 
         <node id="backWall">
@@ -303,45 +216,45 @@
                 <rotate value3="0.0 -90 0.0" />
             </transforms>
             <materialref id="wallApp" />
-            <children>             
+            <children>
                 <primitive>
                     <rectangle xy1="0 0" xy2="45 15" />
                 </primitive>
-            </children> 
+            </children>
         </node>
 
         <node id="sofaBaseStructure">
             <transforms>
-                <translate value3="0 0.4 0" />   
+                <translate value3="0 0.4 0" />
             </transforms>
             <materialref id="sofaApp" />
-            <children>             
+            <children>
                 <primitive>
-                    <box xyz1= "0 0 0" xyz2= "10 0.8 4" />
+                    <box xyz1="0 0 0" xyz2="10 0.8 4" />
                 </primitive>
-                
+
             </children>
         </node>
 
         <node id="sofaBasePillow">
             <transforms>
-                <translate value3="0 1.2 -0.4" />   
+                <translate value3="0 1.2 -0.4" />
             </transforms>
             <materialref id="sofaPillowApp" />
-            <children>             
+            <children>
                 <primitive>
-                    <box xyz1= "0 0 0" xyz2= "10 0.8 3.2" />
+                    <box xyz1="0 0 0" xyz2="10 0.8 3.2" />
                 </primitive>
-                
+
             </children>
         </node>
 
         <node id="sofaBase">
             <transforms>
-                <translate value3="0 0 0" />   
+                <translate value3="0 0 0" />
             </transforms>
             <materialref id="wallApp" />
-            <children>             
+            <children>
                 <noderef id="sofaBaseStructure" />
                 <noderef id="sofaBasePillow" />
             </children>
@@ -349,35 +262,35 @@
 
         <node id="sofaBackStructure">
             <transforms>
-                <translate value3="0 1.5 0.4" />   
+                <translate value3="0 1.5 0.4" />
             </transforms>
             <materialref id="sofaApp" />
-            <children>             
+            <children>
                 <primitive>
-                    <box xyz1= "0 0 0" xyz2= "10 3 0.4" />
+                    <box xyz1="0 0 0" xyz2="10 3 0.4" />
                 </primitive>
-                
+
             </children>
         </node>
 
         <node id="sofaBackPillow">
             <transforms>
-                <translate value3="0 1.5 0" />   
+                <translate value3="0 1.5 0" />
             </transforms>
             <materialref id="sofaPillowApp" />
-            <children>   
+            <children>
                 <primitive>
-                    <box xyz1= "0 0 0" xyz2= "10 3 0.4" />
-                </primitive> 
+                    <box xyz1="0 0 0" xyz2="10 3 0.4" />
+                </primitive>
             </children>
         </node>
 
         <node id="sofaBack">
             <transforms>
-                <translate value3="0 0.8 1.4" />   
+                <translate value3="0 0.8 1.4" />
             </transforms>
             <materialref id="wallApp" />
-            <children>             
+            <children>
                 <noderef id="sofaBackStructure" />
                 <noderef id="sofaBackPillow" />
             </children>
@@ -385,37 +298,38 @@
 
         <node id="sofaArmStructure">
             <transforms>
-                <translate value3="0 1.15 0" />   
+                <translate value3="0 1.15 0" />
             </transforms>
             <materialref id="sofaApp" />
-            <children>             
+            <children>
                 <primitive>
-                    <box xyz1= "0 0 0" xyz2= "0.5 2.3 4" />
+                    <box xyz1="0 0 0" xyz2="0.5 2.3 4" />
                 </primitive>
-                
+
             </children>
         </node>
 
         <node id="sofaArmPillow">
             <transforms>
                 <rotate value3="0 90 90" />
-                <translate value3="0 2.3 0" />   
+                <translate value3="0 2.3 0" />
             </transforms>
             <materialref id="sofaPillowApp" />
-            <children>             
+            <children>
                 <primitive>
-                    <cylinder base="0.25" top="0.25" height= "4" slices="32" stacks="1" thetastart="0" thetalength="3.1415" />
+                    <cylinder base="0.25" top="0.25" height="4" slices="32" stacks="1"
+                        thetastart="0" thetalength="3.1415" />
                 </primitive>
-                
+
             </children>
         </node>
 
         <node id="sofaArm1">
             <transforms>
-                <translate value3="-5.25 0 0" />   
+                <translate value3="-5.25 0 0" />
             </transforms>
             <materialref id="wallApp" />
-            <children>             
+            <children>
                 <noderef id="sofaArmStructure" />
                 <noderef id="sofaArmPillow" />
             </children>
@@ -423,10 +337,10 @@
 
         <node id="sofaArm2">
             <transforms>
-                <translate value3="5.25 0 0" />   
+                <translate value3="5.25 0 0" />
             </transforms>
             <materialref id="wallApp" />
-            <children>             
+            <children>
                 <noderef id="sofaArmStructure" />
                 <noderef id="sofaArmPillow" />
             </children>
@@ -446,11 +360,11 @@
 
         <node id="sofaBaseArmchair">
             <transforms>
-                <translate value3="0 0 0" />   
+                <translate value3="0 0 0" />
                 <scale value3="0.4 1 1" />
             </transforms>
             <materialref id="wallApp" />
-            <children>             
+            <children>
                 <noderef id="sofaBaseStructure" />
                 <noderef id="sofaBasePillow" />
             </children>
@@ -458,11 +372,11 @@
 
         <node id="sofaBackArmchair">
             <transforms>
-                <translate value3="0 0.8 1.4" />  
+                <translate value3="0 0.8 1.4" />
                 <scale value3="0.4 1 1" />
             </transforms>
             <materialref id="wallApp" />
-            <children>             
+            <children>
                 <noderef id="sofaBackStructure" />
                 <noderef id="sofaBackPillow" />
             </children>
@@ -470,10 +384,10 @@
 
         <node id="sofaArm1Armchair">
             <transforms>
-                <translate value3="-2.25 0 0" />   
+                <translate value3="-2.25 0 0" />
             </transforms>
             <materialref id="wallApp" />
-            <children>             
+            <children>
                 <noderef id="sofaArmStructure" />
                 <noderef id="sofaArmPillow" />
             </children>
@@ -481,10 +395,10 @@
 
         <node id="sofaArm2Armchair">
             <transforms>
-                <translate value3="2.25 0 0" />   
+                <translate value3="2.25 0 0" />
             </transforms>
             <materialref id="wallApp" />
-            <children>             
+            <children>
                 <noderef id="sofaArmStructure" />
                 <noderef id="sofaArmPillow" />
             </children>
@@ -511,35 +425,35 @@
 
             <children>
                 <primitive>
-                    <cylinder top="0.2" base="0.05" height="1.95" slices="32" stacks="32"/>
+                    <cylinder top="0.2" base="0.05" height="1.95" slices="32" stacks="32" />
                 </primitive>
             </children>
         </node>
 
         <node id="smallLeg2">
-        <transforms>
-            <translate value3="2.5 0 -1.30" />
-            <rotate value3="0 0 15" />
-        </transforms>
+            <transforms>
+                <translate value3="2.5 0 -1.30" />
+                <rotate value3="0 0 15" />
+            </transforms>
 
-        <children>
-            <primitive>
-                <cylinder top="0.2" base="0.05" height="1.95" slices="32" stacks="32"/>
-            </primitive>
-        </children>
+            <children>
+                <primitive>
+                    <cylinder top="0.2" base="0.05" height="1.95" slices="32" stacks="32" />
+                </primitive>
+            </children>
         </node>
 
         <node id="smallLeg3">
-        <transforms>
-            <translate value3="-2.5 0 1.30" />
-            <rotate value3="0 0 -15" />
-        </transforms>
+            <transforms>
+                <translate value3="-2.5 0 1.30" />
+                <rotate value3="0 0 -15" />
+            </transforms>
 
-        <children>
-            <primitive>
-                <cylinder top="0.2" base="0.05" height="1.95" slices="32" stacks="1"/>
-            </primitive>
-        </children>
+            <children>
+                <primitive>
+                    <cylinder top="0.2" base="0.05" height="1.95" slices="32" stacks="1" />
+                </primitive>
+            </children>
         </node>
 
         <node id="smallLeg4">
@@ -550,137 +464,136 @@
 
             <children>
                 <primitive>
-                    <cylinder top="0.2" base="0.05" height="1.95" slices="32" stacks="1"/>
+                    <cylinder top="0.2" base="0.05" height="1.95" slices="32" stacks="1" />
                 </primitive>
             </children>
         </node>
-
 
 
         <node id="smallTableThinLayerTop">
-			<transforms>
-				<translate value3="0 0.95 0" />
-            </transforms> 
+            <transforms>
+                <translate value3="0 0.95 0" />
+            </transforms>
 
-            <children>  
+            <children>
                 <primitive>
-                        <box xyz1 = "10 1 7" xyz2 = "4 0.85 3.5" />
+                    <box xyz1="10 1 7" xyz2="4 0.85 3.5" />
                 </primitive>
-            </children> 
+            </children>
         </node>
-		
-		
-		<node id="smallTableTop">
-			<transforms>
-				<translate value3="0 0.90 0" />
-            </transforms> 
 
-            <children>  
+
+        <node id="smallTableTop">
+            <transforms>
+                <translate value3="0 0.90 0" />
+            </transforms>
+
+            <children>
                 <primitive>
-                        <box xyz1 = "10 1 7" xyz2 = "4 0.90 3.5" />
+                    <box xyz1="10 1 7" xyz2="4 0.90 3.5" />
                 </primitive>
-            </children> 
+            </children>
         </node>
-		
-		<node id="smallTable">
-			<transforms>
+
+        <node id="smallTable">
+            <transforms>
                 <translate value3="0 0.9 -3" />
-            </transforms> 
+            </transforms>
 
-			<materialref id="sofaPillowApp" />
-			
-            <children>             
-                <noderef id="smallTableTop"/>
-                <noderef id="smallTableThinLayerTop"/>
-				<noderef id="smallLeg1" />
-				<noderef id="smallLeg2" />
-				<noderef id="smallLeg3" />
-				<noderef id="smallLeg4" />
-            </children> 
+            <materialref id="sofaPillowApp" />
+
+            <children>
+                <noderef id="smallTableTop" />
+                <noderef id="smallTableThinLayerTop" />
+                <noderef id="smallLeg1" />
+                <noderef id="smallLeg2" />
+                <noderef id="smallLeg3" />
+                <noderef id="smallLeg4" />
+            </children>
         </node>
 
         <node id="bigTable">
-			<transforms>
+            <transforms>
                 <translate value3="0 1.8 20" />
                 <scale value3="2 2 2" />
-            </transforms> 
+            </transforms>
 
-			<materialref id="sofaPillowApp" />
-			
-            <children>             
-                <noderef id="smallTableTop"/>
-                <noderef id="smallTableThinLayerTop"/>
-				<noderef id="smallLeg1" />
-				<noderef id="smallLeg2" />
-				<noderef id="smallLeg3" />
-				<noderef id="smallLeg4" />
-            </children> 
+            <materialref id="sofaPillowApp" />
+
+            <children>
+                <noderef id="smallTableTop" />
+                <noderef id="smallTableThinLayerTop" />
+                <noderef id="smallLeg1" />
+                <noderef id="smallLeg2" />
+                <noderef id="smallLeg3" />
+                <noderef id="smallLeg4" />
+            </children>
         </node>
 
-        <node id = "frameTop">
+        <node id="frameTopWindow">
             <transforms>
                 <translate value3="0 5 0" />
-            </transforms> 
-            
-            <children>             
+            </transforms>
+
+            <children>
                 <primitive>
-                    <box xyz1 = "0 0 0" xyz2 = "0.2 0.2 13.5" />
+                    <box xyz1="0 0 0" xyz2="0.2 0.2 13.5" />
                 </primitive>
             </children>
         </node>
 
-        <node id = "frameBottom">
+        <node id="frameBottomWindow">
             <transforms>
                 <translate value3="0 -5 0" />
-            </transforms> 
-            
-            <children>             
+            </transforms>
+
+            <children>
                 <primitive>
-                    <box xyz1 = "0 0 0" xyz2 = "0.2 0.2 13.5" />
+                    <box xyz1="0 0 0" xyz2="0.2 0.2 13.5" />
                 </primitive>
             </children>
         </node>
 
-        <node id = "frameLeft">
+        <node id="frameLeftWindow">
             <transforms>
                 <translate value3="0 0 -6.65" />
-            </transforms> 
-            
-            <children>             
+            </transforms>
+
+            <children>
                 <primitive>
-                    <box xyz1 = "0 0 0" xyz2 = "0.2 9.8 0.2" />
+                    <box xyz1="0 0 0" xyz2="0.2 9.8 0.2" />
                 </primitive>
             </children>
         </node>
 
-        <node id = "frameRight">
-           <transforms>
+        <node id="frameRightWindow">
+            <transforms>
                 <translate value3="0 0 6.65" />
-            </transforms> 
-            
-            <children>             
+            </transforms>
+
+            <children>
                 <primitive>
-                    <box xyz1 = "0 0 0" xyz2 = "0.2 9.8 0.2" />
+                    <box xyz1="0 0 0" xyz2="0.2 9.8 0.2" />
                 </primitive>
             </children>
-             
-        </node> 
+
+        </node>
 
         <node id="windowFrame">
             <materialref id="lightMetalApp" />
-            
-            <children>             
-                <noderef id="frameTop" />
-                <noderef id="frameBottom" />
-                <noderef id="frameLeft" />
-                <noderef id="frameRight" />
+
+            <children>
+                <noderef id="frameTopWindow" />
+                <noderef id="frameBottomWindow" />
+                <noderef id="frameLeftWindow" />
+                <noderef id="frameRightWindow" />
             </children>
         </node>
 
         <node id="curtain">
             <materialref id="curtainApp" />
-            
-            <children>             
+
+            <children>
                 <primitive>
                     <nurbs degree_u="3" degree_v="1" parts_u="20" parts_v="20">
                         <controlpoint xx="-1" yy="-1" zz="0" />
@@ -696,16 +609,16 @@
             </children>
         </node>
 
-        <node id= "curtainWindow1">
+        <node id="curtainWindow1">
             <transforms>
                 <translate value3="1.5 0.5 -6.5" />
                 <rotate value3="0 -60 0" />
                 <scale value3="1 5.5 1" />
-            </transforms> 
+            </transforms>
 
             <materialref id="wallApp" />
-            
-            <children>             
+
+            <children>
                 <noderef id="curtain" />
             </children>
         </node>
@@ -714,11 +627,11 @@
             <transforms>
                 <translate value3="0.25 5.4 -6.75" />
                 <rotate value3="0 0 90" />
-            </transforms> 
+            </transforms>
 
-            <children>             
+            <children>
                 <primitive>
-                    <cylinder base="0.1" top="0.1" height= "0.5" slices="32" stacks="1" />
+                    <cylinder base="0.1" top="0.1" height="0.5" slices="32" stacks="1" />
                 </primitive>
             </children>
         </node>
@@ -727,11 +640,11 @@
             <transforms>
                 <translate value3="0.25 5.4 6.75" />
                 <rotate value3="0 0 90" />
-            </transforms> 
+            </transforms>
 
-            <children>             
+            <children>
                 <primitive>
-                    <cylinder base="0.1" top="0.1" height= "0.5" slices="32" stacks="1" />
+                    <cylinder base="0.1" top="0.1" height="0.5" slices="32" stacks="1" />
                 </primitive>
             </children>
         </node>
@@ -740,11 +653,11 @@
             <transforms>
                 <translate value3="0.45 5.4 0" />
                 <rotate value3="90 0 0" />
-            </transforms> 
+            </transforms>
 
-            <children>             
+            <children>
                 <primitive>
-                    <cylinder base="0.1" top="0.1" height= "13.4" slices="32" stacks="1" />
+                    <cylinder base="0.1" top="0.1" height="13.4" slices="32" stacks="1" />
                 </primitive>
             </children>
         </node>
@@ -752,8 +665,8 @@
         <node id="curtainRod">
 
             <materialref id="blackApp" />
-            
-            <children>             
+
+            <children>
                 <noderef id="curtainRodSupport1" />
                 <noderef id="curtainRodSupport2" />
                 <noderef id="curtainRodSupport3" />
@@ -761,42 +674,42 @@
         </node>
 
 
-        <node id="window1" >
+        <node id="window1">
             <transforms>
                 <translate value3="-14.9 5.1 -2.25" />
-            </transforms> 
+            </transforms>
 
             <materialref id="wallApp" />
-            
-            <children>             
+
+            <children>
                 <noderef id="windowFrame" />
                 <noderef id="curtainRod" />
                 <noderef id="curtainWindow1" />
             </children>
         </node>
 
-        <node id= "curtainWindow2">
+        <node id="curtainWindow2">
             <transforms>
                 <translate value3="1.5 0.5 4.5" />
                 <rotate value3="0 -60 0" />
                 <scale value3="1 5.5 1" />
-            </transforms> 
+            </transforms>
 
             <materialref id="wallApp" />
-            
-            <children>             
+
+            <children>
                 <noderef id="curtain" />
             </children>
         </node>
 
-        <node id="window2" >
+        <node id="window2">
             <transforms>
                 <translate value3="-14.9 5.1 17.25" />
-            </transforms> 
+            </transforms>
 
             <materialref id="wallApp" />
-            
-            <children>             
+
+            <children>
                 <noderef id="windowFrame" />
                 <noderef id="curtainRod" />
                 <noderef id="curtainWindow2" />
@@ -807,28 +720,28 @@
         <node id="doorStructure">
             <transforms>
                 <translate value3="0 0 -0.25" />
-            </transforms> 
+            </transforms>
 
             <materialref id="oakApp" />
-            
-            <children>             
+
+            <children>
                 <primitive>
-                    <box xyz1 = "0 0 0" xyz2 = "5 12 -0.5" />
+                    <box xyz1="0 0 0" xyz2="5 12 -0.5" />
                 </primitive>
             </children>
         </node>
 
-        <node id= "doorNob">
+        <node id="doorNob">
             <transforms>
                 <translate value3="-1.5 0 0.25" />
                 <rotate value3="90 0 0" />
-            </transforms> 
+            </transforms>
 
             <materialref id="lightMetalApp" />
-            
-            <children>             
+
+            <children>
                 <primitive>
-                    <cylinder base="0.2" top="0.4" height="0.5" slices="32" stacks="1"/>
+                    <cylinder base="0.2" top="0.4" height="0.5" slices="32" stacks="1" />
                 </primitive>
             </children>
         </node>
@@ -837,22 +750,73 @@
             <transforms>
                 <translate value3="14.5 6 15" />
                 <rotate value3="0 -90 0" />
-            </transforms>             
-            <children>             
+            </transforms>
+            <children>
                 <noderef id="doorStructure" />
                 <noderef id="doorNob" />
             </children>
         </node>
 
+        <node id="frameTopWindow">
+            <transforms>
+                <translate value3="0 5 0" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="0.2 0.2 13.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="frameBottomWindow">
+            <transforms>
+                <translate value3="0 -5 0" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="0.2 0.2 13.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="frameLeftWindow">
+            <transforms>
+                <translate value3="0 0 -6.65" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="0.2 9.8 0.2" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="frameRightWindow">
+            <transforms>
+                <translate value3="0 0 6.65" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="0.2 9.8 0.2" />
+                </primitive>
+            </children>
+
+        </node>
+
+        <node id="windowFrame">
+            <materialref id="lightMetalApp" />
+
+            <children>
+                <noderef id="frameTopWindow" />
+                <noderef id="frameBottomWindow" />
+                <noderef id="frameLeftWindow" />
+                <noderef id="frameRightWindow" />
+            </children>
+        </node>
 
 
-
-
-
-
-
-		
-		
-		
-    </graph> 
+    </graph>
 </yaf> 
