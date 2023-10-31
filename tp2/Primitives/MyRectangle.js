@@ -6,6 +6,8 @@ import * as THREE from 'three';
 class MyRectangle{
 
     constructor(primitiveData) {
+        this.xy1= primitiveData.xy1;
+        this.xy2 = primitiveData.xy2;
         this.width = Math.abs(primitiveData.xy1[0] - primitiveData.xy2[0]);
         this.height = Math.abs(primitiveData.xy1[1] - primitiveData.xy2[1]);
         this.widthSegments = primitiveData.parts_x;
@@ -15,6 +17,7 @@ class MyRectangle{
 
     addMaterial(material){
         let object = new THREE.Mesh(this.rectangle, material);
+        //object.position.set((this.xy1[0]+this.xy2[0])/2,  (this.xy1[1]+this.xy2[1])/2, 0);
         return object
     }
 }

@@ -9,10 +9,7 @@
     <fog color="1.0 1.0 1.0 1.0" near="0.0" far="100.0" />
 
     <cameras initial="cam1">
-        <perspective id="cam1" angle="60" near="0.1" far="1000" location="15 15 15" target="0 0.0 0" />
-
-        <orthogonal id="cam2" near="0.1" far="1000" location="0 15 15" target="0.0 15 0.0" left="-5"
-            right="5" bottom="-5" top="5" />
+        <perspective id="cam1" angle="60" near="0.1" far="1000" location="10 8 25" target="0 0.0 0" />
     </cameras>
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas
@@ -28,6 +25,11 @@
         <texture id="lightWoodTex" filepath="scenes/demo/textures/lightWood.jpg" />
         <texture id="fireTex" filepath="scenes/demo/textures/fire.jpg" />
         <texture id="whiteWoodTex" filepath="scenes/demo/textures/whiteWood.jpg" />
+        <texture id="vaseTex" filepath="scenes/demo/textures/flowersPattern.jpg" />
+        <texture id="pineTex" filepath="scenes/demo/textures/pine.png" />
+        <texture id="woodTrunk" filepath="scenes/demo/textures/trunk.jpg" />
+        <texture id="presentTex" filepath="scenes/demo/textures/present.jpg" />
+        <texture id="present1Tex" filepath="scenes/demo/textures/present1.jpg" />
     </textures>
 
     <materials>
@@ -78,9 +80,32 @@
         <material id="televisionApp" emissive="0.0 0.0 0.0 1" color="0 0 0 1.0"
             specular="0 0 0 0" shininess="0" />
 
-        <material id="fireApp" emissive="0.1 0.1 0.1 0" color="1 1 1 0"
+        <material id="fireApp" emissive="0.05 0.05 0.05 0" color="1 1 1 0"
             specular="0.47 0.47 0.47 1" shininess="100" textureref="fireTex" />
 
+        <material id="vaseApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
+            specular="0.47 0.47 0.47 1" shininess="100" textureref="vaseTex" twosided="true"
+            texlength_s="2"
+            texlength_t="2" />
+
+        <material id="pineApp"
+            emissive="0.0 0.0 0.0 1"
+            color="0.8 0.8 0.8 1.0"
+            specular="0 0 0 0"
+            shininess="0"
+            textureref="pineTex"
+            texlength_s="1"
+            texlength_t="1"
+            wireframe="true" />
+
+        <material id="woodTrunkApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
+            specular="0 0 0 1" shininess="0" textureref="woodTrunk" />
+
+        <material id= "presentApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
+            specular="0 0 0 1" shininess="0" textureref="presentTex" />
+        
+        <material id= "present1App" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
+            specular="0 0 0 1" shininess="0" textureref="present1Tex" />
 
     </materials>
 
@@ -103,6 +128,7 @@
                 <noderef id="painting1" />
                 <noderef id="painting2" />
                 <noderef id="television" />
+                <noderef id="christmasTree" />
 
 
                 <pointlight id="light1" enabled="true" color="0.5 0.6 0.8 1" intensity="1.0"
@@ -149,7 +175,7 @@
 
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="30 15" />
+                    <rectangle xy1="-15 -7.5" xy2="15 7.5" />
                 </primitive>
             </children>
         </node>
@@ -163,7 +189,7 @@
 
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="30 15" />
+                    <rectangle xy1="-15 -7.5" xy2="15 7.5" />
                 </primitive>
             </children>
         </node>
@@ -175,7 +201,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="6 10" />
+                    <rectangle xy1="-3 -5" xy2="3 5" />
                 </primitive>
             </children>
         </node>
@@ -186,7 +212,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="6 10" />
+                    <rectangle xy1="-3 -5" xy2="3 5" />
                 </primitive>
             </children>
         </node>
@@ -197,7 +223,7 @@
             </transforms>
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="6 10" />
+                    <rectangle xy1="-3 -5" xy2="3 5" />
                 </primitive>
             </children>
         </node>
@@ -209,7 +235,7 @@
             <materialref id="wallApp" />
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="45 5" />
+                    <rectangle xy1="-22.5 -2.5" xy2="22.5 2.5" />
                 </primitive>
             </children>
         </node>
@@ -236,7 +262,7 @@
             <materialref id="wallApp" />
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="45 15" />
+                    <rectangle xy1="-22.5 -7.5" xy2="22.5 7.5" />
                 </primitive>
             </children>
         </node>
@@ -248,7 +274,7 @@
             <materialref id="sofaApp" />
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="10 0.8 4" />
+                    <box xyz1="-5 -0.4 -2" xyz2="5 0.4 2" />
                 </primitive>
 
             </children>
@@ -261,7 +287,7 @@
             <materialref id="sofaPillowApp" />
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="10 0.8 3.2" />
+                    <box xyz1="-5 -0.4 -1.6" xyz2="5 0.4 1.6" />
                 </primitive>
 
             </children>
@@ -285,7 +311,7 @@
             <materialref id="sofaApp" />
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="10 3 0.4" />
+                    <box xyz1="-5 -1.5 -0.2" xyz2="5 1.5 0.2" />
                 </primitive>
 
             </children>
@@ -298,7 +324,7 @@
             <materialref id="sofaPillowApp" />
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="10 3 0.4" />
+                    <box xyz1="-5 -1.5 -0.2" xyz2="5 1.5 0.2" />
                 </primitive>
             </children>
         </node>
@@ -321,7 +347,7 @@
             <materialref id="sofaApp" />
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.5 2.3 4" />
+                    <box xyz1="-0.25 -1.15 -2" xyz2="0.25 1.15 2" />
                 </primitive>
 
             </children>
@@ -497,7 +523,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="10 1 7" xyz2="4 0.85 3.5" />
+                    <box xyz1="-3 -0.075 -1.75" xyz2="3 0.075 1.75" />
                 </primitive>
             </children>
         </node>
@@ -510,7 +536,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="10 1 7" xyz2="4 0.90 3.5" />
+                    <box xyz1="-3 -0.05 -1.75" xyz2="3 0.05 1.75" />
                 </primitive>
             </children>
         </node>
@@ -558,7 +584,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.2 2.5 0.2" />
+                    <box xyz1="-0.1 -1.25 -0.1" xyz2="0.1 1.25 0.1" />
                 </primitive>
             </children>
         </node>
@@ -570,7 +596,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.2 2.5 0.2" />
+                    <box xyz1="-0.1 -1.25 -0.1" xyz2="0.1 1.25 0.1" />
                 </primitive>
             </children>
         </node>
@@ -582,7 +608,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.2 2.5 0.2" />
+                    <box xyz1="-0.1 -1.25 -0.1" xyz2="0.1 1.25 0.1" />
                 </primitive>
             </children>
         </node>
@@ -595,7 +621,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.2 2.5 0.2" />
+                    <box xyz1="-0.1 -1.25 -0.1" xyz2="0.1 1.25 0.1" />
                 </primitive>
             </children>
         </node>
@@ -607,7 +633,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="2 0.8 2" />
+                    <box xyz1="-1 -0.4 -1" xyz2="1 0.4 1" />
                 </primitive>
             </children>
         </node>
@@ -619,7 +645,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.4 2.4 0.1" />
+                    <box xyz1="-0.2 -1.2 -0.05" xyz2="0.2 1.2 0.05" />
                 </primitive>
             </children>
         </node>
@@ -631,7 +657,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.4 2.4 0.1" />
+                    <box xyz1="-0.2 -1.2 -0.05" xyz2="0.2 1.2 0.05" />
                 </primitive>
             </children>
         </node>
@@ -643,7 +669,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="1.2 0.6 0.1" />
+                    <box xyz1="-0.6 -0.3 -0.05" xyz2="0.6 0.3 0.05" />
                 </primitive>
             </children>
         </node>
@@ -655,7 +681,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="1.2 0.6 0.1" />
+                    <box xyz1="-0.6 -0.3 -0.05" xyz2="0.6 0.3 0.05" />
                 </primitive>
             </children>
         </node>
@@ -743,8 +769,65 @@
                 <noderef id="chair2" />
                 <noderef id="chair3" />
                 <noderef id="chair4" />
+                <noderef id="vase" />
             </children>
         </node>
+
+        <node id="vasePart">
+            <children>
+                <primitive>
+                    <nurbs degree_u="3" degree_v="3" parts_u="20" parts_v="20">
+                        <controlpoint xx="-0.2" yy="-1" zz="0" />
+                        <controlpoint xx="-0.2" yy="-1" zz="0.267" />
+                        <controlpoint xx="0.2" yy="-1" zz="0.267" />
+                        <controlpoint xx="0.2" yy="-1" zz="0" />
+                        <controlpoint xx="-0.8" yy="0" zz="0" />
+                        <controlpoint xx="-0.8" yy="0" zz="1.067" />
+                        <controlpoint xx="0.8" yy="0" zz="1.067" />
+                        <controlpoint xx="0.8" yy="0" zz="0" />
+                        <controlpoint xx="0.4" yy="0.8" zz="0" />
+                        <controlpoint xx="0.4" yy="0.8" zz="-0.53" />
+                        <controlpoint xx="-0.4" yy="0.8" zz="-0.53" />
+                        <controlpoint xx="-0.4" yy="0.8" zz="0" />
+                        <controlpoint xx="-0.4" yy="1" zz="0" />
+                        <controlpoint xx="-0.4" yy="1" zz="0.53" />
+                        <controlpoint xx="0.4" yy="1" zz="0.53" />
+                        <controlpoint xx="0.4" yy="1" zz="0" />
+                    </nurbs>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="vase1">
+            <children>
+                <noderef id="vasePart" />
+            </children>
+        </node>
+
+        <node id="vase2">
+            <transforms>
+                <rotate value3="0 180 0" />
+            </transforms>
+
+            <children>
+                <noderef id="vasePart" />
+            </children>
+        </node>
+
+        <node id="vase">
+            <transforms>
+                <translate value3="0 5 0" />
+                <rotate value3="0 180 0" />
+            </transforms>
+
+            <materialref id="vaseApp" />
+
+            <children>
+                <noderef id="vase1" />
+                <noderef id="vase2" />
+            </children>
+        </node>
+
 
         <node id="frameTopWindow">
             <transforms>
@@ -753,7 +836,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.2 0.2 13.5" />
+                    <box xyz1="-0.1 -0.1 -6.75" xyz2="0.1 0.1 6.75" />
                 </primitive>
             </children>
         </node>
@@ -765,7 +848,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.2 0.2 13.5" />
+                    <box xyz1="-0.1 -0.1 -6.75" xyz2="0.1 0.1 6.75" />
                 </primitive>
             </children>
         </node>
@@ -777,7 +860,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.2 9.8 0.2" />
+                    <box xyz1="-0.1 -4.9 -0.1" xyz2="0.1 4.9 0.1" />
                 </primitive>
             </children>
         </node>
@@ -789,7 +872,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.2 9.8 0.2" />
+                    <box xyz1="-0.1 -4.9 -0.1" xyz2="0.1 4.9 0.1" />
                 </primitive>
             </children>
 
@@ -942,7 +1025,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="5 12 -0.5" />
+                    <box xyz1="-2.5 -6 -0.25" xyz2="2.5 6 0.25" />
                 </primitive>
             </children>
         </node>
@@ -980,7 +1063,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.5 0.5 4" />
+                    <box xyz1="-0.25 -0.25 -2" xyz2="0.25 0.25 2" />
                 </primitive>
             </children>
         </node>
@@ -992,7 +1075,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.5 0.5 4" />
+                    <box xyz1="-0.25 -0.25 -2" xyz2="0.25 0.25 2" />
                 </primitive>
             </children>
         </node>
@@ -1004,7 +1087,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.5 3.5 0.5" />
+                    <box xyz1="-0.25 -1.75 -0.25" xyz2="0.25 1.75 0.25" />
                 </primitive>
             </children>
         </node>
@@ -1016,7 +1099,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.5 3.5 0.5" />
+                    <box xyz1="-0.25 -1.75 -0.25" xyz2="0.25 1.75 0.25" />
                 </primitive>
             </children>
 
@@ -1042,7 +1125,7 @@
 
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="3.5 3.5" />
+                    <rectangle xy1="-1.75 -1.75" xy2="1.75 1.75" />
                 </primitive>
             </children>
         </node>
@@ -1068,7 +1151,7 @@
 
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="3.5 3.5" />
+                    <rectangle xy1="-1.75 -1.75" xy2="1.75 1.75" />
                 </primitive>
             </children>
         </node>
@@ -1092,7 +1175,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.3 0.3 10" />
+                    <box xyz1="-0.15 -0.15 -5" xyz2="0.15 0.15 5" />
                 </primitive>
             </children>
         </node>
@@ -1104,7 +1187,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.3 0.3 10" />
+                    <box xyz1="-0.15 -0.15 -5" xyz2="0.15 0.15 5" />
                 </primitive>
             </children>
         </node>
@@ -1116,7 +1199,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.3 4.7 0.3" />
+                    <box xyz1="-0.15 -2.35 -0.15" xyz2="0.15 2.35 0.15" />
                 </primitive>
             </children>
         </node>
@@ -1128,7 +1211,7 @@
 
             <children>
                 <primitive>
-                    <box xyz1="0 0 0" xyz2="0.3 4.7 0.3" />
+                    <box xyz1="-0.15 -2.35 -0.15" xyz2="0.15 2.35 0.15" />
                 </primitive>
             </children>
 
@@ -1154,7 +1237,7 @@
 
             <children>
                 <primitive>
-                    <rectangle xy1="0 0" xy2="9.7 4.7" />
+                    <rectangle xy1="-4.85 -2.35" xy2="4.85 2.35" />
                 </primitive>
             </children>
         </node>
@@ -1168,6 +1251,128 @@
             <children>
                 <noderef id="televisionFrame" />
                 <noderef id="televisionBackgroud" />
+            </children>
+        </node>
+
+        <node id="treeSeg1">
+            <transforms>
+                <scale value3="1.5 1.5 1.5" />
+                <translate value3="0 2.627 0" />
+            </transforms>
+
+            <materialref id="pineApp" />
+
+            <children>
+                <primitive>
+                    <cylinder base="2" top="1" height="1.9" slices="32" stacks="32" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="treeSeg2">
+            <transforms>
+                <scale value3="1.5 1.5 1.5" />
+                <translate value3="0 5.575 0" />
+            </transforms>
+
+            <materialref id="pineApp" />
+
+            <children>
+                <primitive>
+                    <cylinder base="1.5" top="0.5" height="2" slices="32" stacks="32" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="treeSeg3">
+            <transforms>
+                <scale value3="1.5 1.5 1.5" />
+                <translate value3="0 8.575 0" />
+            </transforms>
+
+            <materialref id="pineApp" />
+
+            <children>
+                <primitive>
+                    <cylinder base="0.9" top="0" height="2" slices="32" stacks="32" />
+                </primitive>
+
+            </children>
+        </node>
+
+        <node id="tree">
+            <transforms>
+                <translate value3="0 1.25 0" />
+            </transforms>
+
+            <materialref id="woodTrunkApp" />
+
+            <children>
+                <noderef id="trunk" />
+                <noderef id="treeSeg1" />
+                <noderef id="treeSeg2" />
+                <noderef id="treeSeg3" />
+                <primitive>
+                    <cylinder base="0.5" top="0.5" height="2.5" slices="32" stacks="32" />
+                </primitive>
+
+            </children>
+        </node>
+
+        <node id="present">
+            <transforms>
+                <translate value3="-0.5 0.5 2" />
+            </transforms>
+
+            <materialref id="presentApp" />
+
+            <children>
+                <primitive>
+                    <box xyz1="-0.5 -0.5 -0.5" xyz2="0.5 0.5 0.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="present1">
+            <transforms>
+                <translate value3="1 0.8 2" />
+            </transforms>
+
+            <materialref id="present1App" />
+
+            <children>
+                <primitive>
+                    <box xyz1="-0.8 -0.8 -0.8" xyz2="0.8 0.8 0.8" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="present2">
+            <transforms>
+                <translate value3="-1 0.6 1" />
+            </transforms>
+
+            <materialref id="present1App" />
+
+            <children>
+                <primitive>
+                    <box xyz1="-0.6 -0.6 -0.6" xyz2="0.6 0.6 0.6" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="christmasTree">
+            <transforms>
+                <translate value3="12 0 -12" />
+            </transforms>
+
+            <materialref id="christmasTreeApp" />
+
+            <children>
+                <noderef id="tree" />
+                <noderef id="present" />
+                <noderef id="present1" />
+                <noderef id="present2" />
             </children>
         </node>
 
