@@ -8,8 +8,19 @@ class MyTexture{
 
 
     constructor(textureData) {
-        this.texture = new THREE.TextureLoader().load(textureData.filepath)
-        console.log(textureData)
+        this.texture = null;
+        this.isVideo = textureData.isVideo;
+        if(!this.isVideo){
+            this.texture = new THREE.TextureLoader().load(textureData.filepath)
+        }
+        else{
+            const videoElement = document.createElement( 'video' );
+            videoElement.src = textureData.filepath;
+            videoElement.crossOrigin = 'anonymous';
+            videoElement.loop = true;
+            document.body.appendChild( videoElement );
+            this.texture = new THREE.VideoTexture(videoElement);
+        }
         if(textureData.magFilter)
             this.texture.magFilter = this.getMagFilter(textureData.magFilter);
         if(textureData.minFilter)
@@ -61,6 +72,10 @@ class MyTexture{
 
     setRepeat(x,y){
         this.repeat.set(x,y);
+    }
+
+    update(){
+        this.texture.update();
     }
 }
 

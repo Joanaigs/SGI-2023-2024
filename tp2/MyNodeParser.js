@@ -137,11 +137,12 @@ class MyNodeParser {
               }
             }
           }
+          let newMaterialID = materialID;
           if(child.materialIds.length > 0){
-            materialID = child.materialIds[0];
+            newMaterialID = child.materialIds[0];
             console.log("materialID", materialID);
           }
-          let tempChildren = this.children(child.id, newPosition, materialID);
+          let tempChildren = this.children(child.id, newPosition, newMaterialID);
           for (let tempChild of tempChildren) {
             childGroup.add(tempChild);
           }
