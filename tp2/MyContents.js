@@ -67,8 +67,7 @@ class MyContents  {
         for (var key in data.textures) {
             let texture = data.textures[key]
             let myTexture = new MyTexture(texture);
-            myTexture = new THREE.TextureLoader().load(texture.filepath);
-            this.textures.set(texture.id, myTexture);        
+            this.textures.set(texture.id, myTexture.getTexture());        
         }
 
         for (var key in data.materials) {

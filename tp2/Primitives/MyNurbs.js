@@ -14,7 +14,7 @@ class MyNurbs{
         for (let i = 0; i <= primitiveData.degree_u; i++) {
             points[i] = [];
             for (let j = 0; j <= primitiveData.degree_v; j++) {
-                let list = primitiveData.controlpoints[i * (primitiveData.degree_u + 1) + j];
+                let list = primitiveData.controlpoints[i * (primitiveData.degree_v+1) + j];
                 points[i][j] = [list.xx, list.yy, list.zz, 1];
             }
         }

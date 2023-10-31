@@ -30,6 +30,8 @@
     <textures>        
         <texture id="floorTex" filepath="scenes/demo/textures/floor.jpg" />
 		<texture id="wallTex" filepath="scenes/demo/textures/wallPaper.jpg" />
+        <texture id ="lightMetalTex" filepath = "scenes/demo/textures/metal.jpg" />
+        <texture id ="curtainTex" filepath = "scenes/demo/textures/curtain.jpg" />
     </textures> 
 
     <materials> 
@@ -74,6 +76,35 @@
             shininess="0"
         />
 
+        <material id = "lightMetalApp"
+            emissive="0.0 0.0 0.0 1"
+            color="1 1 1 1.0"
+            specular="1 1 1 1"
+            shininess="100" 
+            textureref="lightMetalTex" 
+            texlength_s="2" 
+            texlength_t="2" 
+        />
+
+        <material id = "curtainApp"
+            emissive="0.0 0.0 0.0 1"
+            color="0.75 0.83 0.87 0.8"
+            specular="0 0 0 0"
+            shininess="0"
+            twosided="true"
+            textureref="curtainTex"
+            texlength_s="1"
+            texlength_t="4"
+        />
+
+        <material id="blackApp" 
+            emissive="0.0 0.0 0.0 1"
+            color="0 0 0 1.0"
+            specular="0 0 0 0"
+            shininess="0"
+        />
+            
+
 
             
 		
@@ -94,6 +125,10 @@
                 <noderef id="armchair" />
                 <noderef id="smallTable" />
                 <noderef id="bigTable" />
+                <noderef id="window1" />
+                <noderef id="window2" />
+
+
 				
 
                 <pointlight id="light1" enabled="true" 
@@ -189,6 +224,52 @@
             </children> 
         </node>
 
+        <node id="wallFrontMiddle">
+            <transforms>
+                <translate value3="0 -2.5 0" />
+                <rotate value3="0.0 0 0.0" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <rectangle xy1="0 0" xy2="6 10" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="wallFrontLeft">
+            <transforms>
+                <translate value3="19.5 -2.5 0" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <rectangle xy1="0 0" xy2="6 10" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="wallFrontRight">
+            <transforms>
+                <translate value3="-19.5 -2.5 0" />
+            </transforms>
+            <children>             
+                <primitive>
+                    <rectangle xy1="0 0" xy2="6 10" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="topFrontWall">
+            <transforms>
+                <translate value3="0 5 0" />
+            </transforms>
+            <materialref id="wallApp" />
+            <children>             
+                <primitive>
+                    <rectangle xy1="0 0" xy2="45 5" />
+                </primitive>
+            </children>
+        </node>
+
         <node id="frontWall">
             <transforms>
                 <translate value3="-15 7.5 7.5" />
@@ -196,9 +277,10 @@
             </transforms>
             <materialref id="wallApp" />
             <children>             
-                <primitive>
-                    <rectangle xy1="0 0" xy2="45 15" />
-                </primitive>
+                <noderef id="wallFrontMiddle" />
+                <noderef id="wallFrontLeft" />
+                <noderef id="wallFrontRight" />
+                <noderef id="topFrontWall" />
             </children> 
         </node>
 
@@ -521,6 +603,195 @@
 				<noderef id="smallLeg4" />
             </children> 
         </node>
+
+        <node id = "frameTop">
+            <transforms>
+                <translate value3="0 5 0" />
+            </transforms> 
+            
+            <children>             
+                <primitive>
+                    <box xyz1 = "0 0 0" xyz2 = "0.2 0.2 13.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id = "frameBottom">
+            <transforms>
+                <translate value3="0 -5 0" />
+            </transforms> 
+            
+            <children>             
+                <primitive>
+                    <box xyz1 = "0 0 0" xyz2 = "0.2 0.2 13.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id = "frameLeft">
+            <transforms>
+                <translate value3="0 0 -6.65" />
+            </transforms> 
+            
+            <children>             
+                <primitive>
+                    <box xyz1 = "0 0 0" xyz2 = "0.2 9.8 0.2" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id = "frameRight">
+           <transforms>
+                <translate value3="0 0 6.65" />
+            </transforms> 
+            
+            <children>             
+                <primitive>
+                    <box xyz1 = "0 0 0" xyz2 = "0.2 9.8 0.2" />
+                </primitive>
+            </children>
+             
+        </node> 
+
+        <node id="windowFrame">
+            <materialref id="lightMetalApp" />
+            
+            <children>             
+                <noderef id="frameTop" />
+                <noderef id="frameBottom" />
+                <noderef id="frameLeft" />
+                <noderef id="frameRight" />
+            </children>
+        </node>
+
+        <node id="curtain">
+            <materialref id="curtainApp" />
+            
+            <children>             
+                <primitive>
+                    <nurbs degree_u="3" degree_v="1" parts_u="20" parts_v="20">
+                        <controlpoint xx="-1" yy="-1" zz="0" />
+                        <controlpoint xx="-1" yy="1" zz="0" />
+                        <controlpoint xx="0" yy="-1" zz="3" />
+                        <controlpoint xx="0" yy="1" zz="3" />
+                        <controlpoint xx="1" yy="-1" zz="0" />
+                        <controlpoint xx="1" yy="1" zz="0" />
+                        <controlpoint xx="2" yy="-1" zz="2" />
+                        <controlpoint xx="2" yy="1" zz="2" />
+                    </nurbs>
+                </primitive>
+            </children>
+        </node>
+
+        <node id= "curtainWindow1">
+            <transforms>
+                <translate value3="1.5 0.2 -6.5" />
+                <rotate value3="0 -60 0" />
+                <scale value3="1 5.5 1" />
+            </transforms> 
+
+            <materialref id="wallApp" />
+            
+            <children>             
+                <noderef id="curtain" />
+            </children>
+        </node>
+
+        <node id="curtainRodSupport1">
+            <transforms>
+                <translate value3="0.25 5.4 -6.75" />
+                <rotate value3="0 0 90" />
+            </transforms> 
+
+            <children>             
+                <primitive>
+                    <cylinder base="0.1" top="0.1" height= "0.5" slices="32" stacks="1" thetastart="0" thetalength="360" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="curtainRodSupport2">
+            <transforms>
+                <translate value3="0.25 5.4 6.75" />
+                <rotate value3="0 0 90" />
+            </transforms> 
+
+            <children>             
+                <primitive>
+                    <cylinder base="0.1" top="0.1" height= "0.5" slices="32" stacks="1" thetastart="0" thetalength="360" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="curtainRodSupport3">
+            <transforms>
+                <translate value3="0.45 5.4 0" />
+                <rotate value3="90 0 0" />
+            </transforms> 
+
+            <children>             
+                <primitive>
+                    <cylinder base="0.1" top="0.1" height= "13.4" slices="32" stacks="1" thetastart="0" thetalength="360" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="curtainRod">
+
+            <materialref id="blackApp" />
+            
+            <children>             
+                <noderef id="curtainRodSupport1" />
+                <noderef id="curtainRodSupport2" />
+                <noderef id="curtainRodSupport3" />
+            </children>
+        </node>
+
+
+        <node id="window1" >
+            <transforms>
+                <translate value3="-14.9 5.1 -2.25" />
+            </transforms> 
+
+            <materialref id="wallApp" />
+            
+            <children>             
+                <noderef id="windowFrame" />
+                <noderef id="curtainRod" />
+                <noderef id="curtainWindow1" />
+            </children>
+        </node>
+
+        <node id= "curtainWindow2">
+            <transforms>
+                <translate value3="1.5 0.2 4.5" />
+                <rotate value3="0 -60 0" />
+                <scale value3="1 5.5 1" />
+            </transforms> 
+
+            <materialref id="wallApp" />
+            
+            <children>             
+                <noderef id="curtain" />
+            </children>
+        </node>
+
+        <node id="window2" >
+            <transforms>
+                <translate value3="-14.9 5.1 17.25" />
+            </transforms> 
+
+            <materialref id="wallApp" />
+            
+            <children>             
+                <noderef id="windowFrame" />
+                <noderef id="curtainRod" />
+                <noderef id="curtainWindow2" />
+            </children>
+        </node>
+
+
+
 
 
 
