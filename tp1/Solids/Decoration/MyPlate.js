@@ -27,8 +27,8 @@ class MyPlate extends THREE.Object3D {
         //plate base
         const baseHeight = 0.05 * this.size;
         const geometryPlateBase = new THREE.CylinderGeometry( 0.3 * this.size, 0.3 * this.size, baseHeight, 40 ); 
-        let plateBase = new THREE.Mesh( geometryPlateBase, material ); 
-        if(castShadow){
+        if(castShadow){        let plateBase = new THREE.Mesh( geometryPlateBase, material ); 
+
             plateBase.receiveShadow = true;
             plateBase.castShadow = true;
         }
