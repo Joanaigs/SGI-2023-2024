@@ -17,6 +17,7 @@
     <textures>
         <texture id="floorTex" filepath="scenes/demo/textures/floor.jpg" />
         <texture id="wallTex" filepath="scenes/demo/textures/wallPaper.jpg" />
+        <texture id="carpetTex" filepath="scenes/demo/textures/carpetTex.jpg" />
         <texture id="lightMetalTex" filepath="scenes/demo/textures/metal.jpg" />
         <texture id="curtainTex" filepath="scenes/demo/textures/curtain.jpg" />
         <texture id="oakTex" filepath="scenes/demo/textures/oak.jpg" />
@@ -41,6 +42,9 @@
 
         <material id="wallPaperApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="0 0 0 0"
             shininess="0" textureref="wallTex" texlength_s="2" texlength_t="3" />
+
+        <material id="carpetApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
+            specular="0 0 0 0" shininess="0" textureref="carpetTex" />
 
         <material id="wallApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="0 0 0 0"
             shininess="0" />
@@ -409,6 +413,18 @@
                 <noderef id="sofaBack" />
                 <noderef id="sofaArm1" />
                 <noderef id="sofaArm2" />
+            </children>
+        </node>
+
+        <node id='carpet'>
+            <transforms>
+                <translate value3="0 0 -22" />
+            </transforms>
+            <materialref id="carpetApp" />
+            <children>
+                <primitive>
+                    <cylinder top="5" base="5" height="0.02" slices="32" stacks="32" />
+                </primitive>
             </children>
         </node>
 
@@ -800,6 +816,7 @@
                 <noderef id="candle1"/>
                 <noderef id="candle2"/>
                 <noderef id="candle3"/>
+                <noderef id="carpet"/>
             </children>
         </node>
 
