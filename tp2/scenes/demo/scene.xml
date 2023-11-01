@@ -404,15 +404,86 @@
             </children>
         </node>
 
-        <node id='sofa'>
+        <node id='sofaLeg1'>
             <transforms>
-                <translate value3="0 0 5" />
+                <translate value3="-5 0.4 -15" />
+                <rotate value3="0 0 -15" />
+            </transforms>
+            <materialref id="lightWoodApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.1" top="0.2" height="0.7" slices="32" stacks="1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id='sofaLeg2'>
+            <transforms>
+                <translate value3="5 0.4 -15" />
+                <rotate value3="0 0 15" />
+            </transforms>
+            <materialref id="lightWoodApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.1" top="0.2" height="0.7" slices="32" stacks="1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id='sofaLeg3'>
+            <transforms>
+                <translate value3="-5 0.4 -12" />
+                <rotate value3="0 0 -15" />
+            </transforms>
+            <materialref id="lightWoodApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.1" top="0.2" height="0.7" slices="32" stacks="1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id='sofaLeg4'>
+            <transforms>
+                <translate value3="5 0.4 -12" />
+                <rotate value3="0 0 15" />
+            </transforms>
+            <materialref id="lightWoodApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.1" top="0.2" height="0.7" slices="32" stacks="1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id='sofaLegs'>
+            <transforms>
+                <translate value3="0 0 19" />
+            </transforms>
+            <children>
+                <noderef id="sofaLeg1" />
+                <noderef id="sofaLeg2" />
+                <noderef id="sofaLeg3" />
+                <noderef id="sofaLeg4" />
+            </children>
+        </node>
+
+        <node id='sofaStructure'>
+            <transforms>
+                <translate value3="0 0.6 5.5" />
             </transforms>
             <children>
                 <noderef id="sofaBase" />
                 <noderef id="sofaBack" />
                 <noderef id="sofaArm1" />
                 <noderef id="sofaArm2" />
+            </children>
+        </node>
+
+        <node id='sofa'>
+            <children>
+                <noderef id="sofaLegs" />
+                <noderef id="sofaStructure" />
             </children>
         </node>
 
@@ -428,62 +499,14 @@
             </children>
         </node>
 
-        <node id="sofaBaseArmchair">
-            <transforms>
-                <translate value3="0 0 0" />
-                <scale value3="0.4 1 1" />
-            </transforms>
-            <materialref id="wallApp" />
-            <children>
-                <noderef id="sofaBaseStructure" />
-                <noderef id="sofaBasePillow" />
-            </children>
-        </node>
-
-        <node id="sofaBackArmchair">
-            <transforms>
-                <translate value3="0 0.8 1.4" />
-                <scale value3="0.4 1 1" />
-            </transforms>
-            <materialref id="wallApp" />
-            <children>
-                <noderef id="sofaBackStructure" />
-                <noderef id="sofaBackPillow" />
-            </children>
-        </node>
-
-        <node id="sofaArm1Armchair">
-            <transforms>
-                <translate value3="-2.25 0 0" />
-            </transforms>
-            <materialref id="wallApp" />
-            <children>
-                <noderef id="sofaArmStructure" />
-                <noderef id="sofaArmPillow" />
-            </children>
-        </node>
-
-        <node id="sofaArm2Armchair">
-            <transforms>
-                <translate value3="2.25 0 0" />
-            </transforms>
-            <materialref id="wallApp" />
-            <children>
-                <noderef id="sofaArmStructure" />
-                <noderef id="sofaArmPillow" />
-            </children>
-        </node>
-
         <node id="armchair">
             <transforms>
-                <translate value3="-10 0 -3" />
+                <translate value3="-4 0 -3" />
+                <scale value3="0.5 1 1" />
                 <rotate value3="0.0 -90 0.0" />
             </transforms>
             <children>
-                <noderef id="sofaBaseArmchair" />
-                <noderef id="sofaBackArmchair" />
-                <noderef id="sofaArm1Armchair" />
-                <noderef id="sofaArm2Armchair" />
+                <noderef id="sofa" />
             </children>
         </node>
 
