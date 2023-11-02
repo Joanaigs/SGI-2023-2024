@@ -11,7 +11,7 @@ class MyLights {
   constructor(content) {
     this.content = content;
   }
-  createLight(lightData, position) {
+  createLight(lightData) {
     switch (lightData.type) {
       case "directionallight":
         let directionalLight = new THREE.DirectionalLight(
@@ -19,9 +19,9 @@ class MyLights {
           lightData.intensity
         );
         directionalLight.position.set(
-          lightData.position[0] + position[0],
-          lightData.position[1] + position[1],
-          lightData.position[2] + position[2]
+          lightData.position[0],
+          lightData.position[1],
+          lightData.position[2]
         );
         if (directionalLight.castShadow) {
           directionalLight.castShadow = lightData.castshadow;
@@ -47,9 +47,9 @@ class MyLights {
           lightData.decay
         );
         pointLight.position.set(
-          lightData.position[0] + position[0],
-          lightData.position[1] + position[1],
-          lightData.position[2] + position[2]
+          lightData.position[0],
+          lightData.position[1],
+          lightData.position[2]
         );
         if (pointLight.castShadow) {
           pointLight.castShadow = lightData.castshadow;
@@ -72,15 +72,15 @@ class MyLights {
           lightData.decay
         );
         spotLight.position.set(
-          lightData.position[0] + position[0],
-          lightData.position[1] + position[1],
-          lightData.position[2] + position[2]
+          lightData.position[0],
+          lightData.position[1],
+          lightData.position[2]
         );
         let target = new THREE.Object3D();
         target.position.set(
-          lightData.target[0] + position[0],
-          lightData.target[1] + position[1],
-          lightData.target[2] + position[2]
+          lightData.target[0],
+          lightData.target[1],
+          lightData.target[2]
         );
         this.content.app.scene.add(target);
         spotLight.target = target;

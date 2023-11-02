@@ -17,7 +17,7 @@ class MyRectangle{
 
     addMaterial(material){
         let object = new THREE.Mesh(this.rectangle, material);
-        //object.position.set((this.xy1[0]+this.xy2[0])/2,  (this.xy1[1]+this.xy2[1])/2, 0);
+        object.position.set(this.xy1[0] + this.width/2, this.xy1[1] + this.height/2, 0);
         return object
     }
 }

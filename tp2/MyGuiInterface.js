@@ -39,6 +39,10 @@ class MyGuiInterface {
 
     }
     lightFolder.open();
+
+    //wireframe
+    const wireframeFolder = this.datgui.addFolder('Wireframe');
+    wireframeFolder.add(this.contents, "wireframe").onChange(() => { this.contents.updateWireframe()});
   }
 }
 

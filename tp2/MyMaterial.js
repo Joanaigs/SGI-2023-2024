@@ -21,7 +21,7 @@ class MyMaterial extends THREE.MeshPhongMaterial{
         if(texture){
             texture.wrapS = THREE.RepeatWrapping;
             texture.wrapT = THREE.RepeatWrapping;
-            texture.repeat.set(materialData.texlength_s, materialData.texlength_t);
+            //texture.repeat.set(materialData.texlength_s, materialData.texlength_t);
             this.map = texture
         }
     }

@@ -29,35 +29,24 @@ class MyNodeParser {
   init() {
     let mainGroup = new THREE.Group();
     let children;
-    let position = [0, 0, 0];
-    if (this.nodes[this.rootId].transformations) {
-      for (let trans of this.nodes[this.rootId].transformations) {
-        switch (trans.type) {
-          case "T":
-            position = trans.translate;
-            mainGroup.position.set(trans.translate[0], trans.translate[1], trans.translate[2]);
-            break;
-          case "R":
-            mainGroup.rotation.set(trans.rotation[0] * Math.PI / 180, trans.rotation[1] * Math.PI / 180, trans.rotation[2] * Math.PI / 180);
-            break;
-          case "S":
-            mainGroup.scale.set(trans.scale[0], trans.scale[1], trans.scale[2]);
-            break;
-        }
-      }
-    }
+
+    const combinedMatrix = this.transformations(this.nodes[this.rootId]);
+    mainGroup.applyMatrix4(combinedMatrix);
+
     let materialID = null;
-    if(this.nodes[this.rootId].materialIds){
+    if (this.nodes[this.rootId].materialIds) {
       materialID = this.nodes[this.rootId].materialIds[0];
     }
-    children = this.children(this.rootId, position, materialID);
+
+    children = this.children(this.rootId, materialID);
     for (let child of children) {
       mainGroup.add(child);
     }
+
     this.contents.app.scene.add(mainGroup);
   }
 
-  children(nodeId, position, materialID) {
+  children(nodeId, materialID) {
     let children = [];
     let node = this.nodes[nodeId];
     for (let i = 0; i < node.children.length; i++) {
@@ -113,36 +102,27 @@ class MyNodeParser {
         }
 
       } else if (child.type === "pointlight" || child.type === "directionallight" || child.type === "spotlight") {
-        this.myLights.createLight(child, position);
+        this.myLights.createLight(child);
         //children.push(this.contents.lights.get(child.id));
         //children.push(this.contents.lightsHelper.get(child.id));
       } else {
         let childGroup;
         if (!this.contents.nodeObjects.has(child.id)) {
           childGroup = new THREE.Group();
-          let newPosition = position;
-          if (child.transformations) {
-            for (let trans of child.transformations) {
-              switch (trans.type) {
-                case "T":
-                  newPosition = [position[0] + trans.translate[0], position[1] + trans.translate[1], position[2] + trans.translate[2],];
-                  childGroup.position.set(trans.translate[0], trans.translate[1], trans.translate[2]);
-                  break;
-                case "R":
-                  childGroup.rotation.set(trans.rotation[0] * Math.PI / 180, trans.rotation[1] * Math.PI / 180, trans.rotation[2] * Math.PI / 180);
-                  break;
-                case "S":
-                  childGroup.scale.set(trans.scale[0], trans.scale[1], trans.scale[2]);
-                  break;
-              }
-            }
-          }
+
+          //transformations
+          let combinedMatrix = this.transformations(child);
+          childGroup.applyMatrix4(combinedMatrix);
+
+          //material
           let newMaterialID = materialID;
-          if(child.materialIds.length > 0){
+          if (child.materialIds.length > 0) {
             newMaterialID = child.materialIds[0];
             console.log("materialID", materialID);
           }
-          let tempChildren = this.children(child.id, newPosition, newMaterialID);
+
+          //children
+          let tempChildren = this.children(child.id, newMaterialID);
           for (let tempChild of tempChildren) {
             childGroup.add(tempChild);
           }
@@ -156,6 +136,69 @@ class MyNodeParser {
 
     return children;
   }
+
+  // transformations(node) {
+  //   // Initialize transformation matrices
+  //   const translationMatrix = new THREE.Matrix4();
+  //   const rotationMatrix = new THREE.Matrix4();
+  //   const scaleMatrix = new THREE.Matrix4();
+
+  //   if (node.transformations) {
+  //     for (let trans of node.transformations) {
+  //       switch (trans.type) {
+  //         case "T":
+  //           // Accumulate translation
+  //           translationMatrix.multiply(new THREE.Matrix4().makeTranslation(trans.translate[0], trans.translate[1], trans.translate[2]));
+  //           break;
+  //         case "R":
+  //           // Accumulate rotation
+  //           const rotationEuler = new THREE.Euler(trans.rotation[0] * Math.PI / 180, trans.rotation[1] * Math.PI / 180, trans.rotation[2] * Math.PI / 180);
+  //           rotationMatrix.multiply(new THREE.Matrix4().makeRotationFromEuler(rotationEuler));
+  //           break;
+  //         case "S":
+  //           // Accumulate scale
+  //           scaleMatrix.multiply(new THREE.Matrix4().makeScale(trans.scale[0], trans.scale[1], trans.scale[2]));
+  //           break;
+  //       }
+  //     }
+  //   }
+
+  //   return new THREE.Matrix4().multiply(translationMatrix).multiply(rotationMatrix).multiply(scaleMatrix);
+
+  // }
+
+  transformations(node) {
+    // Initialize the childGroup's transformation
+    let childTransform = new THREE.Matrix4();
+    childTransform.identity();
+
+    if (node.transformations) {
+      for (let trans of node.transformations) {
+        switch (trans.type) {
+          case "T":
+            // Accumulate translation
+            const translateMatrix = new THREE.Matrix4();
+            translateMatrix.makeTranslation(trans.translate[0], trans.translate[1], trans.translate[2]);
+            childTransform.multiply(translateMatrix);
+            break;
+          case "R":
+            // Accumulate rotation
+            const rotationMatrix = new THREE.Matrix4();
+            rotationMatrix.makeRotationFromEuler(new THREE.Euler(trans.rotation[0] * Math.PI / 180, trans.rotation[1] * Math.PI / 180, trans.rotation[2] * Math.PI / 180));
+            childTransform.multiply(rotationMatrix);
+            break;
+          case "S":
+            // Accumulate scale
+            const scaleMatrix = new THREE.Matrix4();
+            scaleMatrix.makeScale(trans.scale[0], trans.scale[1], trans.scale[2]);
+            childTransform.multiply(scaleMatrix);
+            break;
+        }
+      }
+    }
+    return childTransform;
+  }
+
 }
 
 export { MyNodeParser };

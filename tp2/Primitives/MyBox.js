@@ -19,7 +19,7 @@ class MyBox{
 
     addMaterial(material){
         let object = new THREE.Mesh(this.box, material);
-        //object.position.set((this.xyz1[0]+this.xyz2[0])/2,  (this.xyz1[1]+this.xyz2[1])/2, (this.xyz1[2]+this.xyz2[2])/2);
+        object.position.set(this.xyz1[0] + this.width/2, this.xyz1[1] + this.height/2, this.xyz1[2] + this.depth/2);
         return object
     }
 

@@ -27,6 +27,7 @@ class MyContents  {
         this.lightEnabled = {};
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
 		this.reader.open("scenes/demo/scene.xml");	
+        this.wireframe = false;
     }
 
     /**
@@ -102,6 +103,12 @@ class MyContents  {
         }else{
             this.app.scene.remove(this.lights.get(id));
             this.app.scene.remove(this.lightsHelper.get(id));
+        }
+    }
+
+    updateWireframe(){
+        for(let [id, material] of this.materials){
+            material.wireframe = this.wireframe;
         }
     }
 
