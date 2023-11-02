@@ -10,7 +10,7 @@ class MyScene extends THREE.Scene{
         }
         //ambient light
         if(globalData.ambient){
-            const ambientLight = new THREE.AmbientLight(globalData.ambient, 0.05);
+            const ambientLight = new THREE.AmbientLight(globalData.ambient, 0.5);
             this.add(ambientLight);
         }
         this.background = new THREE.Color(globalData.background);

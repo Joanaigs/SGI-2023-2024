@@ -17,6 +17,7 @@
     <textures>
         <texture id="floorTex" filepath="scenes/demo/textures/floor.jpg" />
         <texture id="wallTex" filepath="scenes/demo/textures/wallPaper.jpg" />
+        <texture id="carpetTex" filepath="scenes/demo/textures/carpetTex.jpg" />
         <texture id="lightMetalTex" filepath="scenes/demo/textures/metal.jpg" />
         <texture id="curtainTex" filepath="scenes/demo/textures/curtain.jpg" />
         <texture id="oakTex" filepath="scenes/demo/textures/oak.jpg" />
@@ -41,6 +42,9 @@
 
         <material id="wallPaperApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="0 0 0 0"
             shininess="0" textureref="wallTex" texlength_s="2" texlength_t="3" />
+
+        <material id="carpetApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
+            specular="0 0 0 0" shininess="0" textureref="carpetTex" />
 
         <material id="wallApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="0 0 0 0"
             shininess="0" />
@@ -404,9 +408,73 @@
             </children>
         </node>
 
-        <node id='sofa'>
+        <node id='sofaLeg1'>
             <transforms>
-                <translate value3="0 0 5" />
+                <translate value3="-5 0.4 -15" />
+                <rotate value3="0 0 -15" />
+            </transforms>
+            <materialref id="lightWoodApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.1" top="0.2" height="0.7" slices="32" stacks="1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id='sofaLeg2'>
+            <transforms>
+                <translate value3="5 0.4 -15" />
+                <rotate value3="0 0 15" />
+            </transforms>
+            <materialref id="lightWoodApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.1" top="0.2" height="0.7" slices="32" stacks="1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id='sofaLeg3'>
+            <transforms>
+                <translate value3="-5 0.4 -12" />
+                <rotate value3="0 0 -15" />
+            </transforms>
+            <materialref id="lightWoodApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.1" top="0.2" height="0.7" slices="32" stacks="1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id='sofaLeg4'>
+            <transforms>
+                <translate value3="5 0.4 -12" />
+                <rotate value3="0 0 15" />
+            </transforms>
+            <materialref id="lightWoodApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.1" top="0.2" height="0.7" slices="32" stacks="1" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id='sofaLegs'>
+            <transforms>
+                <translate value3="0 0 19" />
+            </transforms>
+            <children>
+                <noderef id="sofaLeg1" />
+                <noderef id="sofaLeg2" />
+                <noderef id="sofaLeg3" />
+                <noderef id="sofaLeg4" />
+            </children>
+        </node>
+
+        <node id='sofaStructure'>
+            <transforms>
+                <translate value3="0 0.6 5.5" />
             </transforms>
             <children>
                 <noderef id="sofaBase" />
@@ -416,62 +484,91 @@
             </children>
         </node>
 
-        <node id="sofaBaseArmchair">
-            <transforms>
-                <translate value3="0 0 0" />
-                <scale value3="0.4 1 1" />
-            </transforms>
-            <materialref id="wallApp" />
+        <node id='sofa'>
             <children>
-                <noderef id="sofaBaseStructure" />
-                <noderef id="sofaBasePillow" />
+                <noderef id="sofaLegs" />
+                <noderef id="sofaStructure" />
             </children>
         </node>
 
-        <node id="sofaBackArmchair">
+        <node id='carpet'>
             <transforms>
-                <translate value3="0 0.8 1.4" />
-                <scale value3="0.4 1 1" />
+                <translate value3="0 0 -22" />
             </transforms>
-            <materialref id="wallApp" />
+            <materialref id="carpetApp" />
             <children>
-                <noderef id="sofaBackStructure" />
-                <noderef id="sofaBackPillow" />
+                <primitive>
+                    <cylinder top="5" base="5" height="0.02" slices="32" stacks="32" />
+                </primitive>
             </children>
         </node>
 
-        <node id="sofaArm1Armchair">
+        <node id="armchairStructure">
             <transforms>
-                <translate value3="-2.25 0 0" />
+                <scale value3="0.5 1 1" />
             </transforms>
-            <materialref id="wallApp" />
             <children>
-                <noderef id="sofaArmStructure" />
-                <noderef id="sofaArmPillow" />
+                <noderef id="sofaStructure" />
             </children>
         </node>
 
-        <node id="sofaArm2Armchair">
+        <node id="armchairLeg1">
             <transforms>
-                <translate value3="2.25 0 0" />
+                <translate value3="1 0 14.5" />
+                <scale value3="0.7 1 0.7" />
             </transforms>
-            <materialref id="wallApp" />
             <children>
-                <noderef id="sofaArmStructure" />
-                <noderef id="sofaArmPillow" />
+                <noderef id="sofaLeg1" />
+            </children>
+        </node>
+
+
+        <node id="armchairLeg2">
+            <transforms>
+                <translate value3="-1 0 14.5" />
+                <scale value3="0.7 1 0.7" />
+            </transforms>
+            <children>
+                <noderef id="sofaLeg2" />
+            </children>
+        </node>
+
+        <node id="armchairLeg3">
+            <transforms>
+                <translate value3="0 0 3" />
+            </transforms>
+            <children>
+                <noderef id="armchairLeg2" />
+            </children>
+        </node>
+
+        <node id="armchairLeg4">
+            <transforms>
+                <translate value3="0 0 3" />
+            </transforms>
+            <children>
+                <noderef id="armchairLeg1" />
+            </children>
+        </node>
+        
+
+        <node id="armchairLegs">
+            <children>
+                <noderef id="armchairLeg1" />
+                <noderef id="armchairLeg2" />
+                <noderef id="armchairLeg3" />
+                <noderef id="armchairLeg4" />
             </children>
         </node>
 
         <node id="armchair">
             <transforms>
-                <translate value3="-10 0 -3" />
+                <translate value3="-4 0 -3" />
                 <rotate value3="0.0 -90 0.0" />
             </transforms>
             <children>
-                <noderef id="sofaBaseArmchair" />
-                <noderef id="sofaBackArmchair" />
-                <noderef id="sofaArm1Armchair" />
-                <noderef id="sofaArm2Armchair" />
+                <noderef id="armchairStructure" />
+                <noderef id="armchairLegs" />
             </children>
         </node>
 
@@ -804,6 +901,7 @@
                 <noderef id="candle1"/>
                 <noderef id="candle2"/>
                 <noderef id="candle3"/>
+                <noderef id="carpet"/>
             </children>
         </node>
 
