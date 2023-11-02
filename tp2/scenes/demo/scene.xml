@@ -499,14 +499,72 @@
             </children>
         </node>
 
+        <node id="armchairStructure">
+            <transforms>
+                <scale value3="0.5 1 1" />
+            </transforms>
+            <children>
+                <noderef id="sofaStructure" />
+            </children>
+        </node>
+
+        <node id="armchairLeg1">
+            <transforms>
+                <translate value3="1 0 14.5" />
+                <scale value3="0.7 1 0.7" />
+            </transforms>
+            <children>
+                <noderef id="sofaLeg1" />
+            </children>
+        </node>
+
+
+        <node id="armchairLeg2">
+            <transforms>
+                <translate value3="-1 0 14.5" />
+                <scale value3="0.7 1 0.7" />
+            </transforms>
+            <children>
+                <noderef id="sofaLeg2" />
+            </children>
+        </node>
+
+        <node id="armchairLeg3">
+            <transforms>
+                <translate value3="0 0 3" />
+            </transforms>
+            <children>
+                <noderef id="armchairLeg2" />
+            </children>
+        </node>
+
+        <node id="armchairLeg4">
+            <transforms>
+                <translate value3="0 0 3" />
+            </transforms>
+            <children>
+                <noderef id="armchairLeg1" />
+            </children>
+        </node>
+        
+
+        <node id="armchairLegs">
+            <children>
+                <noderef id="armchairLeg1" />
+                <noderef id="armchairLeg2" />
+                <noderef id="armchairLeg3" />
+                <noderef id="armchairLeg4" />
+            </children>
+        </node>
+
         <node id="armchair">
             <transforms>
                 <translate value3="-4 0 -3" />
-                <scale value3="0.5 1 1" />
                 <rotate value3="0.0 -90 0.0" />
             </transforms>
             <children>
-                <noderef id="sofa" />
+                <noderef id="armchairStructure" />
+                <noderef id="armchairLegs" />
             </children>
         </node>
 
