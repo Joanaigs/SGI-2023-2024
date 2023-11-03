@@ -326,6 +326,19 @@
         </node>
 
 
+        <node id='televisionBookshelf'>
+            <transforms>
+                <translate value3="-2 -5 0" />
+            </transforms>
+
+            <children>
+                 <primitive>
+                     <box xyz1="5 3 2" xyz2="0 0 0" />
+                </primitive>
+            </children>
+        </node>
+
+
         <node id='televisionCabinet'>
             <transforms>
                 <translate value3="-26 -3 -17" />
@@ -1173,9 +1186,9 @@
 
         <node id="vase">
             <transforms>
-                <translate value3="0 2.8 0" />
+                <translate value3="-12 2 30" />
                 <rotate value3="0 180 0" />
-                <scale value3="0.8 0.8 0.8" />
+                <scale value3="2 2 2" />
             </transforms>
 
             <materialref id="vaseApp" />
