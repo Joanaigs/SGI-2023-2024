@@ -138,6 +138,7 @@
                 <noderef id="floor" />
                 <noderef id="sofa"/>
                 <noderef id="groundLampshade"/>
+                <noderef id="televisionCabinet"/>
                 <noderef id="armchair" />
                 <noderef id="coffeTable" />
                 <noderef id="dinnigTable" />
@@ -301,6 +302,43 @@
             </children>
         </node>
 
+        <node id='televisionCabinetThinLayer1'>
+            <transforms>
+                <translate value3="0 5.8 0" />
+            </transforms>
+            <materialref id="whiteWoodApp" />
+            <children>
+                <primitive>
+                     <box xyz1="16 0.2 2" xyz2="0 0 0" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id='televisionCabinetThinLayer2'>
+            <transforms>
+                <translate value3="-0.2 -1.5 0" />
+                <scale value3="1.01 1 1.01" />
+            </transforms>
+
+            <children>
+                 <noderef id= "televisionCabinetThinLayer1"/>
+            </children>
+        </node>
+
+
+        <node id='televisionCabinet'>
+            <transforms>
+                <translate value3="-26 -3 -17" />
+            </transforms>
+            <materialref id="oakApp" />
+            <children>
+                <primitive>
+                     <box xyz1="16 3 2" xyz2="0 0 0" />
+                </primitive>
+                <noderef id= "televisionCabinetThinLayer1"/>
+                <noderef id='televisionCabinetThinLayer2'/>
+            </children>
+        </node>
 
         <node id='groundLampshade'>
             <transforms>
