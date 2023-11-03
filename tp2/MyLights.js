@@ -67,7 +67,7 @@ class MyLights {
           lightData.color,
           lightData.intensity,
           lightData.distance,
-          lightData.angle,
+          lightData.angle*180/Math.PI,
           lightData.penumbra,
           lightData.decay
         );
