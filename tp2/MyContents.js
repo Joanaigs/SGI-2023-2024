@@ -26,7 +26,7 @@ class MyContents  {
         this.lightsHelper = new Map();
         this.lightEnabled = {};
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
-		this.reader.open("scenes/demo/scene.xml");	
+		this.reader.open("scenes/scene/scene.xml");	
         this.wireframe = false;
     }
 
@@ -90,7 +90,6 @@ class MyContents  {
         for (let [id, light] of this.lights) {
             if(this.lightEnabled[id]){
                 this.app.scene.add(light);
-            this.app.scene.add(this.lightsHelper.get(id));
             }
         }
 
@@ -99,10 +98,8 @@ class MyContents  {
     updateLights(id){
         if(this.lightEnabled[id]){
             this.app.scene.add(this.lights.get(id));
-            this.app.scene.add(this.lightsHelper.get(id));
         }else{
             this.app.scene.remove(this.lights.get(id));
-            this.app.scene.remove(this.lightsHelper.get(id));
         }
     }
 
