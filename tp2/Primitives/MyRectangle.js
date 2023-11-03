@@ -15,9 +15,17 @@ class MyRectangle{
         this.rectangle = new THREE.PlaneGeometry(this.width, this.height, this.widthSegments, this.heigthSegments);
     }
 
-    addMaterial(material){
+    addMaterial(material, castshadow, receiveshadows){
         let object = new THREE.Mesh(this.rectangle, material);
         object.position.set(this.xy1[0] + this.width/2, this.xy1[1] + this.height/2, 0);
+        if(castshadow){
+            object.castShadow = true;
+        }
+        console.log("f")
+        if(receiveshadows){
+            console.log("receiveshadows")
+            object.receiveShadow = true;
+        }
         return object
     }
 }

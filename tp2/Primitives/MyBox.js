@@ -17,9 +17,16 @@ class MyBox{
         this.box = new THREE.BoxGeometry(this.width, this.height, this.depth, this.widthSegments, this.heigthSegments, this.depthSegments);
     }
 
-    addMaterial(material){
+    addMaterial(material, castshadow, receiveshadows){
         let object = new THREE.Mesh(this.box, material);
         object.position.set(this.xyz1[0] + this.width/2, this.xyz1[1] + this.height/2, this.xyz1[2] + this.depth/2);
+        if(castshadow){
+            console.log("castshadow")
+            object.castShadow = true;
+        }
+        if(receiveshadows){
+            object.receiveShadow = true;
+        }
         return object
     }
 

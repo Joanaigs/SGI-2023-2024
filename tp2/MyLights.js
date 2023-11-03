@@ -23,10 +23,10 @@ class MyLights {
           lightData.position[1],
           lightData.position[2]
         );
-        if (directionalLight.castShadow) {
+        if (lightData.castshadow) {
           directionalLight.castShadow = lightData.castshadow;
-          directionalLight.shadow.mapSize.width = lightData.shadowmap;
-          directionalLight.shadow.mapSize.height = lightData.shadowmap;
+          directionalLight.shadow.mapSize.width = lightData.shadowmapsize;
+          directionalLight.shadow.mapSize.height = lightData.shadowmapsize;
           directionalLight.shadow.camera.far = lightData.shadowfar;
           directionalLight.shadow.camera.left = lightData.shadowleft;
           directionalLight.shadow.camera.right = lightData.shadowright;
@@ -51,10 +51,10 @@ class MyLights {
           lightData.position[1],
           lightData.position[2]
         );
-        if (pointLight.castShadow) {
+        if (lightData.castshadow) {
           pointLight.castShadow = lightData.castshadow;
-          pointLight.shadow.mapSize.width = lightData.shadowmap;
-          pointLight.shadow.mapSize.height = lightData.shadowmap;
+          pointLight.shadow.mapSize.width = lightData.shadowmapsize;
+          pointLight.shadow.mapSize.height = lightData.shadowmapsize;
           pointLight.shadow.camera.far = lightData.shadowfar;
         }
         let helper1 = new THREE.PointLightHelper(pointLight);
@@ -84,11 +84,14 @@ class MyLights {
         );
         this.content.app.scene.add(target);
         spotLight.target = target;
-        if (spotLight.castShadow) {
+        console.log(lightData);
+
+        if (lightData.castshadow) {
           spotLight.castShadow = lightData.castshadow;
-          spotLight.shadow.mapSize.width = lightData.shadowmap;
-          spotLight.shadow.mapSize.height = lightData.shadowmap;
+          spotLight.shadow.mapSize.width = lightData.shadowmapsize;
+          spotLight.shadow.mapSize.height = lightData.shadowmapsize;
           spotLight.shadow.camera.far = lightData.shadowfar;
+          console.log(spotLight);
         }
         let helper = new THREE.SpotLightHelper(spotLight);
         this.content.lights.set(lightData.id, spotLight);

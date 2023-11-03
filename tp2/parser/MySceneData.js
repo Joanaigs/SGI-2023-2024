@@ -26,6 +26,8 @@ class MySceneData  {
         
         this.nodes = [];
         this.rootId = null;
+
+        this.lods = [];
     
         this.descriptors = [];
 
@@ -50,7 +52,15 @@ class MySceneData  {
             {name: "minFilter", type: "string", required: false, default: "LinearMipmapLinearFilter"}, // to be used in later classes
             {name: "mipmaps", type: "boolean", required: false, default: true}, // by default threejs generates mipmaps for you
             {name: "anisotropy", type: "integer", required: false, default: 1}, // default is 1. A higher value gives a less blurry result than a basic mipmap, at the cost of more texture samples being used
-		]
+            {name: "mipmap0", type: "string", required: false, default: null}, //   mipmap level 0. Default null.
+            {name: "mipmap1", type: "string", required: false, default: null}, // mipmap level 1. Default null.
+            {name: "mipmap2", type: "string", required: false, default: null}, // mipmap level 2. Default null.
+            {name: "mipmap3", type: "string", required: false, default: null}, // mipmap level 3. Default null.
+            {name: "mipmap4", type: "string", required: false, default: null}, // mipmap level 4. Default null.
+            {name: "mipmap5", type: "string", required: false, default: null}, // mipmap level 5. Default null.
+            {name: "mipmap6", type: "string", required: false, default: null}, // mipmap level 6. Default null.
+            {name: "mipmap7", type: "string", required: false, default: null}, // mipmap level 7. Default null.
+        ]
         
 
         this.descriptors["material"] = [
@@ -65,8 +75,9 @@ class MySceneData  {
 			{name: "texlength_s", type: "float", required: false, default: 1.0},
 			{name: "texlength_t", type: "float", required: false, default: 1.0},
             {name: "twosided", type: "boolean", required: false, default: false},
-            {name: "bump_ref", type: "string", required: false, default: null}, // bump map is to be used in later classes
-            {name: "bump_scale", type: "float", required: false, default: 1.0},
+            {name: "bumpref", type: "string", required: false, default: null}, // bump map is to be used in later classes
+            {name: "bumpscale", type: "float", required: false, default: 1.0},
+            {name: "specularref", type: "string", required: false, default: null}, // specular map is to be used in later classes
 		]
 
         this.descriptors["orthogonal"] = [
@@ -219,7 +230,7 @@ class MySceneData  {
 
         this.primaryNodeIds = ["globals", "fog" ,"textures", "materials", "cameras", "graph"]
 
-        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox" ]
+        this.primitiveIds = ["cylinder", "rectangle", "triangle", "sphere", "nurbs" , "box", "model3d", "skybox", "lod" ]
     }
 
     createCustomAttributeIfNotExists(obj) {
@@ -337,7 +348,7 @@ class MySceneData  {
             throw new Error("inconsistency: a node with id " + id + " already exists!");		
         }
 
-		obj = {id: id, transformations: [], materialIds : [], children: [], loaded: false, type:"node"};
+		obj = {id: id, transformations: [], materialIds : [], children: [], loaded: false, type:"node", castShadows: false, receiveShadows: false};
         this.addNode(obj);
         return obj;
 	}
@@ -387,6 +398,34 @@ class MySceneData  {
         
         // TODO: continue consolidation checks
     }
+
+    getLOD(id) {	
+        let value = this.lods[id];
+        if (value === undefined) return null
+        return value
+    }
+
+    createEmptyLOD(id) {
+        let obj = this.getLOD(id) 
+        if (obj !== null && obj !== undefined) {
+            throw new Error("inconsistency: a LOD with id " + id + " already exists!");		
+        }
+
+		obj = {id: id, children: [], loaded: false, type:"lod"};
+        this.addLOD(obj);
+        return obj;
+	}
+
+
+    addLOD(lod) {
+        let obj = this.getLOD(lod.id) 
+        if (obj !== null && obj !== undefined) {
+            throw new Error("inconsistency: a LOD with id " + lod.id + " already exists!");		
+        }
+        this.lods[lod.id] = lod;
+        this.createCustomAttributeIfNotExists(lod)
+        console.debug("added lod " + JSON.stringify(lod));
+    };
 }
 export { MySceneData };
 

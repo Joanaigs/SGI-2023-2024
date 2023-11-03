@@ -12,8 +12,14 @@ class MyTriangle{
         this.triangle = new THREE.Triangle(this.a, this.b, this.c);
     }
 
-    addMaterial(material){
+    addMaterial(material, castshadow, receiveshadows){
         let object = new THREE.Mesh(this.triangle, material);
+        if(castshadow){
+            object.castShadow = true;
+        }
+        if(receiveshadows){
+            object.receiveShadow = true;
+        }
         return object
     }
 }

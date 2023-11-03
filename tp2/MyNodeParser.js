@@ -38,7 +38,7 @@ class MyNodeParser {
       materialID = this.nodes[this.rootId].materialIds[0];
     }
 
-    children = this.children(this.rootId, materialID);
+    children = this.children(this.rootId, materialID, this.nodes[this.rootId].castShadows, this.nodes[this.rootId].receiveShadows );
     for (let child of children) {
       mainGroup.add(child);
     }
@@ -46,7 +46,7 @@ class MyNodeParser {
     this.contents.app.scene.add(mainGroup);
   }
 
-  children(nodeId, materialID) {
+  children(nodeId, materialID, castshadow, receiveshadows) {
     let children = [];
     let node = this.nodes[nodeId];
     for (let i = 0; i < node.children.length; i++) {
@@ -55,45 +55,38 @@ class MyNodeParser {
         this.material = this.contents.materials.get(materialID);
         switch (child.subtype) {
           case "box":
-            console.log("box", child.representations[0])
             let box = new MyBox(child.representations[0])
-            let boxObject = box.addMaterial(this.material);
+            let boxObject = box.addMaterial(this.material, castshadow, receiveshadows);
             this.contents.primitivesObjects.set(child.id, boxObject);
             children.push(boxObject);
             break;
           case "cylinder":
-            console.log("cy", child)
             let cylinder = new MyCylinder(child.representations[0]);
-            let cylinderObject = cylinder.addMaterial(this.material)
+            let cylinderObject = cylinder.addMaterial(this.material, castshadow, receiveshadows)
             this.contents.primitivesObjects.set(child.id, cylinderObject);
             children.push(cylinderObject);
             break;
           case "rectangle":
-            console.log("rec", child.representations[0]);
             let rectangle = new MyRectangle(child.representations[0]);
-            let rectangleObject = rectangle.addMaterial(this.material)
+            let rectangleObject = rectangle.addMaterial(this.material, castshadow, receiveshadows)
             this.contents.primitivesObjects.set(child.id, rectangleObject);
             children.push(rectangleObject);
             break;
           case "sphere":
-            console.log("sphere", child)
             let sphere = new MySphere(child.representations[0]);
-            let sphereObject = sphere.addMaterial(this.material);
+            let sphereObject = sphere.addMaterial(this.material, castshadow, receiveshadows);
             this.contents.primitivesObjects.set(child.id, sphereObject);
             children.push(sphereObject);
             break;
           case "triangle":
-            console.log("tri", child)
             let triangle = new MyTriangle(child.representations[0])
-            let triangleObject = triangle.addMaterial(this.material);
+            let triangleObject = triangle.addMaterial(this.material, castshadow, receiveshadows);
             this.contents.primitivesObjects.set(child.id, triangleObject);
             children.push(triangleObject);
             break;
           case "nurbs":
-            console.log("nurbs", child)
             let nurbs = new MyNurbs(child.representations[0]);
-            let nurbsObject = nurbs.addMaterial(this.material);
-            console.log("nurbsObject", nurbsObject);
+            let nurbsObject = nurbs.addMaterial(this.material, castshadow, receiveshadows);
             this.contents.primitivesObjects.set(child.id, nurbsObject);
             children.push(nurbsObject);
             break;
@@ -118,11 +111,10 @@ class MyNodeParser {
           let newMaterialID = materialID;
           if (child.materialIds.length > 0) {
             newMaterialID = child.materialIds[0];
-            console.log("materialID", materialID);
           }
 
           //children
-          let tempChildren = this.children(child.id, newMaterialID);
+          let tempChildren = this.children(child.id, newMaterialID, child.castShadows || castshadow, child.receiveShadows || receiveshadows);
           for (let tempChild of tempChildren) {
             childGroup.add(tempChild);
           }

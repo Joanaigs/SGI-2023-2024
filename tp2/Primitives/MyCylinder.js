@@ -18,8 +18,14 @@ class MyCylinder{
 
     }
 
-    addMaterial(material){
+    addMaterial(material, castshadow, receiveshadows){
         let object = new THREE.Mesh(this.cylinder, material);
+        if(castshadow){
+            object.castShadow = true;
+        }
+        if(receiveshadows){
+            object.receiveShadow = true;
+        }
         return object
     }
 

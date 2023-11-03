@@ -16,8 +16,14 @@ class MySphere{
         this.sphere = new THREE.SphereGeometry(this.radius, this.widthSegments, this.heightSegments, this.phiStart, this.phiLengtg, this.thetaStart, this.thetaLength);
     }
 
-    addMaterial(material){
+    addMaterial(material, castshadow, receiveshadows){
         let object = new THREE.Mesh(this.sphere, material);
+        if(castshadow){
+            object.castShadow = true;
+        }
+        if(receiveshadows){
+            object.receiveShadow = true;
+        }
         return object
     }
 
