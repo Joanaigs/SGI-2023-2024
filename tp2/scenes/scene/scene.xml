@@ -93,6 +93,12 @@
             texlength_s="2"
             texlength_t="2" />
 
+        <material id="lightGreyApp1" emissive="0.0 0.0 0.0 0" color="0.6 0.6 0.67 0"
+            specular="0.47 0.47 0.47 1" shininess="5"/>
+
+         <material id="lightGreyApp2" emissive="0.0 0.0 0.0 0" color="0.9 0.9 0.87 0"
+            specular="0.47 0.47 0.47 1" shininess="5"/>
+
         <material id="pineApp"
             emissive="0.0 0.0 0.0 1"
             color="0.8 0.8 0.8 1.0"
@@ -101,7 +107,7 @@
             textureref="pineTex"
             texlength_s="3"
             texlength_t="1"
-             />
+        />
 
         <material id="woodTrunkApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="0 0 0 1" shininess="0" textureref="woodTrunk" />
@@ -149,6 +155,7 @@
                 <noderef id="painting2" />
                 <noderef id="television" />
                 <noderef id="christmasTree" />
+                <noderef id="pillows" />
 
 
                 <spotlight id="light1" enabled="true" color="1 1 1 1" intensity="2.0"
@@ -1196,6 +1203,90 @@
             <children>
                 <noderef id="vase1" />
                 <noderef id="vase2" />
+            </children>
+        </node>
+
+
+        <node id="pillowPart">
+            <children>
+                <primitive>
+                    <nurbs degree_u="4" degree_v="3" parts_u="20" parts_v="20">
+                        <controlpoint xx="-1.0" yy="1.0" zz="0.0" />
+                        <controlpoint xx="-1.0" yy="1.0" zz="0.0" />
+                        <controlpoint xx="0.0" yy="1.0" zz="0.0" />
+                        <controlpoint xx="1.0" yy="1.0" zz="0.0" />
+
+                        <controlpoint xx="-1.0" yy="-1.0" zz="0.0" />
+                        <controlpoint xx="-1.0" yy="-1.0" zz="0.0" />
+                        <controlpoint xx="0.0" yy="-1.0" zz="0.0" />
+                        <controlpoint xx="1.0" yy="-1.0" zz="0.0" />
+
+                        <controlpoint xx="-1.0" yy="-1.0" zz="0.0" />
+                        <controlpoint xx="-1.0" yy="-1.0" zz="0.0" />
+                        <controlpoint xx="0.0" yy="-1.0" zz="0.0" />
+                        <controlpoint xx="1.0" yy="-1.0" zz="0.0" />
+
+                        <controlpoint xx="-1.0" yy="1.0" zz="0.0" />
+                        <controlpoint xx="-1.0" yy="1.0" zz="-1.0" />
+                        <controlpoint xx="0.0" yy="1.0" zz="-1.0" />
+                        <controlpoint xx="1.0" yy="1.0" zz="0.0" />
+
+                        <controlpoint xx="-1.0" yy="1.0" zz="0.0" />
+                        <controlpoint xx="-1.0" yy="1.0" zz="0.0" />
+                        <controlpoint xx="0.0" yy="1.0" zz="0.0" />
+                        <controlpoint xx="1.0" yy="1.0" zz="0.0" />
+                    </nurbs>
+                </primitive>
+            </children>
+        </node>
+
+        
+         <node id="pillowPart2">
+            <transforms>
+                <rotate value3="0 180 0" />
+            </transforms>
+            <children>
+                <noderef id="pillowPart" />
+            </children>
+         </node>
+
+         <node id="pillowStructure">
+            <children>
+                <noderef id="pillowPart" />
+                <noderef id="pillowPart2" />
+            </children>
+         </node>
+
+
+         <node id="pillow1">
+            <transforms>
+                <scale value3="1.3 1.3 1.3" />
+                <translate value3="-2.3 2.0 4.8" />
+                <rotate value3="15 0 0" />
+            </transforms>
+            <materialref id="lightGreyApp1" />
+            <children>
+                <noderef id="pillowPart" />
+                <noderef id="pillowPart2" />
+            </children>
+        </node>
+
+        <node id="pillow2">
+            <transforms>
+                <scale value3="1.3 1.3 1.3" />
+                <translate value3="-0.1 2.0 4.8" />
+                <rotate value3="15 0 0" />
+            </transforms>
+            <materialref id="lightGreyApp2" />
+            <children>
+                <noderef id="pillowStructure" />
+            </children>
+        </node>
+
+        <node id="pillows">
+            <children>
+                <noderef id="pillow1" />
+                <noderef id="pillow2" />
             </children>
         </node>
 
