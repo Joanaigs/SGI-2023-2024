@@ -2075,13 +2075,6 @@
             </children>
         </node>
 
-        <node id="skybox">
-            <children>
-                <primitive>
-                    <skybox width="50" height="50" depth="50" />
-                </primitive>
-            </children>
-        </node>
 
     </graph>
 </yaf> 
