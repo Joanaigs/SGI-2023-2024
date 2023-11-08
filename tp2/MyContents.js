@@ -61,7 +61,7 @@ class MyContents  {
 
     onAfterSceneLoadedAndBeforeRender(data) {
 
-        this.app.scene.updateGlobals(data.options)
+        this.app.scene.updateGlobals(data.options, data.fog, data.skyboxes);
 
         this.app.initCameras(data.cameras, data.activeCameraId)
 

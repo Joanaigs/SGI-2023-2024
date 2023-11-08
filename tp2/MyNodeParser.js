@@ -84,12 +84,6 @@ class MyNodeParser {
             this.contents.primitivesObjects.set(child.id, triangleObject);
             children.push(triangleObject);
             break;
-          case "skybox":
-            let skybox = new MySkybox(child.representations[0])
-            let skyboxObject = skybox.addMaterial(castshadow, receiveshadows);
-            this.contents.primitivesObjects.set(child.id, skyboxObject);
-            children.push(skyboxObject);
-            break;
           case "nurbs":
             let nurbs = new MyNurbs(child.representations[0]);
             let nurbsObject = nurbs.addMaterial(this.material, castshadow, receiveshadows);

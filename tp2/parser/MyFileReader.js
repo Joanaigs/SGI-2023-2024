@@ -120,6 +120,7 @@ class MyFileReader  {
 			this.checkForUnknownNodes(rootElement, this.data.primaryNodeIds)
 
 			this.loadGlobals(rootElement);
+			this.loadSkybox(rootElement);
 			this.loadFog(rootElement);
 			this.loadTextures(rootElement);
 			this.loadMaterials(rootElement);
@@ -625,6 +626,15 @@ class MyFileReader  {
 	loadGlobals(rootElement) {
 		let elem = this.getAndCheck(rootElement, 'globals')
 		this.data.setOptions(this.loadXmlItem({elem: elem, descriptor: this.data.descriptors["globals"], extras: [["type", "globals"]]}))
+	}
+
+	/*
+	 * Load skybox element
+	 * 
+	 */
+	loadSkybox(rootElement) {
+		let elem = this.getAndCheck(rootElement, 'skybox')
+		this.data.setSkybox(this.loadXmlItem({elem: elem, descriptor: this.data.descriptors["skybox"], extras: [["type", "skybox"]]}))
 	}
 
 	/*
