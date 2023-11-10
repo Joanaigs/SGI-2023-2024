@@ -9,10 +9,10 @@ class MyMaterial extends THREE.MeshPhongMaterial{
     constructor(materialData, texture ) {
         super();
         console.log(texture);
-        this.color = materialData.color;
-        this.specular = materialData.specular;
+        this.color = new THREE.Color(materialData.color)
+        this.specular = new THREE.Color(materialData.specular);
         this.shininess = materialData.shininess;
-        this.emissive  = materialData.emissive;
+        this.emissive  =new THREE.Color( materialData.emissive);
         this.wireframe = materialData.wireframe;
         this.textlength_s = materialData.texlength_s;
         this.texlength_t = materialData.texlength_t;
