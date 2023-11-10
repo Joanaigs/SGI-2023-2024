@@ -8,7 +8,7 @@
 
     <fog color="0.0 0.0 0.0 0.0" near="0.0" far="100000.0" />
 
-    <skybox size="1000 1000 1000" center="0 0 0" emissive="0.5 0.5 1.0 1.0" intensity="0.1" up="scenes/demo/textures/flowersPainting.jpg" down="scenes/demo/textures/flowersPainting.jpg" left="scenes/demo/textures/flowersPainting.jpg" right="scenes/demo/textures/floor.jpg" front="scenes/demo/textures/floor.jpg" back="scenes/demo/textures/floor.jpg"/>
+    <skybox size="500 500 500" center="0 240 0" emissive="0.5 0.5 1.0 1.0" intensity="0.1" up="scenes/scene/textures/flowersPainting.jpg" down="scenes/scene/textures/flowersPainting.jpg" left="scenes/scene/textures/flowersPainting.jpg" right="scenes/scene/textures/floor.jpg" front="scenes/scene/textures/floor.jpg" back="scenes/scene/textures/floor.jpg"/>
 
 
     <cameras initial="cam1">
