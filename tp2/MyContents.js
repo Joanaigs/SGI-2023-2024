@@ -90,7 +90,6 @@ class MyContents  {
         for (let [id, light] of this.lights) {
             if(this.lightEnabled[id]){
                 this.app.scene.add(light);
-                this.app.scene.add(this.lightsHelper.get(id));
             }
         }
 

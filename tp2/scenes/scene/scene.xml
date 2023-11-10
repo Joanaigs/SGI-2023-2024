@@ -8,7 +8,7 @@
 
     <fog color="0.0 0.0 0.0 0.0" near="0.0" far="100000.0" />
 
-    <skybox size="10000 10000 10000" center="0 0 0" emissive="0.5 0.5 1.0 1.0" intensity="0.1" up="scenes/scene/textures/skybox_dn.jpg" down="scenes/scene/textures/skybox_dn.jpg" left="scenes/scene/textures/skybox_lf.jpg" right="scenes/scene/textures/skybox_rt.jpg" front="scenes/scene/textures/skybox_ft.jpg" back="scenes/scene/textures/skybox_bk.jpg"/>
+    <skybox size="500 500 500" center="0 240 0" emissive="0.5 0.5 1.0 1.0" intensity="0.1" up="scenes/scene/textures/flowersPainting.jpg" down="scenes/scene/textures/flowersPainting.jpg" left="scenes/scene/textures/flowersPainting.jpg" right="scenes/scene/textures/floor.jpg" front="scenes/scene/textures/floor.jpg" back="scenes/scene/textures/floor.jpg"/>
 
 
     <cameras initial="cam1">
@@ -18,23 +18,23 @@
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas
     texturas -->
     <textures>
-        <texture id="floorTex" filepath="scenes/demo/textures/floor.jpg" />
-        <texture id="wallTex" filepath="scenes/demo/textures/wallPaper.jpg" />
-        <texture id="carpetTex" filepath="scenes/demo/textures/carpetTex.jpg" />
-        <texture id="lightMetalTex" filepath="scenes/demo/textures/metal.jpg" />
-        <texture id="curtainTex" filepath="scenes/demo/textures/curtain.jpg" />
-        <texture id="oakTex" filepath="scenes/demo/textures/oak.jpg" />
-        <texture id="painting1Tex" filepath="scenes/demo/textures/flowersPainting.jpg" />
-        <texture id="painting2Tex" filepath="scenes/demo/textures/housePainting.jpg" />
-        <texture id="lightWoodTex" filepath="scenes/demo/textures/lightWood.jpg" />
-        <texture id="fireTex" filepath="scenes/demo/textures/fire.jpg" />
-        <texture id="whiteWoodTex" filepath="scenes/demo/textures/whiteWood.jpg" />
-        <texture id="vaseTex" filepath="scenes/demo/textures/flowersPattern.jpg" />
-        <texture id="pineTex" filepath="scenes/demo/textures/pine.png" />
-        <texture id="woodTrunk" filepath="scenes/demo/textures/trunk.jpg" />
-        <texture id="presentTex" filepath="scenes/demo/textures/present.jpg" />
-        <texture id="present1Tex" filepath="scenes/demo/textures/present1.jpg" />
-        <texture id="tableCloth" filepath="scenes/demo/textures/tableCloth.jpg" />
+        <texture id="floorTex" filepath="scenes/scene/textures/floor.jpg" />
+        <texture id="wallTex" filepath="scenes/scene/textures/wallPaper.jpg" />
+        <texture id="carpetTex" filepath="scenes/scene/textures/carpetTex.jpg" />
+        <texture id="lightMetalTex" filepath="scenes/scene/textures/metal.jpg" />
+        <texture id="curtainTex" filepath="scenes/scene/textures/curtain.jpg" />
+        <texture id="oakTex" filepath="scenes/scene/textures/oak.jpg" />
+        <texture id="painting1Tex" filepath="scenes/scene/textures/flowersPainting.jpg" />
+        <texture id="painting2Tex" filepath="scenes/scene/textures/housePainting.jpg" />
+        <texture id="lightWoodTex" filepath="scenes/scene/textures/lightWood.jpg" />
+        <texture id="fireTex" filepath="scenes/scene/textures/fire.jpg" />
+        <texture id="whiteWoodTex" filepath="scenes/scene/textures/whiteWood.jpg" />
+        <texture id="vaseTex" filepath="scenes/scene/textures/flowersPattern.jpg" />
+        <texture id="pineTex" filepath="scenes/scene/textures/pine.png" />
+        <texture id="woodTrunk" filepath="scenes/scene/textures/trunk.jpg" />
+        <texture id="presentTex" filepath="scenes/scene/textures/present.jpg" />
+        <texture id="present1Tex" filepath="scenes/scene/textures/present1.jpg" />
+        <texture id="tableCloth" filepath="scenes/scene/textures/tableCloth.jpg" />
     </textures>
 
     <materials>
@@ -159,21 +159,20 @@
                 <noderef id="television" />
                 <noderef id="christmasTree" />
                 <noderef id="pillows" />
-                 <noderef id="streetFloor" />
 
 
                 <spotlight id="light1" enabled="true" color="1 1 1 1" intensity="2.0"
-                    distance="70" decay="0.5" castshadow="false" position="0 15.0 -2" target="0 0 -2" angle="40"/>
+                    distance="-1" decay="0.5" position="0 15.0 -2" target="0 0 -2" angle="40" castshadow="true"  shadowfar="25" shadowmapsize="4096" />
 
                 <spotlight id="light2" enabled="true" color="1 1 1 1" intensity="2.0"
-                    distance="70" decay="0.5" castshadow="false" position="0 15 15" target="0 0 15" angle="40" />
+                    distance="-1" decay="0.5" position="0 15 15" target="0 0 15" angle="40" castshadow="true" shadowfar="25" shadowmapsize="4096"/>
 
             </children>
         </node>
 
-        <node id="floor">
+        <node id="floor" receiveshadows="true">
             <transforms>
-                <translate value3="0 0.02 7.5" />
+                <translate value3="0 0 7.5" />
                 <rotate value3="-90 0.0 0.0" />
             </transforms>
 
@@ -187,24 +186,7 @@
         </node>
 
 
-        
-        <node id="streetFloor">
-             <transforms>
-                <translate value3="-20 0.02 15" />
-                <rotate value3="-90 0.0 0.0" />
-                <scale value3="0 0.0 0.0" />
-            </transforms>
-
-            <children>
-                <primitive>
-                    <rectangle xy1="10 10" xy2="0 0" />
-                </primitive>
-            </children>
-        </node>
-
-
-
-        <node id="leftWall">
+        <node id="leftWall" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="0 7.5 -15" />
                 <rotate value3="0.0 0.0 0.0" />
@@ -219,7 +201,7 @@
             </children>
         </node>
 
-        <node id="rightWall">
+        <node id="rightWall" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="0 7.5 30" />
                 <rotate value3="0.0 180 0.0" />
@@ -279,7 +261,7 @@
             </children>
         </node>
 
-        <node id="frontWall">
+        <node id="frontWall" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="-15 7.5 7.5" />
                 <rotate value3="0.0 90 0.0" />
@@ -293,7 +275,7 @@
             </children>
         </node>
 
-        <node id="backWall">
+        <node id="backWall" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="15 7.5 7.5" />
                 <rotate value3="0.0 -90 0.0" />
@@ -330,7 +312,7 @@
             </children>
         </node>
 
-        <node id='televisionCabinetThinLayer1'>
+        <node id='televisionCabinetThinLayer1' >
             <transforms>
                 <translate value3="0 5.8 0" />
             </transforms>
@@ -354,6 +336,7 @@
         </node>
 
 
+
         <node id='televisionBookshelf'>
             <transforms>
                 <translate value3="-2 -5 0" />
@@ -367,7 +350,7 @@
         </node>
 
 
-        <node id='televisionCabinet'>
+        <node id='televisionCabinet' castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="-26 -3 -17" />
             </transforms>
@@ -594,14 +577,14 @@
             </children>
         </node>
 
-        <node id='sofa'>
+        <node id='sofa' castshadows="true" receiveshadows="true">
             <children>
                 <noderef id="sofaLegs" />
                 <noderef id="sofaStructure" />
             </children>
         </node>
 
-        <node id='carpet'>
+        <node id='carpet' receiveshadows="true">
             <transforms>
                 <translate value3="0 0 -22" />
             </transforms>
@@ -671,7 +654,7 @@
             </children>
         </node>
 
-        <node id="armchair">
+        <node id="armchair" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="-4 0 -3" />
                 <rotate value3="0.0 -90 0.0" />
@@ -682,7 +665,7 @@
             </children>
         </node>
 
-        <node id="smallLeg1">
+        <node id="smallLeg1" >
             <transforms>
                 <translate value3="2.5 0 1.30" />
                 <rotate value3="0 0 15" />
@@ -762,7 +745,7 @@
             </children>
         </node>
 
-        <node id="smallTable">
+        <node id="smallTable" >
             <transforms>
                 <translate value3="0 0.9 0" />
             </transforms>
@@ -780,7 +763,7 @@
             </children>
         </node>
 
-        <node id="coffeTable">
+        <node id="coffeTable" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="0 0 -3" />
             </transforms>
@@ -793,7 +776,7 @@
             </children>
         </node>
 
-        <node id="bigTable">
+        <node id="bigTable" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="0 1.8 0" />
                 <scale value3="2 2 2" />
@@ -920,7 +903,7 @@
             </children>
         </node>
 
-        <node id="chair">
+        <node id="chair" >
             <transforms>
                 <translate value3="0 0 0" />
             </transforms>
@@ -940,7 +923,7 @@
             </children>
         </node>
 
-        <node id="chair1">
+        <node id="chair1" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="2.5 0 -3.5" />
             </transforms>
@@ -952,7 +935,7 @@
             </children>
         </node>
 
-        <node id="chair2">
+        <node id="chair2" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="-2.5 0 -3.5" />
             </transforms>
@@ -964,7 +947,7 @@
             </children>
         </node>
 
-        <node id="chair3">
+        <node id="chair3" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="2.5 0 3.5" />
                 <rotate value3="0 180 0" />
@@ -977,7 +960,7 @@
             </children>
         </node>
 
-        <node id="chair4">
+        <node id="chair4" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="-2.5 0 3.5" />
                 <rotate value3="0 180 0" />
@@ -990,7 +973,7 @@
             </children>
         </node>
 
-        <node id="dinnigTable">
+        <node id="dinnigTable"  >
             <transforms>
                 <translate value3="0 0 19" />
             </transforms>
@@ -1015,7 +998,7 @@
             </children>
         </node>
 
-        <node id="tableClothTop">
+        <node id="tableClothTop"  receiveshadows="true" >
             <transforms>
                 <translate value3="0 0 0" />
                 <rotate value3="-90 0 0" />
@@ -1046,7 +1029,7 @@
 
         </node>
 
-        <node id="tableClothRight" >
+        <node id="tableClothRight" castshadows="true" receiveshadows="true" >
             <transforms>
                 <translate value3="6 -2 0.32" />
                 <rotate value3="0 90 0" />
@@ -1058,7 +1041,7 @@
             </children>
         </node>
 
-        <node id="tableClothLeft">
+        <node id="tableClothLeft" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="-6 -2 -0.32" />
                 <rotate value3="0 -90 0" />
@@ -1113,7 +1096,7 @@
         </node>
 
         <node id="plate">
-            <materialref id="whiteWoodApp" />
+            <materialref id="whiteWoodApp" castshadows="true" receiveshadows="true"/>
 
             <children>
                 <noderef id="plateBase" />
@@ -1212,7 +1195,7 @@
             </children>
         </node>
 
-        <node id="vase">
+        <node id="vase" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="-12 2 30" />
                 <rotate value3="0 180 0" />
@@ -1226,7 +1209,6 @@
                 <noderef id="vase2" />
             </children>
         </node>
-
 
         <node id="pillowPart">
             <children>
@@ -1311,7 +1293,7 @@
             </children>
         </node>
 
-        <node id="candleSuport1">
+        <node id="candleSuport1" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="0 0.1 0" />
             </transforms>
@@ -1325,7 +1307,7 @@
             </children>
         </node>
 
-        <node id="candleSuport2">
+        <node id="candleSuport2" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="0 0.7 0" />
             </transforms>
@@ -1339,7 +1321,7 @@
             </children>
         </node>
 
-        <node id="candleBase">
+        <node id="candleBase" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="0 1.6 0" />
             </transforms>
@@ -1353,7 +1335,7 @@
             </children>
         </node>
 
-        <node id="candleWick">
+        <node id="candleWick" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="0 2.025 0" />
             </transforms>
@@ -1678,7 +1660,7 @@
             </children>
         </node>
 
-        <node id="door">
+        <node id="door" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="14.5 6 15" />
                 <rotate value3="0 -90 0" />
@@ -1763,7 +1745,7 @@
             </children>
         </node>
 
-        <node id="painting1">
+        <node id="painting1" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="-3.2 7.3 29.75" />
                 <rotate value3="0 90 0" />
@@ -1789,7 +1771,7 @@
             </children>
         </node>
 
-        <node id="painting2">
+        <node id="painting2" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="3.2 8 29.75" />
                 <rotate value3="0 90 0" />
@@ -1875,7 +1857,7 @@
             </children>
         </node>
 
-        <node id="television">
+        <node id="television" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="0 7.5 -14.75" />
                 <rotate value3="0 -90 0" />
@@ -1930,7 +1912,7 @@
             </children>
         </node>
 
-        <node id="tree">
+        <node id="tree" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="0 1.25 0" />
             </transforms>
@@ -1949,7 +1931,7 @@
             </children>
         </node>
 
-        <node id="present">
+        <node id="present" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="-0.5 0.5 2" />
             </transforms>
@@ -1963,7 +1945,7 @@
             </children>
         </node>
 
-        <node id="present1">
+        <node id="present1" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="1 0.8 2" />
             </transforms>
@@ -1977,7 +1959,7 @@
             </children>
         </node>
 
-        <node id="present2">
+        <node id="present2" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="-1 0.6 1" />
             </transforms>
