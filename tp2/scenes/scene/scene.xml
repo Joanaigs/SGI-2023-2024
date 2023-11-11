@@ -30,7 +30,7 @@
         <texture id="painting1Tex" filepath="scenes/scene/textures/flowersPainting.jpg" />
         <texture id="painting2Tex" filepath="scenes/scene/textures/housePainting.jpg" />
         <texture id="lightWoodTex" filepath="scenes/scene/textures/lightWood.jpg" />
-        <texture id="fireTex" filepath="scenes/scene/textures/fire.jpg" />
+        <texture id="fireTex" filepath="scenes/scene/textures/fire.mp4" isVideo="true" />
         <texture id="whiteWoodTex" filepath="scenes/scene/textures/whiteWood.jpg" />
         <texture id="vaseTex" filepath="scenes/scene/textures/flowersPattern.jpg" />
         <texture id="pineTex" filepath="scenes/scene/textures/pine.png" />
@@ -39,6 +39,7 @@
         <texture id="present1Tex" filepath="scenes/scene/textures/present1.jpg" />
         <texture id="tableCloth" filepath="scenes/scene/textures/tableCloth.jpg" />
         <texture id="roofTex" filepath="scenes/scene/textures/roof.jpg" />
+        <texture id="bumpRoofTex" filepath="scenes/scene/textures/roof.jpg" />
     </textures>
 
     <materials>
@@ -54,7 +55,7 @@
             specular="0 0 0 0" shininess="0" textureref="carpetTex" />
 
         <material id="wallApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="0 0 0 0"
-            shininess="0"/>
+            shininess="0" />
 
         <material id="sofaApp" emissive="0.0 0.0 0.0 1" color="0.15 0.26 0.097 1.0"
             specular="0 0 0 0" shininess="0" />
@@ -92,7 +93,7 @@
         <material id="televisionApp" emissive="0.0 0.0 0.0 1" color="0 0 0 1.0"
             specular="0 0 0 1" shininess="100" />
 
-        <material id="fireApp" emissive="0.05 0.05 0.05 0" color="1 1 1 0"
+        <material id="fireApp" emissive="0.01 0.01 0.01 0" color="1 1 1 0"
             specular="0.47 0.47 0.47 1" shininess="70" textureref="fireTex" />
 
         <material id="vaseApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
@@ -137,9 +138,10 @@
 
         <material id="redApp" emissive="0.3 0.0 0.0 1" color="1 0 0 1.0"
             specular="0 0 0 1" shininess="0" />
-        
+
         <material id="roofAp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
-            specular="0 0 0 1" shininess="0" textureref="roofTex" />
+            specular="0 0 0 1" shininess="0" textureref="roofTex" texlength_s="2" 
+            texlength_t="3"  bumpref="bumpRoofTex" bumpscale="0.4"/>
 
 
     </materials>
@@ -153,7 +155,7 @@
                 <noderef id="frontWall" />
                 <noderef id="backWall" />
                 <noderef id="floor" />
-                <noderef id="roof"/>
+                <noderef id="roof" />
                 <noderef id="sofa" />
                 <noderef id="groundLampshade" />
                 <noderef id="televisionCabinet" />
@@ -184,20 +186,18 @@
                     distance="0"
                     decay="2.0"
                     castshadow="false"
-                    position="0 14.5 0"
+                    position="0 14.5 7.5"
                 />
 
                 <pointlight id="sun" enabled="true"
-                color="1 1 1 0"
-                intensity="100"
-                distance="0"
-                decay="1"
-                castshadow="true"
-                position="-100 90 45"
-                shadowmapsize="4096"
-            />
-
-                 
+                    color="1 1 1 0"
+                    intensity="100"
+                    distance="0"
+                    decay="1"
+                    castshadow="false"
+                    position="-100 90 45"
+                    shadowmapsize="4096"
+                />
 
 
             </children>
@@ -236,9 +236,9 @@
 
         <node id="roof1">
             <transforms>
-                <translate value3="8 4 0"/>
+                <translate value3="8 4 0" />
                 <rotate value3="-90 0 0" />
-                <rotate value3= "0 30 0"/>                
+                <rotate value3="0 30 0" />
             </transforms>
 
 
@@ -252,9 +252,9 @@
 
         <node id="roof2">
             <transforms>
-                <translate value3="-8 4 0"/>
+                <translate value3="-8 4 0" />
                 <rotate value3="-90 0 0" />
-                <rotate value3= "0 -30 0"/>                
+                <rotate value3="0 -30 0" />
             </transforms>
 
 
@@ -301,11 +301,11 @@
             <materialref id="roofAp" />
 
             <children>
-                <noderef id="roof1"/>
-                <noderef id="roof2"/>
-                <noderef id="roofFront"/>
-                <noderef id="roofBack"/>
-                <noderef id="ceiling"/>
+                <noderef id="roof1" />
+                <noderef id="roof2" />
+                <noderef id="roofFront" />
+                <noderef id="roofBack" />
+                <noderef id="ceiling" />
             </children>
 
         </node>

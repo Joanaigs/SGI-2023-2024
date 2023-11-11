@@ -84,14 +84,12 @@ class MyLights {
         );
         this.content.app.scene.add(target);
         spotLight.target = target;
-        console.log(lightData);
 
         if (lightData.castshadow) {
           spotLight.castShadow = lightData.castshadow;
           spotLight.shadow.mapSize.width = lightData.shadowmapsize;
           spotLight.shadow.mapSize.height = lightData.shadowmapsize;
           spotLight.shadow.camera.far = lightData.shadowfar;
-          console.log(spotLight);
         }
         let helper = new THREE.SpotLightHelper(spotLight);
         this.content.lights.set(lightData.id, spotLight);

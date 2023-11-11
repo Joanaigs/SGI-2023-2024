@@ -70,7 +70,11 @@ class MyContents  {
         for (var key in data.materials) {
             let material = data.materials[key];
             let texture = this.getTexture(material.textureref);
-            this.materials.set(material.id, new MyMaterial(material, texture));
+            let bumpTexture =null
+            if(material.bumpref!==null){
+                bumpTexture = this.getTexture(material.bumpref);
+            }
+            this.materials.set(material.id, new MyMaterial(material, texture, bumpTexture));
         }
 
         this.nodeParser= new MyNodeParser(this, data);

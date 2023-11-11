@@ -79,9 +79,8 @@ class MyNodeParser {
             children.push(sphereObject);
             break;
           case "triangle":
-            let triangle = new MyTriangle(child.representations[0])
+            let triangle = new MyTriangle(child.representations[0]);
             let triangleObject = triangle.addMaterial(this.material, castshadow, receiveshadows);
-            this.contents.primitivesObjects.set(child.id, triangleObject);
             children.push(triangleObject);
             break;
           case "nurbs":
@@ -101,6 +100,7 @@ class MyNodeParser {
           light.visible=false;
         }
         children.push(this.contents.lights.get(child.id));
+        children.push(this.contents.lightsHelper.get(child.id));
       } else {
         let childGroup;
         if (!this.contents.nodeObjects.has(child.id)) {
