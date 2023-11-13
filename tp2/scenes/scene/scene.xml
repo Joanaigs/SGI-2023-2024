@@ -16,6 +16,7 @@
 
     <cameras initial="cam1">
         <perspective id="cam1" angle="60" near="0.1" far="5000" location="10 8 25" target="0 0.0 0" />
+        <perspective id="paintings" angle="60" near="0.1" far="5000" location="0 7 15" target="0 7 30" />
     </cameras>
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas
@@ -27,8 +28,19 @@
         <texture id="lightMetalTex" filepath="scenes/scene/textures/metal.jpg" />
         <texture id="curtainTex" filepath="scenes/scene/textures/curtain.jpg" />
         <texture id="oakTex" filepath="scenes/scene/textures/oak.jpg" />
-        <texture id="painting1Tex" filepath="scenes/scene/textures/flowersPainting.jpg" />
-        <texture id="painting2Tex" filepath="scenes/scene/textures/housePainting.jpg" />
+        <texture id="painting1Tex" filepath="scenes/scene/textures/women_2048.png" 
+            mipmap0="scenes/scene/textures/women_2048.png"  
+            mipmap1="scenes/scene/textures/women_1024.png" 
+            mipmap2="scenes/scene/textures/women_512.png" 
+            mipmap3="scenes/scene/textures/women_256.png" 
+            mipmaps="false"
+        />
+        <texture id="painting2Tex" filepath="scenes/scene/textures/garden_1002.png" 
+            mipmap0="scenes/scene/textures/garden_1002.png"  
+            mipmap1="scenes/scene/textures/garden_501.png" 
+            mipmap2="scenes/scene/textures/garden_250.png"
+            mipmaps="false"
+        />
         <texture id="lightWoodTex" filepath="scenes/scene/textures/lightWood.jpg" />
         <texture id="fireTex" filepath="scenes/scene/textures/fire.mp4" isVideo="true" />
         <texture id="whiteWoodTex" filepath="scenes/scene/textures/whiteWood.jpg" />
@@ -40,6 +52,8 @@
         <texture id="tableCloth" filepath="scenes/scene/textures/tableCloth.jpg" />
         <texture id="roofTex" filepath="scenes/scene/textures/roof.jpg" />
         <texture id="bumpRoofTex" filepath="scenes/scene/textures/roof.jpg" />
+        <texture id="outsideWall" filepath="scenes/scene/textures/outsideWall.jpg" />
+        <texture id="outsideWallBump" filepath="scenes/scene/textures/outsideWallBump.png" />
     </textures>
 
     <materials>
@@ -143,6 +157,9 @@
             specular="0 0 0 1" shininess="0" textureref="roofTex" texlength_s="2" 
             texlength_t="3"  bumpref="bumpRoofTex" bumpscale="0.4"/>
 
+        <material id="outsideWallApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
+            specular="0 0 0 1" shininess="0" textureref="outsideWall" texlength_s="2" 
+            texlength_t="3"  bumpref="outsideWallBump" bumpscale="0.4"/>
 
     </materials>
 
@@ -194,10 +211,20 @@
                     intensity="100"
                     distance="0"
                     decay="1"
-                    castshadow="false"
+                    castshadow="true"
                     position="-100 90 45"
-                    shadowmapsize="4096"
+                    shadowmapsize="1024"
                 />
+
+                <pointlight id="sun" enabled="true"
+                color="1 1 1 0"
+                intensity="100"
+                distance="0"
+                decay="1"
+                castshadow="false"
+                position="100 90 -70"
+                shadowmapsize="1024"
+            />
 
 
             </children>
@@ -220,7 +247,7 @@
             </children>
         </node>
 
-        <node id="ceiling" castshadows="true" receiveshadows="true">
+        <node id="ceiling" castshadows="true">
             <transforms>
                 <rotate value3="90 0.0 0.0" />
             </transforms>
@@ -295,7 +322,7 @@
 
         <node id="roof">
             <transforms>
-                <translate value3="0 15 7.5" />
+                <translate value3="0 14.9 7.5" />
             </transforms>
 
             <materialref id="roofAp" />
@@ -310,13 +337,8 @@
 
         </node>
 
-
-        <node id="leftWall" castshadows="true" receiveshadows="true">
-            <transforms>
-                <translate value3="0 7.5 -15" />
-                <rotate value3="0.0 0.0 0.0" />
-            </transforms>
-
+        <!-- walls inside and out-->
+        <node id="leftWallInside" receiveshadows="true" castshadows="true">
             <materialref id="wallPaperApp" />
 
             <children>
@@ -326,9 +348,38 @@
             </children>
         </node>
 
-        <node id="rightWall" castshadows="true" receiveshadows="true">
+        <node id="leftWallOutside" >
             <transforms>
-                <translate value3="0 7.5 30" />
+                <translate value3="0 0 -0.01" />
+                <rotate value3="0.0 180.0 0.0" />
+
+            </transforms>
+
+            <materialref id="outsideWallApp" />
+
+            <children>
+                <primitive>
+                    <rectangle xy1="-15 -7.5" xy2="15 7.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="leftWall" >
+            <transforms>
+                <translate value3="0 7.5 -15" />
+            </transforms>
+
+            <materialref id="wallPaperApp" />
+
+            <children>
+                <noderef id="leftWallInside" />
+                <noderef id="leftWallOutside" />
+            </children>
+        </node>
+
+
+        <node id="rightWallInside" receiveshadows="true" castshadows="true">
+            <transforms>
                 <rotate value3="0.0 180 0.0" />
             </transforms>
             <materialref id="wallApp" />
@@ -340,11 +391,78 @@
             </children>
         </node>
 
+        <node id="rightWallOutside">
+            <transforms>
+                <translate value3="0 0 0.01" />
+            </transforms>
+            <materialref id="outsideWallApp" />
+
+            <children>
+                <primitive>
+                    <rectangle xy1="-15 -7.5" xy2="15 7.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="rightWall" >
+            <transforms>
+                <translate value3="0 7.5 30" />
+            </transforms>
+            <materialref id="wallApp" />
+
+            <children>
+                <noderef id="rightWallInside" />
+                <noderef id="rightWallOutside" />
+            </children>
+        </node>
+
+        <node id="wallFrontMiddleOutside">
+            <transforms>
+                <translate value3="0 -0.01 0" />
+                <rotate value3="0 180 0" />
+            </transforms>
+            <materialref id="outsideWallApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="-3 -5" xy2="3 5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="wallFrontMiddleInside" castshadows="true" receiveshadows="true">
+            <children>
+                <primitive>
+                    <rectangle xy1="-3 -5" xy2="3 5" />
+                </primitive>
+            </children>
+        </node>
+
         <node id="wallFrontMiddle">
             <transforms>
                 <translate value3="0 -2.5 0" />
                 <rotate value3="0.0 0 0.0" />
             </transforms>
+            <children>
+                <noderef id="wallFrontMiddleOutside" />
+                <noderef id="wallFrontMiddleInside" />
+            </children>
+        </node>
+        
+
+        <node id="wallFrontLeftInside" castshadows="true" receiveshadows="true"> 
+            <children>
+                <primitive>
+                    <rectangle xy1="-3 -5" xy2="3 5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="wallFrontLeftOutside">
+            <transforms>
+                <translate value3="0 -0.01 0" />
+                <rotate value3="0 180 0" />
+            </transforms>
+            <materialref id="outsideWallApp" />
             <children>
                 <primitive>
                     <rectangle xy1="-3 -5" xy2="3 5" />
@@ -357,6 +475,27 @@
                 <translate value3="19.5 -2.5 0" />
             </transforms>
             <children>
+                <noderef id="wallFrontLeftOutside" />
+                <noderef id="wallFrontLeftInside" />
+            </children>
+        </node>
+
+        <node id="wallFrontRightInside" castshadows="true" receiveshadows="true">
+
+            <children>
+                <primitive>
+                    <rectangle xy1="-3 -5" xy2="3 5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="wallFrontRightOuside">
+            <transforms>
+                <translate value3="0 -0.01 0" />
+                <rotate value3="0 180 0" />
+            </transforms>
+            <materialref id="outsideWallApp" />
+            <children>
                 <primitive>
                     <rectangle xy1="-3 -5" xy2="3 5" />
                 </primitive>
@@ -368,8 +507,29 @@
                 <translate value3="-19.5 -2.5 0" />
             </transforms>
             <children>
+                <noderef id="wallFrontRightOuside" />
+                <noderef id="wallFrontRightInside" />
+            </children>
+        </node>
+
+        <node id="topFrontWallInside" castshadows="true" receiveshadows="true">
+            <materialref id="wallApp" />
+            <children>
                 <primitive>
-                    <rectangle xy1="-3 -5" xy2="3 5" />
+                    <rectangle xy1="-22.5 -2.5" xy2="22.5 2.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="topFrontWallOutside">
+            <transforms>
+                <translate value3="0 -0.01 0" />
+                <rotate value3="0 180 0" />
+            </transforms>
+            <materialref id="outsideWallApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="-22.5 -2.5" xy2="22.5 2.5" />
                 </primitive>
             </children>
         </node>
@@ -380,13 +540,12 @@
             </transforms>
             <materialref id="wallApp" />
             <children>
-                <primitive>
-                    <rectangle xy1="-22.5 -2.5" xy2="22.5 2.5" />
-                </primitive>
+                <noderef id="topFrontWallInside" />
+                <noderef id="topFrontWallOutside" />
             </children>
         </node>
 
-        <node id="frontWall" castshadows="true" receiveshadows="true">
+        <node id="frontWall" >
             <transforms>
                 <translate value3="-15 7.5 7.5" />
                 <rotate value3="0.0 90 0.0" />
@@ -400,6 +559,28 @@
             </children>
         </node>
 
+        <node id="backWallInside" castshadows="true" receiveshadows="true">
+            <materialref id="wallApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="-22.5 -7.5" xy2="22.5 7.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="backWallOutside">
+            <transforms>
+                <translate value3="0.01 0 0" />
+                <rotate value3="0 180 0" />
+            </transforms>
+            <materialref id="outsideWallApp" />
+            <children>
+                <primitive>
+                    <rectangle xy1="-22.5 -7.5" xy2="22.5 7.5" />
+                </primitive>
+            </children>
+        </node>
+
         <node id="backWall" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="15 7.5 7.5" />
@@ -407,9 +588,9 @@
             </transforms>
             <materialref id="wallApp" />
             <children>
-                <primitive>
-                    <rectangle xy1="-22.5 -7.5" xy2="22.5 7.5" />
-                </primitive>
+                <noderef id="backWallInside" />
+                <noderef id="backWallOutside" />
+                
             </children>
         </node>
 
@@ -1787,7 +1968,7 @@
 
         <node id="door" castshadows="true" receiveshadows="true">
             <transforms>
-                <translate value3="14.5 6 15" />
+                <translate value3="14.5 6 14.9" />
                 <rotate value3="0 -90 0" />
             </transforms>
             <children>
