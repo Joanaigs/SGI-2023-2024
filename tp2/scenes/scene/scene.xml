@@ -1951,7 +1951,7 @@
             </children>
         </node>
 
-        <node id="doorNob">
+        <node id="doorNobInside">
             <transforms>
                 <translate value3="-1.5 0 0.25" />
                 <rotate value3="90 0 0" />
@@ -1966,14 +1966,30 @@
             </children>
         </node>
 
+        <node id="doorNobOutside">
+            <transforms>
+                <translate value3="-1.5 0 -0.75" />
+                <rotate value3="-90 0 0" />
+            </transforms>
+
+            <materialref id="lightMetalApp" />
+
+            <children>
+                <primitive>
+                    <cylinder base="0.2" top="0.4" height="0.5" slices="32" stacks="1" />
+                </primitive>
+            </children>
+        </node>
+
         <node id="door" castshadows="true" receiveshadows="true">
             <transforms>
-                <translate value3="14.5 6 14.9" />
+                <translate value3="14.75 6 15" />
                 <rotate value3="0 -90 0" />
             </transforms>
             <children>
                 <noderef id="doorStructure" />
-                <noderef id="doorNob" />
+                <noderef id="doorNobInside" />
+                <noderef id="doorNobOutside" />
             </children>
         </node>
 
