@@ -187,6 +187,8 @@
                 <noderef id="television" />
                 <noderef id="christmasTree" />
                 <noderef id="pillows" />
+                <noderef id="smallBookShelf"/>
+                <noderef id="bigBookShelf"/>
 
 
                 <spotlight id="light1" enabled="true" color="1 1 1 1" intensity="2.0"
@@ -2397,6 +2399,144 @@
                 <primitive>
                     <sphere radius="0.3" slices="32" stacks="32" />
                 </primitive>
+            </children>
+        </node>
+
+                <node id="smallBookShelfLeft">
+            <transforms>
+                <translate value3="-12 0 -17" />
+            </transforms>
+
+            <materialref id="whiteWoodApp" />
+
+            <children>
+                <primitive>
+                     <box xyz1="2 5 2" xyz2="0 0 0" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="smallBookShelfWallPart">
+            <transforms>
+                 <translate value3="-10 0 -14.98" />
+            </transforms>
+
+               <materialref id="oakApp" />
+
+            <children>
+                <primitive>
+                     <rectangle xy1="2 5" xy2="0 0" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="smallBookShelfRight">
+            <transforms>
+                <translate value3="-6.5 0 -14" />
+            </transforms>
+
+            <materialref id="oakApp" />
+
+            <children>
+                <primitive>
+                     <box xyz1="0.2 5 0.4" xyz2="0 0 0" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="shelf1">
+            <transforms>
+                <translate value3="-10 9.6 -17" />
+            </transforms>
+
+             <materialref id="oakApp" />
+
+            <children>
+                <primitive>
+                     <box xyz1="2 0.2 2" xyz2="0 0 0" />
+                </primitive>
+            </children>
+        </node>
+
+         <node id="shelf2">
+            <transforms>
+                <translate value3="-10 8.4 -17" />
+            </transforms>
+
+             <materialref id="oakApp" />
+
+            <children>
+                <primitive>
+                     <box xyz1="2 0.2 2" xyz2="0 0 0" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="shelf3">
+            <transforms>
+                <translate value3="-10 7.2 -17" />
+            </transforms>
+
+             <materialref id="oakApp" />
+
+            <children>
+                <primitive>
+                     <box xyz1="2 0.2 2" xyz2="0 0 0" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="shelf4">
+            <transforms>
+                <translate value3="-10 6.0 -17" />
+            </transforms>
+
+             <materialref id="oakApp" />
+
+            <children>
+                <primitive>
+                     <box xyz1="2 0.2 2" xyz2="0 0 0" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="shelf5">
+            <transforms>
+                <translate value3="-10 4.8 -17" />
+            </transforms>
+
+             <materialref id="oakApp" />
+
+            <children>
+                <primitive>
+                     <box xyz1="2 0.2 2" xyz2="0 0 0" />
+                </primitive>
+            </children>
+        </node>
+
+
+        <node id="smallBookShelf">
+            <children>
+                <noderef id="smallBookShelfLeft"/>
+                <noderef id="smallBookShelfWallPart"/>
+                <noderef id="smallBookShelfRight"/>
+                <noderef id="shelf1" />
+                <noderef id="shelf2" />
+                <noderef id="shelf3" />
+                <noderef id="shelf4" />
+                <noderef id="shelf5" />
+            </children>
+        </node>
+
+        <node id="bigBookShelf">
+            <transforms>
+                <rotate value3="0 -90 0" />
+                <scale value3="2 2 1" />
+                <translate value3="9 -4 1" />
+            </transforms>
+
+            <children>
+                <noderef id="smallBookShelf"/>
             </children>
         </node>
 
