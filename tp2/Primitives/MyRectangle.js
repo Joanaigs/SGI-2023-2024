@@ -21,9 +21,7 @@ class MyRectangle{
         if(castshadow){
             object.castShadow = true;
         }
-        console.log("f")
         if(receiveshadows){
-            console.log("receiveshadows")
             object.receiveShadow = true;
         }
         return object

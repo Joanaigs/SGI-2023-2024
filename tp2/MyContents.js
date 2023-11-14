@@ -40,10 +40,6 @@ class MyContents  {
             this.axis = new MyAxis(this)
             this.app.scene.add(this.axis)
         }
-
-
-        this.addLights();
-        console.log(this.app.scene)
     }
 
     /**
@@ -74,7 +70,11 @@ class MyContents  {
         for (var key in data.materials) {
             let material = data.materials[key];
             let texture = this.getTexture(material.textureref);
-            this.materials.set(material.id, new MyMaterial(material, texture));
+            let bumpTexture =null
+            if(material.bumpref!==null){
+                bumpTexture = this.getTexture(material.bumpref);
+            }
+            this.materials.set(material.id, new MyMaterial(material, texture, bumpTexture));
         }
 
         this.nodeParser= new MyNodeParser(this, data);
@@ -86,21 +86,12 @@ class MyContents  {
         return this.textures.get(id);
     }
 
-    addLights(){
-        for (let [id, light] of this.lights) {
-            if(this.lightEnabled[id]){
-                this.app.scene.add(light);
-            }
-        }
-
-    }
 
     updateLights(id){
-        if(this.lightEnabled[id]){
-            this.app.scene.add(this.lights.get(id));
-        }else{
-            this.app.scene.remove(this.lights.get(id));
-        }
+        let light = this.lights.get(id);
+        if (light) {
+            light.visible = this.lightEnabled[id];
+        } 
     }
 
     updateWireframe(){

@@ -79,9 +79,8 @@ class MyNodeParser {
             children.push(sphereObject);
             break;
           case "triangle":
-            let triangle = new MyTriangle(child.representations[0])
+            let triangle = new MyTriangle(child.representations[0]);
             let triangleObject = triangle.addMaterial(this.material, castshadow, receiveshadows);
-            this.contents.primitivesObjects.set(child.id, triangleObject);
             children.push(triangleObject);
             break;
           case "nurbs":
@@ -96,8 +95,12 @@ class MyNodeParser {
 
       } else if (child.type === "pointlight" || child.type === "directionallight" || child.type === "spotlight") {
         this.myLights.createLight(child);
-        //children.push(this.contents.lights.get(child.id));
-        //children.push(this.contents.lightsHelper.get(child.id));
+        let light=this.contents.lights.get(child.id)
+        if(!child.enabled){
+          light.visible=false;
+        }
+        children.push(this.contents.lights.get(child.id));
+        children.push(this.contents.lightsHelper.get(child.id));
       } else {
         let childGroup;
         if (!this.contents.nodeObjects.has(child.id)) {

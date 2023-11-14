@@ -67,7 +67,7 @@ class MyLights {
           lightData.color,
           lightData.intensity,
           lightData.distance,
-          lightData.angle*180/Math.PI,
+          lightData.angle*Math.PI/180,
           lightData.penumbra,
           lightData.decay
         );
@@ -84,14 +84,12 @@ class MyLights {
         );
         this.content.app.scene.add(target);
         spotLight.target = target;
-        console.log(lightData);
 
         if (lightData.castshadow) {
           spotLight.castShadow = lightData.castshadow;
           spotLight.shadow.mapSize.width = lightData.shadowmapsize;
           spotLight.shadow.mapSize.height = lightData.shadowmapsize;
           spotLight.shadow.camera.far = lightData.shadowfar;
-          console.log(spotLight);
         }
         let helper = new THREE.SpotLightHelper(spotLight);
         this.content.lights.set(lightData.id, spotLight);

@@ -2,8 +2,6 @@ import * as THREE from 'three';
 
 class MySkybox {
     constructor(primitiveData) {
-        console.log("oi");
-        console.log(primitiveData);
 
         this.width = primitiveData.size[0];
         this.height = primitiveData.size[1];
@@ -12,7 +10,6 @@ class MySkybox {
         this.emissive = primitiveData.emissive;
         this.intensity = primitiveData.intensity;
 
-        console.log(primitiveData.texture_up_ref);
         this.textures = {
             up: primitiveData.up,
             down: primitiveData.down,
@@ -26,14 +23,13 @@ class MySkybox {
     addSkybox() {
         // Create a cube geometry for the skybox
         const skyboxGeometry = new THREE.BoxGeometry(this.width, this.height, this.depth);
-        console.log(this.textures);
         const skyboxMaterials = [
-            new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load(this.textures.right), side: THREE.BackSide, emissive: new THREE.Color(this.emissive), emissiveIntensity: this.intensity }),
-            new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load(this.textures.left), side: THREE.BackSide, emissive: new THREE.Color(this.emissive), emissiveIntensity: this.intensity }),
-            new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load(this.textures.up), side: THREE.BackSide, emissive: new THREE.Color(this.emissive),    emissiveIntensity: this.intensity }),
-            new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load(this.textures.down), side: THREE.BackSide, emissive: new THREE.Color(this.emissive), emissiveIntensity: this.intensity }),
-            new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load(this.textures.back), side: THREE.BackSide, emissive: new THREE.Color(this.emissive), emissiveIntensity: this.intensity }),
-            new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load(this.textures.front), side: THREE.BackSide, emissive: new THREE.Color(this.emissive), emissiveIntensity: this.intensity }),
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(this.textures.right), side: THREE.BackSide, emissive: new THREE.Color(this.emissive), emissiveIntensity: this.intensity }),
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(this.textures.left), side: THREE.BackSide, emissive: new THREE.Color(this.emissive), emissiveIntensity: this.intensity }),
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(this.textures.up), side: THREE.BackSide, emissive: new THREE.Color(this.emissive),    emissiveIntensity: this.intensity }),
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(this.textures.down), side: THREE.BackSide, emissive: new THREE.Color(this.emissive), emissiveIntensity: this.intensity }),
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(this.textures.back), side: THREE.BackSide, emissive: new THREE.Color(this.emissive), emissiveIntensity: this.intensity }),
+            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(this.textures.front), side: THREE.BackSide, emissive: new THREE.Color(this.emissive), emissiveIntensity: this.intensity }),
         ];
 
         const skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterials);

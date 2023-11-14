@@ -6,9 +6,8 @@ import { MyApp } from './MyApp.js';
  */
 class MyMaterial extends THREE.MeshPhongMaterial{
 
-    constructor(materialData, texture ) {
+    constructor(materialData, texture, bumpTexture=null ) {
         super();
-        console.log(texture);
         this.color = new THREE.Color(materialData.color)
         this.specular = new THREE.Color(materialData.specular);
         this.shininess = materialData.shininess;
@@ -18,6 +17,10 @@ class MyMaterial extends THREE.MeshPhongMaterial{
         this.texlength_t = materialData.texlength_t;
         this.side = (materialData.twosided)? THREE.DoubleSide: THREE.FrontSide;
         this.flatShading = (materialData.shading == "flat")? true : false;
+        if(materialData.bumpref!==null){
+            this.bumpMap= bumpTexture;
+            this.bumpScale= materialData.bumpscale;
+        }
         if(texture){
             texture.wrapS = THREE.RepeatWrapping;
             texture.wrapT = THREE.RepeatWrapping;
