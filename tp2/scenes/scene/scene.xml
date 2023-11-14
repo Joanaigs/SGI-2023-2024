@@ -6,9 +6,9 @@
 
     <globals background="0 0 0 1" ambient="1 1 1 1" />
 
-    <fog color="0.0 0.0 0.0 0.0" near="0.0" far="100000.0" />
+    <fog color="0.8 0.8 0.8 0.2" near="180.0" far="600.0" />
 
-    <skybox size="330 100 330" center="0 49.98 0" emissive="0.0627 0.11 0.11 1.0" intensity="0.1"
+    <skybox size="730 100 730" center="0 49.98 0" emissive="0.0627 0.11 0.11 1.0" intensity="0.1"
         up="scenes/scene/textures/snow_up.jpg" down="scenes/scene/textures/snow_dn.jpg"
         left="scenes/scene/textures/snow_lf.jpg" right="scenes/scene/textures/snow_rt.jpg"
         front="scenes/scene/textures/snow_ft.jpg" back="scenes/scene/textures/snow_bk.jpg" />
@@ -2546,7 +2546,7 @@
             <transforms>
                     <rotate value3="0 -90 0" />
                     <scale value3="3 3 3" />
-                    <translate value3="20 0 20" />
+                    <translate value3="100 0 20" />
             </transforms>
 
             <children>
@@ -2570,7 +2570,7 @@
             <transforms>
                     <rotate value3="0 -90 0" />
                     <scale value3="3 3 3" />
-                    <translate value3="40 0 -40" />
+                    <translate value3="-90 0 100" />
             </transforms>
 
             <children>
@@ -2594,7 +2594,7 @@
             <transforms>
                     <rotate value3="0 -90 0" />
                     <scale value3="3 3 3" />
-                    <translate value3="-25 0 -30" />
+                    <translate value3="-100 0 80" />
             </transforms>
 
             <children>
@@ -2606,7 +2606,43 @@
             <transforms>
                     <rotate value3="0 -90 0" />
                     <scale value3="3 3 3" />
-                    <translate value3="-25 0 40" />
+                    <translate value3="-50 0 40" />
+            </transforms>
+
+            <children>
+                <noderef id="tree"/>
+            </children>
+        </node>
+
+        <node id="tree8" castshadows="true" receiveshadows="true">
+            <transforms>
+                    <rotate value3="0 -90 0" />
+                    <scale value3="3 3 3" />
+                    <translate value3="80 0 60" />
+            </transforms>
+
+            <children>
+                <noderef id="tree"/>
+            </children>
+        </node>
+
+        <node id="tree9" castshadows="true" receiveshadows="true">
+            <transforms>
+                    <rotate value3="0 -90 0" />
+                    <scale value3="3 3 3" />
+                    <translate value3="50 0 80" />
+            </transforms>
+
+            <children>
+                <noderef id="tree"/>
+            </children>
+        </node>
+
+        <node id="tree10" castshadows="true" receiveshadows="true">
+            <transforms>
+                    <rotate value3="0 -90 0" />
+                    <scale value3="3 3 3" />
+                    <translate value3="50 0 -105" />
             </transforms>
 
             <children>
@@ -2622,6 +2658,9 @@
                 <noderef id="tree5"/>
                 <noderef id="tree6"/>
                 <noderef id="tree7"/>
+                <noderef id="tree8"/>
+                <noderef id="tree9"/>
+                <noderef id="tree10"/>
             </children>
         </node>
 
