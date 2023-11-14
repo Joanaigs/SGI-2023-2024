@@ -185,6 +185,7 @@
                 <noderef id="painting1" />
                 <noderef id="painting2" />
                 <noderef id="television" />
+                <noderef id="trees" />
                 <noderef id="christmasTree" />
                 <noderef id="pillows" />
                 <noderef id="smallBookShelf"/>
@@ -2537,6 +2538,90 @@
 
             <children>
                 <noderef id="smallBookShelf"/>
+            </children>
+        </node>
+
+
+        <node id="tree2" castshadows="true" receiveshadows="true">
+            <transforms>
+                    <rotate value3="0 -90 0" />
+                    <scale value3="3 3 3" />
+                    <translate value3="20 0 20" />
+            </transforms>
+
+            <children>
+                <noderef id="tree"/>
+            </children>
+        </node>
+
+        <node id="tree3" castshadows="true" receiveshadows="true">
+            <transforms>
+                    <rotate value3="0 -90 0" />
+                    <scale value3="3 3 3" />
+                    <translate value3="30 0 40" />
+            </transforms>
+
+            <children>
+                <noderef id="tree"/>
+            </children>
+        </node>
+
+        <node id="tree4" castshadows="true" receiveshadows="true">
+            <transforms>
+                    <rotate value3="0 -90 0" />
+                    <scale value3="3 3 3" />
+                    <translate value3="40 0 -40" />
+            </transforms>
+
+            <children>
+                <noderef id="tree"/>
+            </children>
+        </node>
+
+        <node id="tree5" castshadows="true" receiveshadows="true">
+            <transforms>
+                    <rotate value3="0 -90 0" />
+                    <scale value3="3 3 3" />
+                    <translate value3="40 0 2" />
+            </transforms>
+
+            <children>
+                <noderef id="tree"/>
+            </children>
+        </node>
+
+        <node id="tree6" castshadows="true" receiveshadows="true">
+            <transforms>
+                    <rotate value3="0 -90 0" />
+                    <scale value3="3 3 3" />
+                    <translate value3="-25 0 -30" />
+            </transforms>
+
+            <children>
+                <noderef id="tree"/>
+            </children>
+        </node>
+
+        <node id="tree7" castshadows="true" receiveshadows="true">
+            <transforms>
+                    <rotate value3="0 -90 0" />
+                    <scale value3="3 3 3" />
+                    <translate value3="-25 0 40" />
+            </transforms>
+
+            <children>
+                <noderef id="tree"/>
+            </children>
+        </node>
+
+        <node id="trees">
+            <children>
+                <noderef id="tree2"/>
+                <noderef id="tree3"/>
+                <noderef id="tree4"/>
+                <noderef id="tree5"/>
+                <noderef id="tree6"/>
+                <noderef id="tree7"/>
             </children>
         </node>
 
