@@ -52,7 +52,14 @@ class MyNodeParser {
     for (let i = 0; i < node.children.length; i++) {
       let child = node.children[i];
       if (child.type === "primitive") {
-        this.material = this.contents.materials.get(materialID);
+        let materialObj = this.contents.materials.get(materialID);
+        if(!this.contents.materialsObjects.includes(materialObj)){
+          this.material=materialObj;
+          console.log("materialObj", materialObj, materialID)
+        }
+        else
+          this.material=materialObj.clone()
+        this.contents.materialsObjects.push(this.material)
         switch (child.subtype) {
           case "box":
             let box = new MyBox(child.representations[0])
@@ -79,8 +86,9 @@ class MyNodeParser {
             children.push(sphereObject);
             break;
           case "triangle":
-            let triangle = new MyTriangle(child.representations[0]);
-            let triangleObject = triangle.addMaterial(this.material, castshadow, receiveshadows);
+            let data = child.representations[0]
+            let triangle = new MyTriangle(data.xyz1[0], data.xyz1[1], data.xyz1[2], data.xyz2[0], data.xyz2[1], data.xyz2[2], data.xyz3[0], data.xyz3[1], data.xyz3[2], this.material, castshadow, receiveshadows);
+            let triangleObject = triangle.addMaterial();
             children.push(triangleObject);
             break;
           case "nurbs":

@@ -20,6 +20,7 @@ class MyContents  {
         this.myLights = new MyLights(this)
         this.textures = new Map();
         this.materials = new Map();
+        this.materialsObjects = []
         this.primitivesObjects = new Map();	
         this.nodeObjects = new Map();
         this.lights = new Map();
@@ -67,6 +68,7 @@ class MyContents  {
             this.textures.set(texture.id, myTexture.getTexture());        
         }
 
+
         for (var key in data.materials) {
             let material = data.materials[key];
             let texture = this.getTexture(material.textureref);
@@ -95,7 +97,7 @@ class MyContents  {
     }
 
     updateWireframe(){
-        for(let [id, material] of this.materials){
+        for( let material of this.materialsObjects){
             material.wireframe = this.wireframe;
         }
     }
