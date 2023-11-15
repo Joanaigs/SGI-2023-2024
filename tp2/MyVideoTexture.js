@@ -52,8 +52,7 @@ class MyVideoTexture extends THREE.VideoTexture {
     }
 
     cloning(){
-        let clonedTexture = this.clone();
-        return clonedTexture
+        return new this.constructor(this.textureData);
     }
 
 }
