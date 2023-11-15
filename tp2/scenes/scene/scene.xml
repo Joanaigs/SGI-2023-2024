@@ -266,7 +266,7 @@
 
         <node id="roof1">
             <transforms>
-                <translate value3="8 4.1 0" />
+                <translate value3="8 4.11 0" />
                 <rotate value3="-90 0 0" />
                 <rotate value3="0 30 0" />
             </transforms>
@@ -282,7 +282,7 @@
 
         <node id="roof2">
             <transforms>
-                <translate value3="-8 4.1 0" />
+                <translate value3="-8 4.11 0" />
                 <rotate value3="-90 0 0" />
                 <rotate value3="0 -30 0" />
             </transforms>
@@ -328,7 +328,7 @@
 
         <node id="roof">
             <transforms>
-                <translate value3="0 15.0 7.5" />
+                <translate value3="0 14.9 7.5" />
             </transforms>
 
             <materialref id="roofAp" />

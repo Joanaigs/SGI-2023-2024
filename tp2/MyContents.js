@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { MyAxis } from './MyAxis.js';
 import { MyFileReader } from './parser/MyFileReader.js';
 import { MyTexture } from './MyTexture.js';
+import { MyVideoTexture } from './MyVideoTexture.js';
+
 import { MyMaterial } from './MyMaterial.js';
 import { MyLights } from './MyLights.js';
 import { MyNodeParser } from './MyNodeParser.js';
@@ -63,9 +65,17 @@ class MyContents  {
         this.app.initCameras(data.cameras, data.activeCameraId)
 
         for (var key in data.textures) {
+            let myTexture = null;
             let texture = data.textures[key]
-            let myTexture = new MyTexture(texture);
-            this.textures.set(texture.id, myTexture.getTexture());        
+            console.log(texture)
+            if(texture.isVideo){
+                console.log(texture)
+                myTexture = new MyVideoTexture(texture);
+            }
+            else {
+                myTexture = new MyTexture(texture);
+            }
+            this.textures.set(texture.id, myTexture);
         }
 
 

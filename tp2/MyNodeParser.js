@@ -53,12 +53,7 @@ class MyNodeParser {
       let child = node.children[i];
       if (child.type === "primitive") {
         let materialObj = this.contents.materials.get(materialID);
-        if(!this.contents.materialsObjects.includes(materialObj)){
-          this.material=materialObj;
-          console.log("materialObj", materialObj, materialID)
-        }
-        else
-          this.material=materialObj.clone()
+        this.material=materialObj.clone()
         this.contents.materialsObjects.push(this.material)
         switch (child.subtype) {
           case "box":
