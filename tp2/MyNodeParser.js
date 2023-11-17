@@ -201,7 +201,7 @@ class MyNodeParser {
           case "R":
             // Accumulate rotation
             const rotationMatrix = new THREE.Matrix4();
-            rotationMatrix.makeRotationFromEuler(new THREE.Euler(trans.rotation[0] * Math.PI / 180, trans.rotation[1] * Math.PI / 180, trans.rotation[2] * Math.PI / 180));
+            rotationMatrix.makeRotationFromEuler(new THREE.Euler(trans.rotation[0], trans.rotation[1], trans.rotation[2]));
             childTransform.multiply(rotationMatrix);
             break;
           case "S":

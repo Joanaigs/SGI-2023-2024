@@ -69,7 +69,7 @@ class MyApp {
             this.camerasNames.push(cameras[camera].id);
             switch (cameras[camera].type) {
                 case "perspective":
-                    let cameraTemp1 = new THREE.PerspectiveCamera(cameras[camera].angle, aspect, cameras[camera].near, cameras[camera].far);
+                    let cameraTemp1 = new THREE.PerspectiveCamera(cameras[camera].angle*180/Math.PI, aspect, cameras[camera].near, cameras[camera].far);
                     cameraTemp1.position.set(cameras[camera].location[0], cameras[camera].location[1], cameras[camera].location[2]);
                     cameraTemp1.lookAt(new THREE.Vector3(cameras[camera].target[0], cameras[camera].target[1], cameras[camera].target[2]));
                     this.cameraTarget[cameras[camera].id] = new THREE.Vector3(cameras[camera].target[0], cameras[camera].target[1], cameras[camera].target[2]);

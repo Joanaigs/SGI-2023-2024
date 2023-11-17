@@ -19,8 +19,9 @@ class MyCylinder{
     }
 
     addMaterial(material, castshadow, receiveshadows){
-        let lenght = this.radiusTop>this.radiusBottom? this.radiusTop*2 : this.radiusBottom*2 
-        //material.setRepeat(lenght, this.height)
+        let lenght = this.radiusTop>this.radiusBottom? this.radiusTop*2*Math.PI : this.radiusBottom*2*Math.PI
+        let size = lenght>this.height? lenght : this.height
+        material.setRepeat(lenght, size)
         let object = new THREE.Mesh(this.cylinder, material);
         if(castshadow){
             object.castShadow = true;
