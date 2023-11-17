@@ -53,7 +53,8 @@ class MyNodeParser {
       let child = node.children[i];
       if (child.type === "primitive") {
         let materialObj = this.contents.materials.get(materialID);
-        this.material=materialObj.clone()
+        if(materialObj)
+          this.material=materialObj.clone()
         this.contents.materialsObjects.push(this.material)
         switch (child.subtype) {
           case "box":
@@ -92,6 +93,23 @@ class MyNodeParser {
             this.contents.primitivesObjects.set(child.id, nurbsObject);
             children.push(nurbsObject);
             break;
+          case "lods":
+            let childGroup;
+            if (!this.contents.nodeObjects.has(child.id)) {
+              childGroup = new THREE.Group();
+    
+              //children
+              let tempChildren = this.children(child.id, newMaterialID, child.castShadows || castshadow, child.receiveShadows || receiveshadows);
+              for (let tempChild of tempChildren) {
+                childGroup.add(tempChild);
+              }
+              this.contents.nodeObjects.set(child.id, childGroup);
+            }
+            else{
+              childGroup = this.contents.nodeObjects.get(child.id).clone();
+            }
+            children.push(childGroup);
+
           default:
             break;
         }
@@ -104,7 +122,8 @@ class MyNodeParser {
         }
         children.push(this.contents.lights.get(child.id));
         children.push(this.contents.lightsHelper.get(child.id));
-      } else {
+      }
+      else {
         let childGroup;
         if (!this.contents.nodeObjects.has(child.id)) {
           childGroup = new THREE.Group();

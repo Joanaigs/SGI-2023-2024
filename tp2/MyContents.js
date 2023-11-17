@@ -31,6 +31,8 @@ class MyContents  {
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
 		this.reader.open("scenes/scene/scene.xml");	
         this.wireframe = false;
+        this.santaPos = 0;
+        this.santaOriginalY = 4;
     }
 
     /**
@@ -109,6 +111,11 @@ class MyContents  {
         for( let material of this.materialsObjects){
             material.wireframe = this.wireframe;
         }
+    }
+
+    updateSantaPosition(value){
+        let santa = this.nodeObjects.get("santa");
+        santa.position.y = this.santaOriginalY + value;
     }
 
     update() {

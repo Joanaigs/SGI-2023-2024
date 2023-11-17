@@ -33,6 +33,10 @@ class MyGuiInterface {
     cameraFolder.add(this.app, "activeCameraName", this.app.camerasNames).name("active camera");
     cameraFolder.open();
 
+    const santaFolder = this.datgui.addFolder("Santa");
+    santaFolder.add(this.contents, 'santaPos', 0, 3).name("Santa Going up the chimine").onChange((value) => { this.contents.updateSantaPosition(value) });
+
+
     const lightFolder = this.datgui.addFolder('Lights');
     for( let key of this.contents.lights.keys()){
       lightFolder.add(this.contents.lightEnabled, key).onChange(() => { this.contents.updateLights(key)});

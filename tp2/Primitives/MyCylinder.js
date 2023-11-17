@@ -11,7 +11,7 @@ class MyCylinder{
         this.height = primitiveData.height;
         this.radialSegments = primitiveData.slices;
         this.heightSegments = primitiveData.stacks;
-        this.openEnded = primitiveData.capsclose;
+        this.openEnded = primitiveData.capsclose? false : true;
         this.thetaStart = primitiveData.thetastart;
         this.thetaLength = primitiveData.thetalength;
         this.cylinder = new THREE.CylinderGeometry(this.radiusTop, this.radiusBottom, this.height, this.radialSegments, this.heightSegments, this.openEnded, this.thetaStart, this.thetaLength);
@@ -20,7 +20,7 @@ class MyCylinder{
 
     addMaterial(material, castshadow, receiveshadows){
         let lenght = this.radiusTop>this.radiusBottom? this.radiusTop*2 : this.radiusBottom*2 
-        material.setRepeat(lenght, lenght)
+        //material.setRepeat(lenght, this.height)
         let object = new THREE.Mesh(this.cylinder, material);
         if(castshadow){
             object.castShadow = true;

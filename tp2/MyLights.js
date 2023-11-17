@@ -32,6 +32,7 @@ class MyLights {
           directionalLight.shadow.camera.right = lightData.shadowright;
           directionalLight.shadow.camera.top = lightData.shadowtop;
           directionalLight.shadow.camera.bottom = lightData.shadowbottom;
+          directionalLight.shadow.bias = -0.0003;
         }
         let helper2 = new THREE.DirectionalLightHelper(directionalLight);
         this.content.lights.set(lightData.id, directionalLight);
@@ -56,6 +57,7 @@ class MyLights {
           pointLight.shadow.mapSize.width = lightData.shadowmapsize;
           pointLight.shadow.mapSize.height = lightData.shadowmapsize;
           pointLight.shadow.camera.far = lightData.shadowfar;
+          pointLight.shadow.bias = -0.0003;
         }
         let helper1 = new THREE.PointLightHelper(pointLight);
         this.content.lights.set(lightData.id, pointLight);
@@ -90,6 +92,7 @@ class MyLights {
           spotLight.shadow.mapSize.width = lightData.shadowmapsize;
           spotLight.shadow.mapSize.height = lightData.shadowmapsize;
           spotLight.shadow.camera.far = lightData.shadowfar;
+          spotLight.shadow.bias = -0.0003;
         }
         let helper = new THREE.SpotLightHelper(spotLight);
         this.content.lights.set(lightData.id, spotLight);

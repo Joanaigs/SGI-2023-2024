@@ -16,6 +16,8 @@ class MyMaterial extends THREE.MeshPhongMaterial{
         this.wireframe = materialData.wireframe;
         this.texlength_s = materialData.texlength_s;
         this.texlength_t = materialData.texlength_t;
+        this.opacity= materialData.color.a;
+        this.transparent =  true,
         this.side = (materialData.twosided)? THREE.DoubleSide: THREE.FrontSide;
         this.flatShading = (materialData.shading == "flat")? true : false;
         this.texture=texture;

@@ -18,7 +18,8 @@ class MyBox{
     }
 
     addMaterial(material, castshadow, receiveshadows){
-        material.setRepeat(this.width, this.height)
+        let size = this.width>this.height? this.width : this.height
+        material.setRepeat(size, this.height)
         let object = new THREE.Mesh(this.box, material);
         object.position.set(this.xyz1[0] + this.width/2, this.xyz1[1] + this.height/2, this.xyz1[2] + this.depth/2);
         if(castshadow){

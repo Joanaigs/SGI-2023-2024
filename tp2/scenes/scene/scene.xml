@@ -14,9 +14,12 @@
         front="scenes/scene/textures/snow_ft.jpg" back="scenes/scene/textures/snow_bk.jpg" />
 
 
-    <cameras initial="cam1">
+    <cameras initial="fireplace">
         <perspective id="cam1" angle="60" near="0.1" far="5000" location="10 8 25" target="0 0.0 0" />
-        <perspective id="paintings" angle="60" near="0.1" far="5000" location="0 7 15" target="0 7 30" />
+        <perspective id="paintings" angle="60" near="0.1" far="5000" location="0 7 15"
+            target="0 7 30" />
+        <perspective id="fireplace" angle="60" near="0.1" far="5000" location="0 5 0"
+            target="15 5 0" />
     </cameras>
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas
@@ -28,21 +31,21 @@
         <texture id="lightMetalTex" filepath="scenes/scene/textures/metal.jpg" />
         <texture id="curtainTex" filepath="scenes/scene/textures/curtain.jpg" />
         <texture id="oakTex" filepath="scenes/scene/textures/oak.jpg" />
-        <texture id="painting1Tex" filepath="scenes/scene/textures/women_2048.png" 
-            mipmap0="scenes/scene/textures/women_2048.png"  
-            mipmap1="scenes/scene/textures/women_1024.png" 
-            mipmap2="scenes/scene/textures/women_512.png" 
-            mipmap3="scenes/scene/textures/women_256.png" 
+        <texture id="painting1Tex" filepath="scenes/scene/textures/women_2048.png"
+            mipmap0="scenes/scene/textures/women_2048.png"
+            mipmap1="scenes/scene/textures/women_1024.png"
+            mipmap2="scenes/scene/textures/women_512.png"
+            mipmap3="scenes/scene/textures/women_256.png"
             mipmaps="false"
         />
-        <texture id="painting2Tex" filepath="scenes/scene/textures/garden_1002.png" 
-            mipmap0="scenes/scene/textures/garden_1002.png"  
-            mipmap1="scenes/scene/textures/garden_501.png" 
+        <texture id="painting2Tex" filepath="scenes/scene/textures/garden_1002.png"
+            mipmap0="scenes/scene/textures/garden_1002.png"
+            mipmap1="scenes/scene/textures/garden_501.png"
             mipmap2="scenes/scene/textures/garden_250.png"
             mipmaps="false"
         />
         <texture id="lightWoodTex" filepath="scenes/scene/textures/lightWood.jpg" />
-        <texture id="fireTex" filepath="scenes/scene/textures/fire.mp4" isVideo="true" />
+        <texture id="musicTex" filepath="scenes/scene/textures/music.mp4" isVideo="true" />
         <texture id="whiteWoodTex" filepath="scenes/scene/textures/whiteWood.jpg" />
         <texture id="vaseTex" filepath="scenes/scene/textures/flowersPattern.jpg" />
         <texture id="pineTex" filepath="scenes/scene/textures/pine.png" />
@@ -80,7 +83,7 @@
         <material id="lightMetalApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="1 1 1 1"
             shininess="100" textureref="lightMetalTex" texlength_s="0.25" texlength_t="0.25" />
 
-        <material id="curtainApp" emissive="0.0 0.0 0.0 1" color="0.9 0.9 0.9 0.7"
+        <material id="curtainApp" emissive="0.0 0.0 0.0 1" color="0.9 0.9 0.9 0.8"
             specular="0 0 0 0" shininess="0" twosided="true" textureref="curtainTex"
             texlength_s="1"
             texlength_t="0.5" />
@@ -88,37 +91,43 @@
         <material id="blackApp" emissive="0.0 0.0 0.0 1" color="0 0 0 1.0" specular="0 0 0 0"
             shininess="0" />
 
+        <material id="blackSantaApp" emissive="0.0 0.0 0.0 1" color="0 0 0 1.0" specular="1 1 1 1"
+            shininess="30" />
+
         <material id="oakApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="0.47 0.47 0.47 1"
-            shininess="60" textureref="oakTex" texlength_s="10" texlength_t="15"/>
+            shininess="60" textureref="oakTex" texlength_s="10" texlength_t="15" />
 
         <material id="whiteWoodApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="0.47 0.47 0.47 1"
             shininess="60" textureref="whiteWoodTex" texlength_s="15" texlength_t="10" />
 
         <material id="painting1App" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
-            specular="0.47 0.47 0.47 1" shininess="100" textureref="painting1Tex" texlength_s="3.5" texlength_t="3.5"  />
+            specular="0.47 0.47 0.47 1" shininess="100" textureref="painting1Tex" texlength_s="3.5"
+            texlength_t="3.5" />
 
         <material id="painting2App" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
-            specular="0.47 0.47 0.47 1" shininess="100" textureref="painting2Tex" texlength_s="3.5" texlength_t="3.5"/>
+            specular="0.47 0.47 0.47 1" shininess="100" textureref="painting2Tex" texlength_s="3.5"
+            texlength_t="3.5" />
 
         <material id="lightWoodApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="0.47 0.47 0.47 1" shininess="100" textureref="lightWoodTex" />
 
-        <material id="televisionApp" emissive="0.0 0.0 0.0 1" color="0 0 0 1.0"
+        <material id="televisionFrameApp" emissive="0.0 0.0 0.0 1" color="0 0 0 1.0"
             specular="0 0 0 1" shininess="100" />
 
-        <material id="fireApp" emissive="0.01 0.01 0.01 0" color="1 1 1 0"
-            specular="0.47 0.47 0.47 1" shininess="70" textureref="fireTex" texlength_s="9.7" texlength_t="4.7" />
+        <material id="televisionApp" emissive="0.01 0.01 0.01 0" color="1 1 1 1"
+            specular="0.47 0.47 0.47 1" shininess="70" textureref="musicTex" texlength_s="9.7"
+            texlength_t="4.7" />
 
         <material id="vaseApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="0.47 0.47 0.47 1" shininess="100" textureref="vaseTex" twosided="true"
             texlength_s="2"
             texlength_t="2" />
 
-        <material id="lightGreyApp1" emissive="0.0 0.0 0.0 0" color="0.6 0.6 0.67 0"
+        <material id="lightGreyApp1" emissive="0.0 0.0 0.0 0" color="0.6 0.6 0.67 1"
             specular="0.47 0.47 0.47 1" shininess="5" />
 
-        <material id="lightGreyApp2" emissive="0.0 0.0 0.0 0" color="0.9 0.9 0.87 0"
+        <material id="lightGreyApp2" emissive="0.0 0.0 0.0 0" color="0.9 0.9 0.87 1"
             specular="0.47 0.47 0.47 1" shininess="5" />
 
         <material id="pineApp"
@@ -147,19 +156,26 @@
         <material id="whiteApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="0 0 0 1" shininess="0" />
 
+        <material id="plateApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
+            specular="1 1 1 1" shininess="40" twosided="true" />
+
         <material id="flameApp" emissive="1 0.27 0 1" color="1 0.27 0 1.0"
             specular="0 0 0 1" shininess="0" />
 
         <material id="redApp" emissive="0.3 0.0 0.0 1" color="1 0 0 1.0"
             specular="0 0 0 1" shininess="0" />
 
+        <material id="redSantaApp" emissive="0 0.0 0.0 1" color="1 0 0 1.0"
+            specular="0 0 0 1" shininess="0" />
+
         <material id="roofAp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
-            specular="0 0 0 1" shininess="0" textureref="roofTex" texlength_s="10" 
-            texlength_t="9"  bumpref="bumpRoofTex" bumpscale="1" twosided="true"/>
+            specular="0 0 0 1" shininess="0" textureref="roofTex" texlength_s="10"
+            texlength_t="9" bumpref="bumpRoofTex" bumpscale="1" twosided="true" />
 
         <material id="outsideWallApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
-            specular="0 0 0 1" shininess="0" textureref="outsideWall" texlength_s="15" 
-            texlength_t="15"  bumpref="outsideWallBump" bumpscale="0.4" />
+            specular="0 0 0 1" shininess="0" textureref="outsideWall" texlength_s="15"
+            texlength_t="15" bumpref="outsideWallBump" bumpscale="0.4" />
+
 
     </materials>
 
@@ -188,8 +204,9 @@
                 <noderef id="trees" />
                 <noderef id="christmasTree" />
                 <noderef id="pillows" />
-                <noderef id="smallBookShelf"/>
-                <noderef id="bigBookShelf"/>
+                <noderef id="smallBookShelf" />
+                <noderef id="bigBookShelf" />
+                <noderef id="fireplace" />
 
 
                 <spotlight id="light1" enabled="true" color="1 1 1 1" intensity="2.0"
@@ -215,11 +232,10 @@
                     distance="0"
                     decay="1"
                     castshadow="true"
-                    position="-100 90 45"
+                    position="100 90 45"
                     shadowmapsize="1024"
                 />
 
-              
 
             </children>
         </node>
@@ -317,7 +333,7 @@
 
         </node>
 
-        <node id="roof">
+        <node id="roof" castshadows="true">
             <transforms>
                 <translate value3="0 14.9 7.5" />
             </transforms>
@@ -345,7 +361,7 @@
             </children>
         </node>
 
-        <node id="leftWallOutside" >
+        <node id="leftWallOutside">
             <transforms>
                 <translate value3="0 0 -0.01" />
                 <rotate value3="0.0 180.0 0.0" />
@@ -361,7 +377,7 @@
             </children>
         </node>
 
-        <node id="leftWall" >
+        <node id="leftWall">
             <transforms>
                 <translate value3="0 7.5 -15" />
             </transforms>
@@ -401,7 +417,7 @@
             </children>
         </node>
 
-        <node id="rightWall" >
+        <node id="rightWall">
             <transforms>
                 <translate value3="0 7.5 30" />
             </transforms>
@@ -444,9 +460,9 @@
                 <noderef id="wallFrontMiddleInside" />
             </children>
         </node>
-        
 
-        <node id="wallFrontLeftInside" castshadows="true" receiveshadows="true"> 
+
+        <node id="wallFrontLeftInside" castshadows="true" receiveshadows="true">
             <children>
                 <primitive>
                     <rectangle xy1="-3 -5" xy2="3 5" />
@@ -542,7 +558,7 @@
             </children>
         </node>
 
-        <node id="frontWall" >
+        <node id="frontWall">
             <transforms>
                 <translate value3="-15 7.5 7.5" />
                 <rotate value3="0.0 90 0.0" />
@@ -578,7 +594,7 @@
             </children>
         </node>
 
-        <node id="backWall" castshadows="true" receiveshadows="true">
+        <node id="backWall">
             <transforms>
                 <translate value3="15 7.5 7.5" />
                 <rotate value3="0.0 -90 0.0" />
@@ -587,7 +603,7 @@
             <children>
                 <noderef id="backWallInside" />
                 <noderef id="backWallOutside" />
-                
+
             </children>
         </node>
 
@@ -636,19 +652,6 @@
 
             <children>
                 <noderef id="televisionCabinetThinLayer1" />
-            </children>
-        </node>
-
-
-        <node id='televisionBookshelf'>
-            <transforms>
-                <translate value3="-2 -5 0" />
-            </transforms>
-
-            <children>
-                <primitive>
-                    <box xyz1="5 3 2" xyz2="0 0 0" />
-                </primitive>
             </children>
         </node>
 
@@ -769,14 +772,14 @@
 
         <node id="sofaArmPillow">
             <transforms>
-                <rotate value3="0 90 90" />
-                <translate value3="2.3 0 0" />
+                <translate value3="0 2.3 0" />
+                <rotate value3="90 90 0" />
             </transforms>
             <materialref id="sofaPillowApp" />
             <children>
                 <primitive>
                     <cylinder base="0.25" top="0.25" height="4" slices="32" stacks="1"
-                        thetastart="0" thetalength="3.1415" />
+                        thetastart="0" thetalength="3.1415" capsclose="true" />
                 </primitive>
 
             </children>
@@ -894,7 +897,8 @@
             <materialref id="carpetApp" />
             <children>
                 <primitive>
-                    <cylinder top="5" base="5" height="0.02" slices="32" stacks="32" />
+                    <cylinder top="5" base="5" height="0.02" slices="32" stacks="32"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1373,11 +1377,11 @@
                 <translate value3="0 0.025 0" />
             </transforms>
 
-            <materialref id="whiteWoodApp" />
 
             <children>
                 <primitive>
-                    <cylinder top="0.3" base="0.3" height="0.05" slices="32" stacks="1" />
+                    <cylinder top="0.3" base="0.3" height="0.05" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1387,7 +1391,6 @@
                 <translate value3="0 0.125 0" />
             </transforms>
 
-            <materialref id="whiteWoodApp" />
 
             <children>
                 <primitive>
@@ -1397,7 +1400,8 @@
         </node>
 
         <node id="plate">
-            <materialref id="whiteWoodApp" castshadows="true" receiveshadows="true" />
+            <materialref id="plateApp" />
+
 
             <children>
                 <noderef id="plateBase" />
@@ -1410,7 +1414,6 @@
                 <translate value3="2.5 4 -2.2" />
             </transforms>
 
-            <materialref id="whiteWoodApp" />
 
             <children>
                 <noderef id="plate" />
@@ -1422,7 +1425,6 @@
                 <translate value3="2.5 4 2.2" />
             </transforms>
 
-            <materialref id="whiteWoodApp" />
 
             <children>
                 <noderef id="plate" />
@@ -1435,7 +1437,6 @@
                 <translate value3="-2.5 4 -2.2" />
             </transforms>
 
-            <materialref id="whiteWoodApp" />
 
             <children>
                 <noderef id="plate" />
@@ -1446,8 +1447,6 @@
             <transforms>
                 <translate value3="-2.5 4 2.2" />
             </transforms>
-
-            <materialref id="whiteWoodApp" />
 
             <children>
                 <noderef id="plate" />
@@ -1564,9 +1563,9 @@
 
         <node id="pillow1">
             <transforms>
-                <scale value3="1.3 1.3 1.3" />
-                <translate value3="-2.3 2.0 4.8" />
+                <translate value3="-2.3 2.7 6" />
                 <rotate value3="15 0 0" />
+                <scale value3="1.3 1.3 1.3" />
             </transforms>
             <materialref id="lightGreyApp1" />
             <children>
@@ -1577,9 +1576,10 @@
 
         <node id="pillow2">
             <transforms>
-                <scale value3="1.3 1.3 1.3" />
-                <translate value3="-0.1 2.0 4.8" />
+                <translate value3="-0.1 2.7 6" />
                 <rotate value3="15 0 0" />
+                <scale value3="1.3 1.3 1.3" />
+
             </transforms>
             <materialref id="lightGreyApp2" />
             <children>
@@ -1603,7 +1603,8 @@
 
             <children>
                 <primitive>
-                    <cylinder top="0.2" base="0.2" height="0" slices="32" stacks="1" />
+                    <cylinder top="0.2" base="0.2" height="0" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1617,7 +1618,8 @@
 
             <children>
                 <primitive>
-                    <cylinder top="0.1" base="0.01" height="1.2" slices="32" stacks="1" />
+                    <cylinder top="0.1" base="0.01" height="1.2" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1631,7 +1633,8 @@
 
             <children>
                 <primitive>
-                    <cylinder top="0.05" base="0.05" height="0.8" slices="32" stacks="1" />
+                    <cylinder top="0.05" base="0.05" height="0.8" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1645,7 +1648,8 @@
 
             <children>
                 <primitive>
-                    <cylinder top="0.01" base="0.01" height="0.05" slices="32" stacks="1" />
+                    <cylinder top="0.01" base="0.01" height="0.05" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1674,7 +1678,8 @@
 
             <children>
                 <primitive>
-                    <cylinder top="0" base="0.05" height="0.15" slices="32" stacks="1" />
+                    <cylinder top="0" base="0.05" height="0.15" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1849,7 +1854,8 @@
 
             <children>
                 <primitive>
-                    <cylinder base="0.1" top="0.1" height="0.5" slices="32" stacks="1" />
+                    <cylinder base="0.1" top="0.1" height="0.5" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1862,7 +1868,8 @@
 
             <children>
                 <primitive>
-                    <cylinder base="0.1" top="0.1" height="0.5" slices="32" stacks="1" />
+                    <cylinder base="0.1" top="0.1" height="0.5" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1875,7 +1882,8 @@
 
             <children>
                 <primitive>
-                    <cylinder base="0.1" top="0.1" height="13.4" slices="32" stacks="1" />
+                    <cylinder base="0.1" top="0.1" height="13.4" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1959,7 +1967,8 @@
 
             <children>
                 <primitive>
-                    <cylinder base="0.2" top="0.4" height="0.5" slices="32" stacks="1" />
+                    <cylinder base="0.2" top="0.4" height="0.5" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1974,7 +1983,8 @@
 
             <children>
                 <primitive>
-                    <cylinder base="0.2" top="0.4" height="0.5" slices="32" stacks="1" />
+                    <cylinder base="0.2" top="0.4" height="0.5" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -2153,7 +2163,7 @@
         </node>
 
         <node id="televisionFrame">
-            <materialref id="televisionApp" />
+            <materialref id="televisionFrameApp" />
 
             <children>
                 <noderef id="frameTopTv" />
@@ -2168,7 +2178,7 @@
                 <rotate value3="0 90 0" />
             </transforms>
 
-            <materialref id="fireApp" />
+            <materialref id="televisionApp" />
 
             <children>
                 <primitive>
@@ -2198,7 +2208,7 @@
 
             <children>
                 <primitive>
-                    <cylinder base="3" top="1.5" height="3" slices="32" stacks="32" />
+                    <cylinder base="3" top="1.5" height="3" slices="32" stacks="32" capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -2212,7 +2222,8 @@
 
             <children>
                 <primitive>
-                    <cylinder base="2.25" top="0.75" height="3" slices="32" stacks="32" />
+                    <cylinder base="2.25" top="0.75" height="3" slices="32" stacks="32"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -2226,7 +2237,8 @@
 
             <children>
                 <primitive>
-                    <cylinder base="1.35" top="0" height="3" slices="32" stacks="32" />
+                    <cylinder base="1.35" top="0" height="3" slices="32" stacks="32"
+                        capsclose="true" />
                 </primitive>
 
             </children>
@@ -2398,7 +2410,7 @@
             </children>
         </node>
 
-                <node id="smallBookShelfLeft">
+        <node id="smallBookShelfLeft">
             <transforms>
                 <translate value3="-12 0 -17" />
             </transforms>
@@ -2407,21 +2419,21 @@
 
             <children>
                 <primitive>
-                     <box xyz1="2 5 2" xyz2="0 0 0" />
+                    <box xyz1="2 5 2" xyz2="0 0 0" />
                 </primitive>
             </children>
         </node>
 
         <node id="smallBookShelfWallPart">
             <transforms>
-                 <translate value3="-10 0 -14.98" />
+                <translate value3="-10 0 -14.98" />
             </transforms>
 
-               <materialref id="oakApp" />
+            <materialref id="oakApp" />
 
             <children>
                 <primitive>
-                     <rectangle xy1="2 5" xy2="0 0" />
+                    <rectangle xy1="2 5" xy2="0 0" />
                 </primitive>
             </children>
         </node>
@@ -2435,7 +2447,7 @@
 
             <children>
                 <primitive>
-                     <box xyz1="0.2 5 0.4" xyz2="0 0 0" />
+                    <box xyz1="0.2 5 0.4" xyz2="0 0 0" />
                 </primitive>
             </children>
         </node>
@@ -2445,25 +2457,25 @@
                 <translate value3="-10 9.6 -17" />
             </transforms>
 
-             <materialref id="oakApp" />
+            <materialref id="oakApp" />
 
             <children>
                 <primitive>
-                     <box xyz1="2 0.2 2" xyz2="0 0 0" />
+                    <box xyz1="2 0.2 2" xyz2="0 0 0" />
                 </primitive>
             </children>
         </node>
 
-         <node id="shelf2">
+        <node id="shelf2">
             <transforms>
                 <translate value3="-10 8.4 -17" />
             </transforms>
 
-             <materialref id="oakApp" />
+            <materialref id="oakApp" />
 
             <children>
                 <primitive>
-                     <box xyz1="2 0.2 2" xyz2="0 0 0" />
+                    <box xyz1="2 0.2 2" xyz2="0 0 0" />
                 </primitive>
             </children>
         </node>
@@ -2473,11 +2485,11 @@
                 <translate value3="-10 7.2 -17" />
             </transforms>
 
-             <materialref id="oakApp" />
+            <materialref id="oakApp" />
 
             <children>
                 <primitive>
-                     <box xyz1="2 0.2 2" xyz2="0 0 0" />
+                    <box xyz1="2 0.2 2" xyz2="0 0 0" />
                 </primitive>
             </children>
         </node>
@@ -2487,11 +2499,11 @@
                 <translate value3="-10 6.0 -17" />
             </transforms>
 
-             <materialref id="oakApp" />
+            <materialref id="oakApp" />
 
             <children>
                 <primitive>
-                     <box xyz1="2 0.2 2" xyz2="0 0 0" />
+                    <box xyz1="2 0.2 2" xyz2="0 0 0" />
                 </primitive>
             </children>
         </node>
@@ -2501,11 +2513,11 @@
                 <translate value3="-10 4.8 -17" />
             </transforms>
 
-             <materialref id="oakApp" />
+            <materialref id="oakApp" />
 
             <children>
                 <primitive>
-                     <box xyz1="2 0.2 2" xyz2="0 0 0" />
+                    <box xyz1="2 0.2 2" xyz2="0 0 0" />
                 </primitive>
             </children>
         </node>
@@ -2513,9 +2525,9 @@
 
         <node id="smallBookShelf">
             <children>
-                <noderef id="smallBookShelfLeft"/>
-                <noderef id="smallBookShelfWallPart"/>
-                <noderef id="smallBookShelfRight"/>
+                <noderef id="smallBookShelfLeft" />
+                <noderef id="smallBookShelfWallPart" />
+                <noderef id="smallBookShelfRight" />
                 <noderef id="shelf1" />
                 <noderef id="shelf2" />
                 <noderef id="shelf3" />
@@ -2524,140 +2536,387 @@
             </children>
         </node>
 
-        <node id="bigBookShelf">
-            <transforms>
-                <rotate value3="0 -90 0" />
-                <scale value3="2 2 1" />
-                <translate value3="9 -4 1" />
-            </transforms>
-
-            <children>
-                <noderef id="smallBookShelf"/>
-            </children>
-        </node>
-
-
         <node id="tree2" castshadows="true" receiveshadows="true">
             <transforms>
-                    <rotate value3="0 -90 0" />
-                    <scale value3="3 3 3" />
-                    <translate value3="100 0 20" />
+                <translate value3="100 0 20" />
+                <rotate value3="0 -90 0" />
+                <scale value3="3 3 3" />
             </transforms>
 
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
         <node id="tree3" castshadows="true" receiveshadows="true">
             <transforms>
-                    <rotate value3="0 -90 0" />
-                    <scale value3="3 3 3" />
-                    <translate value3="30 0 40" />
+                <translate value3="30 0 40" />
+                <rotate value3="0 -90 0" />
+                <scale value3="3 3 3" />
             </transforms>
 
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
         <node id="tree4" castshadows="true" receiveshadows="true">
             <transforms>
-                    <rotate value3="0 -90 0" />
-                    <scale value3="3 3 3" />
-                    <translate value3="-90 0 100" />
+                <translate value3="-90 0 100" />
+                <rotate value3="0 -90 0" />
+                <scale value3="3 3 3" />
             </transforms>
 
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
         <node id="tree5" castshadows="true" receiveshadows="true">
             <transforms>
-                    <rotate value3="0 -90 0" />
-                    <scale value3="3 3 3" />
-                    <translate value3="40 0 2" />
+                <translate value3="40 0 2" />
+                <rotate value3="0 -90 0" />
+                <scale value3="3 3 3" />
             </transforms>
 
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
         <node id="tree6" castshadows="true" receiveshadows="true">
             <transforms>
-                    <rotate value3="0 -90 0" />
-                    <scale value3="3 3 3" />
-                    <translate value3="-100 0 80" />
+                <translate value3="-100 0 80" />
+                <rotate value3="0 -90 0" />
+                <scale value3="3 3 3" />
             </transforms>
 
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
         <node id="tree7" castshadows="true" receiveshadows="true">
             <transforms>
-                    <rotate value3="0 -90 0" />
-                    <scale value3="3 3 3" />
-                    <translate value3="-50 0 40" />
+                <translate value3="-50 0 40" />
+                <rotate value3="0 -90 0" />
+                <scale value3="3 3 3" />
             </transforms>
 
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
         <node id="tree8" castshadows="true" receiveshadows="true">
             <transforms>
-                    <rotate value3="0 -90 0" />
-                    <scale value3="3 3 3" />
-                    <translate value3="80 0 60" />
+                <translate value3="80 0 60" />
+                <rotate value3="0 -90 0" />
+                <scale value3="3 3 3" />
             </transforms>
 
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
         <node id="tree9" castshadows="true" receiveshadows="true">
             <transforms>
-                    <rotate value3="0 -90 0" />
-                    <scale value3="3 3 3" />
-                    <translate value3="50 0 80" />
+                <translate value3="50 0 80" />
+                <rotate value3="0 -90 0" />
+                <scale value3="3 3 3" />
             </transforms>
 
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
         <node id="tree10" castshadows="true" receiveshadows="true">
             <transforms>
-                    <rotate value3="0 -90 0" />
-                    <scale value3="3 3 3" />
-                    <translate value3="50 0 -105" />
+                <translate value3="50 0 -105" />
+                <rotate value3="0 -90 0" />
+                <scale value3="3 3 3" />
             </transforms>
 
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
         <node id="trees">
             <children>
-                <noderef id="tree2"/>
-                <noderef id="tree3"/>
-                <noderef id="tree4"/>
-                <noderef id="tree5"/>
-                <noderef id="tree6"/>
-                <noderef id="tree7"/>
-                <noderef id="tree8"/>
-                <noderef id="tree9"/>
-                <noderef id="tree10"/>
+                <noderef id="tree2" />
+                <noderef id="tree3" />
+                <noderef id="tree4" />
+                <noderef id="tree5" />
+                <noderef id="tree6" />
+                <noderef id="tree7" />
+                <noderef id="tree8" />
+                <noderef id="tree9" />
+                <noderef id="tree10" />
             </children>
         </node>
+
+        <node id="fireplaceBackTop">
+            <transforms>
+                <translate value3="0 10 0" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <box xyz1="-5 -4.5 -1.5" xyz2="5 4.5 1.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="fireplaceBackLeft">
+            <transforms>
+                <translate value3="4 2.75 -0" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <box xyz1="-1 -2.75 -1.5" xyz2="1 2.75 1.5" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="fireplaceBackRight">
+            <transforms>
+                <translate value3="-4 2.75 0" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <box xyz1="-1 -2.75 -1.5" xyz2="1 2.75 1.5" />
+                </primitive>
+            </children>
+
+
+        </node>
+
+        <node id="fireplaceBackBottom">
+            <transforms>
+                <translate value3="0 1 0" />
+            </transforms>
+
+
+            <children>
+                <primitive>
+                    <box xyz1="-3 -1 -1.5" xyz2="3 1 1.5" />
+                </primitive>
+            </children>
+
+
+        </node>
+
+        <node id="fireplaceBackFire">
+            <transforms>
+                <translate value3="0 3.75 1.49" />
+                <rotate value3="0 180 0" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <rectangle xy1="-3 -1.75" xy2="3 1.75" />
+                </primitive>
+            </children>
+        </node>
+
+
+        <node id="fireplaceBack">
+            <transforms>
+                <translate value3="-1.5 0 0" />
+                <rotate value3="0 90 0" />
+
+            </transforms>
+
+            <materialref id="outsideWallApp" />
+
+            <children>
+                <noderef id="fireplaceBackTop" />
+                <noderef id="fireplaceBackLeft" />
+                <noderef id="fireplaceBackRight" />
+                <noderef id="fireplaceBackBottom" />
+                <noderef id="fireplaceBackFire" />
+
+            </children>
+        </node>
+
+        <node id="woodPiece1">
+            <transforms>
+                <translate value3="-1.5 2.3 0" />
+                <rotate value3="-90 0 0" />
+                <rotate value3="0 0 45" />
+            </transforms>
+
+            <materialref id="lightWoodApp" />
+
+            <children>
+                <primitive>
+                    <cylinder base="0.3" top="0.3" height="2.5" slices="32" stacks="32"
+                        capsclose="true" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="woodPiece2">
+            <transforms>
+                <translate value3="-1.5 2.3 0" />
+                <rotate value3="-90 0 0" />
+                <rotate value3="0 0 -45" />
+            </transforms>
+
+            <materialref id="lightWoodApp" />
+
+            <children>
+                <primitive>
+                    <cylinder base="0.3" top="0.3" height="2.5" slices="32" stacks="32"
+                        capsclose="true" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="santaFeetBottom">
+            <transforms>
+                <translate value3="-0.1 -0.675 0" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <box xyz1="-0.1 -0.05 -0.1" xyz2="0.1 0.05 0.1" />
+                </primitive>
+            </children>
+        </node>
+
+
+        <node id="santaFeetMiddle">
+            <transforms>
+                <translate value3="-0.2 -0.4 0" />
+                <rotate value3="0 0 90" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <cylinder base="0.25" top="0.25" height="0.4" slices="32" stacks="32"
+                        capsclose="true" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="santaFeetPoint">
+            <transforms>
+                <translate value3="-0.4 -0.4 0" />
+                <rotate value3="0 -90 0" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <sphere radius="0.25" slices="32" stacks="32" philength="3.1415"  />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="santaLeg">
+            <transforms>
+                <translate value3="0 -0.5 -0.5" />
+            </transforms>
+
+            <children>
+                
+                <noderef id="santaFeetMiddle" />
+                <noderef id="santaFeetPoint" />
+                <noderef id="santaFeetBottom" />
+                <noderef  id="santaMember" />
+                <noderef  id="santaMemberBrim" />
+            </children>
+        </node>
+
+        <node id="santaMember">
+            <transforms>
+                <translate value3="-0.2 2.85 0" />
+            </transforms>
+
+            <materialref id="redSantaApp" />
+
+            <children>
+                <primitive>
+                    <box xyz1="-0.3 -3 -0.3" xyz2="0.3 3 0.3" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="santaMemberBrim">
+            <transforms>
+                <translate value3="-0.2 -0.05 0.05" />
+            </transforms>
+
+            <materialref id="whiteApp" />
+
+            <children>
+                <primitive>
+                    <box xyz1="-0.4 -0.1 -0.4" xyz2="0.3 0.1 0.3" />
+                </primitive>
+            </children>
+        </node>
+
+
+        <node id="santaLeg1">
+            <transforms>
+                <translate value3="0 0.5 -0.5" />
+            </transforms>
+
+            <materialref id="blackSantaApp" />
+
+            <children>
+                <noderef id="santaLeg" />
+            </children>
+        </node>
+
+        <node id="santaLeg2">
+            <transforms>
+                <translate value3="0 0.5 0.5" />
+            </transforms>
+
+            <children>
+                <noderef id="santaLeg" />
+            </children>
+        </node>
+
+
+
+        <node id="santa">
+            <transforms>
+                <translate value3="-1.5 4 0.45" />
+            </transforms>
+
+
+            <children>
+                <noderef id="santaLeg1" />
+                <noderef id="santaLeg2" />
+
+            </children>
+
+
+        </node>
+
+        <node id="fireplace">
+            <transforms>
+                <translate value3="15 0 0" />
+            </transforms>
+
+
+            <children>
+                <noderef id="fireplaceBack" />
+                <noderef id="woodPiece1" />
+                <noderef id="woodPiece2" />
+                <noderef id="santa" />
+
+            </children>
+
+        </node>
+
 
     </graph>
 </yaf> 
