@@ -51,7 +51,7 @@
         <texture id="present1Tex" filepath="scenes/scene/textures/present1.jpg" />
         <texture id="tableCloth" filepath="scenes/scene/textures/tableCloth.jpg" />
         <texture id="roofTex" filepath="scenes/scene/textures/roof.jpg" />
-        <texture id="bumpRoofTex" filepath="scenes/scene/textures/bumpRoof.png" />
+        <texture id="bumpRoofTex" filepath="scenes/scene/textures/bumpRoof.jpg" />
         <texture id="outsideWall" filepath="scenes/scene/textures/outsideWall.jpg" />
         <texture id="outsideWallBump" filepath="scenes/scene/textures/outsideWallBump.png" />
     </textures>
