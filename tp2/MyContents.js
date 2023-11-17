@@ -67,13 +67,12 @@ class MyContents  {
         for (var key in data.textures) {
             let myTexture = null;
             let texture = data.textures[key]
-            console.log(texture)
             if(texture.isVideo){
-                console.log(texture)
                 myTexture = new MyVideoTexture(texture);
             }
             else {
-                myTexture = new MyTexture(texture);
+                myTexture = new MyTexture();
+                myTexture.init(texture);
             }
             this.textures.set(texture.id, myTexture);
         }

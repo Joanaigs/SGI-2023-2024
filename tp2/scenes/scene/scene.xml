@@ -51,7 +51,7 @@
         <texture id="present1Tex" filepath="scenes/scene/textures/present1.jpg" />
         <texture id="tableCloth" filepath="scenes/scene/textures/tableCloth.jpg" />
         <texture id="roofTex" filepath="scenes/scene/textures/roof.jpg" />
-        <texture id="bumpRoofTex" filepath="scenes/scene/textures/bumpRoof.jpg" />
+        <texture id="bumpRoofTex" filepath="scenes/scene/textures/bumpRoof.png" />
         <texture id="outsideWall" filepath="scenes/scene/textures/outsideWall.jpg" />
         <texture id="outsideWallBump" filepath="scenes/scene/textures/outsideWallBump.png" />
     </textures>
@@ -209,7 +209,7 @@
                     position="0 14.5 7.5"
                 />
 
-                <pointlight id="sun1" enabled="true"
+                <pointlight id="sun" enabled="true"
                     color="1 1 1 0"
                     intensity="100"
                     distance="0"
@@ -219,16 +219,7 @@
                     shadowmapsize="1024"
                 />
 
-                <pointlight id="sun2" enabled="true"
-                color="1 1 1 0"
-                intensity="100"
-                distance="0"
-                decay="1"
-                castshadow="false"
-                position="100 90 -70"
-                shadowmapsize="1024"
-            />
-
+              
 
             </children>
         </node>

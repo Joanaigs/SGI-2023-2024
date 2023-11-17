@@ -30,7 +30,6 @@ class MyMaterial extends THREE.MeshPhongMaterial{
             texture.wrapS = THREE.RepeatWrapping;
             texture.wrapT = THREE.RepeatWrapping;
             this.map = texture
-            console.log(this.map)
         }
     }
 
@@ -48,7 +47,6 @@ class MyMaterial extends THREE.MeshPhongMaterial{
             cloneTex = this.map.cloning();
             cloneTex.needsUpdate=true
         }
-        console.log(this.bumpMap)
         if(this.bumpMap){
             cloneBump = this.bumpMap.cloning();
             cloneBump.needsUpdate=true;

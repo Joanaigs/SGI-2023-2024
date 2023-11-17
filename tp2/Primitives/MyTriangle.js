@@ -67,7 +67,6 @@ class MyTriangle extends THREE.BufferGeometry {
 					c * cos_ac, c * sin_ac
 				] */
 		let width = a/this.material.texlength_s;
-		console.log((c * sin_ac))
 		const uvs = [
 			0, 0,
 			width, 0,

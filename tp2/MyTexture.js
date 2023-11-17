@@ -6,15 +6,18 @@ import { MyApp } from './MyApp.js';
  */
 class MyTexture extends THREE.Texture {
 
-    constructor(textureData, clone=false) {
-        super(); // Call super constructor first
+    constructor(textureData) {
+        super(); 
+       
+    }
+
+    init(textureData) {
         this.textureData = textureData;
         if (this.textureData.magFilter) this.magFilter = this.getMagFilter(this.textureData.magFilter);
         if (this.textureData.minFilter) this.minFilter = this.getMinFilter(this.textureData.minFilter);
         this.generateMipmaps = this.textureData.mipmaps;
         if (this.textureData.anisotropy) this.anisotropy = this.textureData.anisotropy;
-        if(!clone)
-            this.updateTexture();
+        this.updateTexture();
     }
 
     updateTexture() {
@@ -22,27 +25,27 @@ class MyTexture extends THREE.Texture {
         loader.load(this.textureData.filepath, (texture) => {
             this.image = texture.image;
             this.needsUpdate = true;
-            this.createMipmaps();
+            this.createMipmaps(this.textureData);
         });
     }
 
 
-    createMipmaps() {
-        if (this.textureData.mipmap0)
-            this.loadMipmap(this, 0, this.textureData.mipmap0)
-        if (this.textureData.mipmap1)
-            this.loadMipmap(this, 1, this.textureData.mipmap1)
-        if (this.textureData.mipmap2)
-            this.loadMipmap(this, 2, this.textureData.mipmap2)
-        if (this.textureData.mipmap3)
-            this.loadMipmap(this, 3, this.textureData.mipmap3)
-        if (this.textureData.mipmap4)
-            this.loadMipmap(this, 4, this.textureData.mipmap4)
-        if (this.textureData.mipmap5)
-            this.loadMipmap(this, 5, this.textureData.mipmap5)
-        if (this.textureData.mipmap6)
-            this.loadMipmap(this, 6, this.textureData.mipmap6)
-        if (this.textureData.mipmap7)
+    createMipmaps(data) {
+        if (data.mipmap0)
+            this.loadMipmap(this, 0, data.mipmap0)
+        if (data.mipmap1)
+            this.loadMipmap(this, 1, data.mipmap1)
+        if (data.mipmap2)
+            this.loadMipmap(this, 2, data.mipmap2)
+        if (data.mipmap3)
+            this.loadMipmap(this, 3, data.mipmap3)
+        if (data.mipmap4)
+            this.loadMipmap(this, 4, data.mipmap4)
+        if (data.mipmap5)
+            this.loadMipmap(this, 5, data.mipmap5)
+        if (data.mipmap6)
+            this.loadMipmap(this, 6, data.mipmap6)
+        if (data.mipmap7)
             this.loadMipmap(this, 7, this.textureData.mipmap7)
     }
 
@@ -108,7 +111,9 @@ class MyTexture extends THREE.Texture {
     }
 
     cloning(){
-        const clonedTexture = new this.constructor(this.textureData);
+        const clonedTexture = this.clone()
+        clonedTexture.createMipmaps(this.textureData);
+
         return clonedTexture
     }
 }

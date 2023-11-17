@@ -8,7 +8,6 @@ class MyScene extends THREE.Scene{
         this.app = app;
     }
     updateGlobals(globalData, fog, skyboxes) {
-        console.log(globalData, fog, skyboxes);
         if(fog !== null){
             this.fog = new THREE.Fog(new THREE.Color(fog.color), fog.near, fog.far);
         }
@@ -19,7 +18,6 @@ class MyScene extends THREE.Scene{
         }
 
         if(skyboxes){
-            console.log(skyboxes.default);
             let skybox = new MySkybox(skyboxes.default)
             let skyboxObject = skybox.addSkybox();
             this.app.scene.add(skyboxObject);
