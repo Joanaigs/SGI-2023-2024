@@ -36,11 +36,13 @@
         <texture id="lightMetalTex" filepath="scenes/scene/textures/metal.jpg" />
         <texture id="curtainTex" filepath="scenes/scene/textures/curtain.jpg" />
         <texture id="oakTex" filepath="scenes/scene/textures/oak.jpg" />
-        <texture id="painting1Tex" filepath="scenes/scene/textures/women_2048.png"
-            mipmap0="scenes/scene/textures/women_2048.png"
-            mipmap1="scenes/scene/textures/women_1024.png"
-            mipmap2="scenes/scene/textures/women_512.png"
-            mipmap3="scenes/scene/textures/women_256.png"
+        <texture id="painting1Tex" filepath="scenes/scene/textures/woman_1002.png"
+            mipmap0="scenes/scene/textures/woman_1002.png"
+            mipmap1="scenes/scene/textures/woman_501.png"
+            mipmap2="scenes/scene/textures/woman_250.png"
+            mipmap3="scenes/scene/textures/woman_126.png"
+            mipmap4="scenes/scene/textures/woman_62.png"
+            mipmap5="scenes/scene/textures/woman_31.png"
             mipmaps="false"
         />
         <texture id="painting2Tex" filepath="scenes/scene/textures/garden_1002.png"
