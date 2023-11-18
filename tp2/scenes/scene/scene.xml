@@ -15,13 +15,16 @@
 
 
     <cameras initial="fireplace">
-        <perspective id="cam1" angle="1.047" near="0.1" far="5000" location="10 8 25" target="0 0.0 0" />
+        <perspective id="cam1" angle="1.047" near="0.1" far="5000" location="10 8 25"
+            target="0 0.0 0" />
         <perspective id="paintings" angle="1.047" near="0.1" far="5000" location="0 7 15"
             target="0 7 30" />
         <perspective id="fireplace" angle="1.047" near="0.1" far="5000" location="0 5 0"
             target="15 5 0" />
         <perspective id="candyCane" angle="1.047" near="0.1" far="5000" location="0 10 5"
             target="0 5 0" />
+        <perspective id="tree" angle="1.047" near="0.1" far="5000" location="2 5 -1"
+            target="5 5 -5" />
     </cameras>
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas
@@ -50,7 +53,7 @@
         <texture id="musicTex" filepath="scenes/scene/textures/music.mp4" isVideo="true" />
         <texture id="whiteWoodTex" filepath="scenes/scene/textures/whiteWood.jpg" />
         <texture id="vaseTex" filepath="scenes/scene/textures/flowersPattern.jpg" />
-        <texture id="pineTex" filepath="scenes/scene/textures/pine.png" />
+        <texture id="pineTex" filepath="scenes/scene/textures/pine.jpg" />
         <texture id="woodTrunk" filepath="scenes/scene/textures/trunk.jpg" />
         <texture id="woodTrunkBump" filepath="scenes/scene/textures/trunkBump.jpg" />
         <texture id="presentTex" filepath="scenes/scene/textures/present.jpg" />
@@ -142,8 +145,8 @@
             specular="0 0 0 0"
             shininess="0"
             textureref="pineTex"
-            texlength_s="8"
-            texlength_t="6"
+            texlength_s="4"
+            texlength_t="10"
         />
 
         <material id="woodTrunkApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
@@ -182,7 +185,7 @@
         <material id="outsideWallApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="0 0 0 1" shininess="0" textureref="outsideWall" texlength_s="15"
             texlength_t="15" bumpref="outsideWallBump" bumpscale="0.4" />
-        
+
         <material id="candycaneApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="1 1 1 1" shininess="30" textureref="candycaneTex" texlength_s="0.3"
             texlength_t="4" />
@@ -227,11 +230,11 @@
 
 
                 <spotlight id="light1" enabled="true" color="1 1 1 1" intensity="2.0"
-                    distance="0" decay="0.5" position="0 15.0 0" target="0 0 -3" angle="70"
+                    distance="0" decay="0.5" position="0 15.0 0" target="0 0 -3" angle="1.2217"
                     castshadow="true" shadowfar="25" shadowmapsize="4096" />
 
                 <spotlight id="light2" enabled="true" color="1 1 1 1" intensity="2.0"
-                    distance="0" decay="0.5" position="0 15 18" target="0 0 21" angle="70"
+                    distance="0" decay="0.5" position="0 15 18" target="0 0 21" angle="1.2217"
                     castshadow="true" shadowfar="25" shadowmapsize="4096" />
 
                 <pointlight id="light3" enabled="true"
@@ -1177,9 +1180,9 @@
             <children>
                 <noderef id="smallTable" />
                 <noderef id="vase" />
-                <noderef id="candycane1"/>
-                <noderef id="canycane2"/>
-                <noderef id="canycane3"/>
+                <noderef id="candycane1" />
+                <noderef id="canycane2" />
+                <noderef id="canycane3" />
             </children>
         </node>
 
@@ -2417,13 +2420,31 @@
                 <noderef id="present" />
                 <noderef id="present1" />
                 <noderef id="present2" />
-                <noderef id="treeDecoration1" />
-                <noderef id="treeDecoration2" />
-                <noderef id="treeDecoration3" />
-                <noderef id="treeDecoration4" />
-                <noderef id="treeDecoration5" />
-                <noderef id="treeDecoration6" />
+                <noderef id="lightsThread" />
+
             </children>
+        </node>
+
+        <node id="lightsThread">
+            <transforms>
+                <translate value3="-3 6 0" />
+            </transforms>
+
+            <materialref id="lightMetalApp" />
+
+            <children>
+                <primitive>
+                    <nurbs degree_u="1" degree_v="1" parts_u="20" parts_v="20">
+                        <controlpoint xx="0" yy="-1" zz="0" />
+                        <controlpoint xx="0" yy="0" zz="-0" />
+                        <controlpoint xx="1" yy="-1" zz="0" />
+                        <controlpoint xx="1" yy="0" zz="0" />
+
+
+                    </nurbs>
+                </primitive>
+            </children>
+
         </node>
 
         <node id="treeDecoration1">
@@ -2900,41 +2921,52 @@
 
         <node id="santaFeetBottom">
             <transforms>
-                <translate value3="-0.1 -0.675 0" />
+                <translate value3="0.1 -0.1125 0" />
             </transforms>
 
             <children>
                 <primitive>
-                    <box xyz1="-0.1 -0.05 -0.1" xyz2="0.1 0.05 0.1" />
+                    <box xyz1="-0.05 -0.025 -0.1" xyz2="0.05 0.025 0.1" />
                 </primitive>
             </children>
         </node>
 
 
         <node id="santaFeetMiddle">
-            <transforms>
-                <translate value3="-0.2 -0.4 0" />
-                <rotate value3="0 0 1.5708" />
-            </transforms>
+
 
             <children>
                 <primitive>
-                    <cylinder base="0.25" top="0.25" height="0.4" slices="32" stacks="32"
-                        capsclose="true" />
+                    <box xyz1="-0.15 -0.1 -0.1" xyz2="0.15 0.1 0.1" />
                 </primitive>
             </children>
         </node>
 
         <node id="santaFeetPoint">
             <transforms>
-                <translate value3="-0.4 -0.4 0" />
-                <rotate value3="0 -1.5708 0" />
+                <translate value3="-0.2 0 0" />
+                <rotate value3="0 0 1.5708" />
+                <rotate value3="0 0.7854 0" />
             </transforms>
 
             <children>
                 <primitive>
-                    <sphere radius="0.25" slices="32" stacks="32" philength="3.1415"  />
+                    <cylinder base="0.14" top="0.05" height="0.1" slices="4" stacks="32"
+                    capsclose="true" />
                 </primitive>
+            </children>
+        </node>
+
+        <node id="santaFeet">
+            <transforms>
+                <translate value3="-0.25 -0.275 0" />
+                <scale value3="1.7 1.3 1.3" />
+            </transforms>
+
+            <children>
+                <noderef id="santaFeetMiddle" />
+                <noderef id="santaFeetPoint" />
+                <noderef id="santaFeetBottom" />
             </children>
         </node>
 
@@ -2944,12 +2976,9 @@
             </transforms>
 
             <children>
-                
-                <noderef id="santaFeetMiddle" />
-                <noderef id="santaFeetPoint" />
-                <noderef id="santaFeetBottom" />
-                <noderef  id="santaMember" />
-                <noderef  id="santaMemberBrim" />
+                <noderef id="santaFeet" />
+                <noderef id="santaMember" />
+                <noderef id="santaMemberBrim" />
             </children>
         </node>
 
@@ -2969,7 +2998,7 @@
 
         <node id="santaMemberBrim">
             <transforms>
-                <translate value3="-0.2 -0.05 0.05" />
+                <translate value3="-0.15 -0.06 0.05" />
             </transforms>
 
             <materialref id="whiteApp" />
@@ -3007,7 +3036,6 @@
         </node>
 
 
-
         <node id="santa">
             <transforms>
                 <translate value3="-1.5 4 0.45" />
@@ -3022,7 +3050,6 @@
 
 
         </node>
-
 
 
         <node id="sockBase">
@@ -3095,8 +3122,8 @@
             <materialref id="sock1App" />
 
             <children>
-               <noderef id="sockBase" />
-               <noderef id="sockbrim" />
+                <noderef id="sockBase" />
+                <noderef id="sockbrim" />
             </children>
         </node>
 
@@ -3110,8 +3137,8 @@
             <materialref id="sock1App" />
 
             <children>
-               <noderef id="sockBase" />
-               <noderef id="sockbrim" />
+                <noderef id="sockBase" />
+                <noderef id="sockbrim" />
             </children>
         </node>
 
@@ -3125,8 +3152,8 @@
             <materialref id="sock1App" />
 
             <children>
-               <noderef id="sockBase" />
-               <noderef id="sockbrim" />
+                <noderef id="sockBase" />
+                <noderef id="sockbrim" />
             </children>
         </node>
 
@@ -3175,18 +3202,12 @@
             </children>
         </node>
 
-        <node id="shelf">
-0
-
-            <children>
+        <node id="shelf"> 0 <children>
                 <noderef id="shelfFront" />
                 <noderef id="shelfLeft" />
                 <noderef id="shelfRight" />
             </children>
         </node>
-
-
-
 
 
     </graph>

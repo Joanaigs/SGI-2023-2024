@@ -18,9 +18,30 @@ class MyBox{
     }
 
     addMaterial(material, castshadow, receiveshadows){
-        let size = this.width>this.depth? this.width : this.depth
-        material.setRepeat(size, this.height)
-        let object = new THREE.Mesh(this.box, material);
+        let materialLeft = material.clone();
+        let materialRight = material.clone();
+        let materialTop = material.clone();
+        let materialBottom = material.clone();
+        let materialFront = material.clone();
+        let materialBack = material.clone();
+
+        materialLeft.setRepeat(this.depth, this.height);
+        materialRight.setRepeat(this.depth, this.height);
+        materialTop.setRepeat(this.width, this.depth);
+        materialBottom.setRepeat(this.width, this.depth);
+        materialFront.setRepeat(this.width, this.height);
+        materialBack.setRepeat(this.width, this.height);
+
+        const boxMaterials = [
+            materialLeft,
+            materialRight,
+            materialTop,
+            materialBottom,
+            materialFront,
+            materialBack
+        ];
+        console.log(boxMaterials)
+        let object = new THREE.Mesh(this.box, boxMaterials);
         object.position.set(this.xyz1[0] + this.width/2, this.xyz1[1] + this.height/2, this.xyz1[2] + this.depth/2);
         if(castshadow){
             object.castShadow = true;

@@ -136,7 +136,7 @@ class MyContents  {
 
         }
         else if(value == "green"){
-            sock1Mesh.material = this.materials.get("sock2App");
+            sock1Mesh.material = this.materials.get("sock2App")
             sock2Mesh.material = this.materials.get("sock2App");
             sock3Mesh.material = this.materials.get("sock2App");
         }

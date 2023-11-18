@@ -169,7 +169,7 @@ class MyNodeParser {
   //           break;
   //         case "R":
   //           // Accumulate rotation
-  //           const rotationEuler = new THREE.Euler(trans.rotation[0] * Math.PI / 180, trans.rotation[1] * Math.PI / 180, trans.rotation[2] * Math.PI / 180);
+  //           const rotationEuler = new THREE.Euler(trans.rotation[0], trans.rotation[1] , trans.rotation[2] );
   //           rotationMatrix.multiply(new THREE.Matrix4().makeRotationFromEuler(rotationEuler));
   //           break;
   //         case "S":

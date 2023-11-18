@@ -6,7 +6,7 @@ import { MyApp } from './MyApp.js';
  */
 class MyTexture extends THREE.Texture {
 
-    constructor(textureData) {
+    constructor() {
         super(); 
        
     }
@@ -113,6 +113,7 @@ class MyTexture extends THREE.Texture {
     cloning(){
         const clonedTexture = this.clone()
         clonedTexture.createMipmaps(this.textureData);
+        clonedTexture.textureData = this.textureData;
 
         return clonedTexture
     }
