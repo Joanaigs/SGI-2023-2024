@@ -29,10 +29,16 @@ class MyContents  {
         this.lightTreeEnabled = "on";
         this.lightTreeOn = true;
         this.lightsHelper = new Map();
+        this.treeDecoration = "#ff0000";
+        this.treeDecorationRandom = false;
+        this.cookieList = ['cookie1', 'cookie2', 'cookie3', 'cookie4']
+        this.numcookies = 4;
         this.lightEnabled = {};
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
 		this.reader.open("scenes/scene/scene.xml");	
         this.sockTexture = "red";
+        this.milkHeight=0.4;
+        this.milkOriginalHeight = 0.4;
         this.wireframe = false;
         this.santaPos = 0;
         this.santaOriginalY = 4;
@@ -157,6 +163,70 @@ class MyContents  {
                     console.log(key)
                     light.visible = true;
                 }
+            }
+        }
+    }
+
+    updateMilk(value){
+        let milk = this.nodeObjects.get("milk").children[0];
+        let proportion = value / this.milkOriginalHeight;
+
+        // Calculate the change in height
+        let deltaY = (this.milkOriginalHeight - value) / 2;
+    
+        // Scale the milk
+        milk.scale.y = proportion;
+    
+        // Update the y position to keep the bottom in the same place
+        milk.position.y = -0.2+value/2;
+    
+
+        console.log(proportion, milk.position.y)
+    }
+
+    getRandomColor(){
+    var christmasColors = [
+        '#ff0000', // Red
+        '#800000', // Maroon
+        '#ff4500', // Orange Red
+        '#b22222', // Fire Brick
+        '#2f4f4f', // Dark Slate Gray
+        '#8b4513', // Saddle Brown
+        '#4682b4', // Steel Blue
+        '#d2691e', // Chocolate
+        '#20b2aa', // Light Sea Green
+        '#800080', // Purple
+        '#6b8e23', // Olive Drab
+        '#ff69b4'  // Hot Pink
+    ];
+
+    var randomIndex = Math.floor(Math.random() * christmasColors.length);
+    return christmasColors[randomIndex];
+    }
+
+    updateCookies(value){
+        this.numcookies = value;
+        for(let i = 0; i < 4; i++){
+            if(i < value){
+                let cookies = this.nodeObjects.get(this.cookieList[i]);
+                cookies.children[0].visible = true;
+            }
+            else{
+                let cookies = this.nodeObjects.get(this.cookieList[i]);
+                cookies.children[0].visible = false;
+            }
+        }
+    }
+
+    updateTreeDecoration(value){
+        this.treeDecoration = value;
+        let tree = this.nodeObjects.get("christmasTree");
+        let decorations = tree.children[6];
+        for(let decoration of decorations.children){
+            if(!this.treeDecorationRandom)
+                decoration.children[0].material.color.set(value);
+            else{
+                decoration.children[0].material.color.set(this.getRandomColor());
             }
         }
     }

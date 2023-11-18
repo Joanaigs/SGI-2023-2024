@@ -46,7 +46,7 @@ class MyTexture extends THREE.Texture {
         if (data.mipmap6)
             this.loadMipmap(this, 6, data.mipmap6)
         if (data.mipmap7)
-            this.loadMipmap(this, 7, this.textureData.mipmap7)
+            this.loadMipmap(this, 7, data.mipmap7)
     }
 
     loadMipmap(parentTexture, level, path) {
