@@ -30,6 +30,7 @@ class MyContents  {
         this.lightEnabled = {};
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
 		this.reader.open("scenes/scene/scene.xml");	
+        this.sockTexture = "red";
         this.wireframe = false;
         this.santaPos = 0;
         this.santaOriginalY = 4;
@@ -116,6 +117,29 @@ class MyContents  {
     updateSantaPosition(value){
         let santa = this.nodeObjects.get("santa");
         santa.position.y = this.santaOriginalY + value;
+    }
+
+    updateSockTexture(value){
+        console.log(this.materials)
+        this.sockTexture = value;
+        let sock1 = this.nodeObjects.get("sock1");
+        let sock1Mesh= sock1.children[0].children[0]
+        let sock2 = this.nodeObjects.get("sock2");
+        let sock2Mesh= sock2.children[0].children[0]
+        let sock3 = this.nodeObjects.get("sock3");
+        let sock3Mesh= sock3.children[0].children[0]
+        console.log(sock1Mesh)
+        if(value == "red"){
+            sock1Mesh.material = this.materials.get("sock1App");
+            sock2Mesh.material = this.materials.get("sock1App");
+            sock3Mesh.material = this.materials.get("sock1App");
+
+        }
+        else if(value == "green"){
+            sock1Mesh.material = this.materials.get("sock2App");
+            sock2Mesh.material = this.materials.get("sock2App");
+            sock3Mesh.material = this.materials.get("sock2App");
+        }
     }
 
     update() {

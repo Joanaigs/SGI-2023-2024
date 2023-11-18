@@ -36,6 +36,10 @@ class MyGuiInterface {
     const santaFolder = this.datgui.addFolder("Santa");
     santaFolder.add(this.contents, 'santaPos', 0, 3).name("Santa Going up the chimine").onChange((value) => { this.contents.updateSantaPosition(value) });
 
+    const sockFolder = this.datgui.addFolder("Sock");
+    const sockOptions = ['green', 'red'];
+    sockFolder.add(this.contents, 'sockTexture', sockOptions).name("Change socks").onChange((value) => { this.contents.updateSockTexture(value) });
+
 
     const lightFolder = this.datgui.addFolder('Lights');
     for( let key of this.contents.lights.keys()){

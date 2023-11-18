@@ -52,6 +52,7 @@
         <texture id="vaseTex" filepath="scenes/scene/textures/flowersPattern.jpg" />
         <texture id="pineTex" filepath="scenes/scene/textures/pine.png" />
         <texture id="woodTrunk" filepath="scenes/scene/textures/trunk.jpg" />
+        <texture id="woodTrunkBump" filepath="scenes/scene/textures/trunkBump.jpg" />
         <texture id="presentTex" filepath="scenes/scene/textures/present.jpg" />
         <texture id="present1Tex" filepath="scenes/scene/textures/present1.jpg" />
         <texture id="tableCloth" filepath="scenes/scene/textures/tableCloth.jpg" />
@@ -60,6 +61,8 @@
         <texture id="outsideWall" filepath="scenes/scene/textures/outsideWall.jpg" />
         <texture id="outsideWallBump" filepath="scenes/scene/textures/outsideWallBump.png" />
         <texture id="candycaneTex" filepath="scenes/scene/textures/candycane.png" />
+        <texture id="sock1Tex" filepath="scenes/scene/textures/sock1.jpg" />
+        <texture id="sock2Tex" filepath="scenes/scene/textures/sock2.jpg" />
     </textures>
 
     <materials>
@@ -144,7 +147,8 @@
         />
 
         <material id="woodTrunkApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
-            specular="0 0 0 1" shininess="0" textureref="woodTrunk" />
+            specular="0 0 0 1" shininess="0" textureref="woodTrunk" texlength_s="4" texlength_t="5"
+            bumpref="woodTrunkBump" bumpscale="0.5" />
 
         <material id="presentApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="0 0 0 1" shininess="0" textureref="presentTex" />
@@ -182,6 +186,12 @@
         <material id="candycaneApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="1 1 1 1" shininess="30" textureref="candycaneTex" texlength_s="0.3"
             texlength_t="4" />
+
+        <material id="sock1App" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="0 0 0 1"
+            shininess="0" textureref="sock1Tex" texlength_s="1" texlength_t="5" twosided="true" />
+
+        <material id="sock2App" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="0 0 0 1"
+            shininess="0" textureref="sock2Tex" texlength_s="3" texlength_t="5" twosided="true" />
 
 
     </materials>
@@ -227,7 +237,7 @@
                 <pointlight id="light3" enabled="true"
                     color="1 1 1 0"
                     intensity="70"
-                    distance="0"
+                    distance="30"
                     decay="2.0"
                     castshadow="false"
                     position="0 14.5 7.5"
@@ -1108,7 +1118,7 @@
                         <controlpoint xx="0.3" yy="-0.3" zz="-0.13" />
                         <controlpoint xx="0.3" yy="-0.3" zz="0" />
 
-                        <controlpoint xx="0.1.047" yy="-0.5" zz="0" />
+                        <controlpoint xx="0.45" yy="-0.5" zz="0" />
                         <controlpoint xx="0.45" yy="-0.5" zz="-0.167" />
                         <controlpoint xx="0.3" yy="-0.5" zz="-0.167" />
                         <controlpoint xx="0.3" yy="-0.5" zz="0" />
@@ -2397,7 +2407,7 @@
 
         <node id="christmasTree">
             <transforms>
-                <translate value3="12 0 -12" />
+                <translate value3="11 0 -10" />
             </transforms>
 
             <materialref id="christmasTreeApp" />
@@ -2841,7 +2851,7 @@
                 <rotate value3="0 0 0.7854" />
             </transforms>
 
-            <materialref id="lightWoodApp" />
+            <materialref id="woodTrunkApp" />
 
             <children>
                 <primitive>
@@ -2858,7 +2868,7 @@
                 <rotate value3="0 0 -0.7854" />
             </transforms>
 
-            <materialref id="lightWoodApp" />
+            <materialref id="woodTrunkApp" />
 
             <children>
                 <primitive>
@@ -2866,6 +2876,26 @@
                         capsclose="true" />
                 </primitive>
             </children>
+        </node>
+
+        <node id="fireplace">
+            <transforms>
+                <translate value3="14.99 0 0" />
+            </transforms>
+
+
+            <children>
+                <noderef id="fireplaceBack" />
+                <noderef id="woodPiece1" />
+                <noderef id="woodPiece2" />
+                <noderef id="santa" />
+                <noderef id="sock1" />
+                <noderef id="sock2" />
+                <noderef id="sock3" />
+                <noderef id="shelf" />
+
+            </children>
+
         </node>
 
         <node id="santaFeetBottom">
@@ -2993,63 +3023,169 @@
 
         </node>
 
-        <node id="fireplace">
-            <transforms>
-                <translate value3="14.99 0 0" />
-            </transforms>
 
 
-            <children>
-                <noderef id="fireplaceBack" />
-                <noderef id="woodPiece1" />
-                <noderef id="woodPiece2" />
-                <noderef id="santa" />
-
-            </children>
-
-        </node>
-
-        <node id="sock">
-
-            <materialref id="candycaneApp" />
-
+        <node id="sockBase">
             <children>
                 <primitive>
-                    <nurbs degree_u="5" degree_v="3" parts_u="20" parts_v="20">
-                        <controlpoint xx="-0.1" yy="-1" zz="0" />
-                        <controlpoint xx="-0.1" yy="-1" zz="-0.13" />
-                        <controlpoint xx="0.1" yy="-1" zz="-0.13" />
-                        <controlpoint xx="0.1" yy="-1" zz="0" />
+                    <nurbs degree_u="5" degree_v="2" parts_u="20" parts_v="20">
+                        <controlpoint xx="0" yy="-1" zz="0" />
+                        <controlpoint xx="0" yy="0" zz="-1.33" />
+                        <controlpoint xx="0" yy="1" zz="0" />
 
-                        <controlpoint xx="-0.1" yy="0" zz="0" />
-                        <controlpoint xx="-0.1" yy="0" zz="-0.13" />
-                        <controlpoint xx="0.1" yy="0" zz="-0.13" />
-                        <controlpoint xx="0.1" yy="0" zz="0" />
+                        <controlpoint xx="0" yy="-1" zz="-0" />
+                        <controlpoint xx="-1.33" yy="0" zz="-0" />
+                        <controlpoint xx="0" yy="1" zz="-0" />
 
-                        <controlpoint xx="0" yy="0.15" zz="0" />
-                        <controlpoint xx="0" yy="0.15" zz="-0.2" />
-                        <controlpoint xx="0" yy="-0.15" zz="-0.2" />
-                        <controlpoint xx="0" yy="-0.15" zz="0" />
+                        <controlpoint xx="0" yy="-1" zz="1.5" />
+                        <controlpoint xx="-1.33" yy="0" zz="1.5" />
+                        <controlpoint xx="0" yy="1" zz="1.5" />
 
-                        <controlpoint xx="0.4" yy="0.15" zz="0" />
-                        <controlpoint xx="0.4" yy="0.15" zz="-0.2" />
-                        <controlpoint xx="0.4" yy="-0.15" zz="-0.2" />
-                        <controlpoint xx="0.4" yy="-0.15" zz="0" />
+                        <controlpoint xx="0" yy="-1" zz="3" />
+                        <controlpoint xx="-1.33" yy="0" zz="2" />
+                        <controlpoint xx="0" yy="1" zz="1" />
 
-                        <controlpoint xx="0.5" yy="-0.3" zz="0" />
-                        <controlpoint xx="0.5" yy="-0.3" zz="-0.13" />
-                        <controlpoint xx="0.3" yy="-0.3" zz="-0.13" />
-                        <controlpoint xx="0.3" yy="-0.3" zz="0" />
+                        <controlpoint xx="0" yy="1" zz="3" />
+                        <controlpoint xx="-1.33" yy="1" zz="2" />
+                        <controlpoint xx="0" yy="1" zz="1" />
 
-                        <controlpoint xx="0.45" yy="-0.5" zz="0" />
-                        <controlpoint xx="0.45" yy="-0.5" zz="-0.167" />
-                        <controlpoint xx="0.3" yy="-0.5" zz="-0.167" />
-                        <controlpoint xx="0.3" yy="-0.5" zz="0" />
+                        <controlpoint xx="0" yy="3" zz="3" />
+                        <controlpoint xx="-1.33" yy="3" zz="2" />
+                        <controlpoint xx="0" yy="3" zz="1" />
+
+
                     </nurbs>
                 </primitive>
             </children>
 
         </node>
+
+        <node id="sockbrim">
+            <transforms>
+                <translate value3="-0.01 0 0.5" />
+            </transforms>
+
+            <materialref id="whiteApp" />
+
+            <children>
+                <primitive>
+                    <nurbs degree_u="1" degree_v="2" parts_u="20" parts_v="20">
+                        <controlpoint xx="0" yy="2" zz="2.5" />
+                        <controlpoint xx="-1.33" yy="2" zz="1.5" />
+                        <controlpoint xx="0" yy="2" zz="0.5" />
+
+                        <controlpoint xx="0" yy="3" zz="2.5" />
+                        <controlpoint xx="-1.33" yy="3" zz="1.5" />
+                        <controlpoint xx="0" yy="3" zz="0.5" />
+
+
+                    </nurbs>
+                </primitive>
+            </children>
+
+        </node>
+
+        <node id="sock1">
+            <transforms>
+                <translate value3="-3 6.2 -3" />
+                <rotate value3="-0.2 0 0" />
+                <scale value3="0.4 0.4 0.4" />
+            </transforms>
+
+            <materialref id="sock1App" />
+
+            <children>
+               <noderef id="sockBase" />
+               <noderef id="sockbrim" />
+            </children>
+        </node>
+
+        <node id="sock2">
+            <transforms>
+                <translate value3="-3 6.2 -0.5" />
+                <rotate value3="-0.2 0 0" />
+                <scale value3="0.4 0.4 0.4" />
+            </transforms>
+
+            <materialref id="sock1App" />
+
+            <children>
+               <noderef id="sockBase" />
+               <noderef id="sockbrim" />
+            </children>
+        </node>
+
+        <node id="sock3">
+            <transforms>
+                <translate value3="-3 6.2 2" />
+                <rotate value3="-0.2 0 0" />
+                <scale value3="0.4 0.4 0.4" />
+            </transforms>
+
+            <materialref id="sock1App" />
+
+            <children>
+               <noderef id="sockBase" />
+               <noderef id="sockbrim" />
+            </children>
+        </node>
+
+        <node id="shelfFront">
+            <transforms>
+                <translate value3="-3.3 8 0" />
+                <rotate value3="0 1.5708 0" />
+            </transforms>
+
+            <materialref id="oakApp" />
+
+            <children>
+                <primitive>
+                    <box xyz1="-5 -0.2 -0.3" xyz2="5 0.2 0.3" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="shelfLeft">
+            <transforms>
+                <translate value3="-1.8 8 -5.3" />
+                <rotate value3="0 1.5708 0" />
+            </transforms>
+
+            <materialref id="oakApp" />
+
+            <children>
+                <primitive>
+                    <box xyz1="-0.3 -0.2 -1.8" xyz2="0.3 0.2 1.8" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="shelfRight">
+            <transforms>
+                <translate value3="-1.8 8 5.3" />
+                <rotate value3="0 1.5708 0" />
+            </transforms>
+
+            <materialref id="oakApp" />
+
+            <children>
+                <primitive>
+                    <box xyz1="-0.3 -0.2 -1.8" xyz2="0.3 0.2 1.8" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="shelf">
+0
+
+            <children>
+                <noderef id="shelfFront" />
+                <noderef id="shelfLeft" />
+                <noderef id="shelfRight" />
+            </children>
+        </node>
+
+
 
 
 
