@@ -47,6 +47,9 @@
             mipmap0="scenes/scene/textures/garden_1002.png"
             mipmap1="scenes/scene/textures/garden_501.png"
             mipmap2="scenes/scene/textures/garden_250.png"
+            mipmap3="scenes/scene/textures/garden_126.png"
+            mipmap4="scenes/scene/textures/garden_62.png"
+            mipmap5="scenes/scene/textures/garden_31.png"
             mipmaps="false"
         />
         <texture id="lightWoodTex" filepath="scenes/scene/textures/lightWood.jpg" />
