@@ -42,8 +42,15 @@ class MyGuiInterface {
 
 
     const lightFolder = this.datgui.addFolder('Lights');
+    const lightOptions = ['on', 'off', 'blinking'];
+    lightFolder.add(this.contents, "lightTreeEnabled", lightOptions).onChange((key) => { this.contents.updateTreeLights(key)});
     for( let key of this.contents.lights.keys()){
-      lightFolder.add(this.contents.lightEnabled, key).onChange(() => { this.contents.updateLights(key)});
+      if(key.includes("lightTree")){
+        continue;
+      }
+      else{
+        lightFolder.add(this.contents.lightEnabled, key).onChange(() => { this.contents.updateLights(key)});
+      }
 
     }
     lightFolder.open();

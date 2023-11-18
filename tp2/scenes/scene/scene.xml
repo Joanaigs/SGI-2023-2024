@@ -14,7 +14,7 @@
         front="scenes/scene/textures/snow_ft.jpg" back="scenes/scene/textures/snow_bk.jpg" />
 
 
-    <cameras initial="fireplace">
+    <cameras initial="tree">
         <perspective id="cam1" angle="1.047" near="0.1" far="5000" location="10 8 25"
             target="0 0.0 0" />
         <perspective id="paintings" angle="1.047" near="0.1" far="5000" location="0 7 15"
@@ -24,7 +24,7 @@
         <perspective id="candyCane" angle="1.047" near="0.1" far="5000" location="0 10 5"
             target="0 5 0" />
         <perspective id="tree" angle="1.047" near="0.1" far="5000" location="2 5 -1"
-            target="5 5 -5" />
+            target="10 5 -10" />
     </cameras>
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas
@@ -172,11 +172,14 @@
         <material id="flameApp" emissive="1 0.27 0 1" color="1 0.27 0 1.0"
             specular="0 0 0 1" shininess="0" />
 
-        <material id="redApp" emissive="0.3 0.0 0.0 1" color="1 0 0 1.0"
+        <material id="redApp" emissive="0 0.0 0.0 1" color="1 0 0 1.0"
+            specular="0 0 0 1" shininess="0" />
+
+        <material id="yellowApp" emissive="0 0 0.0 1" color="1 1 0 1.0"
             specular="0 0 0 1" shininess="0" />
 
         <material id="redSantaApp" emissive="0 0.0 0.0 1" color="1 0 0 1.0"
-            specular="0 0 0 1" shininess="0" />
+            specular="1 0 0 1" shininess="30" />
 
         <material id="roofAp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="0 0 0 1" shininess="0" textureref="roofTex" texlength_s="10"
@@ -2420,32 +2423,165 @@
                 <noderef id="present" />
                 <noderef id="present1" />
                 <noderef id="present2" />
-                <noderef id="lightsThread" />
+                <noderef id="lights" />
+                <noderef id="treeDecoration1" />
+                <noderef id="treeDecoration2" />
+                <noderef id="treeDecoration3" />
+                <noderef id="treeDecoration4" />
+                <noderef id="treeDecoration5" />
+                <noderef id="treeDecoration6" />
+                <noderef id="treeDecoration7" />
+                <noderef id="treeDecoration8" />
+                <noderef id="treeDecoration9" />
+                <noderef id="treeDecoration10" />
+                <noderef id="treeDecoration11" />
+                <noderef id="treeDecoration12" />
+                <noderef id="starObj" />
 
             </children>
         </node>
 
-        <node id="lightsThread">
-            <transforms>
-                <translate value3="-3 6 0" />
-            </transforms>
+        <node id="starObj">
+			<transforms>
+				<translate value3="0 11 0" />
+                <rotate value3="0 0.7854 0" />
+            </transforms> 
+			<materialref id="yellowApp" />
+            <children>             
+                <noderef id="base"/>
+                <noderef id="star"/>
+                <pointlight id="lightStar" enabled="true" color="1 1 1 1" intensity="70" distance="5" position="-2.26 4 0"/>
+            </children> 
+        </node>        
 
-            <materialref id="lightMetalApp" />
+        <node id="base">
+			<transforms>
+				<translate value3="0 0.4 0" />
+            </transforms> 
+            <children>             
+                <primitive>
+                    <cylinder base="0.2" top="0" height="1" slices="32" stacks="32" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="star">
+			<transforms>
+				<translate value3="0 0.8 0" />
+            </transforms> 
+            <children>             
+                <noderef id="star1"/>
+                <noderef id="star2"/>
+                <noderef id="star3"/>
+                <noderef id="star4"/>
+                <noderef id="star5"/>
+            </children> 
+        </node>
+
+        <node id="star1">
+			<transforms>
+				<rotate value3="0.6283 0 0" />
+            </transforms> 
+			<materialref id="starApp" />
+            <children>             
+                <primitive>
+                    <cylinder base="0.1" top="0" height="1" slices="32" stacks="32" capsclose="true" />
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="star2">
+			<transforms>
+				<rotate value3="1.8849 0 0" />
+            </transforms> 
+			<materialref id="starApp" />
+            <children>             
+                <primitive>
+                    <cylinder base="0.1" top="0" height="1" slices="32" stacks="32" capsclose="true"/>
+                </primitive>
+            </children> 
+        </node>
+        
+        <node id="star3">
+			<transforms>
+				<rotate value3="3.1415 0 0" />
+            </transforms> 
+			<materialref id="starApp" />
+            <children>             
+                <primitive>
+                    <cylinder base="0.1" top="0" height="1" slices="32" stacks="32" capsclose="true"/>
+                </primitive>
+            </children> 
+        </node>
+        
+        <node id="star4">
+			<transforms>
+				<rotate value3="-1.8849 0 0" />
+            </transforms> 
+			<materialref id="starApp" />
+            <children>             
+                <primitive>
+                    <cylinder base="0.1" top="0" height="1" slices="32" stacks="32" capsclose="true"/>
+                </primitive>
+            </children> 
+        </node>
+        
+        <node id="star5">
+			<transforms>
+				<rotate value3="-0.6283 0 0" />
+            </transforms> 
+			<materialref id="starApp" />
+            <children>             
+                <primitive>
+                    <cylinder base="0.1" top="0" height="1" slices="32" stacks="32"  capsclose="true"/>
+                </primitive>
+            </children> 
+        </node>
+
+        <node id="lights">
 
             <children>
-                <primitive>
-                    <nurbs degree_u="1" degree_v="1" parts_u="20" parts_v="20">
-                        <controlpoint xx="0" yy="-1" zz="0" />
-                        <controlpoint xx="0" yy="0" zz="-0" />
-                        <controlpoint xx="1" yy="-1" zz="0" />
-                        <controlpoint xx="1" yy="0" zz="0" />
+                
+                <pointlight id="lightTree1" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="-2.26 4 0"/>
+                <pointlight id="lightTree2" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="2.26 4 0"/>
+                <pointlight id="lightTree3" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="0 4 2.26"/>
+                <pointlight id="lightTree4" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="0 4 -2.26"/>
+                <pointlight id="lightTree5" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="-1.88 3.3 -1.88"/>
+                <pointlight id="lightTree6" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="1.88 3.3 -1.88"/>
+                <pointlight id="lightTree7" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="-1.88 3.3 1.88"/>
+                <pointlight id="lightTree8" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="1.88 3.3 1.88"/>
+                <pointlight id="lightTree9" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="-1.36 4.7 -1.36"/>
+                <pointlight id="lightTree10" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="1.36 4.7 -1.36"/>
+                <pointlight id="lightTree11" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="-1.36 4.7 1.36"/>
+                <pointlight id="lightTree12" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="1.36 4.7 1.36"/>
+
+                <pointlight id="lightTree13" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="-1.55 7 0"/>
+                <pointlight id="lightTree14" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="1.55 7 0"/>
+                <pointlight id="lightTree15" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="0 7 1.55"/>
+                <pointlight id="lightTree16" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="0 7 -1.55"/>
+                <pointlight id="lightTree17" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="-1.365 6.3 -1.365"/>
+                <pointlight id="lightTree18" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="1.365 6.3 -1.365"/>
+                <pointlight id="lightTree19" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="-1.365 6.3 1.365"/>
+                <pointlight id="lightTree20" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="1.365 6.3 1.365"/>
+                <pointlight id="lightTree21" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="-0.85 7.7 -0.85"/>
+                <pointlight id="lightTree22" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="0.85 7.7 -0.85"/>
+                <pointlight id="lightTree23" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="-0.85 7.7 0.85"/>
+                <pointlight id="lightTree24" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="0.85 7.7 0.85"/>
+
+                <pointlight id="lightTree25" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="-0.7 10 0"/>
+                <pointlight id="lightTree26" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="0.7 10 0"/>
+                <pointlight id="lightTree27" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="0 10 0.7"/>
+                <pointlight id="lightTree28" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="0 10 -0.7"/>
+                <pointlight id="lightTree29" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="-0.75 9.3 -0.75"/>
+                <pointlight id="lightTree30" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="0.75 9.3 -0.75"/>
+                <pointlight id="lightTree31" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="-0.75 9.3 0.75"/>
+                <pointlight id="lightTree32" enabled="true" color="1 1 1 1" intensity="70" distance="0.1" position="0.75 9.3 0.75"/>
 
 
-                    </nurbs>
-                </primitive>
             </children>
 
         </node>
+
 
         <node id="treeDecoration1">
             <transforms>
@@ -2456,21 +2592,49 @@
 
             <children>
                 <primitive>
-                    <sphere radius="0.3" slices="32" stacks="32" />
+                    <sphere radius="0.2" slices="32" stacks="32" />
                 </primitive>
             </children>
         </node>
 
-        <node id="treeDecoration2">
+        <node id="treeDecoration12">
             <transforms>
-                <translate value3="0 3.5 3" />
+                <translate value3="2 4 -1" />
             </transforms>
 
             <materialref id="redApp" />
 
             <children>
                 <primitive>
-                    <sphere radius="0.3" slices="32" stacks="32" />
+                    <sphere radius="0.2" slices="32" stacks="32" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="treeDecoration2">
+            <transforms>
+                <translate value3="0 3.5 2.5" />
+            </transforms>
+
+            <materialref id="redApp" />
+
+            <children>
+                <primitive>
+                    <sphere radius="0.2" slices="32" stacks="32" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="treeDecoration11">
+            <transforms>
+                <translate value3="0 3.5 -2.5" />
+            </transforms>
+
+            <materialref id="redApp" />
+
+            <children>
+                <primitive>
+                    <sphere radius="0.2" slices="32" stacks="32" />
                 </primitive>
             </children>
         </node>
@@ -2484,7 +2648,21 @@
 
             <children>
                 <primitive>
-                    <sphere radius="0.3" slices="32" stacks="32" />
+                    <sphere radius="0.2" slices="32" stacks="32" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="treeDecoration10">
+            <transforms>
+                <translate value3="1 6.5 -1.3" />
+            </transforms>
+
+            <materialref id="redApp" />
+
+            <children>
+                <primitive>
+                    <sphere radius="0.2" slices="32" stacks="32" />
                 </primitive>
             </children>
         </node>
@@ -2498,7 +2676,21 @@
 
             <children>
                 <primitive>
-                    <sphere radius="0.3" slices="32" stacks="32" />
+                    <sphere radius="0.2" slices="32" stacks="32" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="treeDecoration9">
+            <transforms>
+                <translate value3="-1 7.5 -0.8" />
+            </transforms>
+
+            <materialref id="redApp" />
+
+            <children>
+                <primitive>
+                    <sphere radius="0.2" slices="32" stacks="32" />
                 </primitive>
             </children>
         </node>
@@ -2512,7 +2704,22 @@
 
             <children>
                 <primitive>
-                    <sphere radius="0.3" slices="32" stacks="32" />
+                    <sphere radius="0.2" slices="32" stacks="32" />
+                </primitive>
+            </children>
+        </node>
+
+        
+        <node id="treeDecoration8">
+            <transforms>
+                <translate value3="0.3 9.5 -0.7" />
+            </transforms>
+
+            <materialref id="redApp" />
+
+            <children>
+                <primitive>
+                    <sphere radius="0.2" slices="32" stacks="32" />
                 </primitive>
             </children>
         </node>
@@ -2526,7 +2733,21 @@
 
             <children>
                 <primitive>
-                    <sphere radius="0.3" slices="32" stacks="32" />
+                    <sphere radius="0.2" slices="32" stacks="32" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="treeDecoration7">
+            <transforms>
+                <translate value3="-2 4.3 -1" />
+            </transforms>
+
+            <materialref id="redApp" />
+
+            <children>
+                <primitive>
+                    <sphere radius="0.2" slices="32" stacks="32" />
                 </primitive>
             </children>
         </node>

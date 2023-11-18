@@ -26,6 +26,8 @@ class MyContents  {
         this.primitivesObjects = new Map();	
         this.nodeObjects = new Map();
         this.lights = new Map();
+        this.lightTreeEnabled = "on";
+        this.lightTreeOn = true;
         this.lightsHelper = new Map();
         this.lightEnabled = {};
         this.reader = new MyFileReader(app, this, this.onSceneLoaded);
@@ -141,9 +143,43 @@ class MyContents  {
             sock3Mesh.material = this.materials.get("sock2App");
         }
     }
-
+    updateTreeLights(){
+        for( let key of this.lights.keys()){
+            if(key.includes("lightTree")){
+                let light = this.lights.get(key);
+                if(this.lightTreeEnabled == "on"){
+                    light.visible = true;
+                }
+                else if(this.lightTreeEnabled == "off"){
+                    light.visible = false;
+                }
+                else if(this.lightTreeEnabled == "blinking"){
+                    console.log(key)
+                    light.visible = true;
+                }
+            }
+        }
+    }
+    toggleBlinkingLights() {
+        for (let key of this.lights.keys()) {
+            if (key.includes("lightTree")) {
+                let light = this.lights.get(key);
+                light.visible = !light.visible; 
+            }
+        }
+    }
+    
     update() {
-        
+        if (this.lightTreeEnabled === "blinking") {
+            if (!this.blinkingIntervalId) {
+                this.blinkingIntervalId = setInterval(() => {
+                    this.toggleBlinkingLights();
+                }, 500); 
+            }
+        } else {
+            clearInterval(this.blinkingIntervalId);
+            this.blinkingIntervalId = null;
+        }
     }
 }
 
