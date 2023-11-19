@@ -3940,7 +3940,7 @@
         <node id="outsideTree3">
             <transforms>
                 <scale value3="4 4 4" />
-                <translate value3="0 0 50" />
+                <translate value3="0 0 60" />
             </transforms>
             <children>
                 <noderef id="tree"/>
@@ -3977,6 +3977,36 @@
             </children>
         </node>
 
+        <node id="outsideTree7">
+            <transforms>
+                <scale value3="4 4 4" />
+                <translate value3="-35 0 0" />
+            </transforms>
+            <children>
+                <noderef id="tree"/>
+            </children>
+        </node>
+
+        <node id="outsideTree8">
+            <transforms>
+                <scale value3="4 4 4" />
+                <translate value3="30 0 30" />
+            </transforms>
+            <children>
+                <noderef id="tree"/>
+            </children>
+        </node>
+
+        <node id="outsideTree9">
+            <transforms>
+                <scale value3="4 4 4" />
+                <translate value3="30 0 -40" />
+            </transforms>
+            <children>
+                <noderef id="tree"/>
+            </children>
+        </node>
+
         <node id="outsideTrees">
             <children>
                 <noderef id="outsideTree1"/>
@@ -3985,6 +4015,9 @@
                 <noderef id="outsideTree4"/>
                 <noderef id="outsideTree5"/>
                 <noderef id="outsideTree6"/>
+                <noderef id="outsideTree7"/>
+                <noderef id="outsideTree8"/>
+                <noderef id="outsideTree9"/>
             </children>
         </node>
 
