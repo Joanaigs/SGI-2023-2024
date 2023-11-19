@@ -8,11 +8,11 @@ class MyRectangle {
     constructor(primitiveData) {
         this.xy1 = primitiveData.xy1;
         this.xy2 = primitiveData.xy2;
-        this.width = Math.abs(primitiveData.xy1[0] - primitiveData.xy2[0]);
-        this.height = Math.abs(primitiveData.xy1[1] - primitiveData.xy2[1]);
+        this.width = primitiveData.xy2[0] - primitiveData.xy1[0];
+        this.height = primitiveData.xy2[1] - primitiveData.xy1[1];
         this.widthSegments = primitiveData.parts_x;
         this.heigthSegments = primitiveData.parts_y;
-        this.rectangle = new THREE.PlaneGeometry(this.width, this.height, this.widthSegments, this.heigthSegments);
+        this.rectangle = new THREE.PlaneGeometry(Math.abs(this.width), Math.abs(this.height), this.widthSegments, this.heigthSegments);
     }
 
     addMaterial(material, castshadow, receiveshadows){
