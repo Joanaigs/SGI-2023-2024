@@ -7,6 +7,7 @@ import { MySphere } from "./Primitives/MySphere.js"
 import { MyTriangle } from "./Primitives/MyTriangle.js"
 import { MyCylinder } from "./Primitives/MyCylinder.js"
 import { MyNurbs } from "./Primitives/MyNurbs.js"
+import { MyPolygon } from "./Primitives/MyPolygon.js"
 
 /**
  * This class creates a Texture
@@ -21,11 +22,6 @@ class MyNodeParser {
 
   }
 
-  degreesToRadians(degrees) {
-    return (degrees * Math.PI) / 180;
-  }
-
-
   init() {
     let mainGroup = new THREE.Group();
     let children;
@@ -38,7 +34,7 @@ class MyNodeParser {
       materialID = this.nodes[this.rootId].materialIds[0];
     }
 
-    children = this.children(this.rootId, materialID, this.nodes[this.rootId].castShadows, this.nodes[this.rootId].receiveShadows );
+    children = this.children(this.rootId, materialID, this.nodes[this.rootId].castShadows, this.nodes[this.rootId].receiveShadows);
     for (let child of children) {
       mainGroup.add(child);
     }
@@ -53,8 +49,8 @@ class MyNodeParser {
       let child = node.children[i];
       if (child.type === "primitive") {
         let materialObj = this.contents.materials.get(materialID);
-        if(materialObj)
-          this.material=materialObj.clone()
+        if (materialObj)
+          this.material = materialObj.clone()
         this.contents.materialsObjects.push(this.material)
         switch (child.subtype) {
           case "box":
@@ -93,11 +89,18 @@ class MyNodeParser {
             this.contents.primitivesObjects.set(child.id, nurbsObject);
             children.push(nurbsObject);
             break;
+          case "polygon":
+            let polygon = new MyPolygon(child.representations[0]);
+            let polygonObject = polygon.addMaterial(this.material, castshadow, receiveshadows);
+            this.contents.primitivesObjects.set(child.id, polygonObject);
+            children.push(polygonObject);
+
+            break;
           case "lods":
             let childGroup;
             if (!this.contents.nodeObjects.has(child.id)) {
               childGroup = new THREE.Group();
-    
+
               //children
               let tempChildren = this.children(child.id, newMaterialID, child.castShadows || castshadow, child.receiveShadows || receiveshadows);
               for (let tempChild of tempChildren) {
@@ -105,7 +108,7 @@ class MyNodeParser {
               }
               this.contents.nodeObjects.set(child.id, childGroup);
             }
-            else{
+            else {
               childGroup = this.contents.nodeObjects.get(child.id).clone();
             }
             children.push(childGroup);
@@ -116,9 +119,9 @@ class MyNodeParser {
 
       } else if (child.type === "pointlight" || child.type === "directionallight" || child.type === "spotlight") {
         this.myLights.createLight(child);
-        let light=this.contents.lights.get(child.id)
-        if(!child.enabled){
-          light.visible=false;
+        let light = this.contents.lights.get(child.id)
+        if (!child.enabled) {
+          light.visible = false;
         }
         children.push(this.contents.lights.get(child.id));
         children.push(this.contents.lightsHelper.get(child.id));
@@ -185,7 +188,6 @@ class MyNodeParser {
   // }
 
   transformations(node) {
-    // Initialize the childGroup's transformation
     let childTransform = new THREE.Matrix4();
     childTransform.identity();
 

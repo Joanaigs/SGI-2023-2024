@@ -49,11 +49,9 @@ class MyMaterial extends THREE.MeshPhongMaterial{
         let cloneBump = null;
         if(this.map){
             cloneTex = this.map.cloning();
-            cloneTex.needsUpdate=true
         }
         if(this.bumpMap){
             cloneBump = this.bumpMap.cloning();
-            cloneBump.needsUpdate=true;
         }
         const cloneMaterial= new this.constructor(this.materialData, cloneTex, cloneBump)
         return cloneMaterial
