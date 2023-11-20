@@ -237,9 +237,9 @@
                 <noderef id="painting2" />
                 <noderef id="television" />
                 <noderef id="trees" />
-                <noderef id="christmasTree" />
+                <lodref id="christmasTree" />
                 <noderef id="pillows" />
-                <noderef id="smallBookShelf" />
+                <lodref id="smallBookShelf" />
                 <noderef id="fireplace" />
 
 
@@ -1531,7 +1531,7 @@
 
             <children>
                 <noderef id="smallTable" />
-                <noderef id="vase" />
+                <lodref id="vase" />
                 <noderef id="candycane1" />
                 <noderef id="canycane2" />
                 <noderef id="canycane3" />
@@ -1952,7 +1952,7 @@
             </children>
         </node>
 
-        <node id="vase" castshadows="true" receiveshadows="true">
+        <node id="vaseStructureNormal" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="-12 2 30" />
                 <rotate value3="0 3.1415 0" />
@@ -1966,6 +1966,52 @@
                 <noderef id="vase2" />
             </children>
         </node>
+
+        <node id="vasePartTop">
+            <transforms>
+                <translate value3="0 1 0" />
+            </transforms>
+            <children>
+                <primitive>
+                    <cylinder top="0.3" base="0.1" height="0.4" slices="32" stacks="1"
+                        capsclose="true" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="vasePartBottom">
+            <transforms>
+                <translate value3="0 0 0" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <cylinder top="0.1" base="0.4" height="1.6" slices="32" stacks="1"
+                        capsclose="true" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="vaseStructureSecond" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="-12 1.5 30" />
+                <rotate value3="0 3.1415 0" />
+                <scale value3="2 2 2" />
+            </transforms>
+
+            <materialref id="vaseApp" />
+
+            <children>
+                <noderef id="vasePartTop" />
+                <noderef id="vasePartBottom" />
+            </children>
+        </node>
+
+
+        <lod id="vase">
+            <noderef id="vaseStructureNormal" mindist="0" />
+            <noderef id="vaseStructureSecond" mindist="10" />
+        </lod>
 
         <node id="pillowPart">
             <children>
@@ -2717,6 +2763,38 @@
             </children>
         </node>
 
+        <node id="treeSegTwoFirst">
+            <transforms>
+                <translate value3="0 3.5 0" />
+            </transforms>
+
+            <materialref id="pineApp" />
+
+            <children>
+                <primitive>
+                    <cylinder base="3" top="1" height="4.5" slices="32" stacks="32"
+                        capsclose="true" />
+                </primitive>
+
+            </children>
+        </node>
+
+        <node id="treeSegTwoSecond">
+            <transforms>
+                <translate value3="0 8 0" />
+            </transforms>
+
+            <materialref id="pineApp" />
+
+            <children>
+                <primitive>
+                    <cylinder base="2" top="0" height="4.5" slices="32" stacks="32"
+                        capsclose="true" />
+                </primitive>
+
+            </children>
+        </node>
+
         <node id="treeStructureNormal" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="0 1.25 0" />
@@ -2736,7 +2814,7 @@
             </children>
         </node>
 
-        <node id="treeStructureSecond" castshadows="true" receiveshadows="true">
+        <node id="treeStructureThird" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="0 1.25 0" />
             </transforms>
@@ -2753,9 +2831,28 @@
             </children>
         </node>
 
-        <lod id="tree" near="0" far="1000">
-            <noderef id="treeStructureNormal" mindist="30" />
-            <noderef id="treeStructureSecond" mindist="50" />
+        <node id="treeStructureSecond" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 1.25 0" />
+            </transforms>
+
+            <materialref id="woodTrunkApp" />
+
+            <children>
+                <noderef id="trunk" />
+                <noderef id="treeSegTwoFirst" />
+                <noderef id="treeSegTwoSecond" />
+                <primitive>
+                    <cylinder base="0.5" top="0.5" height="2.5" slices="32" stacks="32" />
+                </primitive>
+
+            </children>
+        </node>
+
+        <lod id="tree">
+            <noderef id="treeStructureNormal" mindist="0" />
+            <noderef id="treeStructureSecond" mindist="60" />
+            <noderef id="treeStructureThird" mindist="100" />
         </lod>
 
         <node id="present" castshadows="true" receiveshadows="true">
@@ -2800,7 +2897,7 @@
             </children>
         </node>
 
-        <node id="christmasTree">
+        <node id="christmasTreeOriginal">
             <transforms>
                 <translate value3="11 0 -10" />
             </transforms>
@@ -2813,13 +2910,46 @@
                 <noderef id="present1" />
                 <noderef id="present2" />
                 <noderef id="lights" />
-                <noderef id="starObj" />
+                <noderef id="starObjOriginal" />
                 <noderef id="treeDecorations" />
-
             </children>
         </node>
 
-        <node id="starObj">
+        <node id="christmasTreeSecond">
+            <transforms>
+                <translate value3="11 0 -10" />
+            </transforms>
+
+            <materialref id="christmasTreeApp" />
+
+            <children>
+                <lodref id="tree" />
+                <noderef id="present" />
+                <noderef id="present1" />
+                <noderef id="present2" />
+                <noderef id="starObjSecond" />
+            </children>
+        </node>
+
+        <node id="christmasTreeThird">
+            <transforms>
+                <translate value3="11 0 -10" />
+            </transforms>
+
+            <materialref id="christmasTreeApp" />
+
+            <children>
+                <lodref id="tree" />
+            </children>
+        </node>
+
+        <lod id="christmasTree" >
+            <noderef id="christmasTreeOriginal" mindist="0" />
+            <noderef id="christmasTreeSecond" mindist="30" />
+            <noderef id="christmasTreeThird" mindist="60" />
+        </lod>
+
+        <node id="starObjOriginal">
             <transforms>
                 <translate value3="0 11 0" />
                 <rotate value3="0 0.7854 0" />
@@ -2828,6 +2958,21 @@
             <children>
                 <noderef id="baseStar" />
                 <noderef id="star" />
+                <pointlight id="lightStar" enabled="true" color="1 1 1 1" intensity="70"
+                    distance="5" position="-2.26 4 0" />
+            </children>
+        </node>
+
+        <node id="starObjSecond">
+            <transforms>
+                <translate value3="0 11.5 0" />
+                <rotate value3="0 0.7854 0" />
+            </transforms>
+            <materialref id="yellowApp" />
+            <children>
+                <primitive>
+                    <sphere radius="0.5" slices="32" stacks="32" />
+                </primitive>
                 <pointlight id="lightStar" enabled="true" color="1 1 1 1" intensity="70"
                     distance="5" position="-2.26 4 0" />
             </children>
@@ -3287,8 +3432,24 @@
             </children>
         </node>
 
+        <node id="smallBookShelfRightBox" >
+            <transforms>
+                <translate value3="-8 4.8 -15" />
+            </transforms>
 
-        <node id="smallBookShelf" castshadows="true" receiveshadows="true">
+            <materialref id="oakApp" />
+
+            <children>
+                <primitive>
+                    <box xyz1="0 0 0" xyz2="2 5 2" />
+                </primitive>
+            </children>
+        </node>
+
+
+
+
+        <node id="smallBookShelfOriginal" castshadows="true" receiveshadows="true">
             <children>
                 <noderef id="smallBookShelfLeft" />
                 <noderef id="smallBookShelfWallPart" />
@@ -3300,6 +3461,21 @@
                 <noderef id="shelf5" />
             </children>
         </node>
+
+        <node id="smallBookShelfSecond" castshadows="true" receiveshadows="true">
+            <children>
+
+                <noderef id="smallBookShelfLeft" />
+                <noderef id="smallBookShelfRightBox" />
+
+            </children>
+        </node>
+
+        <lod id="smallBookShelf">
+            <noderef id="smallBookShelfOriginal" mindist="0" />
+            <noderef id="smallBookShelfSecond" mindist="25" />
+        </lod>
+
 
         <node id="tree2" castshadows="true" receiveshadows="true">
             <transforms>

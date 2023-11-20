@@ -66,8 +66,6 @@ class MyNodeParser {
         if (target)
           children.push(target);
         children.push(this.contents.lights.get(child.id));
-        children.push(this.contents.lightsHelper.get(child.id));
-
       }
       else if (child.type === "lod") {
         
@@ -151,6 +149,7 @@ class MyNodeParser {
         let childLodChild = child.children[i];
         let childGroup = this.nodeCreation(childLodChild.node, materialID, castshadow, receiveshadows);
         childLod.addLevel(childGroup, childLodChild.mindist);
+        console.log(childGroup, childLodChild.mindist)
       }
       console.log(child.id)
       this.contents.nodeObjects.set(child.id, childLod);
