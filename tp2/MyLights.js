@@ -84,7 +84,6 @@ class MyLights {
           lightData.target[1],
           lightData.target[2]
         );
-        this.content.app.scene.add(target);
         spotLight.target = target;
 
         if (lightData.castshadow) {
@@ -98,7 +97,7 @@ class MyLights {
         this.content.lights.set(lightData.id, spotLight);
         this.content.lightsHelper.set(lightData.id, helper);
         this.content.lightEnabled[lightData.id] = lightData.enabled;
-        break;
+        return target;
     }
   }
 }

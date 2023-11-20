@@ -11,7 +11,7 @@
         front="scenes/scene/textures/snow_ft.jpg" back="scenes/scene/textures/snow_bk.jpg" />
 
 
-    <cameras initial="candyCane">
+    <cameras initial="cam1">
         <perspective id="cam1" angle="1.047" near="0.1" far="5000" location="10 8 25"
             target="0 0.0 0" />
         <perspective id="paintings" angle="1.047" near="0.1" far="5000" location="0 7 15"
@@ -166,8 +166,11 @@
             specular="0 0 0 1" shininess="0" textureref="tableCloth" texlength_s="4" texlength_t="2"
             twosided="true" />
 
-        <material id="whiteApp" emissive="0.1 0.1 0.1 1" color="1 1 1 1.0"
+        <material id="whiteApp" emissive="0.4 0.4 0.4 1" color="1 1 1 0.9"
             specular="0 0 0 1" shininess="0" />
+
+        <material id="whiteEmissiveApp" emissive="1 1 1 1" color="1 1 1 1"
+        specular="0 0 0 1" shininess="0" />
 
         <material id="plateApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="1 1 1 1" shininess="40" twosided="true" />
@@ -194,7 +197,7 @@
 
         <material id="candycaneApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="1 1 1 1" shininess="30" textureref="candycaneTex" texlength_s="0.3"
-            texlength_t="4" twosided="true"/>
+            texlength_t="4" twosided="true" />
 
         <material id="sock1App" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="0 0 0 1"
             shininess="0" textureref="sock1Tex" texlength_s="1" texlength_t="5" twosided="true" />
@@ -240,22 +243,11 @@
                 <noderef id="fireplace" />
 
 
-                <spotlight id="light1" enabled="true" color="1 1 1 1" intensity="2.0"
-                    distance="0" decay="0.5" position="0 15.0 0" target="0 0 -3" angle="1.2217"
-                    castshadow="true" shadowfar="25" shadowmapsize="4096" />
+                <noderef id="ceilingLampshade2" />
 
-                <spotlight id="light2" enabled="true" color="1 1 1 1" intensity="2.0"
-                    distance="0" decay="0.5" position="0 15 18" target="0 0 21" angle="1.2217"
-                    castshadow="true" shadowfar="25" shadowmapsize="4096" />
+                <noderef id="ceilingLamp" />
 
-                <pointlight id="light3" enabled="true"
-                    color="1 1 1 0"
-                    intensity="70"
-                    distance="30"
-                    decay="2.0"
-                    castshadow="false"
-                    position="0 14.5 7.5"
-                />
+                <noderef id="ceilingLampshade1"/>
 
                 <pointlight id="sun" enabled="true"
                     color="1 1 1 0"
@@ -637,22 +629,73 @@
             </children>
         </node>
 
+        <!-- lights -->
+        <node id="ceilingLamp">
+            <transforms>
+                <translate value3="0 14.5 7.5" />
+            </transforms>
+            <materialref id="lightMetalApp" />
+            <children>
+                <pointlight id="light3" enabled="true" color="1 1 1 0" intensity="70" distance="30" decay="2.0" castshadow="false" position="0 0 0"/>
+                <noderef id="ceilingLampTop" />
+                <noderef id="ceilingLampBottom" />
+            </children>
+        </node>
+
+        <node id="ceilingLampTop">
+            <transforms>
+                <translate value3="0 0.2 0" />
+            </transforms>
+            <materialref id="whiteEmissiveApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.5" top="0.5" height="0.3" slices="32" stacks="1" capsclose="true"/>
+                </primitive>
+            </children>
+        </node>
+
+        <node id="ceilingLampBottom">
+            <transforms>
+                <translate value3="0 0.3 0" />
+            </transforms>
+            <materialref id="lightMetalApp" />
+            <children>
+                <primitive>
+                <cylinder base="0.5" top="1" height="0.4" slices="32" stacks="1" capsclose="true"/>
+            </primitive>
+            </children>
+        </node>
+
         <node id='groundLampshadeAbajur'>
             <transforms>
-                <translate value3="0 4.5 0" />
+                <translate value3="0 4.2 0" />
             </transforms>
             <materialref id="whiteApp" />
             <children>
                 <primitive>
                     <cylinder base="1" top="0.7" height="1.75" slices="32" stacks="1"
-                        capsclose="true" />
+                        />
                 </primitive>
             </children>
         </node>
 
+        <node id='groundLampshadeAbajurUpsideDown'>
+            <transforms>
+                <translate value3="0 4.2 0" />
+            </transforms>
+            <materialref id="whiteApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.7" top="1" height="1.75" slices="32" stacks="1"
+                        />
+                </primitive>
+            </children>
+        </node>
+
+
         <node id='groundLampshadeConeBase'>
             <transforms>
-                <translate value3="0 -3.3 0" />
+                <translate value3="0 -3.9 0" />
             </transforms>
             <materialref id="lightMetalApp" />
             <children>
@@ -662,21 +705,89 @@
             </children>
         </node>
 
+        <node id='groundLampshadeLamp'>
+            <transforms>
+                <translate value3="0 4.15 0" />
+            </transforms>
+            <materialref id="whiteEmissiveApp" />
+            <children>
+                <primitive>
+                    <sphere radius="0.3" slices="32" stacks="32" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id='ceilingLampshade1'>
+            <transforms>
+                <translate value3="0 15 0" />
+            </transforms>
+            <materialref id="lightMetalApp" />
+            <children>
+                <noderef id="ceilingLampshadeStructure1" />
+                <noderef id="ceilingLampshadeStructure2" />                <spotlight id="light2" enabled="true" color="1 1 1 1" intensity="2.0"
+                    distance="0" decay="0.5" position="0 0 0" target="0 -15 -3" angle="1.2217"
+                    castshadow="true" shadowfar="25" shadowmapsize="4096" />
+            </children>
+        </node>
+
+        <node id='ceilingLampshade2'>
+            <transforms>
+                <translate value3="0 15 18" />
+            </transforms>
+            <materialref id="lightMetalApp" />
+            <children>
+                <noderef id="ceilingLampshadeStructure1" />
+                <noderef id="ceilingLampshadeStructure2" />
+                <spotlight id="light1" enabled="true" color="1 1 1 1" intensity="2.0"
+                    distance="0" decay="0.5" position="0 0 0" target="0 -15 3" angle="1.2217"
+                    castshadow="true" shadowfar="25" shadowmapsize="4096" />
+            </children>
+        </node>
+
+        <node id='ceilingLampshadeStructure1'>
+            <transforms>
+                <translate value3="0 0.1 0" />
+                <rotate value3="0 0 -3.1415" />
+                <scale value3="0.5 0.4 0.5" />
+            </transforms>
+            <materialref id="lightMetalApp" />
+            <children>
+                <noderef id="groundLampshadeAbajurUpsideDown" />
+                <noderef id="groundLampshadeLamp" />
+            </children>
+        </node>
+
+        <node id='ceilingLampshadeStructure2'>
+            <transforms>
+                <translate value3="0 -1 0" />
+                <rotate value3="0 0 -3.1415" />
+                <scale value3="0.7 0.1 0.7" />
+            </transforms>
+            <materialref id="lightMetalApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.15" top="0.1" height="8" slices="32" stacks="1" />
+                </primitive>
+                <noderef id="groundLampshadeConeBase" />
+            </children>
+        </node>
+
+
         <node id='televisionCabinetThinLayer1'>
             <transforms>
-                <translate value3="0 5.8 0" />
+                <translate value3="0 3 0" />
             </transforms>
             <materialref id="whiteWoodApp" />
             <children>
                 <primitive>
-                    <box xyz1="16 0.2 2" xyz2="0 0 0" />
+                    <box xyz1="0 0 0" xyz2="16 0.2 2" />
                 </primitive>
             </children>
         </node>
 
         <node id='televisionCabinetThinLayer2'>
             <transforms>
-                <translate value3="-0.2 -1.5 0" />
+                <translate value3="-0.1 -1.5 0" />
                 <scale value3="1.01 1 1.01" />
             </transforms>
 
@@ -688,21 +799,23 @@
 
         <node id='televisionCabinet' castshadows="true" receiveshadows="true">
             <transforms>
-                <translate value3="-26 -3 -17" />
+                <translate value3="-10 0 -15" />
             </transforms>
             <materialref id="oakApp" />
             <children>
                 <primitive>
-                    <box xyz1="16 3 2" xyz2="0 0 0" />
+                    <box xyz1="0 0 0" xyz2="16 3 2" />
                 </primitive>
                 <noderef id="televisionCabinetThinLayer1" />
                 <noderef id='televisionCabinetThinLayer2' />
             </children>
         </node>
 
+
+
         <node id='groundLampshade'>
             <transforms>
-                <translate value3="11 3.8 26" />
+                <translate value3="11 4.4 26" />
                 <scale value3="1.3 1.1 1.3" />
             </transforms>
             <materialref id="lightMetalApp" />
@@ -712,6 +825,7 @@
                 </primitive>
                 <noderef id="groundLampshadeConeBase" />
                 <noderef id="groundLampshadeAbajur" />
+                <noderef id="groundLampshadeLamp" />
             </children>
         </node>
 
@@ -928,7 +1042,8 @@
             <materialref id="carpetApp" />
             <children>
                 <primitive>
-                    <polygon radius="5" stacks="3" slices="32"  color_c="1 0.5 0.5 0" color_p="0.5 1 0.5 0" />
+                    <polygon radius="5" stacks="3" slices="32" color_c="1 0 0 0"
+                        color_p="0 1 0 0" />
                 </primitive>
             </children>
         </node>
@@ -2586,7 +2701,23 @@
             </children>
         </node>
 
-        <node id="tree" castshadows="true" receiveshadows="true">
+        <node id="treeSegUnic">
+            <transforms>
+                <translate value3="0 5.75 0" />
+            </transforms>
+
+            <materialref id="pineApp" />
+
+            <children>
+                <primitive>
+                    <cylinder base="3" top="0" height="9" slices="32" stacks="32"
+                        capsclose="true" />
+                </primitive>
+
+            </children>
+        </node>
+
+        <node id="treeStructureNormal" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="0 1.25 0" />
             </transforms>
@@ -2604,6 +2735,28 @@
 
             </children>
         </node>
+
+        <node id="treeStructureSecond" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 1.25 0" />
+            </transforms>
+
+            <materialref id="woodTrunkApp" />
+
+            <children>
+                <noderef id="trunk" />
+                <noderef id="treeSegUnic" />
+                <primitive>
+                    <cylinder base="0.5" top="0.5" height="2.5" slices="32" stacks="32" />
+                </primitive>
+
+            </children>
+        </node>
+
+        <lod id="tree" near="0" far="1000">
+            <noderef id="treeStructureNormal" mindist="30" />
+            <noderef id="treeStructureSecond" mindist="50" />
+        </lod>
 
         <node id="present" castshadows="true" receiveshadows="true">
             <transforms>
@@ -2655,7 +2808,7 @@
             <materialref id="christmasTreeApp" />
 
             <children>
-                <noderef id="tree" />
+                <lodref id="tree" />
                 <noderef id="present" />
                 <noderef id="present1" />
                 <noderef id="present2" />
@@ -3024,118 +3177,118 @@
 
         <node id="smallBookShelfLeft">
             <transforms>
-                <translate value3="-12 0 -17" />
+                <translate value3="-10 4.8 -15" />
             </transforms>
 
             <materialref id="whiteWoodApp" />
 
             <children>
                 <primitive>
-                    <box xyz1="2 5 2" xyz2="0 0 0" />
+                    <box xyz1="0 0 0" xyz2="2 5 2" />
                 </primitive>
             </children>
         </node>
 
         <node id="smallBookShelfWallPart">
             <transforms>
-                <translate value3="-10 0 -14.98" />
+                <translate value3="-8 4.8 -14.98" />
             </transforms>
 
             <materialref id="oakApp" />
 
             <children>
                 <primitive>
-                    <rectangle xy1="2 5" xy2="0 0" />
+                    <rectangle xy1="0 0" xy2="2 5" />
                 </primitive>
             </children>
         </node>
 
         <node id="smallBookShelfRight">
             <transforms>
-                <translate value3="-6.5 0 -14" />
+                <translate value3="-6.5 4.8 -14" />
             </transforms>
 
             <materialref id="oakApp" />
 
             <children>
                 <primitive>
-                    <box xyz1="0.2 5 0.4" xyz2="0 0 0" />
+                    <box xyz1="0 0 0" xyz2="0.2 5 0.4" />
                 </primitive>
             </children>
         </node>
 
         <node id="shelf1">
             <transforms>
-                <translate value3="-10 9.6 -17" />
+                <translate value3="-8 9.6 -15" />
             </transforms>
 
             <materialref id="oakApp" />
 
             <children>
                 <primitive>
-                    <box xyz1="2 0.2 2" xyz2="0 0 0" />
+                    <box xyz1="0 0 0" xyz2="2 0.2 2" />
                 </primitive>
             </children>
         </node>
 
         <node id="shelf2">
             <transforms>
-                <translate value3="-10 8.4 -17" />
+                <translate value3="-8 8.4 -15" />
             </transforms>
 
             <materialref id="oakApp" />
 
             <children>
                 <primitive>
-                    <box xyz1="2 0.2 2" xyz2="0 0 0" />
+                    <box xyz1="0 0 0" xyz2="2 0.2 2" />
                 </primitive>
             </children>
         </node>
 
         <node id="shelf3">
             <transforms>
-                <translate value3="-10 7.2 -17" />
+                <translate value3="-8 7.2 -15" />
             </transforms>
 
             <materialref id="oakApp" />
 
             <children>
                 <primitive>
-                    <box xyz1="2 0.2 2" xyz2="0 0 0" />
+                    <box xyz1="0 0 0" xyz2="2 0.2 2" />
                 </primitive>
             </children>
         </node>
 
         <node id="shelf4">
             <transforms>
-                <translate value3="-10 6.0 -17" />
+                <translate value3="-8 6.0 -15" />
             </transforms>
 
             <materialref id="oakApp" />
 
             <children>
                 <primitive>
-                    <box xyz1="2 0.2 2" xyz2="0 0 0" />
+                    <box xyz1="0 0 0" xyz2="2 0.2 2" />
                 </primitive>
             </children>
         </node>
 
         <node id="shelf5">
             <transforms>
-                <translate value3="-10 4.8 -17" />
+                <translate value3="-8 4.8 -15" />
             </transforms>
 
             <materialref id="oakApp" />
 
             <children>
                 <primitive>
-                    <box xyz1="2 0.2 2" xyz2="0 0 0" />
+                    <box xyz1="0 0 0" xyz2="2 0.2 2" />
                 </primitive>
             </children>
         </node>
 
 
-        <node id="smallBookShelf">
+        <node id="smallBookShelf" castshadows="true" receiveshadows="true">
             <children>
                 <noderef id="smallBookShelfLeft" />
                 <noderef id="smallBookShelfWallPart" />
@@ -3156,7 +3309,7 @@
             </transforms>
 
             <children>
-                <noderef id="tree" />
+                <lodref id="tree" />
             </children>
         </node>
 
@@ -3168,7 +3321,7 @@
             </transforms>
 
             <children>
-                <noderef id="tree" />
+                <lodref id="tree" />
             </children>
         </node>
 
@@ -3180,7 +3333,7 @@
             </transforms>
 
             <children>
-                <noderef id="tree" />
+                <lodref id="tree" />
             </children>
         </node>
 
@@ -3192,7 +3345,7 @@
             </transforms>
 
             <children>
-                <noderef id="tree" />
+                <lodref id="tree" />
             </children>
         </node>
 
@@ -3204,7 +3357,7 @@
             </transforms>
 
             <children>
-                <noderef id="tree" />
+                <lodref id="tree" />
             </children>
         </node>
 
@@ -3216,7 +3369,7 @@
             </transforms>
 
             <children>
-                <noderef id="tree" />
+                <lodref id="tree" />
             </children>
         </node>
 
@@ -3228,7 +3381,7 @@
             </transforms>
 
             <children>
-                <noderef id="tree" />
+                <lodref id="tree" />
             </children>
         </node>
 
@@ -3240,7 +3393,7 @@
             </transforms>
 
             <children>
-                <noderef id="tree" />
+                <lodref id="tree" />
             </children>
         </node>
 
@@ -3252,7 +3405,7 @@
             </transforms>
 
             <children>
-                <noderef id="tree" />
+                <lodref id="tree" />
             </children>
         </node>
 

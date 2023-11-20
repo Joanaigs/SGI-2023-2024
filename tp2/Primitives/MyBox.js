@@ -5,16 +5,17 @@ import * as THREE from 'three';
  */
 class MyBox{
 
-    constructor(primitiveData) {
+    constructor(contents, primitiveData) {
+        this.contents = contents;
         this.xyz1= primitiveData.xyz1;
         this.xyz2 = primitiveData.xyz2;
-        this.width = Math.abs(primitiveData.xyz1[0] - primitiveData.xyz2[0]);
-        this.height = Math.abs(primitiveData.xyz1[1] - primitiveData.xyz2[1]);
-        this.depth = Math.abs(primitiveData.xyz1[2] - primitiveData.xyz2[2]);
+        this.width = primitiveData.xyz2[0] - primitiveData.xyz1[0];
+        this.height =primitiveData.xyz2[1] - primitiveData.xyz1[1];
+        this.depth = primitiveData.xyz2[2] - primitiveData.xyz1[2];
         this.widthSegments = primitiveData.parts_x;
         this.heigthSegments = primitiveData.parts_y;
         this.depthSegments = primitiveData.parts_z;
-        this.box = new THREE.BoxGeometry(this.width, this.height, this.depth, this.widthSegments, this.heigthSegments, this.depthSegments);
+        this.box = new THREE.BoxGeometry(Math.abs(this.width), Math.abs(this.height), Math.abs(this.depth), this.widthSegments, this.heigthSegments, this.depthSegments);
     }
 
     addMaterial(material, castshadow, receiveshadows){
@@ -31,6 +32,13 @@ class MyBox{
         materialBottom.setRepeat(this.width, this.depth);
         materialFront.setRepeat(this.width, this.height);
         materialBack.setRepeat(this.width, this.height);
+
+        this.contents.materialsObjects.push(materialLeft);
+        this.contents.materialsObjects.push(materialRight);
+        this.contents.materialsObjects.push(materialTop);
+        this.contents.materialsObjects.push(materialBottom);
+        this.contents.materialsObjects.push(materialFront);
+        this.contents.materialsObjects.push(materialBack);
 
         const boxMaterials = [
             materialLeft,
