@@ -5,6 +5,11 @@ import * as THREE from 'three';
  */
 class MyBox{
 
+    /**
+     * Constructor of the Box that calls that saves the data and creates the box geometry
+     * @param {MyContents} contents the contents object
+     * @param {Dictionary} primitiveData the data of the box
+     */
     constructor(contents, primitiveData) {
         this.contents = contents;
         this.xyz1= primitiveData.xyz1;
@@ -18,6 +23,13 @@ class MyBox{
         this.box = new THREE.BoxGeometry(Math.abs(this.width), Math.abs(this.height), Math.abs(this.depth), this.widthSegments, this.heigthSegments, this.depthSegments);
     }
 
+    /**
+     * Adds the material to the box and returns the object
+     * @param {MyMaterial} material the material of the box
+     * @param {boolean} castshadow if the box casts shadow or not
+     * @param {boolean} receiveshadows if the box receives shadow or not
+     * @returns the object with the material
+     */
     addMaterial(material, castshadow, receiveshadows){
         let materialLeft = material.clone();
         let materialRight = material.clone();

@@ -7,6 +7,10 @@ import { MyNurbsBuilder } from './MyNurbsBuilder.js'
 
 class MyNurbs{
 
+    /**
+     * The constructor of the class that receives the data of the primitive
+     * @param {Dictionary} primitiveData the data of the primitive
+     */
     constructor(primitiveData) {
         this.builder = new MyNurbsBuilder();
         let points = []; 
@@ -45,6 +49,13 @@ class MyNurbs{
     }
     
 
+    /**
+     * Adds the material to the nurb and returns the object
+     * @param {MyMaterial} material the material of the nurb
+     * @param {boolean} castshadow if the nurb casts shadow or not
+     * @param {boolean} receiveshadows if the nurb receives shadow or not
+     * @returns the object with the material
+     */
     addMaterial(material, castshadow, receiveshadows){
         material.setRepeat(this.maxLenght-this.minlenght, this.maxHeight-this.minHeight)
         let object = new THREE.Mesh(this.nurb, material);

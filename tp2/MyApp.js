@@ -61,6 +61,12 @@ class MyApp {
         window.addEventListener('resize', this.onResize.bind(this), false);
     }
 
+    /**
+     * Initializes the scene cameras
+     * @param {List} cameras the cameras object
+     * @param {String} activeCameraId the id of the active camera
+     * 
+     */
     initCameras(cameras, activeCameraId) {
         this.cameras = [];
         this.cameraTarget = {};
@@ -69,7 +75,7 @@ class MyApp {
             this.camerasNames.push(cameras[camera].id);
             switch (cameras[camera].type) {
                 case "perspective":
-                    let cameraTemp1 = new THREE.PerspectiveCamera(cameras[camera].angle*180/Math.PI, aspect, cameras[camera].near, cameras[camera].far);
+                    let cameraTemp1 = new THREE.PerspectiveCamera(cameras[camera].angle * 180 / Math.PI, aspect, cameras[camera].near, cameras[camera].far);
                     cameraTemp1.position.set(cameras[camera].location[0], cameras[camera].location[1], cameras[camera].location[2]);
                     cameraTemp1.lookAt(new THREE.Vector3(cameras[camera].target[0], cameras[camera].target[1], cameras[camera].target[2]));
                     this.cameraTarget[cameras[camera].id] = new THREE.Vector3(cameras[camera].target[0], cameras[camera].target[1], cameras[camera].target[2]);
@@ -92,9 +98,9 @@ class MyApp {
      */
     updateTarget() {
         // for in the camera positions
-        for(let camera in this.cameraTarget) {
+        for (let camera in this.cameraTarget) {
             // if the camera is the active camera
-            if(camera === this.activeCameraName) {
+            if (camera === this.activeCameraName) {
                 // update the camera target
                 this.controls.target = this.cameraTarget[camera]
             }

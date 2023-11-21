@@ -6,11 +6,18 @@ import { MyApp } from './MyApp.js';
  */
 class MyTexture extends THREE.Texture {
 
+    /**
+     * Calls the constructor of the super class
+     */
     constructor() {
         super(); 
        
     }
 
+    /**
+     * Initializes the texture and its attributes
+     * @param {Dictionary} textureData is a dictionary with the texture data
+     */
     init(textureData) {
         this.textureData = textureData;
         if (this.textureData.magFilter) this.magFilter = this.getMagFilter(this.textureData.magFilter);
@@ -20,6 +27,9 @@ class MyTexture extends THREE.Texture {
         this.updateTexture();
     }
 
+    /**
+     * Updates the texture and loads the image and the mipmaps
+     */
     updateTexture() {
         const loader = new THREE.TextureLoader();
         loader.load(this.textureData.filepath, (texture) => {
@@ -31,6 +41,10 @@ class MyTexture extends THREE.Texture {
     }
 
 
+    /**
+     * Creates the mipmaps of the texture
+     * @param {Dictionary} data data of the texture
+     */
     createMipmaps(data) {
         if (data.mipmap0)
             this.loadMipmap(this, 0, data.mipmap0)
@@ -50,6 +64,12 @@ class MyTexture extends THREE.Texture {
             this.loadMipmap(this, 7, data.mipmap7)
     }
 
+    /**
+     * Loads the mipmap of the texture
+     * @param {MyTexture} parentTexture the parent texture
+     * @param {number} level the level of the mipmap
+     * @param {string} path the path of the mipmap
+     */
     loadMipmap(parentTexture, level, path) {
         // load texture. On loaded call the function to create the mipmap for the specified level 
         new THREE.TextureLoader().load(path,
@@ -77,6 +97,11 @@ class MyTexture extends THREE.Texture {
         )
     }
 
+    /**
+     * Returns the mag filter of the texture
+     * @param {string} string nearest or linear
+     * @returns the Three obejct type of the mag filter
+     */
     getMagFilter(string) {
         switch (string) {
             case "NearestFilter":
@@ -86,6 +111,11 @@ class MyTexture extends THREE.Texture {
         }
     }
 
+    /**
+     * Returns the min filter of the texture
+     * @param {string} string of the min filter
+     * @returns the Three obejct type of the min filter
+     */
     getMinFilter(string) {
         switch (string) {
             case "NearestFilter":
@@ -111,6 +141,10 @@ class MyTexture extends THREE.Texture {
         }
     }
 
+    /**
+     * Returns a clone of the texture
+     * @returns {MyTexture} a clone of the texture
+     */
     cloning(){
         const clonedTexture = this.clone()
         clonedTexture.createMipmaps(this.textureData);

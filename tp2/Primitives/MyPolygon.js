@@ -1,6 +1,10 @@
 import * as THREE from 'three';
 
 class MyPolygon extends THREE.Group {
+  /**
+   * The constructor of the class that receives the data of the primitive
+   * @param {Dictionary} primitiveData the data of the primitive
+   */
   constructor(primitiveData) {
     super();
 
@@ -13,6 +17,9 @@ class MyPolygon extends THREE.Group {
     this.createPolygon();
   }
 
+  /**
+   * Creates the polygon
+   */
   createPolygon() {
     const interpolate = (startValue, endValue, percentage) =>
       startValue + percentage * (endValue - startValue);
@@ -97,6 +104,13 @@ class MyPolygon extends THREE.Group {
     this.geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
   }
 
+  /**
+   * Adds the material to the polygon and returns the object
+   * @param {MyMaterial} material the material of the polygon
+   * @param {boolean} castshadow if the polygon casts shadow or not
+   * @param {boolean} receiveshadows if the polygon receives shadow or not
+   * @returns the object with the material
+   */
   addMaterial(material1, castshadow, receiveshadows) {
     material1.vertexColors = true;
     material1.setRepeat(this.radius, this.radius);

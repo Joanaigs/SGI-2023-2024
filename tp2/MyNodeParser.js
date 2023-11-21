@@ -10,9 +10,15 @@ import { MyNurbs } from "./Primitives/MyNurbs.js"
 import { MyPolygon } from "./Primitives/MyPolygon.js"
 
 /**
- * This class creates a Texture
+ * This class is a parser for the nodes of the scene
  */
 class MyNodeParser {
+
+  /**
+   * Puts in the parser the data of the scene
+   * @param {MyContent} contents the contents object
+   * @param {list} data the list of nodes of the scene
+   */
   constructor(contents, data) {
     this.contents = contents;
     this.nodes = data.nodes;
@@ -23,6 +29,9 @@ class MyNodeParser {
 
   }
 
+  /**
+   * Starts the parsing of the nodes of the scene data
+   */
   init() {
     let mainGroup = new THREE.Group();
     let children;
@@ -43,6 +52,15 @@ class MyNodeParser {
     this.contents.app.scene.add(mainGroup);
   }
 
+  /**
+   * Recursive function that goes through the children of the nodes and creates the objects, groups, lods and lights
+   * @param {string} nodeId id of the node
+   * @param {string} materialID id of the material of the parent node, if it has one
+   * @param {boolean} castshadow boolean that indicates if the parent node casts shadows
+   * @param {boolean} receiveshadows boolean that indicates if the parent node receives shadows
+   * @param {boolean} lod boolean that indicates if the parent node is a lod 
+   * @returns the children of the node
+   */
   children(nodeId, materialID, castshadow, receiveshadows, lod = false) {
     let children = [];
     let node;
@@ -80,6 +98,14 @@ class MyNodeParser {
   }
 
 
+  /**
+   * Creates the primitive according to the data received
+   * @param {Dictionary} child a dictionary with the data of the primitive
+   * @param {string} materialID a string with the id of the material of the primitive
+   * @param {boolean} castshadow a boolean that indicates if the primitive casts shadows
+   * @param {boolean} receiveshadows a boolean that indicates if the primitive receives shadows
+   * @returns the primitive object
+   */
   primitiveCreation(child, materialID, castshadow, receiveshadows) {
     let materialObj = this.contents.materials.get(materialID);
     if (materialObj)
@@ -126,6 +152,10 @@ class MyNodeParser {
     }
   }
 
+  /**
+   * Creates the light according to the data received
+   * @param {Dictionary} child a dictionary with the data of the light
+   */
   lightCreation(child) {
     this.myLights.createLight(child);
     let light = this.contents.lights.get(child.id)
@@ -134,6 +164,14 @@ class MyNodeParser {
     }
   }
 
+  /**
+   * Deals with the creation of the lods and its children
+   * @param {Dictionary} child the dictionary with the data of the lod
+   * @param {string} materialID the id of the material of the lod
+   * @param {boolean} castshadow a boolean that indicates if the lod casts shadows
+   * @param {boolean} receiveshadows a boolean that indicates if the lod receives shadows
+   * @returns 
+   */
   lodCreation(child, materialID, castshadow, receiveshadows) {
     let childLod;
     if (!this.contents.nodeObjects.has(child.id)) {
@@ -155,6 +193,14 @@ class MyNodeParser {
     return childLod;
   }
 
+  /**
+   * Deals with the creation of the nodes and its children
+   * @param {Dictionary} child the dictionary with the data of the node
+   * @param {string} materialID the id of the material of the node
+   * @param {boolean} castshadow a boolean that indicates if the node casts shadows
+   * @param {boolean} receiveshadows a boolean that indicates if the node receives shadows
+   * @returns 
+   */
   nodeCreation(child, materialID, castshadow, receiveshadows) {
     let childGroup;
     if (!this.contents.nodeObjects.has(child.id)) {
@@ -182,6 +228,11 @@ class MyNodeParser {
     return childGroup;
   }
 
+  /**
+   * Creates the transformation matrix of the node
+   * @param {Dictionary} node a dictionary with the data of the node
+   * @returns the transformation matrix of the node
+   */
   transformations(node) {
     let childTransform = new THREE.Matrix4();
     childTransform.identity();
