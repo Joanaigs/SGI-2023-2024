@@ -57,18 +57,42 @@ class MyGuiInterface {
     lightFolder.open();
 
     const treeDedcorationFolder = this.datgui.addFolder('Tree Decoration');
-    treeDedcorationFolder.addColor(this.contents, 'treeDecoration').onChange((value) => { this.contents.updateTreeDecoration(value) });
-    treeDedcorationFolder.add(this.contents, 'treeDecorationRandom').name("random").onChange((value) => { this.contents.updateTreeDecoration(value) });
+    treeDedcorationFolder.addColor(this.contents, 'treeDecoration').onChange((value) => { this.contents.updateTreeDecorationValue(value) });
+    this.treeDecorationRandomButton = treeDedcorationFolder.add(
+      {
+        toggleTreeDecorationRandom: () => {
+          this.contents.updateTreeDecorationRandom();
+        },
+      },
+      'toggleTreeDecorationRandom'
+    ).name("Toggle Random");
+
 
     const cookiesFolder = this.datgui.addFolder('Food');
     cookiesFolder.add(this.contents, 'numcookies', 0, 4, 1).name("Number of cookies").onChange((value) => { this.contents.updateCookies(value) });
     cookiesFolder.add(this.contents, 'milkHeight', 0.01, 0.4).name("Drink Milk").onChange((value) => { this.contents.updateMilk(value) });
 
+    const shaderFolder = this.datgui.addFolder('Shader');
+    shaderFolder.add(this.contents, 'showShadows').name("Show Shadows").onChange(() => { this.contents.updateShadows() });
 
 
     //wireframe
     const wireframeFolder = this.datgui.addFolder('Wireframe');
     wireframeFolder.add(this.contents, "wireframe").onChange(() => { this.contents.updateWireframe()});
+
+    const videoFolder = this.datgui.addFolder("Video Controls");
+
+    videoFolder.add({
+      playPauseVideo: () => {
+        const video = document.getElementById("video");
+        if (video.paused) {
+          video.play();
+        } else {
+          video.pause();
+          video.currentTime = 0; // Set video to start from the beginning
+        }
+      },
+    }, "playPauseVideo").name("Turn the TV on/off");
   }
 }
 

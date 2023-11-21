@@ -69,6 +69,7 @@
         <texture id="sock1Tex" filepath="scenes/scene/textures/sock1.jpg" />
         <texture id="sock2Tex" filepath="scenes/scene/textures/sock2.jpg" />
         <texture id="cookieTex" filepath="scenes/scene/textures/cookie.jpg" />
+        <texture id="footprints" filepath="scenes/scene/textures/footprint.png" />
     </textures>
 
     <materials>
@@ -210,6 +211,8 @@
 
         <material id="cupApp" emissive="0.0 0.0 0.0 1" color="1 1 1 0.3" specular="1 1 1 1"
             shininess="30" twosided="true" />
+        <material id="footprintsApp" emissive="0.0 0.0 0.0 1" color="1 1 1 0.99" specular="0 0 0 1"
+            shininess="0" textureref="footprints" texlength_s="8" texlength_t="4"/>
 
 
     </materials>
@@ -229,6 +232,7 @@
                 <noderef id="televisionCabinet" />
                 <noderef id="armchair" />
                 <noderef id="coffeTable" />
+                <lodref id="vase" />
                 <noderef id="dinnigTable" />
                 <noderef id="window1" />
                 <noderef id="window2" />
@@ -252,11 +256,10 @@
                 <pointlight id="sun" enabled="true"
                     color="1 1 1 0"
                     intensity="100"
-                    distance="0"
+                    distance="100"
                     decay="1"
-                    castshadow="true"
+                    castshadow="false"
                     position="100 90 1.047"
-                    shadowmapsize="1024"
                 />
 
 
@@ -636,7 +639,7 @@
             </transforms>
             <materialref id="lightMetalApp" />
             <children>
-                <pointlight id="light3" enabled="true" color="1 1 1 0" intensity="70" distance="30" decay="2.0" castshadow="false" position="0 0 0"/>
+                <pointlight id="light3" enabled="true" color="1 1 0.73 0" intensity="70" distance="30" decay="2.0" castshadow="false" position="0 0 0"/>
                 <noderef id="ceilingLampTop" />
                 <noderef id="ceilingLampBottom" />
             </children>
@@ -724,7 +727,8 @@
             <materialref id="lightMetalApp" />
             <children>
                 <noderef id="ceilingLampshadeStructure1" />
-                <noderef id="ceilingLampshadeStructure2" />                <spotlight id="light2" enabled="true" color="1 1 1 1" intensity="2.0"
+                <noderef id="ceilingLampshadeStructure2" />                
+                <spotlight id="light2" enabled="true" color="1 1 0.73 1" intensity="2.0"
                     distance="0" decay="0.5" position="0 0 0" target="0 -15 -3" angle="1.2217"
                     castshadow="true" shadowfar="25" shadowmapsize="4096" />
             </children>
@@ -738,7 +742,7 @@
             <children>
                 <noderef id="ceilingLampshadeStructure1" />
                 <noderef id="ceilingLampshadeStructure2" />
-                <spotlight id="light1" enabled="true" color="1 1 1 1" intensity="2.0"
+                <spotlight id="light1" enabled="true" color="1 1 0.73 1" intensity="2.0"
                     distance="0" decay="0.5" position="0 0 0" target="0 -15 3" angle="1.2217"
                     castshadow="true" shadowfar="25" shadowmapsize="4096" />
             </children>
@@ -1531,7 +1535,6 @@
 
             <children>
                 <noderef id="smallTable" />
-                <lodref id="vase" />
                 <noderef id="candycane1" />
                 <noderef id="canycane2" />
                 <noderef id="canycane3" />
@@ -1954,7 +1957,7 @@
 
         <node id="vaseStructureNormal" castshadows="true" receiveshadows="true">
             <transforms>
-                <translate value3="-12 2 30" />
+                <translate value3="-12 2 27" />
                 <rotate value3="0 3.1415 0" />
                 <scale value3="2 2 2" />
             </transforms>
@@ -1994,7 +1997,7 @@
 
         <node id="vaseStructureSecond" castshadows="true" receiveshadows="true">
             <transforms>
-                <translate value3="-12 1.5 30" />
+                <translate value3="-12 1.5 27" />
                 <rotate value3="0 3.1415 0" />
                 <scale value3="2 2 2" />
             </transforms>
@@ -2010,7 +2013,7 @@
 
         <lod id="vase">
             <noderef id="vaseStructureNormal" mindist="0" />
-            <noderef id="vaseStructureSecond" mindist="10" />
+            <noderef id="vaseStructureSecond" mindist="15" />
         </lod>
 
         <node id="pillowPart">
@@ -2958,7 +2961,7 @@
             <children>
                 <noderef id="baseStar" />
                 <noderef id="star" />
-                <pointlight id="lightStar" enabled="true" color="1 1 1 1" intensity="70"
+                <pointlight id="lightStar" enabled="true" color="1 1 0.73 1" intensity="70"
                     distance="5" position="-2.26 4 0" />
             </children>
         </node>
@@ -2973,8 +2976,6 @@
                 <primitive>
                     <sphere radius="0.5" slices="32" stacks="32" />
                 </primitive>
-                <pointlight id="lightStar" enabled="true" color="1 1 1 1" intensity="70"
-                    distance="5" position="-2.26 4 0" />
             </children>
         </node>
 
@@ -3665,6 +3666,38 @@
             </children>
         </node>
 
+        <node id="footprint1">
+            <transforms>
+                <translate value3="-7.4 0.02 1.5" />
+                <rotate value3="0 3 0" />
+                <rotate value3="-1.5708 0 0" />
+            </transforms>
+
+            <materialref id="footprintsApp" />
+
+            <children>
+                <primitive>
+                    <rectangle xy1="-4 -2" xy2="4 2" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="footprint2">
+            <transforms>
+                <translate value3="-5.5 0.02 -2" />
+                <rotate value3="0 -0.14 0" />
+                <rotate value3="-1.5708 0 0" />
+            </transforms>
+
+            <materialref id="footprintsApp" />
+
+            <children>
+                <primitive>
+                    <rectangle xy1="-4 -2" xy2="4 2" />
+                </primitive>
+            </children>
+        </node>
+
 
         <node id="fireplaceBack">
             <transforms>
@@ -3734,6 +3767,8 @@
                 <noderef id="sock2" />
                 <noderef id="sock3" />
                 <noderef id="shelf" />
+                <noderef id="footprint1" />
+                <noderef id="footprint2" />
 
             </children>
 
