@@ -61,10 +61,7 @@ class MyNodeParser {
         children.push(primitive);
 
       } else if (child.type === "pointlight" || child.type === "directionallight" || child.type === "spotlight") {
-
-        let target = this.lightCreation(child);
-        if (target)
-          children.push(target);
+        this.lightCreation(child);
         children.push(this.contents.lights.get(child.id));
       }
       else if (child.type === "lod") {
@@ -130,9 +127,7 @@ class MyNodeParser {
   }
 
   lightCreation(child) {
-    let target = this.myLights.createLight(child);
-    if(target)
-      return target;
+    this.myLights.createLight(child);
     let light = this.contents.lights.get(child.id)
     if (!child.enabled) {
       light.visible = false;

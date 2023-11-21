@@ -26,6 +26,8 @@ class MyContents {
         this.primitivesObjects = new Map();
         this.nodeObjects = new Map();
         this.lights = new Map();
+        this.lightsTree = new Map();
+        this.lightsHouse = new Map();
         this.lightTreeEnabled = "on";
         this.lightTreeOn = true;
         this.lightsHelper = new Map();

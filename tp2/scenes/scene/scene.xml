@@ -729,7 +729,7 @@
                 <noderef id="ceilingLampshadeStructure1" />
                 <noderef id="ceilingLampshadeStructure2" />                
                 <spotlight id="light2" enabled="true" color="1 1 0.73 1" intensity="2.0"
-                    distance="0" decay="0.5" position="0 0 0" target="0 -15 -3" angle="1.2217"
+                    distance="0" decay="0.5" position="0 0 0" target="0 0 -3" angle="1.2217"
                     castshadow="true" shadowfar="25" shadowmapsize="4096" />
             </children>
         </node>
@@ -743,7 +743,7 @@
                 <noderef id="ceilingLampshadeStructure1" />
                 <noderef id="ceilingLampshadeStructure2" />
                 <spotlight id="light1" enabled="true" color="1 1 0.73 1" intensity="2.0"
-                    distance="0" decay="0.5" position="0 0 0" target="0 -15 3" angle="1.2217"
+                    distance="0" decay="0.5" position="0 0 0" target="0 0 21" angle="1.2217"
                     castshadow="true" shadowfar="25" shadowmapsize="4096" />
             </children>
         </node>
