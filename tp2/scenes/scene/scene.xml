@@ -427,6 +427,18 @@
             </children>
         </node>
 
+         <!-- _OUTSIDE_DOOR_ -->
+
+        <node id="outsideDoor">
+            <materialref id="lightWoodApp" />
+
+            <children>
+                <noderef id="frameTopPainting" />
+                <noderef id="frameBottomPainting" />
+                <noderef id="frameLeftPainting" />
+                <noderef id="frameRightPainting" />
+            </children>
+        </node>
 
          <!-- _FAKE_WINDOWS_OUTSIDE_ -->
 
@@ -450,8 +462,6 @@
 
             <children>
                 <primitive>
-                    <polygon radius="5" stacks="3" slices="32" color_c="1 0 0 0"
-                        color_p="0 1 0 0" />
                     <rectangle xy1="-1.75 -1.75" xy2="1.75 1.75" />
                 </primitive>
             </children>
