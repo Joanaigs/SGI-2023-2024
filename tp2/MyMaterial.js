@@ -17,7 +17,9 @@ class MyMaterial extends THREE.MeshPhongMaterial{
         this.texlength_s = materialData.texlength_s;
         this.texlength_t = materialData.texlength_t;
         this.opacity= materialData.color.a;
-        this.transparent =  true,
+        if(this.opacity<1){
+            this.transparent=true;
+        }
         this.side = (materialData.twosided)? THREE.DoubleSide: THREE.FrontSide;
         this.flatShading = (materialData.shading == "flat")? true : false;
         this.texture=texture;
@@ -47,11 +49,9 @@ class MyMaterial extends THREE.MeshPhongMaterial{
         let cloneBump = null;
         if(this.map){
             cloneTex = this.map.cloning();
-            cloneTex.needsUpdate=true
         }
         if(this.bumpMap){
             cloneBump = this.bumpMap.cloning();
-            cloneBump.needsUpdate=true;
         }
         const cloneMaterial= new this.constructor(this.materialData, cloneTex, cloneBump)
         return cloneMaterial

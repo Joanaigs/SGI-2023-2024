@@ -24,7 +24,8 @@ class MyTexture extends THREE.Texture {
         const loader = new THREE.TextureLoader();
         loader.load(this.textureData.filepath, (texture) => {
             this.image = texture.image;
-            this.needsUpdate = true;
+            if(this.image)
+                this.needsUpdate = true;
             this.createMipmaps(this.textureData);
         });
     }
@@ -46,7 +47,7 @@ class MyTexture extends THREE.Texture {
         if (data.mipmap6)
             this.loadMipmap(this, 6, data.mipmap6)
         if (data.mipmap7)
-            this.loadMipmap(this, 7, this.textureData.mipmap7)
+            this.loadMipmap(this, 7, data.mipmap7)
     }
 
     loadMipmap(parentTexture, level, path) {
@@ -115,7 +116,7 @@ class MyTexture extends THREE.Texture {
         clonedTexture.createMipmaps(this.textureData);
         clonedTexture.textureData = this.textureData;
 
-        return clonedTexture
+        return clonedTexture;
     }
 }
 

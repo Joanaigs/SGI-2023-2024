@@ -44,6 +44,7 @@ class MyGuiInterface {
     const lightFolder = this.datgui.addFolder('Lights');
     const lightOptions = ['on', 'off', 'blinking'];
     lightFolder.add(this.contents, "lightTreeEnabled", lightOptions).onChange((key) => { this.contents.updateTreeLights(key)});
+
     for( let key of this.contents.lights.keys()){
       if(key.includes("lightTree")){
         continue;
@@ -54,6 +55,16 @@ class MyGuiInterface {
 
     }
     lightFolder.open();
+
+    const treeDedcorationFolder = this.datgui.addFolder('Tree Decoration');
+    treeDedcorationFolder.addColor(this.contents, 'treeDecoration').onChange((value) => { this.contents.updateTreeDecoration(value) });
+    treeDedcorationFolder.add(this.contents, 'treeDecorationRandom').name("random").onChange((value) => { this.contents.updateTreeDecoration(value) });
+
+    const cookiesFolder = this.datgui.addFolder('Food');
+    cookiesFolder.add(this.contents, 'numcookies', 0, 4, 1).name("Number of cookies").onChange((value) => { this.contents.updateCookies(value) });
+    cookiesFolder.add(this.contents, 'milkHeight', 0.01, 0.4).name("Drink Milk").onChange((value) => { this.contents.updateMilk(value) });
+
+
 
     //wireframe
     const wireframeFolder = this.datgui.addFolder('Wireframe');

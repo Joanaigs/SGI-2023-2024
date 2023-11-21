@@ -7,6 +7,7 @@ import { MySphere } from "./Primitives/MySphere.js"
 import { MyTriangle } from "./Primitives/MyTriangle.js"
 import { MyCylinder } from "./Primitives/MyCylinder.js"
 import { MyNurbs } from "./Primitives/MyNurbs.js"
+import { MyPolygon } from "./Primitives/MyPolygon.js"
 
 /**
  * This class creates a Texture
@@ -15,16 +16,12 @@ class MyNodeParser {
   constructor(contents, data) {
     this.contents = contents;
     this.nodes = data.nodes;
+    this.lods = data.lods;
     this.rootId = data.rootId;
     this.myLights = new MyLights(this.contents);
     this.material = new THREE.MeshPhongMaterial({ color: 0xfff000, shininess: 1, specular: 0x111111, flatShading: true });
 
   }
-
-  degreesToRadians(degrees) {
-    return (degrees * Math.PI) / 180;
-  }
-
 
   init() {
     let mainGroup = new THREE.Group();
@@ -38,7 +35,7 @@ class MyNodeParser {
       materialID = this.nodes[this.rootId].materialIds[0];
     }
 
-    children = this.children(this.rootId, materialID, this.nodes[this.rootId].castShadows, this.nodes[this.rootId].receiveShadows );
+    children = this.children(this.rootId, materialID, this.nodes[this.rootId].castShadows, this.nodes[this.rootId].receiveShadows);
     for (let child of children) {
       mainGroup.add(child);
     }
@@ -46,107 +43,38 @@ class MyNodeParser {
     this.contents.app.scene.add(mainGroup);
   }
 
-  children(nodeId, materialID, castshadow, receiveshadows) {
+  children(nodeId, materialID, castshadow, receiveshadows, lod = false) {
     let children = [];
-    let node = this.nodes[nodeId];
+    let node;
+    if (lod) {
+      node = this.lods[nodeId];
+    }
+    else
+      node = this.nodes[nodeId];
     for (let i = 0; i < node.children.length; i++) {
       let child = node.children[i];
+      if (lod)
+        child = child.node
       if (child.type === "primitive") {
-        let materialObj = this.contents.materials.get(materialID);
-        if(materialObj)
-          this.material=materialObj.clone()
-        this.contents.materialsObjects.push(this.material)
-        switch (child.subtype) {
-          case "box":
-            let box = new MyBox(child.representations[0])
-            let boxObject = box.addMaterial(this.material, castshadow, receiveshadows);
-            this.contents.primitivesObjects.set(child.id, boxObject);
-            children.push(boxObject);
-            break;
-          case "cylinder":
-            let cylinder = new MyCylinder(child.representations[0]);
-            let cylinderObject = cylinder.addMaterial(this.material, castshadow, receiveshadows)
-            this.contents.primitivesObjects.set(child.id, cylinderObject);
-            children.push(cylinderObject);
-            break;
-          case "rectangle":
-            let rectangle = new MyRectangle(child.representations[0]);
-            let rectangleObject = rectangle.addMaterial(this.material, castshadow, receiveshadows)
-            this.contents.primitivesObjects.set(child.id, rectangleObject);
-            children.push(rectangleObject);
-            break;
-          case "sphere":
-            let sphere = new MySphere(child.representations[0]);
-            let sphereObject = sphere.addMaterial(this.material, castshadow, receiveshadows);
-            this.contents.primitivesObjects.set(child.id, sphereObject);
-            children.push(sphereObject);
-            break;
-          case "triangle":
-            let data = child.representations[0]
-            let triangle = new MyTriangle(data.xyz1[0], data.xyz1[1], data.xyz1[2], data.xyz2[0], data.xyz2[1], data.xyz2[2], data.xyz3[0], data.xyz3[1], data.xyz3[2], this.material, castshadow, receiveshadows);
-            let triangleObject = triangle.addMaterial();
-            children.push(triangleObject);
-            break;
-          case "nurbs":
-            let nurbs = new MyNurbs(child.representations[0]);
-            let nurbsObject = nurbs.addMaterial(this.material, castshadow, receiveshadows);
-            this.contents.primitivesObjects.set(child.id, nurbsObject);
-            children.push(nurbsObject);
-            break;
-          case "lods":
-            let childGroup;
-            if (!this.contents.nodeObjects.has(child.id)) {
-              childGroup = new THREE.Group();
-    
-              //children
-              let tempChildren = this.children(child.id, newMaterialID, child.castShadows || castshadow, child.receiveShadows || receiveshadows);
-              for (let tempChild of tempChildren) {
-                childGroup.add(tempChild);
-              }
-              this.contents.nodeObjects.set(child.id, childGroup);
-            }
-            else{
-              childGroup = this.contents.nodeObjects.get(child.id).clone();
-            }
-            children.push(childGroup);
 
-          default:
-            break;
-        }
+        let primitive = this.primitiveCreation(child, materialID, castshadow, receiveshadows);
+        children.push(primitive);
 
       } else if (child.type === "pointlight" || child.type === "directionallight" || child.type === "spotlight") {
-        this.myLights.createLight(child);
-        let light=this.contents.lights.get(child.id)
-        if(!child.enabled){
-          light.visible=false;
-        }
+
+        let target = this.lightCreation(child);
+        if (target)
+          children.push(target);
         children.push(this.contents.lights.get(child.id));
-        children.push(this.contents.lightsHelper.get(child.id));
+      }
+      else if (child.type === "lod") {
+        
+        let childLod = this.lodCreation(child, materialID, castshadow, receiveshadows)
+        children.push(childLod);
+
       }
       else {
-        let childGroup;
-        if (!this.contents.nodeObjects.has(child.id)) {
-          childGroup = new THREE.Group();
-
-          //transformations
-          let combinedMatrix = this.transformations(child);
-          childGroup.applyMatrix4(combinedMatrix);
-
-          //material
-          let newMaterialID = materialID;
-          if (child.materialIds.length > 0) {
-            newMaterialID = child.materialIds[0];
-          }
-
-          //children
-          let tempChildren = this.children(child.id, newMaterialID, child.castShadows || castshadow, child.receiveShadows || receiveshadows);
-          for (let tempChild of tempChildren) {
-            childGroup.add(tempChild);
-          }
-          this.contents.nodeObjects.set(child.id, childGroup);
-        }
-        else
-          childGroup = this.contents.nodeObjects.get(child.id).clone();
+        let childGroup = this.nodeCreation(child, materialID, castshadow, receiveshadows);
         children.push(childGroup);
       }
     }
@@ -154,38 +82,112 @@ class MyNodeParser {
     return children;
   }
 
-  // transformations(node) {
-  //   // Initialize transformation matrices
-  //   const translationMatrix = new THREE.Matrix4();
-  //   const rotationMatrix = new THREE.Matrix4();
-  //   const scaleMatrix = new THREE.Matrix4();
 
-  //   if (node.transformations) {
-  //     for (let trans of node.transformations) {
-  //       switch (trans.type) {
-  //         case "T":
-  //           // Accumulate translation
-  //           translationMatrix.multiply(new THREE.Matrix4().makeTranslation(trans.translate[0], trans.translate[1], trans.translate[2]));
-  //           break;
-  //         case "R":
-  //           // Accumulate rotation
-  //           const rotationEuler = new THREE.Euler(trans.rotation[0], trans.rotation[1] , trans.rotation[2] );
-  //           rotationMatrix.multiply(new THREE.Matrix4().makeRotationFromEuler(rotationEuler));
-  //           break;
-  //         case "S":
-  //           // Accumulate scale
-  //           scaleMatrix.multiply(new THREE.Matrix4().makeScale(trans.scale[0], trans.scale[1], trans.scale[2]));
-  //           break;
-  //       }
-  //     }
-  //   }
+  primitiveCreation(child, materialID, castshadow, receiveshadows) {
+    let materialObj = this.contents.materials.get(materialID);
+    if (materialObj)
+      this.material = materialObj.clone()
+    this.contents.materialsObjects.push(this.material)
+    switch (child.subtype) {
+      case "box":
+        let box = new MyBox(this.contents, child.representations[0])
+        let boxObject = box.addMaterial(this.material, castshadow, receiveshadows);
+        this.contents.primitivesObjects.set(child.id, boxObject);
+        return boxObject;
+      case "cylinder":
+        let cylinder = new MyCylinder(child.representations[0]);
+        let cylinderObject = cylinder.addMaterial(this.material, castshadow, receiveshadows)
+        this.contents.primitivesObjects.set(child.id, cylinderObject);
+        return cylinderObject;
+      case "rectangle":
+        let rectangle = new MyRectangle(child.representations[0]);
+        let rectangleObject = rectangle.addMaterial(this.material, castshadow, receiveshadows)
+        this.contents.primitivesObjects.set(child.id, rectangleObject);
+        return rectangleObject;
+      case "sphere":
+        let sphere = new MySphere(child.representations[0]);
+        let sphereObject = sphere.addMaterial(this.material, castshadow, receiveshadows);
+        this.contents.primitivesObjects.set(child.id, sphereObject);
+        return sphereObject;
+      case "triangle":
+        let data = child.representations[0]
+        let triangle = new MyTriangle(data.xyz1[0], data.xyz1[1], data.xyz1[2], data.xyz2[0], data.xyz2[1], data.xyz2[2], data.xyz3[0], data.xyz3[1], data.xyz3[2], this.material, castshadow, receiveshadows);
+        let triangleObject = triangle.addMaterial();
+        return triangleObject;
+      case "nurbs":
+        let nurbs = new MyNurbs(child.representations[0]);
+        let nurbsObject = nurbs.addMaterial(this.material, castshadow, receiveshadows);
+        this.contents.primitivesObjects.set(child.id, nurbsObject);
+        return nurbsObject;
+      case "polygon":
+        let polygon = new MyPolygon(child.representations[0]);
+        let polygonObject = polygon.addMaterial(this.material, castshadow, receiveshadows);
+        this.contents.primitivesObjects.set(child.id, polygonObject);
+        return polygonObject;
+      default:
+        break;
+    }
+  }
 
-  //   return new THREE.Matrix4().multiply(translationMatrix).multiply(rotationMatrix).multiply(scaleMatrix);
+  lightCreation(child) {
+    let target = this.myLights.createLight(child);
+    if(target)
+      return target;
+    let light = this.contents.lights.get(child.id)
+    if (!child.enabled) {
+      light.visible = false;
+    }
+  }
 
-  // }
+  lodCreation(child, materialID, castshadow, receiveshadows) {
+    let childLod;
+    if (!this.contents.nodeObjects.has(child.id)) {
+      childLod = new THREE.LOD();
+
+      //children
+      for (let i = 0; i < child.children.length; i++) {
+        let childLodChild = child.children[i];
+        let childGroup = this.nodeCreation(childLodChild.node, materialID, castshadow, receiveshadows);
+        childLod.addLevel(childGroup, childLodChild.mindist);
+        console.log(childGroup, childLodChild.mindist)
+      }
+      console.log(child.id)
+      this.contents.nodeObjects.set(child.id, childLod);
+    }
+    else {
+      childLod = this.contents.nodeObjects.get(child.id).clone();
+    }
+    return childLod;
+  }
+
+  nodeCreation(child, materialID, castshadow, receiveshadows) {
+    let childGroup;
+    if (!this.contents.nodeObjects.has(child.id)) {
+      childGroup = new THREE.Group();
+
+      //transformations
+      let combinedMatrix = this.transformations(child);
+      childGroup.applyMatrix4(combinedMatrix);
+
+      //material
+      let newMaterialID = materialID;
+      if (child.materialIds && child.materialIds.length > 0) {
+        newMaterialID = child.materialIds[0];
+      }
+
+      //children
+      let tempChildren = this.children(child.id, newMaterialID, child.castShadows || castshadow, child.receiveShadows || receiveshadows);
+      for (let tempChild of tempChildren) {
+        childGroup.add(tempChild);
+      }
+      this.contents.nodeObjects.set(child.id, childGroup);
+    }
+    else
+      childGroup = this.contents.nodeObjects.get(child.id).clone();
+    return childGroup;
+  }
 
   transformations(node) {
-    // Initialize the childGroup's transformation
     let childTransform = new THREE.Matrix4();
     childTransform.identity();
 
