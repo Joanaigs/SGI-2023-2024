@@ -72,10 +72,6 @@ class MyGuiInterface {
     cookiesFolder.add(this.contents, 'numcookies', 0, 4, 1).name("Number of cookies").onChange((value) => { this.contents.updateCookies(value) });
     cookiesFolder.add(this.contents, 'milkHeight', 0.01, 0.4).name("Drink Milk").onChange((value) => { this.contents.updateMilk(value) });
 
-    const shaderFolder = this.datgui.addFolder('Shader');
-    shaderFolder.add(this.contents, 'showShadows').name("Show Shadows").onChange(() => { this.contents.updateShadows() });
-
-
     //wireframe
     const wireframeFolder = this.datgui.addFolder('Wireframe');
     wireframeFolder.add(this.contents, "wireframe").onChange(() => { this.contents.updateWireframe()});
