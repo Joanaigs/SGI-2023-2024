@@ -147,7 +147,7 @@
         <material id="lightGreyApp2" emissive="0.0 0.0 0.0 0" color="0.9 0.9 0.87 1"
             specular="0.47 0.47 0.47 1" shininess="5" />
 
-        <material id="logAppp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
+        <material id="logApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="0.47 0.47 0.47 1" shininess="100" textureref="logTex" />
 
         <material id="pineApp"
@@ -235,8 +235,6 @@
                 <noderef id="walls" />
                 <noderef id="livingRoom" />
                 <noderef id="frontPorch" />
-                <noderef id="stairs"/>
-                <noderef id="liivingRoom"/>
                 <noderef id="foundation" />
                 <noderef id="frontDoorFloor" /> 
                 <noderef id="outsideTrees"/>
@@ -331,6 +329,9 @@
         </node>
 
         <node id="walls" >
+
+            <materialref id="logApp" />
+
             <children>
                 <noderef id="leftHouseWall"/>
                 <noderef id="frontHouseWall"/> 
@@ -346,7 +347,6 @@
                 <rotate value3="0.0 1.5708 0.0" />
             </transforms>
 
-            <materialref id="whiteApp" />
 
             <children>
                 <primitive>
@@ -360,10 +360,10 @@
             <transforms>
                 <translate value3="-15 8 -39.6" />
                 <rotate value3="0 -1.57 0" />
-        
             </transforms>
-            <materialref id="whiteApp" />
+        
             <children>
+                <noderef id="backWindow1" />
                 <primitive>
                     <rectangle xy1="-30.5 -5" xy2="30.5 5" />
                 </primitive>
@@ -375,7 +375,7 @@
                 <translate value3="-15 15 -20" />
                 <rotate value3="0 -1.57 0" />
             </transforms>
-            <materialref id="outsideWallApp" />
+     
             <children>
                 <primitive>
                     <rectangle xy1="-50 -2.5" xy2="50 2.5" />
@@ -387,7 +387,6 @@
             <transforms>
                 <translate value3="15 10.4 30" />
             </transforms>
-            <materialref id="WhiteApp" />
 
             <children>
                 <primitive>
@@ -401,7 +400,7 @@
                 <translate value3="15 10.4 -70" />
                 <rotate value3="0 -3.1415 0" />
             </transforms>
-            <materialref id="WhiteApp" />
+
 
             <children>
                 <primitive>
@@ -440,34 +439,52 @@
             </children>
         </node>
 
-        <!-- walls inside and out living room-->
-        <node id="leftWallInside" receiveshadows="true" castshadows="true">
-            <materialref id="wallPaperApp" />
+
+         <!-- _FAKE_WINDOWS_OUTSIDE_ -->
+
+         <node id="outsideWindowFrame">
+            <materialref id="lightWoodApp" />
 
             <children>
-                <primitive>
-                    <rectangle xy1="-15 -7.5" xy2="15 7.5" />
-                </primitive>
+                <noderef id="frameTopPainting" />
+                <noderef id="frameBottomPainting" />
+                <noderef id="frameLeftPainting" />
+                <noderef id="frameRightPainting" />
             </children>
         </node>
 
-        <node id="leftWallOutside">
+        <node id="outsideWindowBackgroud">
             <transforms>
-                <translate value3="0 0 -0.01" />
-                <rotate value3="0.0 3.1415.0 0.0" />
-
+                <rotate value3="0 1.5708 0" />
             </transforms>
 
-            <materialref id="outsideWallApp" />
+            <materialref id="painting1App" />
 
             <children>
                 <primitive>
-                    <rectangle xy1="-15 -7.5" xy2="15 7.5" />
+                    <polygon radius="5" stacks="3" slices="32" color_c="1 0 0 0"
+                        color_p="0 1 0 0" />
+                    <rectangle xy1="-1.75 -1.75" xy2="1.75 1.75" />
                 </primitive>
             </children>
         </node>
 
-        <node id="leftWall">
+
+        <node id="backWindow1">
+            <transforms>
+                <translate value3="0 0 0" />
+                <rotate value3="0 1.5708 0" />
+            </transforms>
+
+            <children>
+                <noderef id="outsideWindowFrame"/>
+                <noderef id="outsideWindowBackgroud" />
+            </children>
+        </node>
+
+        <!-- WALLS INSIDE LIVING ROOM-->
+        <node id="leftWall" receiveshadows="true" castshadows="true">
+
             <transforms>
                 <translate value3="0 7.5 -15" />
             </transforms>
@@ -475,8 +492,9 @@
             <materialref id="wallPaperApp" />
 
             <children>
-                <noderef id="leftWallInside" />
-                <noderef id="leftWallOutside" />
+                <primitive>
+                    <rectangle xy1="-15 -7.5" xy2="15 7.5" />
+                </primitive>
             </children>
         </node>
 
@@ -552,7 +570,6 @@
                 <translate value3="19.5 -2.5 0" />
             </transforms>
             <children>
-                <noderef id="wallFrontLeftOutside" />
                 <noderef id="wallFrontLeftInside" />
             </children>
         </node>
@@ -590,7 +607,10 @@
             </children>
         </node>
 
-        <node id="topFrontWallInside" castshadows="true" receiveshadows="true">
+        <node id="topFrontWall" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 5 0" />
+            </transforms>
             <materialref id="wallApp" />
             <children>
                 <primitive>
@@ -599,17 +619,6 @@
             </children>
         </node>
 
-
-        <node id="topFrontWall">
-            <transforms>
-                <translate value3="0 5 0" />
-            </transforms>
-            <materialref id="wallApp" />
-            <children>
-                <noderef id="topFrontWallInside" />
-                <noderef id="topFrontWallOutside" />
-            </children>
-        </node>
 
         <node id="frontWall">
             <transforms>
@@ -628,37 +637,16 @@
 
           <!-- front walls living room-->
 
-        <node id="backWallInside" castshadows="true" receiveshadows="true">
-            <materialref id="wallApp" />
-            <children>
-                <primitive>
-                    <rectangle xy1="-22.5 -7.5" xy2="22.5 7.5" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="backWallOutside">
-            <transforms>
-                <translate value3="0.01 0 0" />
-                <rotate value3="0 3.1415 0" />
-            </transforms>
-            <materialref id="outsideWallApp" />
-            <children>
-                <primitive>
-                    <rectangle xy1="-22.5 -7.5" xy2="22.5 7.5" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="backWall">
+        <node id="backWall" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="15 7.5 7.5" />
                 <rotate value3="0.0 -1.5708 0.0" />
             </transforms>
             <materialref id="wallApp" />
             <children>
-                <noderef id="backWallInside" />
-                <noderef id="backWallOutside" />
+                <primitive>
+                    <rectangle xy1="-22.5 -7.5" xy2="22.5 7.5" />
+                </primitive>
             </children>
         </node>
 
@@ -946,6 +934,7 @@
 
         <node id="frontPorch">
             <children>
+                <noderef id="stairs"/>
                 <noderef id="frontPorchFloor"/>
                 <noderef id="frontPorchLeftSide"/>
                 <noderef id="frontPorchLeftCylinder"/>
@@ -998,7 +987,7 @@
 
         <node id="frontPorchRightCylinder">
             <transforms>
-                <translate value3="0 0 -34" />
+                <translate value3="0 0 -34.5" />
             </transforms>
 
             <materialref id="oakApp" />
@@ -1216,6 +1205,9 @@
         
          <!-- _STAIRS_ -->
          <node id="stairs">
+            <transforms>
+                <translate value3="61.8 2.49 -23" />
+            </transforms>
             <children>
                 <noderef id="step"/>
                 <noderef id="step2"/>
@@ -1226,10 +1218,6 @@
 
 
          <node id="step">
-            <transforms>
-                <translate value3="58 1.49 -22" />
-            </transforms>
-
             <materialref id="oakApp" />
 
             <children>
@@ -4798,10 +4786,40 @@
             
             <children>
                 <noderef id="snowmanButtons"/>
+                <noderef id="snowmanArmLeft"/>
+                <noderef id="snowmanArmRight"/>
                 <primitive>
                     <sphere radius="2.0" slices="32" stacks="32" thetalength="3.14159265359" />
                 </primitive>
 
+            </children>
+        </node>
+
+        <node id="snowmanArmLeft">
+            <materialref id="blackApp" />
+            <transforms>
+                <translate value3="0.5 0.5 1.5" />
+                <rotate value3="1.57 0.52 -0.52" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <cylinder base="0.1" top="0.1" height="1.75" slices="32" stacks="2" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="snowmanArmRight">
+            <materialref id="blackApp" />
+            <transforms>
+                <translate value3="0.5 0.5 -1.5" />
+                <rotate value3="1.57 0.52 0.52" />
+            </transforms>
+
+            <children>
+                <primitive>
+                    <cylinder base="0.1" top="0.1" height="1.75" slices="32" stacks="2" />
+                </primitive>
             </children>
         </node>
 
