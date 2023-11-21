@@ -15,12 +15,12 @@ class MyPolygon extends THREE.Group {
 
   createPolygon() {
     const interpolate = (startValue, endValue, percentage) =>
-    startValue + percentage * (endValue - startValue);
+      startValue + percentage * (endValue - startValue);
     const interpolateColor = (startColor, endColor, percentage) => [
       interpolate(startColor.r, endColor.r, percentage),
       interpolate(startColor.g, endColor.g, percentage),
       interpolate(startColor.b, endColor.b, percentage),
-  ];
+    ];
 
     this.geometry = new THREE.BufferGeometry();
     const vertices = [0, 0, 0];
@@ -37,19 +37,19 @@ class MyPolygon extends THREE.Group {
     let stackColor = interpolateColor(this.color_c, this.color_p, stackPercentage);
 
     for (let currentSlice = 0; currentSlice < this.slices; currentSlice++) {
-        const angle = (currentSlice / this.slices) * (2 * Math.PI);
-        const x = part * Math.cos(angle);
-        const y = part * Math.sin(angle);
-        vertices.push(x, y, 0);
-        normals.push(0, 0, 1);
-        const currentSliceIdx = 1 + currentSlice % this.slices;
-        const nextSliceIdx = 1 + (currentSlice + 1) % this.slices;
-        indices.push(0, currentSliceIdx, nextSliceIdx);
-        colors.push(...stackColor);
-        uv.push(
-          uvCenterU + uvRadius * stackPercentage * Math.cos(angle),
-          uvCenterV + uvRadius * stackPercentage * Math.sin(angle)
-        );
+      const angle = (currentSlice / this.slices) * (2 * Math.PI);
+      const x = part * Math.cos(angle);
+      const y = part * Math.sin(angle);
+      vertices.push(x, y, 0);
+      normals.push(0, 0, 1);
+      const currentSliceIdx = 1 + currentSlice % this.slices;
+      const nextSliceIdx = 1 + (currentSlice + 1) % this.slices;
+      indices.push(0, currentSliceIdx, nextSliceIdx);
+      colors.push(...stackColor);
+      uv.push(
+        uvCenterU + uvRadius * stackPercentage * Math.cos(angle),
+        uvCenterV + uvRadius * stackPercentage * Math.sin(angle)
+      );
     }
 
     for (let i = 1; i < this.stacks; i++) {
