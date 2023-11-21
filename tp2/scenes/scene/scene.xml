@@ -89,7 +89,7 @@
             specular="0 0 0 0" shininess="0" textureref="carpetTex" texlength_s="5" texlength_t="5" />
 
         <material id="wallApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="0 0 0 0"
-            shininess="0" />
+            shininess="0"/>
 
         <material id="sofaApp" emissive="0.0 0.0 0.0 1" color="0.15 0.26 0.097 1.0"
             specular="0 0 0 0" shininess="0" />
@@ -147,8 +147,9 @@
         <material id="lightGreyApp2" emissive="0.0 0.0 0.0 0" color="0.9 0.9 0.87 1"
             specular="0.47 0.47 0.47 1" shininess="5" />
 
-        <material id="logApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
-            specular="0.47 0.47 0.47 1" shininess="100" textureref="logTex" />
+        <material id="logApp" emissive="0.0 0.0 0.0 1" color="1 0.5 0.5 1.0"
+            specular="0.47 0.47 0.47 1" shininess="100" textureref="logTex" texlength_s="10"
+            texlength_t="5" />
 
         <material id="pineApp"
             emissive="0.0 0.0 0.0 1"
@@ -174,7 +175,7 @@
             specular="0 0 0 1" shininess="0" textureref="tableCloth" texlength_s="4" texlength_t="2"
             twosided="true" />
 
-        <material id="whiteApp" emissive="0.4 0.4 0.4 1" color="1 1 1 0.9"
+        <material id="whiteApp" emissive="0 0 0 1" color="1 1 1 1"
             specular="0 0 0 1" shininess="0" />
 
         <material id="whiteEmissiveApp" emissive="1 1 1 1" color="1 1 1 1"
@@ -221,9 +222,6 @@
         <material id="footprintsApp" emissive="0.0 0.0 0.0 1" color="1 1 1 0.99" specular="0 0 0 1"
             shininess="0" textureref="footprints" texlength_s="8" texlength_t="4"/>
 
-        <material id="outsideLightFrameApp" emissive="0.0 0.0 0.0 1" color="1 1 1 0.99" specular="0 0 0 1"
-            shininess="0" textureref="outsideLightFrameTex" texlength_s="3.14" texlength_t="12.57"/>
-
     </materials>
 
     <graph rootid="scene">
@@ -241,25 +239,21 @@
                 <noderef id="snowmanBody"/>
                 <noderef id="outsideLeftFences"/>
                 <noderef id="outsideRightFences"/>     
+                <noderef id="outsideRightFences"/>     
                 <noderef id="outsideLamps"/>   
             
-            
-                <spotlight id="light1" enabled="true" color="1 1 1 1" intensity="2.0"
-                    distance="0" decay="0.5" position="0 15.0 0" target="0 0 -3" angle="1.2217"
-                    castshadow="true" shadowfar="25" shadowmapsize="4096" />
-        
-                <spotlight id="light1" enabled="true" color="1 1 1 1" intensity="2.0"
-                    distance="0" decay="0.5" position="0 15.0 0" target="0 0 -3" angle="1.2217"
-                    castshadow="true" shadowfar="25" shadowmapsize="4096" />
+                <noderef id="outsideRightFences"/>                
+                <noderef id="outsideLamps"/>   
 
-                <pointlight id="sun" enabled="true"
+                <pointlight id="outside1" enabled="true"
                     color="1 1 1 0"
                     intensity="100"
                     distance="0"
                     decay="1"
+                    shadowfar="500"
                     castshadow="true"
                     position="100 90 1.047"
-                    shadowmapsize="1024"
+                    shadowmapsize="512"
                 />
 
             </children>
@@ -297,16 +291,6 @@
                 <noderef id="ceilingLampshade2" />
                 <noderef id="ceilingLamp" />
                 <noderef id="ceilingLampshade1"/>
-
-                <pointlight id="sun" enabled="true"
-                    color="1 1 1 0"
-                    intensity="100"
-                    distance="100"
-                    decay="1"
-                    castshadow="false"
-                    position="100 90 1.047"
-                />
-
 
             </children>
         </node>
@@ -3006,7 +2990,7 @@
         </node>
 
 
-        <node id="window1">
+        <node id="window1" castshadow="true"  receiveshadows="true">
             <transforms>
                 <translate value3="-14.9 5.1 -2.25" />
             </transforms>
@@ -3020,7 +3004,7 @@
             </children>
         </node>
 
-        <node id="curtainWindow2">
+        <node id="curtainWindow2" >
             <transforms>
                 <translate value3="1.5 0.5 4.5" />
                 <rotate value3="0 -1.047 0" />
@@ -3034,7 +3018,7 @@
             </children>
         </node>
 
-        <node id="window2">
+        <node id="window2" castshadow="true"  receiveshadows="true">
             <transforms>
                 <translate value3="-14.9 5.1 17.25" />
             </transforms>
@@ -3437,8 +3421,8 @@
 
         <lod id="tree">
             <noderef id="treeStructureNormal" mindist="0" />
-            <noderef id="treeStructureSecond" mindist="60" />
-            <noderef id="treeStructureThird" mindist="100" />
+            <noderef id="treeStructureSecond" mindist="200" />
+            <noderef id="treeStructureThird" mindist="300" />
         </lod>
 
         <node id="present" castshadows="true" receiveshadows="true">
@@ -3483,7 +3467,7 @@
             </children>
         </node>
 
-        <node id="christmasTreeOriginal">
+        <node id="christmasTreeOriginal" castshadow="true"  receiveshadows="true">
             <transforms>
                 <translate value3="11 0 -10" />
             </transforms>
@@ -3501,7 +3485,7 @@
             </children>
         </node>
 
-        <node id="christmasTreeSecond">
+        <node id="christmasTreeSecond" castshadow="true"  receiveshadows="true">
             <transforms>
                 <translate value3="11 0 -10" />
             </transforms>
@@ -3517,7 +3501,7 @@
             </children>
         </node>
 
-        <node id="christmasTreeThird">
+        <node id="christmasTreeThird" castshadow="true"  receiveshadows="true">
             <transforms>
                 <translate value3="11 0 -10" />
             </transforms>
@@ -4213,7 +4197,7 @@
             </children>
         </node>
 
-        <node id="fireplace">
+        <node id="fireplace" castshadow="true"  receiveshadows="true">
             <transforms>
                 <translate value3="14.99 0 0" />
             </transforms>
@@ -4428,7 +4412,7 @@
 
         </node>
 
-        <node id="sock1">
+        <node id="sock1" castshadow="true"  receiveshadows="true">
             <transforms>
                 <translate value3="-3 6.2 -3" />
                 <rotate value3="-0.2 0 0" />
@@ -4443,7 +4427,7 @@
             </children>
         </node>
 
-        <node id="sock2">
+        <node id="sock2" castshadow="true"  receiveshadows="true">
             <transforms>
                 <translate value3="-3 6.2 -0.5" />
                 <rotate value3="-0.2 0 0" />
@@ -4458,7 +4442,7 @@
             </children>
         </node>
 
-        <node id="sock3">
+        <node id="sock3" castshadow="true"  receiveshadows="true">
             <transforms>
                 <translate value3="-3 6.2 2" />
                 <rotate value3="-0.2 0 0" />
@@ -5085,70 +5069,6 @@
             </children>
         </node>
 
-        <node id="outsideLamps">
-            <children>
-               <noderef id="outsideLamp1"/> 
-            </children>
-        </node>
-
-        <node id= "outsideLamp1">
-            <transforms>
-                <translate value3="80 0 0" />
-            </transforms>
-
-            <materialref id="oakApp" />
-
-            <children>
-               <noderef id="outsideLampPole"/>
-                <noderef id="outsideLampTop1"/>
-                <noderef id="outsideLampTop2"/>
-                <spotlight id="lightOutside1" enabled="true" color="1 1 0.73 1" intensity="10"
-                    distance="0" decay="0.5" position="0 26 0" target="80 0 0" angle="0.52"
-                    castshadow="true" shadowfar="25" shadowmapsize="4096" /> 
-            </children>
-        </node>
-
-        <node id="outsideLampPole">
-            <transforms>
-                <translate value3="0 10 0" />
-            </transforms>
-
-            <materialref id="lightMetalApp" />
-
-            <children>
-                <primitive>
-                    <cylinder base="0.5" top="0.5" height="20" slices="32" stacks="32" capsclose="true"/>
-                </primitive>
-            </children>
-        </node>
-
-        <node id="outsideLampTop1">
-            <transforms>
-                <translate value3="0 21.5 0" />
-            </transforms>
-
-            <materialref id="outsideLightFrameApp" />
-
-            <children>
-                <primitive>
-                    <cylinder base="0.5" top="2" height="3" slices="4" stacks="4" />
-                </primitive>
-            </children>
-        </node>
-
-        <node id="outsideLampTop2">
-            <transforms>
-                <translate value3="0 24.5 0" />
-            </transforms>
-
-            <materialref id="outsideLightFrameApp" />
-
-            <children>
-                <primitive>
-                    <cylinder base="2" top="0.5" height="3" slices="4" stacks="4" />
-                </primitive>
-            </children>
-        </node>
 
     </graph>
 </yaf> 
