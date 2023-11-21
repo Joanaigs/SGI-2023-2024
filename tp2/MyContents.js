@@ -105,7 +105,7 @@ class MyContents {
             if (material.bumpref !== null) {
                 bumpTexture = this.getTexture(material.bumpref);
             }
-            if (materials.specularMapRef !== null) {
+            if (material.specularMapRef !== null) {
                 specularTexture = this.getTexture(material.specularref);
             }
             this.materials.set(material.id, new MyMaterial(material, texture, bumpTexture, specularTexture));
