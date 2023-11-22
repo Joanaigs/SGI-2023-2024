@@ -58,6 +58,8 @@ class MyMaterial extends THREE.MeshPhongMaterial{
             this.map.repeat.set(lenght/this.texlength_s, height/this.texlength_t)
         if(this.bumpMap)
             this.bumpMap.repeat.set(lenght/this.texlength_s, height/this.texlength_t)
+        if(this.specularMap)
+            this.specularMap.repeat.set(lenght/this.texlength_s, height/this.texlength_t)
     }
 
     /**
@@ -67,13 +69,17 @@ class MyMaterial extends THREE.MeshPhongMaterial{
     clone(){
         let cloneTex = null;
         let cloneBump = null;
+        let cloneSpecular = null;
         if(this.map){
             cloneTex = this.map.cloning();
         }
         if(this.bumpMap){
             cloneBump = this.bumpMap.cloning();
         }
-        const cloneMaterial= new this.constructor(this.materialData, cloneTex, cloneBump)
+        if(this.specularMap){
+            cloneSpecular = this.specularMap.cloning();
+        }
+        const cloneMaterial= new this.constructor(this.materialData, cloneTex, cloneBump, cloneSpecular)
         return cloneMaterial
     }
 

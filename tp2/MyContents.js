@@ -44,6 +44,7 @@ class MyContents {
         this.wireframe = false;
         this.santaPos = 0;
         this.santaOriginalY = 4;
+        this.candleOn = true;
         this.axisVisible = false
 
     }
@@ -66,7 +67,6 @@ class MyContents {
      * @param {MySceneData} data the entire scene data object
      */
     onSceneLoaded(data) {
-        console.info("scene data loaded " + data + ". visit MySceneData javascript class to check contents for each data item.")
         this.onAfterSceneLoadedAndBeforeRender(data);
     }
 
@@ -161,7 +161,6 @@ class MyContents {
      * @param {string} value id of the texture
      */
     updateSockTexture(value) {
-        console.log(this.materials)
         this.sockTexture = value;
         let sock1 = this.nodeObjects.get("sock1");
         let sock1Mesh = sock1.children[0].children[0]
@@ -169,7 +168,6 @@ class MyContents {
         let sock2Mesh = sock2.children[0].children[0]
         let sock3 = this.nodeObjects.get("sock3");
         let sock3Mesh = sock3.children[0].children[0]
-        console.log(sock1Mesh)
         if (value == "red") {
             sock1Mesh.material = this.materials.get("sock1App");
             sock2Mesh.material = this.materials.get("sock1App");
@@ -197,7 +195,6 @@ class MyContents {
                     light.visible = false;
                 }
                 else if (this.lightTreeEnabled == "blinking") {
-                    console.log(key)
                     light.visible = true;
                 }
             }
@@ -220,9 +217,6 @@ class MyContents {
 
         // Update the y position to keep the bottom in the same place
         milk.position.y = -0.2 + value / 2;
-
-
-        console.log(proportion, milk.position.y)
     }
 
     /**
@@ -276,7 +270,6 @@ class MyContents {
         let tree = this.nodeObjects.get("christmasTree");
         let decorations = tree.children[0].children[6];
         for (let decoration of decorations.children) {
-            console.log(this.treeDecoration)
             decoration.children[0].material.color.set(this.treeDecoration);
         }
 
@@ -287,7 +280,7 @@ class MyContents {
      * Changes the color of all the tree decorations(balls) to a random color
      */
     updateTreeDecorationRandom() {
-        let tree = this.nodeObjects.get("christmasTree");
+        let tree = this.nodeObjects.get("christmasTreeLod");
         let decorations = tree.children[0].children[6];
         for (let decoration of decorations.children) {
 
@@ -314,11 +307,34 @@ class MyContents {
      */
     updateAxis() {
         if (this.axis !== undefined && this.axis !== null && !this.axisVisible) {
-           this.axis.visible = false;
+            this.axis.visible = false;
         }
         else if (this.axisVisible) {
             let axis = this.app.scene.getObjectByName("axis");
             this.axis.visible = true;
+        }
+    }
+
+    updateCandle() {
+        let candle1 = this.nodeObjects.get("candle1");
+        let candle2 = this.nodeObjects.get("candle2");
+        let candle3 = this.nodeObjects.get("candle3");
+
+        if (this.candleOn) {
+            candle1.children[4].visible = true;
+            candle2.children[4].visible = true;
+            candle3.children[4].visible = true;
+            candle1.children[5].visible = true;
+            candle2.children[5].visible = true;
+            candle3.children[5].visible = true;
+        }
+        else {
+            candle1.children[4].visible = false;
+            candle2.children[4].visible = false;
+            candle3.children[4].visible = false;
+            candle1.children[5].visible = false;
+            candle2.children[5].visible = false;
+            candle3.children[5].visible = false;
         }
     }
 

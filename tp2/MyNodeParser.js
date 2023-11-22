@@ -64,15 +64,9 @@ class MyNodeParser {
   children(nodeId, materialID, castshadow, receiveshadows, lod = false) {
     let children = [];
     let node;
-    if (lod) {
-      node = this.lods[nodeId];
-    }
-    else
-      node = this.nodes[nodeId];
+    node = this.nodes[nodeId];
     for (let i = 0; i < node.children.length; i++) {
       let child = node.children[i];
-      if (lod)
-        child = child.node
       if (child.type === "primitive") {
 
         let primitive = this.primitiveCreation(child, materialID, castshadow, receiveshadows);
@@ -182,9 +176,7 @@ class MyNodeParser {
         let childLodChild = child.children[i];
         let childGroup = this.nodeCreation(childLodChild.node, materialID, castshadow, receiveshadows);
         childLod.addLevel(childGroup, childLodChild.mindist);
-        console.log(childGroup, childLodChild.mindist)
       }
-      console.log(child.id)
       this.contents.nodeObjects.set(child.id, childLod);
     }
     else {
