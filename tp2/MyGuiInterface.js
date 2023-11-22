@@ -45,7 +45,7 @@ class MyGuiInterface {
 
     // adds a folder to control the santa legs position
     const chimneyFolder = this.datgui.addFolder("Chimney");
-    chimneyFolder.add(this.contents, 'santaPos', 0, 3).name("Santa Going up the chimine").onChange((value) => { this.contents.updateSantaPosition(value) });
+    chimneyFolder.add(this.contents, 'santaPos', 0, 3).name("Santa Going up the chimney").onChange((value) => { this.contents.updateSantaPosition(value) });
 
     // adds a folder to change the texture of the socks
     const sockOptions = ['green', 'red'];
