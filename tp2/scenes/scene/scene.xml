@@ -4587,6 +4587,7 @@
         <!-- _FENCES_ -->
 
          <node id="fenceStructure">
+            <materialref id="woodTrunkApp" />
             <children>
                 <noderef id="fenceLargeTrunk"/>
                 <noderef id="fenceUpTrunk"/>
@@ -4599,7 +4600,6 @@
                 <translate value3="90 2.5 -8.5" />
             </transforms>
 
-            <materialref id="oakApp" />
 
             <children>
                 <primitive>
@@ -4613,8 +4613,7 @@
                 <translate value3="90 4 -3" />
                 <rotate value3="-1.57 0 0" />
             </transforms>
-
-            <materialref id="oakApp" />
+/>
 
             <children>
                 <primitive>
@@ -4628,7 +4627,6 @@
                 <translate value3="0 -2 0" />
             </transforms>
 
-            <materialref id="oakApp" />
 
             <children>
                 <noderef id="fenceUpTrunk"/>
