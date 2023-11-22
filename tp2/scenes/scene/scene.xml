@@ -11,19 +11,25 @@
         front="scenes/scene/textures/snow_ft.jpg" back="scenes/scene/textures/snow_bk.jpg" />
 
 
-    <cameras initial="cam1">
-        <perspective id="cam1" angle="1.047" near="0.1" far="5000" location="10 11 25"
+    <cameras initial="dinningSide">
+        <perspective id="main" angle="1.047" near="0.1" far="5000" location="10 11 25"
             target="0 3 0" />
         <perspective id="paintings" angle="1.047" near="0.1" far="5000" location="0 10 15"
             target="0 10 30" />
         <perspective id="fireplace" angle="1.047" near="0.1" far="5000" location="0 8 0"
             target="15 8 0" />
-        <perspective id="candyCane" angle="1.047" near="0.1" far="5000" location="0 8 0"
+        <perspective id="coffeTable" angle="1.047" near="0.1" far="5000" location="0 8 0"
             target="0 5 -2" />
         <perspective id="tree" angle="1.047" near="0.1" far="5000" location="2 8 -1"
             target="10 8 -10" />
         <perspective id="frontHouse" angle="1.047" near="0.1" far="5000" location="130 10 -25"
             target="50 10 -25" />
+        <perspective id="dinningSide" angle="1.047" near="0.1" far="5000" location="0 10 5"
+        target="0 10 15" />
+        <perspective id="tvSide" angle="1.047" near="0.1" far="5000" location="0 10 15"
+        target="0 10 -15" />
+        <perspective id="windowView" angle="1.047" near="0.1" far="5000" location="0 10 0"
+        target="-15 10 0" />
     </cameras>
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas
@@ -66,6 +72,7 @@
         <texture id="tableCloth" filepath="scenes/scene/textures/tableCloth.jpg" />
         <texture id="roofTex" filepath="scenes/scene/textures/roof.jpg" />
         <texture id="bumpRoofTex" filepath="scenes/scene/textures/bumpRoof.jpg" />
+        <texture id="specularRoofTex" filepath="scenes/scene/textures/specularRoof.png" />
         <texture id="outsideWall" filepath="scenes/scene/textures/outsideWall.jpg" />
         <texture id="outsideWallBump" filepath="scenes/scene/textures/outsideWallBump.png" />
         <texture id="candycaneTex" filepath="scenes/scene/textures/candycane.png" />
@@ -179,7 +186,7 @@
             specular="0 0 0 1" shininess="0" />
 
         <material id="whiteEmissiveApp" emissive="0.5 0.5 0.5 1" color="1 1 1 0.8"
-        specular="0 0 0 1" shininess="0" />
+        specular="0 0 0 1" shininess="0" twosided="true" />
 
         <material id="whiteVeryEmissiveApp" emissive="1 1 1 1" color="1 1 1 1"
         specular="0 0 0 1" shininess="0" />
@@ -199,9 +206,9 @@
         <material id="redSantaApp" emissive="0 0.0 0.0 1" color="1 0 0 1.0"
             specular="1 0 0 1" shininess="30" />
 
-        <material id="roofAp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
-            specular="0 0 0 1" shininess="0" textureref="roofTex" texlength_s="10"
-            texlength_t="9" bumpref="bumpRoofTex" bumpscale="1" twosided="true" />
+        <material id="roofAp" emissive="0.0 0.0 0.0 1" color="1 0.9 0.9 1.0"
+            specular="0 0 0 1" shininess="0" textureref="roofTex" texlength_s="14"
+            texlength_t="20" bumpref="bumpRoofTex" bumpscale="0.5" twosided="true" />
 
         <material id="outsideWallApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="0 0 0 1" shininess="0" textureref="outsideWall" texlength_s="15"
@@ -798,6 +805,7 @@
         <node id="roofRectangleBack">
             <transforms>
                 <translate value3="30.8 9.5 -28" />
+                <rotate value3="0 0 3.1415" />
                 <rotate value3="-1.5708 0 0" />
                 <rotate value3="0 0.5879 0" />
             </transforms>
@@ -850,6 +858,7 @@
         <node id="roofFrontDoorRectangleRight">
             <transforms>
                 <translate value3="41 8 -40" />
+                <rotate value3="3.1415 0 0" />
                 <rotate value3="0 0 -1.5708" />
                 <rotate value3="0 0.89 0.0" />
             </transforms>
@@ -1295,6 +1304,10 @@
                 <noderef id="groundLampshadeConeBase" />
                 <noderef id="groundLampshadeAbajur" />
                 <noderef id="groundLampshadeLamp" />
+                <spotlight id="light4" enabled="true" color="1 1 0.5 1" intensity="1.0"
+                distance="0" decay="0.5" position="0 4.4 0" target="11 0 26" angle="0.698"/>
+                <spotlight id="light4" enabled="true" color="1 1 0.5 1" intensity="1.0"
+                distance="0" decay="0.5" position="0 3 0" target="11 15 26" angle="0.698"/>
             </children>
         </node>
 
@@ -1369,7 +1382,7 @@
 
         <node id='ceilingLampshadeStructure1'>
             <transforms>
-                <translate value3="0 0.55 0" />
+                <translate value3="0 0.75 0" />
                 <rotate value3="0 0 -3.1415" />
                 <scale value3="0.5 0.4 0.5" />
             </transforms>
@@ -2695,17 +2708,6 @@
             </children>
         </node>
 
-        <node id="candle">
-            <children>
-                <noderef id="candleSuport1" />
-                <noderef id="candleSuport2" />
-                <noderef id="candleBase" />
-                <noderef id="candleWick" />
-                <noderef id="candleFlameBottom" />
-                <noderef id="candleFlameTop" />
-            </children>
-        </node>
-
         <node id="candle1">
             <transforms>
                 <translate value3="0 4 0" />
@@ -3562,13 +3564,15 @@
 
         <node id="starObjSecond">
             <transforms>
-                <translate value3="0 11.5 0" />
-                <rotate value3="0 0.7854 0" />
+                <translate value3="0 11.75 0" />
+                <rotate value3="0 -00.78 0" />
+                <rotate value3="0 0 0.32" />
             </transforms>
             <materialref id="yellowApp" />
             <children>
                 <primitive>
-                    <sphere radius="0.5" slices="32" stacks="32" />
+                    <polygon radius="0.5" stacks="7" slices="5" color_c="1 1 0.5 0"
+                    color_p="1 1 0 0" />
                 </primitive>
             </children>
         </node>

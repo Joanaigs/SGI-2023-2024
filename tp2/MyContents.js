@@ -44,6 +44,7 @@ class MyContents {
         this.wireframe = false;
         this.santaPos = 0;
         this.santaOriginalY = 4;
+        this.candleOn = true;
         this.axisVisible = false
 
     }
@@ -314,11 +315,34 @@ class MyContents {
      */
     updateAxis() {
         if (this.axis !== undefined && this.axis !== null && !this.axisVisible) {
-           this.axis.visible = false;
+            this.axis.visible = false;
         }
         else if (this.axisVisible) {
             let axis = this.app.scene.getObjectByName("axis");
             this.axis.visible = true;
+        }
+    }
+
+    updateCandle() {
+        let candle1 = this.nodeObjects.get("candle1");
+        let candle2 = this.nodeObjects.get("candle2");
+        let candle3 = this.nodeObjects.get("candle3");
+
+        if (this.candleOn) {
+            candle1.children[4].visible = true;
+            candle2.children[4].visible = true;
+            candle3.children[4].visible = true;
+            candle1.children[5].visible = true;
+            candle2.children[5].visible = true;
+            candle3.children[5].visible = true;
+        }
+        else {
+            candle1.children[4].visible = false;
+            candle2.children[4].visible = false;
+            candle3.children[4].visible = false;
+            candle1.children[5].visible = false;
+            candle2.children[5].visible = false;
+            candle3.children[5].visible = false;
         }
     }
 

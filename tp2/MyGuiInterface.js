@@ -83,6 +83,10 @@ class MyGuiInterface {
     cookiesFolder.add(this.contents, 'numcookies', 0, 4, 1).name("Number of cookies").onChange((value) => { this.contents.updateCookies(value) });
     cookiesFolder.add(this.contents, 'milkHeight', 0.01, 0.4).name("Drink Milk").onChange((value) => { this.contents.updateMilk(value) });
 
+    // adds a folder to control the candles
+    const candleFolder = this.datgui.addFolder('Candles');
+    candleFolder.add(this.contents, 'candleOn').name("Lighting/Blowing-out candles").onChange((value) => { this.contents.updateCandle(value) });
+
     //wireframe
     const wireframeFolder = this.datgui.addFolder('Wireframe');
     wireframeFolder.add(this.contents, "wireframe").onChange(() => { this.contents.updateWireframe()});
