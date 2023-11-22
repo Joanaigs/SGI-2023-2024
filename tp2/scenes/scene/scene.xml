@@ -11,7 +11,7 @@
         front="scenes/scene/textures/snow_ft.jpg" back="scenes/scene/textures/snow_bk.jpg" />
 
 
-    <cameras initial="frontHouse">
+    <cameras initial="tvSide">
         <perspective id="main" angle="1.047" near="0.1" far="5000" location="10 11 25"
             target="0 3 0" />
         <perspective id="paintings" angle="1.047" near="0.1" far="5000" location="0 10 15"
@@ -1466,9 +1466,9 @@
                 <noderef id="groundLampshadeConeBase" />
                 <noderef id="groundLampshadeAbajur" />
                 <noderef id="groundLampshadeLamp" />
-                <spotlight id="light4" enabled="true" color="1 1 0.5 1" intensity="1.0"
+                <spotlight id="light4" enabled="true" color="1 1 0.9 1" intensity="1.0"
                 distance="0" decay="0.5" position="0 4.4 0" target="11 0 26" angle="0.698"/>
-                <spotlight id="light4" enabled="true" color="1 1 0.5 1" intensity="1.0"
+                <spotlight id="light4" enabled="true" color="1 1 0.9 1" intensity="1.0"
                 distance="0" decay="0.5" position="0 3 0" target="11 15 26" angle="0.698"/>
             </children>
         </node>
@@ -1482,7 +1482,7 @@
             </transforms>
             <materialref id="lightMetalApp" />
             <children>
-                <pointlight id="light3" enabled="true" color="1 1 0.73 0" intensity="70" distance="30" decay="2.0" castshadow="false" position="0 0 0"/>
+                <pointlight id="light3" enabled="true" color="1 1 0.9 0" intensity="70" distance="30" decay="2.0" castshadow="false" position="0 0 0"/>
                 <noderef id="ceilingLampTop" />
                 <noderef id="ceilingLampBottom" />
             </children>
@@ -1522,8 +1522,8 @@
             <children>
                 <noderef id="ceilingLampshadeStructure1" />
                 <noderef id="ceilingLampshadeStructure2" />                
-                <spotlight id="light2" enabled="true" color="1 1 0.73 1" intensity="2.0"
-                    distance="0" decay="0.5" position="0 0 0" target="0 0 -3" angle="1.2217"
+                <spotlight id="light2" enabled="true" color="1 1 0.9 1" intensity="2.0"
+                    distance="0" decay="0" penumbra="1" position="0 0 0" target="0 0 -3" angle="1.2217"
                     castshadow="true" shadowfar="25" shadowmapsize="4096" />
             </children>
         </node>
@@ -1536,8 +1536,8 @@
             <children>
                 <noderef id="ceilingLampshadeStructure1" />
                 <noderef id="ceilingLampshadeStructure2" />
-                <spotlight id="light1" enabled="true" color="1 1 0.73 1" intensity="2.0"
-                    distance="0" decay="0.5" position="0 0 0" target="0 0 21" angle="1.2217"
+                <spotlight id="light1" enabled="true" color="1 1 0.9 1" intensity="2.0"
+                    distance="0" decay="0" penumbra="1" position="0 0 0" target="0 0 21" angle="1.2217"
                     castshadow="true" shadowfar="25" shadowmapsize="4096" />
             </children>
         </node>
@@ -4112,7 +4112,7 @@
 
         <node id="smallBookShelfRight">
             <transforms>
-                <translate value3="-1.5 0 1" />
+                <translate value3="1.75 0 0.75" />
             </transforms>
 
             <materialref id="oakApp" />
