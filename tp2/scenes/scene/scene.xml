@@ -11,7 +11,7 @@
         front="scenes/scene/textures/snow_ft.jpg" back="scenes/scene/textures/snow_bk.jpg" />
 
 
-    <cameras initial="dinningSide">
+    <cameras initial="coffeTable">
         <perspective id="main" angle="1.047" near="0.1" far="5000" location="10 11 25"
             target="0 3 0" />
         <perspective id="paintings" angle="1.047" near="0.1" far="5000" location="0 10 15"
@@ -214,8 +214,8 @@
             specular="1 0 0 1" shininess="30" />
 
         <material id="roofAp" emissive="0.0 0.0 0.0 1" color="1 0.9 0.9 1.0"
-            specular="0 0 0 1" shininess="0" textureref="roofTex" texlength_s="14"
-            texlength_t="20" bumpref="bumpRoofTex" bumpscale="0.5" twosided="true" />
+            specular="0.6 0.6 0.6 1" shininess="15" textureref="roofTex" texlength_s="14"
+            texlength_t="20" bumpref="bumpRoofTex" bumpscale="0.3" twosided="true" specularref="specularRoofTex" />
 
         <material id="outsideWallApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="0 0 0 1" shininess="0" textureref="outsideWall" texlength_s="15"
@@ -240,8 +240,8 @@
         <material id="footprintsApp" emissive="0.0 0.0 0.0 1" color="1 1 1 0.99" specular="0 0 0 1"
             shininess="0" textureref="footprints" texlength_s="8" texlength_t="4"/>
 
-        <material id="glassApp" emissive="0.0 0.0 0.0 1" color="1 1 1 0.99" specular="1 1 1 1"
-        shininess="0" textureref="glassTex" texlength_s="8" texlength_t="4"/>
+        <material id="glassApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1" specular="0.8 0.8 0.8 1"
+        shininess="30" textureref="glassTex" texlength_s="8" texlength_t="4"/>
 
          <material id="doorApp" emissive="0.0 0.0 0.0 1" color="0.26 0.156 0.125 1.0"
             specular="0 0 0 1" shininess="10" textureref="doorTex" texlength_s="16"
@@ -278,7 +278,7 @@
                     decay="1"
                     shadowfar="500"
                     castshadow="true"
-                    position="100 90 1.047"
+                    position="120 80 1.047"
                     shadowmapsize="512"
                 />
 
@@ -1948,8 +1948,7 @@
             <materialref id="carpetApp" />
             <children>
                 <primitive>
-                    <polygon radius="5" stacks="3" slices="32" color_c="1 0 0 0"
-                        color_p="0 1 0 0" />
+                    <polygon radius="5" stacks="5" slices="32"  color_c="0.5 0.5 0.5 1" color_p="0.3 0.2 0.2 0" />
                 </primitive>
             </children>
         </node>
@@ -4955,13 +4954,13 @@
         <node id="snowmanArmLeft">
             <materialref id="blackApp" />
             <transforms>
-                <translate value3="0.5 0.5 1.5" />
+                <translate value3="0.5 0.5 2.5" />
                 <rotate value3="1.57 0.52 -0.52" />
             </transforms>
 
             <children>
                 <primitive>
-                    <cylinder base="0.1" top="0.1" height="1.75" slices="32" stacks="2" />
+                    <cylinder base="0.1" top="0.1" height="1.75" slices="32" stacks="2" capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -4969,13 +4968,13 @@
         <node id="snowmanArmRight">
             <materialref id="blackApp" />
             <transforms>
-                <translate value3="0.5 0.5 -1.5" />
+                <translate value3="0.5 0.5 -2.5" />
                 <rotate value3="1.57 0.52 0.52" />
             </transforms>
 
             <children>
                 <primitive>
-                    <cylinder base="0.1" top="0.1" height="1.75" slices="32" stacks="2" />
+                    <cylinder base="0.1" top="0.1" height="1.75" slices="32" stacks="2" capsclose="true" />
                 </primitive>
             </children>
         </node>
