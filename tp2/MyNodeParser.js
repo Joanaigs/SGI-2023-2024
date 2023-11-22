@@ -182,9 +182,7 @@ class MyNodeParser {
         let childLodChild = child.children[i];
         let childGroup = this.nodeCreation(childLodChild.node, materialID, castshadow, receiveshadows);
         childLod.addLevel(childGroup, childLodChild.mindist);
-        console.log(childGroup, childLodChild.mindist)
       }
-      console.log(child.id)
       this.contents.nodeObjects.set(child.id, childLod);
     }
     else {

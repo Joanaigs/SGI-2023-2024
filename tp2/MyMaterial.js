@@ -42,7 +42,6 @@ class MyMaterial extends THREE.MeshPhongMaterial{
             this.map = texture
         }
         if(specularMap){
-            console.log(specularMap)
             specularMap.wrapS = THREE.RepeatWrapping;
             specularMap.wrapT = THREE.RepeatWrapping;
             this.specularMap = specularMap

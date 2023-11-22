@@ -21,6 +21,8 @@ class MyPolygon extends THREE.Group {
    * Creates the polygon
    */
   createPolygon() {
+
+    // function to interpolate between two values
     const interpolate = (startValue, endValue, percentage) =>
       startValue + percentage * (endValue - startValue);
     const interpolateColor = (startColor, endColor, percentage) => [
@@ -43,6 +45,7 @@ class MyPolygon extends THREE.Group {
     let stackPercentage = 1 / this.stacks;
     let stackColor = interpolateColor(this.color_c, this.color_p, stackPercentage);
 
+    // create the first stack by using the the vertex (0,0,0) in all triangles
     for (let currentSlice = 0; currentSlice < this.slices; currentSlice++) {
       const angle = (currentSlice / this.slices) * (2 * Math.PI);
       const x = part * Math.cos(angle);
@@ -59,6 +62,7 @@ class MyPolygon extends THREE.Group {
       );
     }
 
+    // create the remaining stacks by using the previous stack points
     for (let i = 1; i < this.stacks; i++) {
       const currentRadius = (i + 1) * part;
       stackPercentage = (1 + i) / this.stacks;
@@ -96,7 +100,6 @@ class MyPolygon extends THREE.Group {
       }
     }
 
-    console.log(vertices);
     this.geometry.setIndex(indices);
     this.geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
     this.geometry.setAttribute('normal', new THREE.Float32BufferAttribute(normals, 3));
