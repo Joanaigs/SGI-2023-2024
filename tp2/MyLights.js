@@ -2,8 +2,9 @@ import * as THREE from "three";
 import { MyContents } from "./MyContents.js";
 
 /**
- 
-This class creates lights*/
+  *
+This class creates lights according to the data received from the parser
+*/
 class MyLights {
   /**
    * @param {MyContents} content The contents object
@@ -11,6 +12,10 @@ class MyLights {
   constructor(content) {
     this.content = content;
   }
+  /**
+   * Creates the light according to the data received from the parser
+   * @param {Dictionary} lightData has the data of the light
+   */
   createLight(lightData) {
     switch (lightData.type) {
       case "directionallight":

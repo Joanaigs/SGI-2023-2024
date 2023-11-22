@@ -5,6 +5,10 @@ import * as THREE from 'three';
  */
 class MyRectangle {
 
+    /**
+     * The constructor of the rectangle that receives the data from the parser and creates the rectangle
+     * @param {Dictionary} primitiveData the data of the primitive
+     */
     constructor(primitiveData) {
         this.xy1 = primitiveData.xy1;
         this.xy2 = primitiveData.xy2;
@@ -15,6 +19,13 @@ class MyRectangle {
         this.rectangle = new THREE.PlaneGeometry(Math.abs(this.width), Math.abs(this.height), this.widthSegments, this.heigthSegments);
     }
 
+     /**
+     * Adds the material to the rectangle and returns the object
+     * @param {MyMaterial} material the material of the rectangle
+     * @param {boolean} castshadow if the rectangle casts shadow or not
+     * @param {boolean} receiveshadows if the rectangle receives shadow or not
+     * @returns the object with the material
+     */
     addMaterial(material, castshadow, receiveshadows){
         material.setRepeat(this.width, this.height)
         let object = new THREE.Mesh(this.rectangle, material);

@@ -5,6 +5,21 @@ import * as THREE from 'three';
  */
 class MyTriangle extends THREE.BufferGeometry {
 
+	/**
+	 * The constructor of the triangle that receives the data from the parser and creates the triangle
+	 * @param {*} x1 
+	 * @param {*} y1 
+	 * @param {*} z1 
+	 * @param {*} x2 
+	 * @param {*} y2 
+	 * @param {*} z2 
+	 * @param {*} x3 
+	 * @param {*} y3 
+	 * @param {*} z3 
+	 * @param {*} material 
+	 * @param {*} castshadow 
+	 * @param {*} receiveshadows 
+	 */
 	constructor(x1, y1, z1, x2, y2, z2, x3, y3, z3, material, castshadow, receiveshadows) {
 		super();
 
@@ -17,6 +32,9 @@ class MyTriangle extends THREE.BufferGeometry {
 		this.initBuffers();
 	}
 
+	/**
+	 * Initializes the buffers of the triangle
+	 */
 	initBuffers() {
 
 		//CALCULATING NORMALS 
@@ -61,11 +79,6 @@ class MyTriangle extends THREE.BufferGeometry {
 			...normal.toArray(),
 		];
 
-		/* 		const uvs = [
-					0, 0,
-					a , 0,
-					c * cos_ac, c * sin_ac
-				] */
 		let width = a/this.material.texlength_s;
 		const uvs = [
 			0, 0,
@@ -80,6 +93,13 @@ class MyTriangle extends THREE.BufferGeometry {
 	}
 
 
+	/**
+     * Adds the material to the triangle and returns the object
+     * @param {MyMaterial} material the material of the triangle
+     * @param {boolean} castshadow if the triangle casts shadow or not
+     * @param {boolean} receiveshadows if the triangle receives shadow or not
+     * @returns the object with the material
+     */
 	addMaterial() {
 		let object = new THREE.Mesh(this, this.material);
 		if (this.castshadow) {

@@ -2,11 +2,14 @@ import * as THREE from 'three';
 import { MyApp } from './MyApp.js';
 
 /**
- * This class creates a Texture
+ * This class creates a Video Texture
  */
 class MyVideoTexture extends THREE.VideoTexture {
 
-
+    /**
+     * Constructor of the Video Texture that calls the constructor of the super class amd sets the video element
+     * @param {*} textureData 
+     */
     constructor(textureData) {
         let videoElement = document.getElementById("video")
         videoElement.src = textureData.filepath;
@@ -17,6 +20,11 @@ class MyVideoTexture extends THREE.VideoTexture {
 
     }
 
+    /**
+     * Returns the mag filter of the texture
+     * @param {string} string nearest or linear
+     * @returns the Three obejct type of the mag filter
+     */
     getMagFilter(string) {
         switch (string) {
             case "NearestFilter":
@@ -26,6 +34,11 @@ class MyVideoTexture extends THREE.VideoTexture {
         }
     }
 
+    /**
+     * Returns the min filter of the texture
+     * @param {string} string of the min filter
+     * @returns the Three obejct type of the min filter
+     */
     getMinFilter(string) {
         switch (string) {
             case "NearestFilter":
@@ -51,6 +64,10 @@ class MyVideoTexture extends THREE.VideoTexture {
         }
     }
 
+    /**
+     * 
+     * @returns {MyVideoTexture} a clone of the texture
+     */
     cloning(){
         return new this.constructor(this.textureData);
     }

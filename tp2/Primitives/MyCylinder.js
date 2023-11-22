@@ -5,6 +5,10 @@ import * as THREE from 'three';
  */
 class MyCylinder{
 
+    /**
+     * The constructor of the cylinder that receives the data from the parser and creates the cylinder
+     * @param {Dictionary} primitiveData 
+     */
     constructor(primitiveData) {
         this.radiusTop = primitiveData.top;
         this.radiusBottom = primitiveData.base;
@@ -18,6 +22,13 @@ class MyCylinder{
 
     }
 
+    /**
+     * Adds the material to the cylinder and returns the object
+     * @param {MyMaterial} material the material of the cylinder
+     * @param {boolean} castshadow if the cylinder casts shadow or not
+     * @param {boolean} receiveshadows if the cylinder receives shadow or not
+     * @returns the object with the material
+     */
     addMaterial(material, castshadow, receiveshadows){
         let lenght = this.radiusTop>this.radiusBottom? this.radiusTop*2*Math.PI : this.radiusBottom*2*Math.PI
         let size = lenght>this.height? lenght : this.height

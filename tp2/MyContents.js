@@ -44,7 +44,8 @@ class MyContents {
         this.wireframe = false;
         this.santaPos = 0;
         this.santaOriginalY = 4;
-        this.showShadows = true;
+        this.axisVisible = false
+
     }
 
     /**
@@ -56,6 +57,7 @@ class MyContents {
             // create and attach the axis to the scene
             this.axis = new MyAxis(this)
             this.app.scene.add(this.axis)
+            this.axis.visible = false
         }
     }
 
@@ -68,16 +70,19 @@ class MyContents {
         this.onAfterSceneLoadedAndBeforeRender(data);
     }
 
-    output(obj, indent = 0) {
-        //console.log("" + new Array(indent * 4).join(' ') + " - " + obj.type + " " + (obj.id !== undefined ? "'" + obj.id + "'" : ""))
-    }
-
+    /**
+     * From the scene data, creates the scene objects
+     * @param {MySceneData} data the entire scene data object
+     */
     onAfterSceneLoadedAndBeforeRender(data) {
 
+        // update the scene globals
         this.app.scene.updateGlobals(data.options, data.fog, data.skyboxes);
 
+        // create the lights
         this.app.initCameras(data.cameras, data.activeCameraId)
 
+        // create the lights
         for (var key in data.textures) {
             let myTexture = null;
             let texture = data.textures[key]
@@ -91,27 +96,41 @@ class MyContents {
             this.textures.set(texture.id, myTexture);
         }
 
-
+        // create the materials
         for (var key in data.materials) {
             let material = data.materials[key];
             let texture = this.getTexture(material.textureref);
             let bumpTexture = null
+            let specularTexture = null
             if (material.bumpref !== null) {
                 bumpTexture = this.getTexture(material.bumpref);
             }
-            this.materials.set(material.id, new MyMaterial(material, texture, bumpTexture));
+            if (material.specularMapRef !== null) {
+                specularTexture = this.getTexture(material.specularref);
+            }
+            this.materials.set(material.id, new MyMaterial(material, texture, bumpTexture, specularTexture));
         }
 
+        // create the scene
         this.nodeParser = new MyNodeParser(this, data);
         this.nodeParser.init();
 
     }
 
+    /**
+     * Returns the texture object
+     * @param {THREE.Texture} id texture id
+     * @returns {THREE.Texture} the texture object
+     */
     getTexture(id) {
         return this.textures.get(id);
     }
 
 
+    /**
+     * Turns on/off the light
+     * @param {string} id 
+     */
     updateLights(id) {
         let light = this.lights.get(id);
         if (light) {
@@ -119,17 +138,28 @@ class MyContents {
         }
     }
 
+    /**
+     * Changes the wireframe property of the materials
+     */
     updateWireframe() {
         for (let material of this.materialsObjects) {
             material.wireframe = this.wireframe;
         }
     }
 
+    /**
+     * Updates the position of santa
+     * @param {number} value position of santa
+     */
     updateSantaPosition(value) {
         let santa = this.nodeObjects.get("santa");
         santa.position.y = this.santaOriginalY + value;
     }
 
+    /**
+     * Changes the texture of the socks
+     * @param {string} value id of the texture
+     */
     updateSockTexture(value) {
         console.log(this.materials)
         this.sockTexture = value;
@@ -152,6 +182,10 @@ class MyContents {
             sock3Mesh.material = this.materials.get("sock2App");
         }
     }
+
+    /**
+     * Updates the lights of the tree. Has three options: on, off and blinking
+     */
     updateTreeLights() {
         for (let key of this.lights.keys()) {
             if (key.includes("lightTree")) {
@@ -170,6 +204,10 @@ class MyContents {
         }
     }
 
+    /**
+     * Updates the height of the cylinder that represents the milk
+     * @param {number} value height of the milk
+     */
     updateMilk(value) {
         let milk = this.nodeObjects.get("milk").children[0];
         let proportion = value / this.milkOriginalHeight;
@@ -187,6 +225,10 @@ class MyContents {
         console.log(proportion, milk.position.y)
     }
 
+    /**
+     * 
+     * @returns a random color from a list of christmas colors
+     */
     getRandomColor() {
         var christmasColors = [
             '#ff0000', // Red
@@ -207,6 +249,10 @@ class MyContents {
         return christmasColors[randomIndex];
     }
 
+    /**
+     * Changes the number of cookies in the scene
+     * @param {number} value number of cookies
+     */
     updateCookies(value) {
         this.numcookies = value;
         for (let i = 0; i < 4; i++) {
@@ -221,6 +267,10 @@ class MyContents {
         }
     }
 
+    /**
+     * Change the color of all the tree decorations(balls)
+     * @param {hex} value color of the tree decorations 
+     */
     updateTreeDecorationValue(value) {
         this.treeDecoration = value;
         let tree = this.nodeObjects.get("christmasTree");
@@ -233,6 +283,9 @@ class MyContents {
 
     }
 
+    /**
+     * Changes the color of all the tree decorations(balls) to a random color
+     */
     updateTreeDecorationRandom() {
         let tree = this.nodeObjects.get("christmasTree");
         let decorations = tree.children[0].children[6];
@@ -244,6 +297,9 @@ class MyContents {
     }
 
 
+    /**
+     * Changes the visibility of the lights of the tree to simulate blinking
+     */
     toggleBlinkingLights() {
         for (let key of this.lights.keys()) {
             if (key.includes("lightTree")) {
@@ -253,6 +309,22 @@ class MyContents {
         }
     }
 
+    /**
+     * updates the axis visibility
+     */
+    updateAxis() {
+        if (this.axis !== undefined && this.axis !== null && !this.axisVisible) {
+           this.axis.visible = false;
+        }
+        else if (this.axisVisible) {
+            let axis = this.app.scene.getObjectByName("axis");
+            this.axis.visible = true;
+        }
+    }
+
+    /**
+     * Updates the scene
+     */
     update() {
         if (this.lightTreeEnabled === "blinking") {
             if (!this.blinkingIntervalId) {
