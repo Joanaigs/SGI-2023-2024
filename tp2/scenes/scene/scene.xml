@@ -1130,7 +1130,6 @@
         <lod id="frontPorch">
             <noderef id="frontPorchFirst"  mindist="0"/>
             <noderef id="frontPorchSecond"  mindist="220"/>
-            <noderef id="frontPorchThird"  mindist="300"/>
         </lod>
         
 
