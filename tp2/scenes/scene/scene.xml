@@ -471,7 +471,15 @@
 
          <!-- _FAKE_WINDOWS_OUTSIDE_ -->
 
-         <node id="frontPorchWindow">
+         <lod id="frontPorchWindow">
+            <children>
+                <noderef id="frontPorchWindowFirst" mindist = "0"/>
+                <noderef id="frontPorchWindowSecond" mindist = "180"/>
+            </children>
+        </lod>
+
+
+        <node id="frontPorchWindowFirst">
              <transforms>
                 <translate value3="0 7.0 0.2" />
                 <scale value3="1.2 1.2 1.2" />
@@ -487,6 +495,21 @@
         </node>
 
 
+        <node id="frontPorchWindowSecond">
+             <transforms>
+                <translate value3="0 7.0 0.2" />
+                <scale value3="1.2 1.2 1.2" />
+            </transforms>
+
+            <materialref id="glassApp" />
+
+            <children>
+                <primitive>
+                    <polygon radius="3" stacks="6" slices="32" color_c="1 1 1 1" color_p="0.6 0.85 0.97 0" />
+                </primitive>
+            </children>
+        </node>
+
 
         <node id="frontWindowBackground">
              <transforms>
@@ -500,21 +523,6 @@
             <children>
                 <primitive>
                     <polygon radius="3" stacks="2" slices="4" color_c="1 1 1 1" color_p="0.6 0.85 0.97 0" />
-                </primitive>
-            </children>
-        </node>
-
-
-         <node id="ffrontWindowBackground">
-             <transforms>
-                <translate value3="-32 -0.2 0.7" />
-            </transforms>
-
-            <materialref id="whiteApp" />
-
-            <children>
-                <primitive>
-                    <rectangle xy1="-6 -4" xy2="6 4" />
                 </primitive>
             </children>
         </node>
@@ -896,12 +904,34 @@
                 <noderef id="roofRectangleBack" />
                 <noderef id="roofRectangleFront" />
                 <noderef id="roofFrontDoor"/>
-                <noderef id="chinmey"/>
+                <lodref id="chinmey"/>
             </children>
 
         </node>
 
-        <node id="chinmey">
+        <lod id="chinmey">
+            <children>
+                <noderef id="chinmeyFirst"  mindist="0"/>
+                <noderef id="chinmeySecond" mindist="200"/>
+                <noderef id="chinmeyThird"  mindist="300"/>
+            </children>
+        </lod>
+
+        <node id="chinmeySecond">
+            <transforms>
+                <translate value3="15 20 -7.5" />
+            </transforms>
+
+            <materialref id="darkWoodApp" />
+
+            <children>
+                <primitive>
+                    <box xyz1="-5 -4 -4.75" xyz2="5 4 4.75" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="chinmeyFirst">
             <transforms>
                 <translate value3="15 20 -7.5" />
             </transforms>
@@ -987,6 +1017,7 @@
             </children>
         </node>
 
+
         <node id="roofFrontDoor">
             <transforms>
                 <translate value3="0 -1.0 0" />
@@ -1036,7 +1067,7 @@
             </transforms>
             <materialref id="logApp" />
             <children>
-                <noderef id="frontPorchWindow"/>
+                <lodref id="frontPorchWindow"/>
                 <primitive>
                     <triangle xyz1="-20 0 0" xyz2="20 0 0" xyz3="0 16 0" />
                 </primitive>
@@ -4907,12 +4938,26 @@
 
         <!-- _FENCES_ -->
 
-         <node id="fenceStructure">
+        <lod id="fenceStructure">
+            <children>
+                <noderef id="fenceStructureFirst" mindist="0"/>
+                <noderef id="fenceStructureSecond" mindist= "300"/>
+            </children>
+        </lod>
+
+        <node id="fenceStructureFirst">
             <materialref id="woodTrunkApp" />
             <children>
                 <noderef id="fenceLargeTrunk"/>
                 <noderef id="fenceUpTrunk"/>
                 <noderef id="fenceDownTrunk"/>
+            </children>
+        </node>
+
+        <node id="fenceStructureSecond">
+            <materialref id="woodTrunkApp" />
+            <children>
+                <noderef id="fenceLargeTrunk"/>
             </children>
         </node>
 
@@ -4962,7 +5007,7 @@
             </transforms>     
 
                 <children>
-                    <noderef id="fenceStructure"/>
+                    <lodref id="fenceStructure"/>
                 </children>
         </node>
         
@@ -4973,7 +5018,7 @@
             </transforms>     
 
             <children>
-                <noderef id="fenceStructure"/>
+                <lodref id="fenceStructure"/>
             </children>
         </node>
 
@@ -5127,7 +5172,7 @@
         <lod id="snowman">
             <children>
                 <noderef id="snowmanFirst" mindist="0" />
-                <noderef id="snowmanSecond" mindist="210" />
+                <noderef id="snowmanSecond" mindist="180" />
                 <noderef id="snowmanThird" mindist="300" />
             </children>
         </lod>
