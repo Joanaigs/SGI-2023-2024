@@ -275,7 +275,7 @@
                 <noderef id="outsideRightFences"/>     
                 <noderef id="outsideRightFences"/>                 
 
-                <pointlight id="outside1" enabled="true"
+                <pointlight id="sun" enabled="true"
                     color="1 1 1 0"
                     intensity="100"
                     distance="0"
@@ -1596,9 +1596,9 @@
                 <noderef id="groundLampshadeConeBase" />
                 <noderef id="groundLampshadeAbajur" />
                 <noderef id="groundLampshadeLamp" />
-                <spotlight id="light4" enabled="true" color="1 1 0.9 1" intensity="1.0"
+                <spotlight id="lamshade1" enabled="true" color="1 1 0.9 1" intensity="1.0"
                 distance="0" decay="0.5" position="0 4.4 0" target="11 0 26" angle="0.698"/>
-                <spotlight id="light4" enabled="true" color="1 1 0.9 1" intensity="1.0"
+                <spotlight id="lapshade2" enabled="true" color="1 1 0.9 1" intensity="1.0"
                 distance="0" decay="0.5" position="0 3 0" target="11 15 26" angle="0.698"/>
             </children>
         </node>
@@ -1612,7 +1612,7 @@
             </transforms>
             <materialref id="lightMetalApp" />
             <children>
-                <pointlight id="light3" enabled="true" color="1 1 0.9 0" intensity="70" distance="30" decay="2.0" castshadow="false" position="0 0 0"/>
+                <pointlight id="roomLight" enabled="true" color="1 1 0.9 0" intensity="70" distance="30" decay="2.0" castshadow="false" position="0 0 0"/>
                 <noderef id="ceilingLampTop" />
                 <noderef id="ceilingLampBottom" />
             </children>
@@ -1652,7 +1652,7 @@
             <children>
                 <noderef id="ceilingLampshadeStructure1" />
                 <noderef id="ceilingLampshadeStructure2" />                
-                <spotlight id="light2" enabled="true" color="1 1 0.9 1" intensity="2.0"
+                <spotlight id="coffeTableLight" enabled="true" color="1 1 0.9 1" intensity="2.0"
                     distance="0" decay="0" penumbra="1" position="0 0 0" target="0 0 -3" angle="1.2217"
                     castshadow="true" shadowfar="25" shadowmapsize="4096" />
             </children>
@@ -1666,7 +1666,7 @@
             <children>
                 <noderef id="ceilingLampshadeStructure1" />
                 <noderef id="ceilingLampshadeStructure2" />
-                <spotlight id="light1" enabled="true" color="1 1 0.9 1" intensity="2.0"
+                <spotlight id="dinningTableLight" enabled="true" color="1 1 0.9 1" intensity="2.0"
                     distance="0" decay="0" penumbra="1" position="0 0 0" target="0 0 21" angle="1.2217"
                     castshadow="true" shadowfar="25" shadowmapsize="4096" />
             </children>
@@ -3705,7 +3705,7 @@
 
         <node id="painting1" castshadows="true" receiveshadows="true">
             <transforms>
-                <translate value3="-3.2 7.3 29.74" />
+                <translate value3="-3.2 7.3 29.65" />
                 <rotate value3="0 1.5708 0" />
             </transforms>
 
@@ -3731,7 +3731,7 @@
 
         <node id="painting2" castshadows="true" receiveshadows="true">
             <transforms>
-                <translate value3="3.2 8 29.74" />
+                <translate value3="3.2 8 29.65" />
                 <rotate value3="0 1.5708 0" />
             </transforms>
 
