@@ -1,5 +1,11 @@
-# sgi-tp2-base
-The starting point of the second assignment of SGI.
+# SGI 2023/2024 - TP2
+
+## Group T05G05
+| Name             | Number    | E-Mail             |
+| ---------------- | --------- | ------------------ |
+| Inês Cardoso         | 202005435 | up202005435@edu.fe.up.pt                |
+| Joana Santos         | 202006279 | up202006279@edu.fe.up.pt                |
+
 
 1. [Project Overview](#project-overview)
 2. [Strong Points](#strong-points)
@@ -99,6 +105,17 @@ Many materials have different levels of detail.
 ### Scene Screenshots
 
 
+`Figure 1 `
+![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp2/screenshots/television_side.png)
+
+`Figure 2 `
+![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp2/screenshots/dining_side.png)
+
+`Figure 3 `
+![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp2/screenshots/house_outside.png)
+
+## Issues/Problems
+No issues found.
 
 
 
