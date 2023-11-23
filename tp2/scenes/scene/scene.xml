@@ -263,7 +263,7 @@
                 <noderef id="foundation" />
                 <noderef id="frontDoorFloor" /> 
                 <noderef id="outsideTrees"/>
-                <noderef id="snowmanBody"/>
+                <lodref id="snowman"/>
                 <noderef id="outsideLeftFences"/>
                 <noderef id="outsideRightFences"/>     
                 <noderef id="outsideRightFences"/>     
@@ -1005,7 +1005,6 @@
                 <rotate value3="0 0 1.5708" />
                 <rotate value3="0 0.89 0.0" />
             </transforms>
-
 
             <children>
                 <primitive>
@@ -3304,10 +3303,8 @@
                 <noderef id="sunflower"/>
             </children>
         </node>
-        
 
         <node id="sunflower">
-
             <transforms>
                 <translate value3="0 0.45 0"/>
                 <scale value3="0.8 0.8 0.8"/>
@@ -3530,7 +3527,7 @@
 
         <node id="painting1" castshadows="true" receiveshadows="true">
             <transforms>
-                <translate value3="-3.2 7.3 29.75" />
+                <translate value3="-3.2 7.3 29.65" />
                 <rotate value3="0 1.5708 0" />
             </transforms>
 
@@ -3556,7 +3553,7 @@
 
         <node id="painting2" castshadows="true" receiveshadows="true">
             <transforms>
-                <translate value3="3.2 8 29.75" />
+                <translate value3="3.2 8 29.65" />
                 <rotate value3="0 1.5708 0" />
             </transforms>
 
@@ -5127,10 +5124,87 @@
 
         <!-- _SNOWMAN_ -->
 
-        <node id="snowmanBody">
+        <lod id="snowman">
+            <children>
+                <noderef id="snowmanFirst" mindist="0" />
+                <noderef id="snowmanSecond" mindist="210" />
+                <noderef id="snowmanThird" mindist="300" />
+            </children>
+        </lod>
+
+        <node id="snowmanThird">
 
             <transforms>
-                <translate value3="70 2 0" />
+                <translate value3="110 2 -10" />
+            </transforms>     
+
+            <materialref id="whiteApp" />
+
+            <children>
+                <noderef id="snowmanBaseBallThird" />
+                <noderef id="snowmanHeadSecond" />
+            </children>
+        </node>
+
+        <node id="snowmanBaseBallThird">  
+            <transforms>
+                <scale value3="1 1.5 1" />
+                <translate value3="0 1 0" />
+            </transforms> 
+            
+            <children>
+                <primitive>
+                    <sphere radius="2.5" slices="32" stacks="32" thetalength="3.14159265359" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id="snowmanSecond">
+
+            <transforms>
+                <translate value3="110 2 -10" />
+            </transforms>     
+
+            <materialref id="whiteApp" />
+
+            <children>
+                <noderef id="snowmanBaseBall" />
+                <noderef id="snowmanMiddleBallSecond" />
+                <noderef id="snowmanHeadSecond" />
+            </children>
+        </node>
+
+        <node id="snowmanMiddleBallSecond">  
+            <transforms>
+                <translate value3="0 3.0 0" />
+            </transforms> 
+            
+            <children>
+                <primitive>
+                    <sphere radius="2.0" slices="32" stacks="32" thetalength="3.14159265359" />
+                </primitive>
+
+            </children>
+        </node>
+
+                <node id="snowmanHeadSecond">  
+             <transforms>
+                <translate value3="0 5.5 0" />
+            </transforms> 
+            
+            <children>
+                <noderef id="snowmanHat"/>
+                <primitive>
+                    <sphere radius="1.5" slices="32" stacks="32" thetalength="3.14159265359" />
+                </primitive>
+            </children>
+        </node>
+
+
+        <node id="snowmanFirst">
+
+            <transforms>
+                <translate value3="110 2 -10" />
             </transforms>     
 
             <materialref id="whiteApp" />
