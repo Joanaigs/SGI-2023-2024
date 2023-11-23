@@ -355,6 +355,7 @@
             </children>
         </node>
 
+         <!-- front wall of the house-->
         <node id="frontHouseWall">
             <transforms>
                 <translate value3="45 10.4 -20" />
@@ -372,7 +373,7 @@
             </children>
         </node>
 
-
+        <!-- back wall of the house-->
         <node id="backHouseWallBottom">
             <transforms>
                 <translate value3="-15 8 -39.6" />
@@ -389,11 +390,12 @@
 
         <node id="backHouseWallTop">
             <transforms>
-                <translate value3="-15 15 -20" />
+                <translate value3="-15 15.5 -20" />
                 <rotate value3="0 -1.57 0" />
             </transforms>
      
             <children>
+                <noderef id="backWindowLeft"/>
                 <primitive>
                     <rectangle xy1="-50 -2.5" xy2="50 2.5" />
                 </primitive>
@@ -512,8 +514,15 @@
             </children>
         </node>
 
+        <lod id="frontWindowBackground">
+            <children>
+                <noderef id="frontWindowBackgroundFirst" mindist = "0"/>
+                <noderef id="frontWindowBackgroundSecond" mindist="290"/>
+            </children>
+        </lod>
 
-        <node id="frontWindowBackground">
+
+        <node id="frontWindowBackgroundFirst">
              <transforms>
                 <translate value3="-32 -0.2 0.7" />
                 <rotate value3="0 0 -0.78" />
@@ -579,7 +588,14 @@
 
         </node>
 
-         <node id="outsideWindowFrame">
+        <lod id="outsideWindowFrame">
+            <children>
+                <noderef id="outsideWindowFrameFirst" mindist="0" />
+                <noderef id="outsideWindowFrameSecond" mindist="200" />
+            </children>
+        </lod>
+
+         <node id="outsideWindowFrameFirst">
             <transforms>
                 <translate value3="-32 -0.2 0.7" />
                 <rotate value3="0 -1.57 0" />
@@ -598,14 +614,25 @@
 
         <node id="frontWindowLeft">
             <children>
-                <noderef id="outsideWindowFrame"/>
-                <noderef id="frontWindowBackground" />
+                <lodref id="outsideWindowFrame"/>
+                <lodref id="frontWindowBackground" />
             </children>
         </node>
 
         <node id="frontWindowRight">
             <transforms>
                 <translate value3="65 0 0" />
+            </transforms>
+
+            <children>
+                <noderef id="frontWindowLeft"/>
+            </children>
+        </node>
+
+        <node id="backWindowLeft">
+            <transforms>
+                <translate value3="-3 -5 0" />
+                <scale value3="1.1 1.1 1.1" />
             </transforms>
 
             <children>
@@ -631,27 +658,17 @@
         </node>
 
 
-        <node id="rightWallInside" receiveshadows="true" castshadows="true">
+        <node id="rightWall">
             <transforms>
+                <translate value3="0 7.5 30" />
                 <rotate value3="0.0 3.1415 0.0" />
             </transforms>
             <materialref id="wallApp" />
 
             <children>
-                <primitive>
+               <primitive>
                     <rectangle xy1="-15 -7.5" xy2="15 7.5" />
                 </primitive>
-            </children>
-        </node>
-
-        <node id="rightWall">
-            <transforms>
-                <translate value3="0 7.5 30" />
-            </transforms>
-            <materialref id="wallApp" />
-
-            <children>
-                <noderef id="rightWallInside" />
             </children>
         </node>
 
@@ -660,7 +677,7 @@
                 <translate value3="0 -0.01 0" />
                 <rotate value3="0 3.1415 0" />
             </transforms>
-            <materialref id="outsideWallApp" />
+            <materialref id="logApp" />
             <children>
                 <primitive>
                     <rectangle xy1="-3 -5" xy2="3 5" />
@@ -721,7 +738,7 @@
                 <translate value3="0 -0.01 0" />
                 <rotate value3="0 3.1415 0" />
             </transforms>
-            <materialref id="outsideWallApp" />
+            <materialref id="logApp" />
             <children>
                 <primitive>
                     <rectangle xy1="-3 -5" xy2="3 5" />
@@ -1095,6 +1112,7 @@
         <lod id="frontPorch">
             <noderef id="frontPorchFirst"  mindist="0"/>
             <noderef id="frontPorchSecond"  mindist="220"/>
+            <noderef id="frontPorchThird"  mindist="300"/>
         </lod>
         
 
@@ -5174,7 +5192,7 @@
         <lod id="snowman">
             <children>
                 <noderef id="snowmanFirst" mindist="0" />
-                <noderef id="snowmanSecond" mindist="180" />
+                <noderef id="snowmanSecond" mindist="200" />
                 <noderef id="snowmanThird" mindist="300" />
             </children>
         </lod>
