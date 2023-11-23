@@ -85,7 +85,6 @@
         <texture id="sock2Tex" filepath="scenes/scene/textures/sock2.jpg" />
         <texture id="cookieTex" filepath="scenes/scene/textures/cookie.jpg" />
         <texture id="footprints" filepath="scenes/scene/textures/footprint.png" />
-        <texture id="outsideLightFrameTex" filepath="scenes/scene/textures/outisdeLightFrame.png" />
         <texture id="glassTex" filepath="scenes/scene/textures/glass.png" />
         <texture id="doorTex" filepath="scenes/scene/textures/door.png" />
     </textures>
