@@ -18,7 +18,7 @@
             target="0 10 30" />
         <perspective id="fireplace" angle="1.047" near="0.1" far="5000" location="0 8 0"
             target="15 8 0" />
-        <perspective id="coffeTable" angle="1.047" near="0.1" far="5000" location="0 8 0"
+        <perspective id="coffeeTable" angle="1.047" near="0.1" far="5000" location="0 8 0"
             target="0 5 -2" />
         <perspective id="tree" angle="1.047" near="0.1" far="5000" location="2 9 -1"
             target="10 9 -10" />
@@ -301,7 +301,7 @@
                 <noderef id="groundLampshade" />
                 <noderef id="televisionCabinet" />
                 <noderef id="armchair" />
-                <noderef id="coffeTable" />
+                <noderef id="coffeeTable" />
                 <noderef id="vase" />
                 <noderef id="dinnigTable" />
                 <noderef id="window1" />
@@ -2215,7 +2215,7 @@
 
         <!-- _COFFE_TABLE_AND_OBJETCS_ -->
 
-        <node id="coffeTable" castshadows="true" receiveshadows="true">
+        <node id="coffeeTable" castshadows="true" receiveshadows="true">
             <transforms>
                 <translate value3="0 0 -3" />
             </transforms>
