@@ -40,6 +40,7 @@ class MyContents {
         this.reader.open("scenes/scene/scene.xml");
         this.sockTexture = "red";
         this.milkHeight = 0.4;
+        this.blinking=false;
         this.milkOriginalHeight = 0.4;
         this.wireframe = false;
         this.santaPos = 0;
@@ -347,10 +348,13 @@ class MyContents {
                 this.blinkingIntervalId = setInterval(() => {
                     this.toggleBlinkingLights();
                 }, 500);
+                this.blinking = true;
             }
         } else {
-            clearInterval(this.blinkingIntervalId);
-            this.blinkingIntervalId = null;
+            if (this.blinking) {
+                clearInterval(this.blinkingIntervalId);
+                this.blinkingIntervalId = null;
+            }
         }
     }
 }
