@@ -401,6 +401,7 @@
      
             <children>
                 <noderef id="backWindowLeft"/>
+                <noderef id="backWindowRight"/>
                 <primitive>
                     <rectangle xy1="-50 -2.5" xy2="50 2.5" />
                 </primitive>
@@ -484,6 +485,7 @@
             <children>
                 <noderef id="frontPorchWindowFirst" mindist = "0"/>
                 <noderef id="frontPorchWindowSecond" mindist = "180"/>
+                <noderef id="frontPorchWindowThird" mindist = "300"/>
             </children>
         </lod>
 
@@ -636,7 +638,18 @@
 
         <node id="backWindowLeft">
             <transforms>
-                <translate value3="-3 -5 0" />
+                <translate value3="-3 -6 0" />
+                <scale value3="1.1 1.1 1.1" />
+            </transforms>
+
+            <children>
+                <noderef id="frontWindowLeft"/>
+            </children>
+        </node>
+
+        <node id="backWindowRight">
+            <transforms>
+                <translate value3="15 -6 0" />
                 <scale value3="1.1 1.1 1.1" />
             </transforms>
 
