@@ -676,7 +676,7 @@
         </node>
 
 
-        <node id="rightWall">
+        <node id="rightWall" receiveshadows="true" castshadows="true">
             <transforms>
                 <translate value3="0 7.5 30" />
                 <rotate value3="0.0 3.1415 0.0" />
