@@ -30,6 +30,8 @@
         target="0 10 -15" />
         <perspective id="windowView" angle="1.047" near="0.1" far="5000" location="0 10 0"
         target="-15 10 0" />
+        <perspective id="tangram" angle="1.047" near="0.1" far="5000" location="8 10 23"
+        target="15 10 23" />
         <orthogonal id="orthogonalTop" near="0" far="45" left="-15" right="15" top="22.5" bottom="-22.5"
             location="0 16 7.5" target="0 0 7.5" />
     </cameras>
@@ -208,6 +210,9 @@
 
         <material id="redApp" emissive="0 0.0 0.0 1" color="1 0 0 1.0"
             specular="0 0 0 1" shininess="0" />
+
+        <material id="redWireframeApp" emissive="0 0.0 0.0 1" color="1 0 0 1.0"
+            specular="0 0 0 1" shininess="0" wireframe="true"/>
 
         <material id="yellowApp" emissive="0 0 0.0 1" color="1 1 0 1.0"
             specular="0 0 0 1" shininess="0" />
@@ -4787,10 +4792,40 @@
             <children>
                 <noderef id="santaLeg1" />
                 <noderef id="santaLeg2" />
-
+                <noderef id="bag"/>
             </children>
 
 
+        </node>
+
+        <node id="bag">
+            <transforms>
+                <translate value3="0 1.4 1.5" />
+                <scale value3="1 1.5 1" />
+            </transforms>
+
+            <materialref id="redWireframeApp" />
+
+            <children>
+                <primitive>
+                    <sphere radius="1" slices="20" stacks="10" />
+                </primitive>
+                <noderef id="presentBag" />
+            </children>
+        </node>
+
+        <node id="presentBag" castshadows="true" receiveshadows="true">
+            <transforms>
+                <translate value3="0 -0.4 0" />
+            </transforms>
+
+            <materialref id="presentApp" />
+
+            <children>
+                <primitive>
+                    <box xyz1="-0.5 -0.25 -0.5" xyz2="0.5 0.25 0.5" />
+                </primitive>
+            </children>
         </node>
 
 

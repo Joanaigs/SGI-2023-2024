@@ -143,7 +143,7 @@ class MyContents {
      */
     updateWireframe() {
         for (let material of this.materialsObjects) {
-            material.wireframe = this.wireframe;
+            material.wireframe = !material.wireframe;
         }
     }
 
@@ -267,7 +267,7 @@ class MyContents {
      */
     updateTreeDecorationValue(value) {
         this.treeDecoration = value;
-        let tree = this.nodeObjects.get("christmasTree");
+        let tree = this.nodeObjects.get("christmasTreeLod");
         let decorations = tree.children[0].children[6];
         for (let decoration of decorations.children) {
             decoration.children[0].material.color.set(this.treeDecoration);
