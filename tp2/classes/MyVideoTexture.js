@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { MyApp } from './MyApp.js';
+import { MyApp } from '../MyApp.js';
 
 /**
  * This class creates a Video Texture

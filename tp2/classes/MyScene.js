@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { MySkybox } from "./Primitives/MySkybox.js"
+import { MySkybox } from "./MySkybox.js"
 
 /**
  * This class contains the scene object

@@ -1,13 +1,13 @@
 import * as THREE from "three";
 import { MyApp } from "./MyApp.js";
-import { MyLights } from "./MyLights.js";
-import { MyBox } from "./Primitives/MyBox.js"
-import { MyRectangle } from "./Primitives/MyRectangle.js"
-import { MySphere } from "./Primitives/MySphere.js"
-import { MyTriangle } from "./Primitives/MyTriangle.js"
-import { MyCylinder } from "./Primitives/MyCylinder.js"
-import { MyNurbs } from "./Primitives/MyNurbs.js"
-import { MyPolygon } from "./Primitives/MyPolygon.js"
+import { MyLights } from "./classes/MyLights.js";
+import { MyBox } from "./classes/primitives/MyBox.js"
+import { MyRectangle } from "./classes/primitives/MyRectangle.js"
+import { MySphere } from "./classes/primitives/MySphere.js"
+import { MyTriangle } from "./classes/primitives/MyTriangle.js"
+import { MyCylinder } from "./classes/primitives/MyCylinder.js"
+import { MyNurbs } from "./classes/primitives/MyNurbs.js"
+import { MyPolygon } from "./classes/primitives/MyPolygon.js"
 
 /**
  * This class is a parser for the nodes of the scene

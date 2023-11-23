@@ -1,11 +1,11 @@
 import * as THREE from 'three';
-import { MyAxis } from './MyAxis.js';
+import { MyAxis } from './classes/MyAxis.js';
 import { MyFileReader } from './parser/MyFileReader.js';
-import { MyTexture } from './MyTexture.js';
-import { MyVideoTexture } from './MyVideoTexture.js';
+import { MyTexture } from './classes/MyTexture.js';
+import { MyVideoTexture } from './classes/MyVideoTexture.js';
 
-import { MyMaterial } from './MyMaterial.js';
-import { MyLights } from './MyLights.js';
+import { MyMaterial } from './classes/MyMaterial.js';
+import { MyLights } from './classes/MyLights.js';
 import { MyNodeParser } from './MyNodeParser.js';
 /**
  *  This class contains the contents of out application
