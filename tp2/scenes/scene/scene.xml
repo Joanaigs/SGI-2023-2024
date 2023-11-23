@@ -221,7 +221,7 @@
             specular="1 0 0 1" shininess="30" />
 
         <material id="roofAp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
-            specular="0.6 0.6 0.6 1" shininess="20" textureref="roofTex" texlength_s="14"
+            specular="0.6 0.6 0.6 1" shininess="30" textureref="roofTex" texlength_s="14"
             texlength_t="20" bumpref="bumpRoofTex" bumpscale="0.3" twosided="true" specularref="specularRoofTex" />
 
         <material id="outsideWallApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
@@ -274,9 +274,7 @@
                 <noderef id="outsideLeftFences"/>
                 <noderef id="outsideRightFences"/>     
                 <noderef id="outsideRightFences"/>     
-                <noderef id="outsideLamps"/>   
-                <noderef id="outsideRightFences"/>                
-                <noderef id="outsideLamps"/>   
+                <noderef id="outsideRightFences"/>                 
 
                 <pointlight id="outside1" enabled="true"
                     color="1 1 1 0"
@@ -401,6 +399,7 @@
      
             <children>
                 <noderef id="backWindowLeft"/>
+                <noderef id="backWindowRight"/>
                 <primitive>
                     <rectangle xy1="-50 -2.5" xy2="50 2.5" />
                 </primitive>
@@ -484,6 +483,7 @@
             <children>
                 <noderef id="frontPorchWindowFirst" mindist = "0"/>
                 <noderef id="frontPorchWindowSecond" mindist = "180"/>
+                <noderef id="frontPorchWindowThird" mindist = "300"/>
             </children>
         </lod>
 
@@ -636,7 +636,18 @@
 
         <node id="backWindowLeft">
             <transforms>
-                <translate value3="-3 -5 0" />
+                <translate value3="-3 -6 0" />
+                <scale value3="1.1 1.1 1.1" />
+            </transforms>
+
+            <children>
+                <noderef id="frontWindowLeft"/>
+            </children>
+        </node>
+
+        <node id="backWindowRight">
+            <transforms>
+                <translate value3="15 -6 0" />
                 <scale value3="1.1 1.1 1.1" />
             </transforms>
 
@@ -936,7 +947,7 @@
         <lod id="chinmey">
             <children>
                 <noderef id="chinmeyFirst"  mindist="0"/>
-                <noderef id="chinmeySecond" mindist="200"/>
+                <noderef id="chinmeySecond" mindist="190"/>
                 <noderef id="chinmeyThird"  mindist="300"/>
             </children>
         </lod>
@@ -1107,17 +1118,67 @@
             <materialref id="logApp" />
 
             <children>
+                <noderef id='outsideLampshade'/>
                 <primitive>
                     <rectangle xy1="-20 -20" xy2="20 20" />
                 </primitive>
             </children>
         </node>
 
+        <node id='outsideLampshade'>
+            <transforms>
+                <translate value3="15 -1 1.0" />
+            </transforms>
+            <children>
+                <noderef id='outsideLampshadeBase'/>
+                <noderef id='outsideLampshadeLamp'/>
+                <noderef id='outsideLampshadeAbajur'/>
+            </children>
+        </node>
+
+        <node id='outsideLampshadeBase'>
+            <transforms>
+                <rotate value3="-1.57 0.0 0.0" />
+            </transforms>
+            <materialref id="lightMetalApp" />
+            <children>
+                <primitive>
+                    <cylinder base="0.1" top="0.1" height="2.5" slices="32" stacks="1" capsclose="true" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id='outsideLampshadeLamp'>
+            <transforms>
+                <translate value3="0 0.0 1.0" />
+            </transforms>
+            <materialref id="whiteVeryEmissiveApp" />
+            <children>
+                <pointlight id="outsideLight" enabled="true" color="1 1 0.9 0" intensity="70" distance="30" decay="2.0" castshadow="false" position="0 0 0"/>
+                <primitive>
+                    <sphere radius="0.3" slices="32" stacks="32" />
+                </primitive>
+            </children>
+        </node>
+
+        <node id='outsideLampshadeAbajur'>
+            <transforms>
+                <translate value3="0 0.0 1.0" />
+            </transforms>
+            <materialref id="whiteEmissiveApp" />
+            <children>
+                <primitive>
+                    <sphere radius="0.7" slices="32" stacks="32" />
+                </primitive>
+            </children>
+        </node>
+
+
+
         <!-- _FRONT PORCH_ -->
         <lod id="frontPorch">
             <noderef id="frontPorchFirst"  mindist="0"/>
             <noderef id="frontPorchSecond"  mindist="220"/>
-            <noderef id="frontPorchThird"  mindist="300"/>
         </lod>
         
 
@@ -2048,7 +2109,7 @@
             <materialref id="carpetApp" />
             <children>
                 <primitive>
-                    <polygon radius="5" stacks="5" slices="32"  color_c="0.5 0.5 0.5 1" color_p="0.3 0.2 0.2 0" />
+                    <polygon radius="5" stacks="5" slices="32"  color_c="0.2 0.2 0.2 1" color_p="0.9 0.9 0.9 0" />
                 </primitive>
             </children>
         </node>
@@ -3356,14 +3417,76 @@
             <children>
                 <noderef id="sunflowerStem"/>
                 <noderef id="flowerTangramBackground"/>
-                <noderef id="sunflower"/>
+                <lodref id="sunflower"/>
             </children>
         </node>
 
-        <node id="sunflower">
+        <lod id="sunflower">
+            <children>
+                <noderef id="sunflowerFirst" mindist = "0"/>
+                <noderef id="sunflowerSecond" mindist = "5"/>
+                <noderef id="sunflowerThird" mindist = "10"/>
+                <noderef id="sunflowerThird" mindist = "15"/>
+                <noderef id="sunflowerFourth" mindist = "20"/>
+                <noderef id="sunflowerFirst" mindist = "25"/>
+            </children>
+        </lod>
+
+        <node id="sunflowerFirst">
             <transforms>
                 <translate value3="0 0.45 0"/>
                 <scale value3="0.8 0.8 0.8"/>
+            </transforms>
+            <children>
+                <noderef id="middleflowerTangram"/>
+                <noderef id="flowerPetalTangramPaiting1"/>
+                <noderef id="flowerPetalTangramPaiting2"/>
+                <noderef id="flowerPetalTangramPaiting3"/>
+                <noderef id="flowerPetalTangramPaiting4"/>
+                <noderef id="flowerPetalTangramPaiting5"/>
+                <noderef id="flowerPetalTangramPaiting6"/>
+            </children>
+        </node>
+
+        <node id="sunflowerThird">
+            <transforms>
+                <translate value3="0 0.45 0"/>
+                <scale value3="0.8 0.8 0.8"/>
+                <rotate value3="0.0 0.0 1.57"/>
+            </transforms>
+            <children>
+                <noderef id="middleflowerTangram"/>
+                <noderef id="flowerPetalTangramPaiting1"/>
+                <noderef id="flowerPetalTangramPaiting2"/>
+                <noderef id="flowerPetalTangramPaiting3"/>
+                <noderef id="flowerPetalTangramPaiting4"/>
+                <noderef id="flowerPetalTangramPaiting5"/>
+                <noderef id="flowerPetalTangramPaiting6"/>
+            </children>
+        </node>
+
+        <node id="sunflowerFourth">
+            <transforms>
+                <translate value3="0 0.45 0"/>
+                <scale value3="0.8 0.8 0.8"/>
+                <rotate value3="0.0 0.0 2.35"/>
+            </transforms>
+            <children>
+                <noderef id="middleflowerTangram"/>
+                <noderef id="flowerPetalTangramPaiting1"/>
+                <noderef id="flowerPetalTangramPaiting2"/>
+                <noderef id="flowerPetalTangramPaiting3"/>
+                <noderef id="flowerPetalTangramPaiting4"/>
+                <noderef id="flowerPetalTangramPaiting5"/>
+                <noderef id="flowerPetalTangramPaiting6"/>
+            </children>
+        </node>
+
+        <node id="sunflowerSecond">
+            <transforms>
+                <translate value3="0 0.45 0"/>
+                <scale value3="0.8 0.8 0.8"/>
+                <rotate value3="0.0 0.0 0.78"/>
             </transforms>
             <children>
                 <noderef id="middleflowerTangram"/>
