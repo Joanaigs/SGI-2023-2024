@@ -3583,7 +3583,7 @@
 
         <node id="painting1" castshadows="true" receiveshadows="true">
             <transforms>
-                <translate value3="-3.2 7.3 29.74" />
+                <translate value3="-3.2 7.3 29.65" />
                 <rotate value3="0 1.5708 0" />
             </transforms>
 
@@ -3609,7 +3609,7 @@
 
         <node id="painting2" castshadows="true" receiveshadows="true">
             <transforms>
-                <translate value3="3.2 8 29.74" />
+                <translate value3="3.2 8 29.65" />
                 <rotate value3="0 1.5708 0" />
             </transforms>
 
