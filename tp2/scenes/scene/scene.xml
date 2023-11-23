@@ -25,14 +25,15 @@
         <perspective id="frontHouse" angle="1.047" near="0.1" far="5000" location="130 10 -25"
             target="50 10 -25" />
         <perspective id="dinningSide" angle="1.047" near="0.1" far="5000" location="0 10 5"
-        target="0 10 15" />
+            target="0 10 15" />
         <perspective id="tvSide" angle="1.047" near="0.1" far="5000" location="0 10 15"
-        target="0 10 -15" />
+            target="0 10 -15" />
         <perspective id="windowView" angle="1.047" near="0.1" far="5000" location="0 10 0"
-        target="-15 10 0" />
+            target="-15 10 0" />
         <perspective id="tangram" angle="1.047" near="0.1" far="5000" location="8 10 23"
-        target="15 10 23" />
-        <orthogonal id="orthogonalTop" near="0" far="45" left="-15" right="15" top="22.5" bottom="-22.5"
+            target="15 10 23" />
+        <orthogonal id="orthogonalTop" near="0" far="45" left="-15" right="15" top="22.5"
+            bottom="-22.5"
             location="0 16 7.5" target="0 0 7.5" />
     </cameras>
 
@@ -102,7 +103,7 @@
             specular="0 0 0 0" shininess="0" textureref="carpetTex" texlength_s="5" texlength_t="5" />
 
         <material id="wallApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="0 0 0 0"
-            shininess="0"/>
+            shininess="0" />
 
         <material id="sofaApp" emissive="0.0 0.0 0.0 1" color="0.15 0.26 0.097 1.0"
             specular="0 0 0 0" shininess="0" />
@@ -162,11 +163,11 @@
 
         <material id="logApp" emissive="0.0 0.0 0.0 1" color="1 0.5 0.5 1.0"
             specular="0 0 0 1" shininess="10" textureref="logTex" texlength_s="10"
-            texlength_t="5" bumpref="logApp" bumpscale="0.5" />
+            texlength_t="5" />
 
         <material id="darkWoodApp" emissive="0.0 0.0 0.0 1" color="0.26 0.156 0.125 1.0"
             specular="0 0 0 1" shininess="10" textureref="darkWoodTex" texlength_s="10"
-            texlength_t="5" bumpref="darkWoodApp" bumpscale="0.5" />
+            texlength_t="5" />
 
         <material id="pineApp"
             emissive="0.0 0.0 0.0 1"
@@ -196,10 +197,10 @@
             specular="0 0 0 1" shininess="0" />
 
         <material id="whiteEmissiveApp" emissive="0.5 0.5 0.5 1" color="1 1 1 0.8"
-        specular="0 0 0 1" shininess="0" twosided="true" />
+            specular="0 0 0 1" shininess="0" twosided="true" />
 
         <material id="whiteVeryEmissiveApp" emissive="1 1 1 1" color="1 1 1 1"
-        specular="0 0 0 1" shininess="0" />
+            specular="0 0 0 1" shininess="0" />
 
         <material id="plateApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="1 1 1 1" shininess="40" twosided="true" />
@@ -211,7 +212,7 @@
             specular="0 0 0 1" shininess="0" />
 
         <material id="redWireframeApp" emissive="0 0.0 0.0 1" color="1 0 0 1.0"
-            specular="0 0 0 1" shininess="0" wireframe="true"/>
+            specular="0 0 0 1" shininess="0" wireframe="true" />
 
         <material id="yellowApp" emissive="0 0 0.0 1" color="1 1 0 1.0"
             specular="0 0 0 1" shininess="0" />
@@ -221,7 +222,8 @@
 
         <material id="roofAp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="0.6 0.6 0.6 1" shininess="30" textureref="roofTex" texlength_s="14"
-            texlength_t="20" bumpref="bumpRoofTex" bumpscale="0.3" twosided="true" specularref="specularRoofTex" />
+            texlength_t="20" bumpref="bumpRoofTex" bumpscale="0.3" twosided="true"
+            specularref="specularRoofTex" />
 
         <material id="outsideWallApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="0 0 0 1" shininess="0" textureref="outsideWall" texlength_s="15"
@@ -244,16 +246,14 @@
             shininess="30" twosided="true" />
 
         <material id="footprintsApp" emissive="0.0 0.0 0.0 1" color="1 1 1 0.99" specular="0 0 0 1"
-            shininess="0" textureref="footprints" texlength_s="8" texlength_t="4"/>
+            shininess="0" textureref="footprints" texlength_s="8" texlength_t="4" />
 
         <material id="glassApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1" specular="0.8 0.8 0.8 1"
-        shininess="30" textureref="glassTex" texlength_s="8" texlength_t="4"/>
+            shininess="30" textureref="glassTex" texlength_s="8" texlength_t="4" />
 
-         <material id="doorApp" emissive="0.0 0.0 0.0 1" color="0.26 0.156 0.125 1.0"
+        <material id="doorApp" emissive="0.0 0.0 0.0 1" color="0.26 0.156 0.125 1.0"
             specular="0 0 0 1" shininess="10" textureref="doorTex" texlength_s="16"
-            texlength_t="13" bumpref="doorApp" bumpscale="0.5" />
-
-
+            texlength_t="13" />
 
     </materials>
 
@@ -261,19 +261,19 @@
 
         <node id="scene">
             <children>
-           
+
                 <noderef id="roof" />
                 <noderef id="walls" />
                 <noderef id="livingRoom" />
                 <lodref id="frontPorch" />
                 <noderef id="foundation" />
-                <noderef id="frontDoorFloor" /> 
-                <noderef id="outsideTrees"/>
-                <lodref id="snowman"/>
-                <noderef id="outsideLeftFences"/>
-                <noderef id="outsideRightFences"/>     
-                <noderef id="outsideRightFences"/>     
-                <noderef id="outsideRightFences"/>                 
+                <noderef id="frontDoorFloor" />
+                <noderef id="outsideTrees" />
+                <lodref id="snowman" />
+                <noderef id="outsideLeftFences" />
+                <noderef id="outsideRightFences" />
+                <noderef id="outsideRightFences" />
+                <noderef id="outsideRightFences" />
 
                 <pointlight id="sun" enabled="true"
                     color="1 1 1 0"
@@ -290,7 +290,7 @@
         </node>
 
         <node id="livingRoom">
-             <transforms>
+            <transforms>
                 <translate value3="0 3 0" />
             </transforms>
 
@@ -310,7 +310,7 @@
                 <noderef id="painting2" />
                 <noderef id="television" />
                 <noderef id="trees" />
-                <noderef  id="christmasTree" />
+                <noderef id="christmasTree" />
                 <noderef id="pillows" />
                 <noderef id="smallBookShelf" />
                 <noderef id="fireplace" />
@@ -320,9 +320,9 @@
                 <noderef id="backWall" />
                 <noderef id="ceilingLampshade2" />
                 <noderef id="ceilingLamp" />
-                <noderef id="ceilingLampshade1"/>
-                <noderef id="tangramPainting"/>
-           
+                <noderef id="ceilingLampshade1" />
+                <noderef id="tangramPainting" />
+
 
             </children>
         </node>
@@ -330,34 +330,34 @@
         <!--................................................................-->
         <!--                    WHOLE_HOUSE_STRUCTURE                       -->
         <!--................................................................-->
-        
-         <!-- _WALLS AND FLOOR_ -->
-        <node id="foundation" >
+
+        <!-- _WALLS AND FLOOR_ -->
+        <node id="foundation">
             <children>
-                <noderef id="leftFoundation"/>
-                <noderef id="rightFoundation"/>    
-                <noderef id="frontFoundation"/>
-                <noderef id="backFoundation"/>  
+                <noderef id="leftFoundation" />
+                <noderef id="rightFoundation" />
+                <noderef id="frontFoundation" />
+                <noderef id="backFoundation" />
                 <noderef id="leftFrontFoundation" />
-                <noderef id="rightFrontFoundation"/>
-                <noderef id="frontFrontFoundation"/>
-                </children>
+                <noderef id="rightFrontFoundation" />
+                <noderef id="frontFrontFoundation" />
+            </children>
         </node>
 
-        <node id="walls" >
+        <node id="walls">
 
             <materialref id="logApp" />
 
             <children>
-                <noderef id="leftHouseWall"/>
-                <noderef id="frontHouseWall"/> 
-                <noderef id="backHouseWallBottom"/>
-                <noderef id="backHouseWallTop"/>
+                <noderef id="leftHouseWall" />
+                <noderef id="frontHouseWall" />
+                <noderef id="backHouseWallBottom" />
+                <noderef id="backHouseWallTop" />
                 <noderef id="rightHouseWall" />
             </children>
         </node>
 
-         <!-- front wall of the house-->
+        <!-- front wall of the house-->
         <node id="frontHouseWall">
             <transforms>
                 <translate value3="45 10.4 -20" />
@@ -366,9 +366,9 @@
 
 
             <children>
-                <noderef id="frontWindowLeft"/>
-                 <noderef id="frontWindowRight"/>
-                <noderef id="outsideDoor"/>
+                <noderef id="frontWindowLeft" />
+                <noderef id="frontWindowRight" />
+                <noderef id="outsideDoor" />
                 <primitive>
                     <rectangle xy1="-50 -7.4" xy2="50 7.4" />
                 </primitive>
@@ -381,7 +381,7 @@
                 <translate value3="-15 8 -39.6" />
                 <rotate value3="0 -1.57 0" />
             </transforms>
-        
+
             <children>
                 <noderef id="backWindow1" />
                 <primitive>
@@ -395,10 +395,10 @@
                 <translate value3="-15 15.5 -20" />
                 <rotate value3="0 -1.57 0" />
             </transforms>
-     
+
             <children>
-                <noderef id="backWindowLeft"/>
-                <noderef id="backWindowRight"/>
+                <noderef id="backWindowLeft" />
+                <noderef id="backWindowRight" />
                 <primitive>
                     <rectangle xy1="-50 -2.5" xy2="50 2.5" />
                 </primitive>
@@ -461,10 +461,10 @@
             </children>
         </node>
 
-         <!-- _OUTSIDE_DOOR_ -->
+        <!-- _OUTSIDE_DOOR_ -->
 
         <node id="outsideDoor">
-             <transforms>
+            <transforms>
                 <translate value3="3.0 -1.5 0.7" />
             </transforms>
             <materialref id="doorApp" />
@@ -476,19 +476,19 @@
             </children>
         </node>
 
-         <!-- _FAKE_WINDOWS_OUTSIDE_ -->
+        <!-- _FAKE_WINDOWS_OUTSIDE_ -->
 
-         <lod id="frontPorchWindow">
+        <lod id="frontPorchWindow">
             <children>
-                <noderef id="frontPorchWindowFirst" mindist = "0"/>
-                <noderef id="frontPorchWindowSecond" mindist = "180"/>
-                <noderef id="frontPorchWindowThird" mindist = "300"/>
+                <noderef id="frontPorchWindowFirst" mindist="0" />
+                <noderef id="frontPorchWindowSecond" mindist="180" />
+                <noderef id="frontPorchWindowThird" mindist="300" />
             </children>
         </lod>
 
 
         <node id="frontPorchWindowFirst">
-             <transforms>
+            <transforms>
                 <translate value3="0 7.0 0.2" />
                 <scale value3="1.2 1.2 1.2" />
             </transforms>
@@ -497,14 +497,15 @@
 
             <children>
                 <primitive>
-                    <polygon radius="3" stacks="6" slices="8" color_c="1 1 1 1" color_p="0.6 0.85 0.97 0" />
+                    <polygon radius="3" stacks="6" slices="8" color_c="1 1 1 1"
+                        color_p="0.6 0.85 0.97 0" />
                 </primitive>
             </children>
         </node>
 
 
         <node id="frontPorchWindowSecond">
-             <transforms>
+            <transforms>
                 <translate value3="0 7.0 0.2" />
                 <scale value3="1.2 1.2 1.2" />
             </transforms>
@@ -513,21 +514,22 @@
 
             <children>
                 <primitive>
-                    <polygon radius="3" stacks="6" slices="32" color_c="1 1 1 1" color_p="0.6 0.85 0.97 0" />
+                    <polygon radius="3" stacks="6" slices="32" color_c="1 1 1 1"
+                        color_p="0.6 0.85 0.97 0" />
                 </primitive>
             </children>
         </node>
 
         <lod id="frontWindowBackground">
             <children>
-                <noderef id="frontWindowBackgroundFirst" mindist = "0"/>
-                <noderef id="frontWindowBackgroundSecond" mindist="290"/>
+                <noderef id="frontWindowBackgroundFirst" mindist="0" />
+                <noderef id="frontWindowBackgroundSecond" mindist="290" />
             </children>
         </lod>
 
 
         <node id="frontWindowBackgroundFirst">
-             <transforms>
+            <transforms>
                 <translate value3="-32 -0.2 0.7" />
                 <rotate value3="0 0 -0.78" />
                 <scale value3="2 2 2" />
@@ -537,7 +539,8 @@
 
             <children>
                 <primitive>
-                    <polygon radius="3" stacks="2" slices="4" color_c="1 1 1 1" color_p="0.6 0.85 0.97 0" />
+                    <polygon radius="3" stacks="2" slices="4" color_c="1 1 1 1"
+                        color_p="0.6 0.85 0.97 0" />
                 </primitive>
             </children>
         </node>
@@ -599,12 +602,12 @@
             </children>
         </lod>
 
-         <node id="outsideWindowFrameFirst">
+        <node id="outsideWindowFrameFirst">
             <transforms>
                 <translate value3="-32 -0.2 0.7" />
                 <rotate value3="0 -1.57 0" />
                 <scale value3="3 2 3" />
-            </transforms> 
+            </transforms>
 
             <materialref id="darkWoodApp" />
             <children>
@@ -618,7 +621,7 @@
 
         <node id="frontWindowLeft">
             <children>
-                <lodref id="outsideWindowFrame"/>
+                <lodref id="outsideWindowFrame" />
                 <lodref id="frontWindowBackground" />
             </children>
         </node>
@@ -629,7 +632,7 @@
             </transforms>
 
             <children>
-                <noderef id="frontWindowLeft"/>
+                <noderef id="frontWindowLeft" />
             </children>
         </node>
 
@@ -640,7 +643,7 @@
             </transforms>
 
             <children>
-                <noderef id="frontWindowLeft"/>
+                <noderef id="frontWindowLeft" />
             </children>
         </node>
 
@@ -651,7 +654,7 @@
             </transforms>
 
             <children>
-                <noderef id="frontWindowLeft"/>
+                <noderef id="frontWindowLeft" />
             </children>
         </node>
 
@@ -681,7 +684,7 @@
             <materialref id="wallApp" />
 
             <children>
-               <primitive>
+                <primitive>
                     <rectangle xy1="-15 -7.5" xy2="15 7.5" />
                 </primitive>
             </children>
@@ -728,7 +731,7 @@
             </children>
         </node>
 
-    
+
         <node id="wallFrontLeft">
             <transforms>
                 <translate value3="19.5 -2.5 0" />
@@ -799,7 +802,7 @@
         </node>
 
 
-          <!-- front walls living room-->
+        <!-- front walls living room-->
 
         <node id="backWall" castshadows="true" receiveshadows="true">
             <transforms>
@@ -864,7 +867,7 @@
         <node id="frontFrontFoundation">
             <transforms>
                 <translate value3="63 1.5 -22" />
-                  <rotate value3="0.0 1.57 0.0" />
+                <rotate value3="0.0 1.57 0.0" />
             </transforms>
 
             <materialref id="outsideWallApp" />
@@ -937,17 +940,17 @@
                 <noderef id="roofBack" />
                 <noderef id="roofRectangleBack" />
                 <noderef id="roofRectangleFront" />
-                <noderef id="roofFrontDoor"/>
-                <lodref id="chinmey"/>
+                <noderef id="roofFrontDoor" />
+                <lodref id="chinmey" />
             </children>
 
         </node>
 
         <lod id="chinmey">
             <children>
-                <noderef id="chinmeyFirst"  mindist="0"/>
-                <noderef id="chinmeySecond" mindist="190"/>
-                <noderef id="chinmeyThird"  mindist="300"/>
+                <noderef id="chinmeyFirst" mindist="0" />
+                <noderef id="chinmeySecond" mindist="190" />
+                <noderef id="chinmeyThird" mindist="300" />
             </children>
         </lod>
 
@@ -976,7 +979,7 @@
                 <primitive>
                     <box xyz1="-5 -4 -4.75" xyz2="5 4 4.75" />
                 </primitive>
-                <noderef id="chinmeyBrim"/>
+                <noderef id="chinmeyBrim" />
             </children>
         </node>
 
@@ -1057,10 +1060,10 @@
                 <translate value3="0 -1.0 0" />
             </transforms>
             <children>
-                <noderef id="roofFrontDoorRectangleLeft"/>
-                <noderef id="roofFrontDoorRectangleRight"/>
-                <noderef id="roofFrontDoorTriangle"/>
-                <noderef id="roofFrontDoorCeiling"/>
+                <noderef id="roofFrontDoorRectangleLeft" />
+                <noderef id="roofFrontDoorRectangleRight" />
+                <noderef id="roofFrontDoorTriangle" />
+                <noderef id="roofFrontDoorCeiling" />
             </children>
         </node>
 
@@ -1101,7 +1104,7 @@
             </transforms>
             <materialref id="logApp" />
             <children>
-                <lodref id="frontPorchWindow"/>
+                <lodref id="frontPorchWindow" />
                 <primitive>
                     <triangle xyz1="-20 0 0" xyz2="20 0 0" xyz3="0 16 0" />
                 </primitive>
@@ -1117,7 +1120,7 @@
             <materialref id="logApp" />
 
             <children>
-                <noderef id='outsideLampshade'/>
+                <noderef id='outsideLampshade' />
                 <primitive>
                     <rectangle xy1="-20 -20" xy2="20 20" />
                 </primitive>
@@ -1129,9 +1132,9 @@
                 <translate value3="15 -1 1.0" />
             </transforms>
             <children>
-                <noderef id='outsideLampshadeBase'/>
-                <noderef id='outsideLampshadeLamp'/>
-                <noderef id='outsideLampshadeAbajur'/>
+                <noderef id='outsideLampshadeBase' />
+                <noderef id='outsideLampshadeLamp' />
+                <noderef id='outsideLampshadeAbajur' />
             </children>
         </node>
 
@@ -1142,7 +1145,8 @@
             <materialref id="lightMetalApp" />
             <children>
                 <primitive>
-                    <cylinder base="0.1" top="0.1" height="2.5" slices="32" stacks="1" capsclose="true" />
+                    <cylinder base="0.1" top="0.1" height="2.5" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1153,7 +1157,8 @@
             </transforms>
             <materialref id="whiteVeryEmissiveApp" />
             <children>
-                <pointlight id="outsideLight" enabled="true" color="1 1 0.9 0" intensity="70" distance="30" decay="2.0" castshadow="false" position="0 0 0"/>
+                <pointlight id="outsideLight" enabled="true" color="1 1 0.9 0" intensity="70"
+                    distance="30" decay="2.0" castshadow="false" position="0 0 0" />
                 <primitive>
                     <sphere radius="0.3" slices="32" stacks="32" />
                 </primitive>
@@ -1173,57 +1178,56 @@
         </node>
 
 
-
         <!-- _FRONT PORCH_ -->
         <lod id="frontPorch">
-            <noderef id="frontPorchFirst"  mindist="0"/>
-            <noderef id="frontPorchSecond"  mindist="220"/>
+            <noderef id="frontPorchFirst" mindist="0" />
+            <noderef id="frontPorchSecond" mindist="220" />
         </lod>
-        
+
 
         <node id="frontPorchFirst">
             <children>
-                <noderef id="stairs"/>
-                <noderef id="frontPorchFloor"/>
-                <noderef id="frontPorchLeftSide"/>
-                <noderef id="frontPorchLeftCylinder"/>
-                <noderef id="frontPorchRightCylinder"/>
-                <noderef id="frontPorchHandrailLeft"/>
-                <noderef id="frontPorchHandrailRight"/>
-                <noderef id="frontPorchRightSide"/>
-                <noderef id="frontDoorCylinder11"/>
-                <noderef id="frontDoorCylinder12"/>
-                <noderef id="frontDoorCylinder13"/>
-                <noderef id="frontDoorCylinder14"/>
-                <noderef id="frontDoorCylinder15"/>
-                <noderef id="frontDoorCylinder16"/>
-                <noderef id="frontDoorCylinder17"/>
-                <noderef id="frontDoorCylinder18Left"/>
-                <noderef id="frontDoorCylinder18Right"/>
+                <noderef id="stairs" />
+                <noderef id="frontPorchFloor" />
+                <noderef id="frontPorchLeftSide" />
+                <noderef id="frontPorchLeftCylinder" />
+                <noderef id="frontPorchRightCylinder" />
+                <noderef id="frontPorchHandrailLeft" />
+                <noderef id="frontPorchHandrailRight" />
+                <noderef id="frontPorchRightSide" />
+                <noderef id="frontDoorCylinder11" />
+                <noderef id="frontDoorCylinder12" />
+                <noderef id="frontDoorCylinder13" />
+                <noderef id="frontDoorCylinder14" />
+                <noderef id="frontDoorCylinder15" />
+                <noderef id="frontDoorCylinder16" />
+                <noderef id="frontDoorCylinder17" />
+                <noderef id="frontDoorCylinder18Left" />
+                <noderef id="frontDoorCylinder18Right" />
             </children>
         </node>
 
         <node id="frontPorchSecond">
-         <materialref id="logApp" />
+            <materialref id="logApp" />
             <children>
-                  <noderef id="frontPorchFloor"/>
-                  <noderef id="frontPorchWallSecond"/>
+                <noderef id="frontPorchFloor" />
+                <noderef id="frontPorchWallSecond" />
             </children>
         </node>
 
 
         <node id="frontPorchWallSecond">
             <transforms>
-                    <translate value3="45 10 -22" />
+                <translate value3="45 10 -22" />
             </transforms>
 
             <children>
                 <primitive>
-                     <box xyz1="15 7 -17" xyz2="-15 -7 17" />
+                    <box xyz1="15 7 -17" xyz2="-15 -7 17" />
                 </primitive>
             </children>
         </node>
-                    
+
 
         <node id="frontPorchFloor">
             <transforms>
@@ -1250,7 +1254,8 @@
 
             <children>
                 <primitive>
-                     <cylinder base="0.7" top="0.7" height="16" slices="32" stacks="1" capsclose="true" />
+                    <cylinder base="0.7" top="0.7" height="16" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1263,7 +1268,7 @@
             <materialref id="darkWoodApp" />
 
             <children>
-                 <noderef id="frontPorchLeftCylinder"/>
+                <noderef id="frontPorchLeftCylinder" />
             </children>
         </node>
 
@@ -1271,9 +1276,9 @@
             <materialref id="darkWoodApp" />
 
             <children>
-                <noderef id="frontDoorCylinder1"/>
-                <noderef id="frontDoorCylinder2"/>
-                <noderef id="frontDoorCylinder3"/>
+                <noderef id="frontDoorCylinder1" />
+                <noderef id="frontDoorCylinder2" />
+                <noderef id="frontDoorCylinder3" />
             </children>
         </node>
 
@@ -1285,7 +1290,7 @@
             <materialref id="darkWoodApp" />
 
             <children>
-                <noderef id="frontPorchLeftSide"/>
+                <noderef id="frontPorchLeftSide" />
             </children>
         </node>
 
@@ -1299,12 +1304,13 @@
 
             <children>
                 <primitive>
-                     <cylinder base="0.4" top="0.4" height="16" slices="32" stacks="1" capsclose="true" />
+                    <cylinder base="0.4" top="0.4" height="16" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
 
-         <node id="frontPorchHandrailRight">
+        <node id="frontPorchHandrailRight">
             <transforms>
                 <translate value3="51 8 -5.5" />
                 <rotate value3="0 0 -1.57" />
@@ -1314,7 +1320,8 @@
 
             <children>
                 <primitive>
-                     <cylinder base="0.4" top="0.4" height="16" slices="32" stacks="1" capsclose="true" />
+                    <cylinder base="0.4" top="0.4" height="16" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1328,7 +1335,8 @@
 
             <children>
                 <primitive>
-                      <cylinder base="0.3" top="0.2" height="6" slices="32" stacks="1" capsclose="true" />
+                    <cylinder base="0.3" top="0.2" height="6" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1341,7 +1349,7 @@
             <materialref id="darkWoodApp" />
 
             <children>
-                <noderef id="frontDoorCylinder1"/>
+                <noderef id="frontDoorCylinder1" />
             </children>
         </node>
 
@@ -1353,7 +1361,7 @@
             <materialref id="darkWoodApp" />
 
             <children>
-                <noderef id="frontDoorCylinder2"/>
+                <noderef id="frontDoorCylinder2" />
             </children>
         </node>
 
@@ -1367,12 +1375,13 @@
 
             <children>
                 <primitive>
-                      <cylinder base="0.4" top="0.4" height="7" slices="32" stacks="1" capsclose="true" />
+                    <cylinder base="0.4" top="0.4" height="7" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
 
-         <node id="frontDoorCylinder13">
+        <node id="frontDoorCylinder13">
             <transforms>
                 <translate value3="59 5 -33" />
             </transforms>
@@ -1381,7 +1390,8 @@
 
             <children>
                 <primitive>
-                      <cylinder base="0.3" top="0.2" height="6" slices="32" stacks="1" capsclose="true" />
+                    <cylinder base="0.3" top="0.2" height="6" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1395,12 +1405,13 @@
 
             <children>
                 <primitive>
-                      <cylinder base="0.3" top="0.2" height="6" slices="32" stacks="1" capsclose="true" />
+                    <cylinder base="0.3" top="0.2" height="6" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
 
-        
+
         <node id="frontDoorCylinder15">
             <transforms>
                 <translate value3="59 5 -9" />
@@ -1410,12 +1421,13 @@
 
             <children>
                 <primitive>
-                      <cylinder base="0.3" top="0.2" height="6" slices="32" stacks="1" capsclose="true" />
+                    <cylinder base="0.3" top="0.2" height="6" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
 
-         <node id="frontDoorCylinder16">
+        <node id="frontDoorCylinder16">
             <transforms>
                 <translate value3="59 5 -12" />
             </transforms>
@@ -1424,7 +1436,8 @@
 
             <children>
                 <primitive>
-                      <cylinder base="0.3" top="0.2" height="6" slices="32" stacks="1" capsclose="true" />
+                    <cylinder base="0.3" top="0.2" height="6" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1438,7 +1451,8 @@
 
             <children>
                 <primitive>
-                      <cylinder base="0.4" top="0.4" height="7" slices="32" stacks="1" capsclose="true" />
+                    <cylinder base="0.4" top="0.4" height="7" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1449,11 +1463,12 @@
                 <rotate value3="-1.57 0 0" />
             </transforms>
 
-           <materialref id="darkWoodApp" />
+            <materialref id="darkWoodApp" />
 
             <children>
                 <primitive>
-                     <cylinder base="0.4" top="0.4" height="10" slices="32" stacks="1" capsclose="true" />
+                    <cylinder base="0.4" top="0.4" height="10" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1468,31 +1483,32 @@
 
             <children>
                 <primitive>
-                     <cylinder base="0.4" top="0.4" height="10" slices="32" stacks="1" capsclose="true" />
+                    <cylinder base="0.4" top="0.4" height="10" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
-        
-         <!-- _STAIRS_ -->
-         <node id="stairs">
+
+        <!-- _STAIRS_ -->
+        <node id="stairs">
             <transforms>
                 <translate value3="61.8 2.49 -23" />
             </transforms>
             <materialref id="darkWoodApp" />
             <children>
-                <noderef id="step"/>
-                <noderef id="step2"/>
-                <noderef id="step3"/>
-                <noderef id="step4"/>  
+                <noderef id="step" />
+                <noderef id="step2" />
+                <noderef id="step3" />
+                <noderef id="step4" />
             </children>
         </node>
 
 
-         <node id="step">
+        <node id="step">
 
             <children>
                 <primitive>
-                     <box xyz1="2 0.5 -7" xyz2="-2 -0.5 7" />
+                    <box xyz1="2 0.5 -7" xyz2="-2 -0.5 7" />
                 </primitive>
             </children>
         </node>
@@ -1503,7 +1519,7 @@
             </transforms>
 
             <children>
-                <noderef id="step"/>
+                <noderef id="step" />
             </children>
         </node>
 
@@ -1512,7 +1528,7 @@
                 <translate value3="1 -0.6 0" />
             </transforms>
             <children>
-                <noderef id="step2"/>
+                <noderef id="step2" />
             </children>
         </node>
 
@@ -1522,7 +1538,7 @@
             </transforms>
 
             <children>
-                <noderef id="step3"/>
+                <noderef id="step3" />
             </children>
         </node>
 
@@ -1552,7 +1568,7 @@
             <children>
                 <primitive>
                     <cylinder base="1" top="0.7" height="1.75" slices="32" stacks="1"
-                        />
+                    />
                 </primitive>
             </children>
         </node>
@@ -1565,7 +1581,7 @@
             <children>
                 <primitive>
                     <cylinder base="0.7" top="1" height="1.75" slices="32" stacks="1"
-                        />
+                    />
                 </primitive>
             </children>
         </node>
@@ -1597,22 +1613,23 @@
                 <noderef id="groundLampshadeAbajur" />
                 <noderef id="groundLampshadeLamp" />
                 <spotlight id="lamshade1" enabled="true" color="1 1 0.9 1" intensity="1.0"
-                distance="0" decay="0.5" position="0 4.4 0" target="11 0 26" angle="0.698"/>
+                    distance="0" decay="0.5" position="0 4.4 0" target="11 0 26" angle="0.698" />
                 <spotlight id="lapshade2" enabled="true" color="1 1 0.9 1" intensity="1.0"
-                distance="0" decay="0.5" position="0 3 0" target="11 15 26" angle="0.698"/>
+                    distance="0" decay="0.5" position="0 3 0" target="11 15 26" angle="0.698" />
             </children>
         </node>
 
 
         <!-- _CEILING_LIGHTS-->
 
-         <node id="ceilingLamp">
+        <node id="ceilingLamp">
             <transforms>
                 <translate value3="0 14.5 7.5" />
             </transforms>
             <materialref id="lightMetalApp" />
             <children>
-                <pointlight id="roomLight" enabled="true" color="1 1 0.9 0" intensity="70" distance="30" decay="2.0" castshadow="false" position="0 0 0"/>
+                <pointlight id="roomLight" enabled="true" color="1 1 0.9 0" intensity="70"
+                    distance="30" decay="2.0" castshadow="false" position="0 0 0" />
                 <noderef id="ceilingLampTop" />
                 <noderef id="ceilingLampBottom" />
             </children>
@@ -1625,7 +1642,8 @@
             <materialref id="whiteVeryEmissiveApp" />
             <children>
                 <primitive>
-                    <cylinder base="0.5" top="0.5" height="0.3" slices="32" stacks="1" capsclose="true"/>
+                    <cylinder base="0.5" top="0.5" height="0.3" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -1637,11 +1655,11 @@
             <materialref id="lightMetalApp" />
             <children>
                 <primitive>
-                <cylinder base="0.5" top="1" height="0.4" slices="32" stacks="1" capsclose="true"/>
-            </primitive>
+                    <cylinder base="0.5" top="1" height="0.4" slices="32" stacks="1"
+                        capsclose="true" />
+                </primitive>
             </children>
         </node>
-
 
 
         <node id='ceilingLampshade1'>
@@ -1651,9 +1669,10 @@
             <materialref id="lightMetalApp" />
             <children>
                 <noderef id="ceilingLampshadeStructure1" />
-                <noderef id="ceilingLampshadeStructure2" />                
+                <noderef id="ceilingLampshadeStructure2" />
                 <spotlight id="coffeTableLight" enabled="true" color="1 1 0.9 1" intensity="2.0"
-                    distance="0" decay="0" penumbra="1" position="0 0 0" target="0 0 -3" angle="1.2217"
+                    distance="0" decay="0" penumbra="1" position="0 0 0" target="0 0 -3"
+                    angle="1.2217"
                     castshadow="true" shadowfar="25" shadowmapsize="4096" />
             </children>
         </node>
@@ -1667,7 +1686,8 @@
                 <noderef id="ceilingLampshadeStructure1" />
                 <noderef id="ceilingLampshadeStructure2" />
                 <spotlight id="dinningTableLight" enabled="true" color="1 1 0.9 1" intensity="2.0"
-                    distance="0" decay="0" penumbra="1" position="0 0 0" target="0 0 21" angle="1.2217"
+                    distance="0" decay="0" penumbra="1" position="0 0 0" target="0 0 21"
+                    angle="1.2217"
                     castshadow="true" shadowfar="25" shadowmapsize="4096" />
             </children>
         </node>
@@ -1738,7 +1758,7 @@
                 <noderef id='televisionCabinetThinLayer2' />
             </children>
         </node>
-        
+
         <!-- _SOFA_ -->
         <node id="sofaBaseStructure">
             <transforms>
@@ -2108,7 +2128,8 @@
             <materialref id="carpetApp" />
             <children>
                 <primitive>
-                    <polygon radius="5" stacks="5" slices="32"  color_c="0.2 0.2 0.2 1" color_p="0.9 0.9 0.9 0" />
+                    <polygon radius="5" stacks="5" slices="32" color_c="0.2 0.2 0.2 1"
+                        color_p="0.9 0.9 0.9 0" />
                 </primitive>
             </children>
         </node>
@@ -3308,7 +3329,7 @@
         </node>
 
 
-        <node id="window1" castshadow="true"  receiveshadows="true">
+        <node id="window1" castshadow="true" receiveshadows="true">
             <transforms>
                 <translate value3="-14.9 5.1 -2.25" />
             </transforms>
@@ -3322,7 +3343,7 @@
             </children>
         </node>
 
-        <node id="curtainWindow2" >
+        <node id="curtainWindow2">
             <transforms>
                 <translate value3="1.5 0.5 4.5" />
                 <rotate value3="0 -1.047 0" />
@@ -3336,7 +3357,7 @@
             </children>
         </node>
 
-        <node id="window2" castshadow="true"  receiveshadows="true">
+        <node id="window2" castshadow="true" receiveshadows="true">
             <transforms>
                 <translate value3="-14.9 5.1 17.25" />
             </transforms>
@@ -3397,121 +3418,121 @@
 
         <node id="tangramPainting">
             <transforms>
-                <translate value3="14.8 6.5 23"/>
+                <translate value3="14.8 6.5 23" />
             </transforms>
 
             <children>
-                <noderef id="paintingFrame"/>
-                <noderef id="sunflowerPicture"/>
+                <noderef id="paintingFrame" />
+                <noderef id="sunflowerPicture" />
             </children>
         </node>
 
         <node id="sunflowerPicture">
             <transforms>
-                <rotate value3="0 -1.55 0"/>
-                <translate value3="0 0.2 0"/>
+                <rotate value3="0 -1.55 0" />
+                <translate value3="0 0.2 0" />
             </transforms>
 
             <materialref id="whiteApp" />
             <children>
-                <noderef id="sunflowerStem"/>
-                <noderef id="flowerTangramBackground"/>
-                <lodref id="sunflower"/>
+                <noderef id="sunflowerStem" />
+                <noderef id="flowerTangramBackground" />
+                <lodref id="sunflower" />
             </children>
         </node>
 
         <lod id="sunflower">
             <children>
-                <noderef id="sunflowerFirst" mindist = "0"/>
-                <noderef id="sunflowerSecond" mindist = "5"/>
-                <noderef id="sunflowerThird" mindist = "10"/>
-                <noderef id="sunflowerThird" mindist = "15"/>
-                <noderef id="sunflowerFourth" mindist = "20"/>
-                <noderef id="sunflowerFirst" mindist = "25"/>
+                <noderef id="sunflowerFirst" mindist="0" />
+                <noderef id="sunflowerSecond" mindist="5" />
+                <noderef id="sunflowerThird" mindist="10" />
+                <noderef id="sunflowerThird" mindist="15" />
+                <noderef id="sunflowerFourth" mindist="20" />
+                <noderef id="sunflowerFirst" mindist="25" />
             </children>
         </lod>
 
         <node id="sunflowerFirst">
             <transforms>
-                <translate value3="0 0.45 0"/>
-                <scale value3="0.8 0.8 0.8"/>
+                <translate value3="0 0.45 0" />
+                <scale value3="0.8 0.8 0.8" />
             </transforms>
             <children>
-                <noderef id="middleflowerTangram"/>
-                <noderef id="flowerPetalTangramPaiting1"/>
-                <noderef id="flowerPetalTangramPaiting2"/>
-                <noderef id="flowerPetalTangramPaiting3"/>
-                <noderef id="flowerPetalTangramPaiting4"/>
-                <noderef id="flowerPetalTangramPaiting5"/>
-                <noderef id="flowerPetalTangramPaiting6"/>
+                <noderef id="middleflowerTangram" />
+                <noderef id="flowerPetalTangramPaiting1" />
+                <noderef id="flowerPetalTangramPaiting2" />
+                <noderef id="flowerPetalTangramPaiting3" />
+                <noderef id="flowerPetalTangramPaiting4" />
+                <noderef id="flowerPetalTangramPaiting5" />
+                <noderef id="flowerPetalTangramPaiting6" />
             </children>
         </node>
 
         <node id="sunflowerThird">
             <transforms>
-                <translate value3="0 0.45 0"/>
-                <scale value3="0.8 0.8 0.8"/>
-                <rotate value3="0.0 0.0 1.57"/>
+                <translate value3="0 0.45 0" />
+                <scale value3="0.8 0.8 0.8" />
+                <rotate value3="0.0 0.0 1.57" />
             </transforms>
             <children>
-                <noderef id="middleflowerTangram"/>
-                <noderef id="flowerPetalTangramPaiting1"/>
-                <noderef id="flowerPetalTangramPaiting2"/>
-                <noderef id="flowerPetalTangramPaiting3"/>
-                <noderef id="flowerPetalTangramPaiting4"/>
-                <noderef id="flowerPetalTangramPaiting5"/>
-                <noderef id="flowerPetalTangramPaiting6"/>
+                <noderef id="middleflowerTangram" />
+                <noderef id="flowerPetalTangramPaiting1" />
+                <noderef id="flowerPetalTangramPaiting2" />
+                <noderef id="flowerPetalTangramPaiting3" />
+                <noderef id="flowerPetalTangramPaiting4" />
+                <noderef id="flowerPetalTangramPaiting5" />
+                <noderef id="flowerPetalTangramPaiting6" />
             </children>
         </node>
 
         <node id="sunflowerFourth">
             <transforms>
-                <translate value3="0 0.45 0"/>
-                <scale value3="0.8 0.8 0.8"/>
-                <rotate value3="0.0 0.0 2.35"/>
+                <translate value3="0 0.45 0" />
+                <scale value3="0.8 0.8 0.8" />
+                <rotate value3="0.0 0.0 2.35" />
             </transforms>
             <children>
-                <noderef id="middleflowerTangram"/>
-                <noderef id="flowerPetalTangramPaiting1"/>
-                <noderef id="flowerPetalTangramPaiting2"/>
-                <noderef id="flowerPetalTangramPaiting3"/>
-                <noderef id="flowerPetalTangramPaiting4"/>
-                <noderef id="flowerPetalTangramPaiting5"/>
-                <noderef id="flowerPetalTangramPaiting6"/>
+                <noderef id="middleflowerTangram" />
+                <noderef id="flowerPetalTangramPaiting1" />
+                <noderef id="flowerPetalTangramPaiting2" />
+                <noderef id="flowerPetalTangramPaiting3" />
+                <noderef id="flowerPetalTangramPaiting4" />
+                <noderef id="flowerPetalTangramPaiting5" />
+                <noderef id="flowerPetalTangramPaiting6" />
             </children>
         </node>
 
         <node id="sunflowerSecond">
             <transforms>
-                <translate value3="0 0.45 0"/>
-                <scale value3="0.8 0.8 0.8"/>
-                <rotate value3="0.0 0.0 0.78"/>
+                <translate value3="0 0.45 0" />
+                <scale value3="0.8 0.8 0.8" />
+                <rotate value3="0.0 0.0 0.78" />
             </transforms>
             <children>
-                <noderef id="middleflowerTangram"/>
-                <noderef id="flowerPetalTangramPaiting1"/>
-                <noderef id="flowerPetalTangramPaiting2"/>
-                <noderef id="flowerPetalTangramPaiting3"/>
-                <noderef id="flowerPetalTangramPaiting4"/>
-                <noderef id="flowerPetalTangramPaiting5"/>
-                <noderef id="flowerPetalTangramPaiting6"/>
+                <noderef id="middleflowerTangram" />
+                <noderef id="flowerPetalTangramPaiting1" />
+                <noderef id="flowerPetalTangramPaiting2" />
+                <noderef id="flowerPetalTangramPaiting3" />
+                <noderef id="flowerPetalTangramPaiting4" />
+                <noderef id="flowerPetalTangramPaiting5" />
+                <noderef id="flowerPetalTangramPaiting6" />
             </children>
         </node>
 
-         <node id="sunflowerStem">
+        <node id="sunflowerStem">
             <transforms>
-                <translate value3="0 0.35 0"/>
+                <translate value3="0 0.35 0" />
             </transforms>
 
             <children>
-                <noderef id="flowerLeafTangram"/>
-                <noderef id="flowerLeafTangram2"/>
-                <noderef id="flowerStemTangram"/>
+                <noderef id="flowerLeafTangram" />
+                <noderef id="flowerLeafTangram2" />
+                <noderef id="flowerStemTangram" />
             </children>
         </node>
 
 
-         <node id="flowerLeafTangram">
+        <node id="flowerLeafTangram">
             <transforms>
                 <translate value3="0.3 -1.5 0" />
                 <rotate value3="0 0 -0.78" />
@@ -3519,7 +3540,8 @@
             </transforms>
             <children>
                 <primitive>
-                    <polygon radius="0.05" stacks="2" slices="4" color_c="0.44 0.73 0.47 1" color_p="0.13 0.55 0.13 0" />
+                    <polygon radius="0.05" stacks="2" slices="4" color_c="0.44 0.73 0.47 1"
+                        color_p="0.13 0.55 0.13 0" />
                 </primitive>
             </children>
         </node>
@@ -3532,20 +3554,22 @@
             </transforms>
             <children>
                 <primitive>
-                    <polygon radius="0.05" stacks="2" slices="4" color_c="0.44 0.73 0.47 1" color_p="0.13 0.55 0.13 0" />
+                    <polygon radius="0.05" stacks="2" slices="4" color_c="0.44 0.73 0.47 1"
+                        color_p="0.13 0.55 0.13 0" />
                 </primitive>
             </children>
         </node>
 
         <node id="flowerTangramBackground">
             <transforms>
-                <translate value3="0 0 -0.1"/>
+                <translate value3="0 0 -0.1" />
                 <rotate value3="0 0 -0.78" />
                 <scale value3="7 7 7" />
             </transforms>
             <children>
                 <primitive>
-                    <polygon radius="0.4" stacks="1" slices="4" color_c="1 1 1 1" color_p="0.6 0.85 0.97 1" />
+                    <polygon radius="0.4" stacks="1" slices="4" color_c="1 1 1 1"
+                        color_p="0.6 0.85 0.97 1" />
                 </primitive>
             </children>
         </node>
@@ -3557,7 +3581,8 @@
             </transforms>
             <children>
                 <primitive>
-                    <polygon radius="1" stacks="1" slices="4" color_c="0.44 0.73 0.47 1" color_p="0.13 0.55 0.13 0" />
+                    <polygon radius="1" stacks="1" slices="4" color_c="0.44 0.73 0.47 1"
+                        color_p="0.13 0.55 0.13 0" />
                 </primitive>
             </children>
         </node>
@@ -3565,65 +3590,67 @@
         <node id="middleflowerTangram">
             <children>
                 <primitive>
-                    <polygon radius="0.4" stacks="1" slices="6" color_c="0.25 0.14 0 1" color_p="0.38 0.28 0.2 0" />
+                    <polygon radius="0.4" stacks="1" slices="6" color_c="0.25 0.14 0 1"
+                        color_p="0.38 0.28 0.2 0" />
                 </primitive>
             </children>
         </node>
 
         <node id="flowerPetalTangramPaiting1">
             <transforms>
-                <translate value3="0 0.75 0"/>
+                <translate value3="0 0.75 0" />
             </transforms>
             <children>
                 <primitive>
-                    <polygon radius="0.4" stacks="1" slices="6" color_c="0.99 0.725 0.027 0" color_p="1 0.49 0.23 0" />
+                    <polygon radius="0.4" stacks="1" slices="6" color_c="0.99 0.725 0.027 0"
+                        color_p="1 0.49 0.23 0" />
                 </primitive>
             </children>
         </node>
 
         <node id="flowerPetalTangramPaiting2">
             <transforms>
-                <translate value3="0 -1.5 0"/>
+                <translate value3="0 -1.5 0" />
             </transforms>
             <children>
-                <noderef id="flowerPetalTangramPaiting1"/>
+                <noderef id="flowerPetalTangramPaiting1" />
             </children>
         </node>
 
         <node id="flowerPetalTangramPaiting3">
             <transforms>
-                <translate value3="-0.65 0.4 0.0"/>
+                <translate value3="-0.65 0.4 0.0" />
             </transforms>
             <children>
-                <noderef id="flowerPetalTangramPaiting2"/>
+                <noderef id="flowerPetalTangramPaiting2" />
             </children>
         </node>
 
         <node id="flowerPetalTangramPaiting4">
             <transforms>
-                <translate value3="0 0.75 0.0"/>
+                <translate value3="0 0.75 0.0" />
             </transforms>
             <children>
-                <noderef id="flowerPetalTangramPaiting3"/>
+                <noderef id="flowerPetalTangramPaiting3" />
             </children>
         </node>
 
         <node id="flowerPetalTangramPaiting5">
             <transforms>
-                <translate value3="1.3 0.0 0.0"/>
+                <translate value3="1.3 0.0 0.0" />
             </transforms>
             <children>
-                <noderef id="flowerPetalTangramPaiting3"/>
+                <noderef id="flowerPetalTangramPaiting3" />
             </children>
         </node>
 
 
         <node id="flowerPetalTangramPaiting6">
             <transforms>
-                <translate value3="1.3 0.0 0.0"/>
+                <translate value3="1.3 0.0 0.0" />
             </transforms>
             <children>
-                <noderef id="flowerPetalTangramPaiting4"/>
+                <noderef id="flowerPetalTangramPaiting4" />
             </children>
         </node>
 
@@ -3639,7 +3666,7 @@
                 </primitive>
             </children>
         </node>
-        
+
 
         <node id="frameBottomPainting">
             <transforms>
@@ -4024,7 +4051,7 @@
             </children>
         </node>
 
-        <node id="christmasTreeOriginal" castshadow="true"  receiveshadows="true">
+        <node id="christmasTreeOriginal" castshadow="true" receiveshadows="true">
             <materialref id="christmasTreeApp" />
 
             <children>
@@ -4038,7 +4065,7 @@
             </children>
         </node>
 
-        <node id="christmasTreeSecond" castshadow="true"  receiveshadows="true">
+        <node id="christmasTreeSecond" castshadow="true" receiveshadows="true">
             <materialref id="christmasTreeApp" />
 
             <children>
@@ -4050,7 +4077,7 @@
             </children>
         </node>
 
-        <node id="christmasTreeThird" castshadow="true"  receiveshadows="true">
+        <node id="christmasTreeThird" castshadow="true" receiveshadows="true">
             <materialref id="christmasTreeApp" />
 
             <children>
@@ -4058,7 +4085,7 @@
             </children>
         </node>
 
-        <lod id="christmasTreeLod" >
+        <lod id="christmasTreeLod">
             <noderef id="christmasTreeOriginal" mindist="0" />
             <noderef id="christmasTreeSecond" mindist="40" />
             <noderef id="christmasTreeThird" mindist="60" />
@@ -4098,7 +4125,7 @@
             <children>
                 <primitive>
                     <polygon radius="0.5" stacks="7" slices="5" color_c="1 1 0.5 0"
-                    color_p="1 1 0 0" />
+                        color_p="1 1 0 0" />
                 </primitive>
             </children>
         </node>
@@ -4559,7 +4586,7 @@
             </children>
         </node>
 
-        <node id="smallBookShelfRightBox" >
+        <node id="smallBookShelfRightBox">
             <transforms>
                 <translate value3="0 0 0" />
             </transforms>
@@ -4572,8 +4599,6 @@
                 </primitive>
             </children>
         </node>
-
-
 
 
         <node id="smallBookShelfOriginal" castshadows="true" receiveshadows="true">
@@ -4766,7 +4791,7 @@
             </children>
         </node>
 
-        <node id="fireplace" castshadow="true"  receiveshadows="true">
+        <node id="fireplace" castshadow="true" receiveshadows="true">
             <transforms>
                 <translate value3="14.99 0 0" />
             </transforms>
@@ -4914,7 +4939,7 @@
             <children>
                 <noderef id="santaLeg1" />
                 <noderef id="santaLeg2" />
-                <noderef id="bag"/>
+                <noderef id="bag" />
             </children>
 
 
@@ -5011,7 +5036,7 @@
 
         </node>
 
-        <node id="sock1" castshadow="true"  receiveshadows="true">
+        <node id="sock1" castshadow="true" receiveshadows="true">
             <transforms>
                 <translate value3="-3 6.2 -3" />
                 <rotate value3="-0.2 0 0" />
@@ -5026,7 +5051,7 @@
             </children>
         </node>
 
-        <node id="sock2" castshadow="true"  receiveshadows="true">
+        <node id="sock2" castshadow="true" receiveshadows="true">
             <transforms>
                 <translate value3="-3 6.2 -0.5" />
                 <rotate value3="-0.2 0 0" />
@@ -5041,7 +5066,7 @@
             </children>
         </node>
 
-        <node id="sock3" castshadow="true"  receiveshadows="true">
+        <node id="sock3" castshadow="true" receiveshadows="true">
             <transforms>
                 <translate value3="-3 6.2 2" />
                 <rotate value3="-0.2 0 0" />
@@ -5117,28 +5142,28 @@
 
         <lod id="fenceStructure">
             <children>
-                <noderef id="fenceStructureFirst" mindist="0"/>
-                <noderef id="fenceStructureSecond" mindist= "300"/>
+                <noderef id="fenceStructureFirst" mindist="0" />
+                <noderef id="fenceStructureSecond" mindist="300" />
             </children>
         </lod>
 
         <node id="fenceStructureFirst">
             <materialref id="woodTrunkApp" />
             <children>
-                <noderef id="fenceLargeTrunk"/>
-                <noderef id="fenceUpTrunk"/>
-                <noderef id="fenceDownTrunk"/>
+                <noderef id="fenceLargeTrunk" />
+                <noderef id="fenceUpTrunk" />
+                <noderef id="fenceDownTrunk" />
             </children>
         </node>
 
         <node id="fenceStructureSecond">
             <materialref id="woodTrunkApp" />
             <children>
-                <noderef id="fenceLargeTrunk"/>
+                <noderef id="fenceLargeTrunk" />
             </children>
         </node>
 
-         <node id="fenceLargeTrunk">
+        <node id="fenceLargeTrunk">
             <transforms>
                 <translate value3="90 2.5 -8.5" />
             </transforms>
@@ -5146,7 +5171,7 @@
 
             <children>
                 <primitive>
-                      <cylinder base="1" top="1" height="6" slices="32" stacks="1" capsclose="true" />
+                    <cylinder base="1" top="1" height="6" slices="32" stacks="1" capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -5155,12 +5180,10 @@
             <transforms>
                 <translate value3="90 4 -3" />
                 <rotate value3="-1.57 0 0" />
-            </transforms>
-/>
-
-            <children>
+            </transforms> /> <children>
                 <primitive>
-                     <cylinder base="0.3" top="0.3" height="10" slices="32" stacks="1" capsclose="true" />
+                    <cylinder base="0.3" top="0.3" height="10" slices="32" stacks="1"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -5172,30 +5195,30 @@
 
 
             <children>
-                <noderef id="fenceUpTrunk"/>
+                <noderef id="fenceUpTrunk" />
             </children>
         </node>
 
-         <node id="fence1">
+        <node id="fence1">
 
             <transforms>
                 <translate value3="11.4 0 44" />
                 <rotate value3="0.0 0.52 0.0" />
-            </transforms>     
+            </transforms>
 
-                <children>
-                    <lodref id="fenceStructure"/>
-                </children>
+            <children>
+                <lodref id="fenceStructure" />
+            </children>
         </node>
-        
+
         <node id="fence2">
 
             <transforms>
                 <translate value3="0 0 10" />
-            </transforms>     
+            </transforms>
 
             <children>
-                <lodref id="fenceStructure"/>
+                <lodref id="fenceStructure" />
             </children>
         </node>
 
@@ -5203,10 +5226,10 @@
 
             <transforms>
                 <translate value3="6 0 20" />
-            </transforms>     
+            </transforms>
 
             <children>
-                <noderef id="fence1"/>
+                <noderef id="fence1" />
             </children>
         </node>
 
@@ -5214,10 +5237,10 @@
 
             <transforms>
                 <translate value3="5.9 0 10" />
-            </transforms>     
+            </transforms>
 
             <children>
-                <noderef id="fence3"/>
+                <noderef id="fence3" />
             </children>
         </node>
 
@@ -5226,10 +5249,10 @@
             <transforms>
                 <translate value3="101 0 120" />
                 <rotate value3="0 1.5708 0" />
-            </transforms>     
+            </transforms>
 
             <children>
-                <noderef id="fence2"/>
+                <noderef id="fence2" />
             </children>
         </node>
 
@@ -5237,10 +5260,10 @@
 
             <transforms>
                 <translate value3="10 0 0" />
-            </transforms>     
+            </transforms>
 
             <children>
-                <noderef id="fence5"/>
+                <noderef id="fence5" />
             </children>
         </node>
 
@@ -5248,10 +5271,10 @@
 
             <transforms>
                 <translate value3="10 0 0" />
-            </transforms>     
+            </transforms>
 
             <children>
-                <noderef id="fence6"/>
+                <noderef id="fence6" />
             </children>
         </node>
 
@@ -5260,21 +5283,21 @@
             <transforms>
                 <rotate value3="0 -0.5 0" />
                 <translate value3="19 -0.5 -67" />
-            </transforms>     
+            </transforms>
 
             <children>
-                <noderef id="fence6"/>
+                <noderef id="fence6" />
             </children>
         </node>
 
-         <node id="fence9">
+        <node id="fence9">
 
             <transforms>
                 <translate value3="53 0 34" />
-            </transforms>     
+            </transforms>
 
             <children>
-                <noderef id="fence2"/>
+                <noderef id="fence2" />
             </children>
         </node>
 
@@ -5282,31 +5305,31 @@
 
             <transforms>
                 <translate value3="0 0 10" />
-            </transforms>     
+            </transforms>
 
             <children>
-                <noderef id="fence9"/>
+                <noderef id="fence9" />
             </children>
         </node>
 
-         <node id="fence11">
+        <node id="fence11">
 
             <transforms>
                 <translate value3="0 0 10" />
-            </transforms>     
+            </transforms>
 
             <children>
-                <noderef id="fence10"/>
+                <noderef id="fence10" />
             </children>
         </node>
 
         <node id="lastTrunk">
             <transforms>
                 <translate value3="53 0 74" />
-            </transforms>     
+            </transforms>
 
             <children>
-                <noderef id="fenceLargeTrunk"/>
+                <noderef id="fenceLargeTrunk" />
             </children>
         </node>
 
@@ -5314,21 +5337,21 @@
         <node id="outsideLeftFences">
             <transforms>
                 <translate value3="2 0 0" />
-            </transforms> 
+            </transforms>
 
             <children>
-                <noderef id="fence1"/>
-                <noderef id="fence2"/>
-                <noderef id="fence3"/>
-                <noderef id="fence4"/>
-                <noderef id="fence5"/>
-                <noderef id="fence6"/>
-                <noderef id="fence7"/>
-                <noderef id="fence8"/>
-                <noderef id="fence9"/>
-                <noderef id="fence10"/>
-                <noderef id="fence11"/>
-                <noderef id="lastTrunk"/>
+                <noderef id="fence1" />
+                <noderef id="fence2" />
+                <noderef id="fence3" />
+                <noderef id="fence4" />
+                <noderef id="fence5" />
+                <noderef id="fence6" />
+                <noderef id="fence7" />
+                <noderef id="fence8" />
+                <noderef id="fence9" />
+                <noderef id="fence10" />
+                <noderef id="fence11" />
+                <noderef id="lastTrunk" />
             </children>
         </node>
 
@@ -5336,10 +5359,10 @@
             <transforms>
                 <scale value3="1 1 -1" />
                 <translate value3="0 0 45" />
-            </transforms> 
+            </transforms>
 
             <children>
-                <noderef id="outsideLeftFences"/>
+                <noderef id="outsideLeftFences" />
             </children>
         </node>
 
@@ -5358,7 +5381,7 @@
 
             <transforms>
                 <translate value3="110 2 -10" />
-            </transforms>     
+            </transforms>
 
             <materialref id="whiteApp" />
 
@@ -5368,12 +5391,12 @@
             </children>
         </node>
 
-        <node id="snowmanBaseBallThird">  
+        <node id="snowmanBaseBallThird">
             <transforms>
                 <scale value3="1 1.5 1" />
                 <translate value3="0 1 0" />
-            </transforms> 
-            
+            </transforms>
+
             <children>
                 <primitive>
                     <sphere radius="2.5" slices="32" stacks="32" thetalength="3.14159265359" />
@@ -5385,7 +5408,7 @@
 
             <transforms>
                 <translate value3="110 2 -10" />
-            </transforms>     
+            </transforms>
 
             <materialref id="whiteApp" />
 
@@ -5396,11 +5419,11 @@
             </children>
         </node>
 
-        <node id="snowmanMiddleBallSecond">  
+        <node id="snowmanMiddleBallSecond">
             <transforms>
                 <translate value3="0 3.0 0" />
-            </transforms> 
-            
+            </transforms>
+
             <children>
                 <primitive>
                     <sphere radius="2.0" slices="32" stacks="32" thetalength="3.14159265359" />
@@ -5409,13 +5432,13 @@
             </children>
         </node>
 
-                <node id="snowmanHeadSecond">  
-             <transforms>
+        <node id="snowmanHeadSecond">
+            <transforms>
                 <translate value3="0 5.5 0" />
-            </transforms> 
-            
+            </transforms>
+
             <children>
-                <noderef id="snowmanHat"/>
+                <noderef id="snowmanHat" />
                 <primitive>
                     <sphere radius="1.5" slices="32" stacks="32" thetalength="3.14159265359" />
                 </primitive>
@@ -5427,7 +5450,7 @@
 
             <transforms>
                 <translate value3="110 2 -10" />
-            </transforms>     
+            </transforms>
 
             <materialref id="whiteApp" />
 
@@ -5439,27 +5462,27 @@
             </children>
         </node>
 
-        <node id="snowmanBaseBall">  
+        <node id="snowmanBaseBall">
             <transforms>
                 <translate value3="0 0 0" />
-            </transforms> 
-            
+            </transforms>
+
             <children>
                 <primitive>
                     <sphere radius="2.5" slices="32" stacks="32" thetalength="3.14159265359" />
                 </primitive>
             </children>
         </node>
-        
-        <node id="snowmanMiddleBall">  
+
+        <node id="snowmanMiddleBall">
             <transforms>
                 <translate value3="0 3.0 0" />
-            </transforms> 
-            
+            </transforms>
+
             <children>
-                <noderef id="snowmanButtons"/>
-                <noderef id="snowmanArmLeft"/>
-                <noderef id="snowmanArmRight"/>
+                <noderef id="snowmanButtons" />
+                <noderef id="snowmanArmLeft" />
+                <noderef id="snowmanArmRight" />
                 <primitive>
                     <sphere radius="2.0" slices="32" stacks="32" thetalength="3.14159265359" />
                 </primitive>
@@ -5476,7 +5499,8 @@
 
             <children>
                 <primitive>
-                    <cylinder base="0.1" top="0.1" height="1.75" slices="32" stacks="2" capsclose="true" />
+                    <cylinder base="0.1" top="0.1" height="1.75" slices="32" stacks="2"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -5490,77 +5514,79 @@
 
             <children>
                 <primitive>
-                    <cylinder base="0.1" top="0.1" height="1.75" slices="32" stacks="2" capsclose="true" />
+                    <cylinder base="0.1" top="0.1" height="1.75" slices="32" stacks="2"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
 
-        <node id="snowmanHead">  
-             <transforms>
+        <node id="snowmanHead">
+            <transforms>
                 <translate value3="0 5.5 0" />
-            </transforms> 
-            
+            </transforms>
+
             <children>
-                <noderef id="snowmanHat"/>
-                <noderef id="snowmanNose"/>
-                <noderef id="snowmanEyeLeft"/>
-                <noderef id="snowmanEyeRight"/>
-                <noderef id="snowmanMouth"/>
+                <noderef id="snowmanHat" />
+                <noderef id="snowmanNose" />
+                <noderef id="snowmanEyeLeft" />
+                <noderef id="snowmanEyeRight" />
+                <noderef id="snowmanMouth" />
                 <primitive>
                     <sphere radius="1.5" slices="32" stacks="32" thetalength="3.14159265359" />
                 </primitive>
             </children>
         </node>
 
-        <node id="snowmanButton">  
+        <node id="snowmanButton">
             <materialref id="blackApp" />
 
             <children>
                 <primitive>
-                    <sphere radius="0.15" slices="32" stacks="16" thetastart="0" thetalength="3.1416"/>
+                    <sphere radius="0.15" slices="32" stacks="16" thetastart="0"
+                        thetalength="3.1416" />
                 </primitive>
             </children>
         </node>
 
-        <node id="snowmanButtons">  
+        <node id="snowmanButtons">
             <transforms>
                 <translate value3="0.6 0.3 0" />
-            </transforms> 
-        
+            </transforms>
+
 
             <children>
-                <noderef id="snowmanButton1"/>
-                <noderef id="snowmanButton2"/>  
-                <noderef id="snowmanButton3"/> 
+                <noderef id="snowmanButton1" />
+                <noderef id="snowmanButton2" />
+                <noderef id="snowmanButton3" />
             </children>
         </node>
 
 
-        <node id="snowmanButton1">  
+        <node id="snowmanButton1">
             <transforms>
                 <translate value3="1.1 0.7 0" />
-            </transforms> 
+            </transforms>
 
             <children>
                 <noderef id="snowmanButton" />
             </children>
         </node>
 
-        <node id="snowmanButton2">  
+        <node id="snowmanButton2">
             <transforms>
                 <translate value3="1.3 0.3 0" />
-            </transforms> 
-            
+            </transforms>
+
             <children>
                 <noderef id="snowmanButton" />
             </children>
         </node>
 
-        <node id="snowmanButton3">  
+        <node id="snowmanButton3">
             <transforms>
                 <translate value3="1.4 -0.05 0" />
-            </transforms> 
-            
+            </transforms>
+
             <children>
                 <noderef id="snowmanButton" />
             </children>
@@ -5577,16 +5603,16 @@
 
             <children>
                 <primitive>
-                    <cylinder base="0" top="1.0" height="3" slices="32" stacks="2"/>
+                    <cylinder base="0" top="1.0" height="3" slices="32" stacks="2" />
                 </primitive>
             </children>
 
         </node>
 
-         <node id="snowmanEyeLeft">
+        <node id="snowmanEyeLeft">
             <transforms>
                 <translate value3="1.3 0.7 0.5" />
-            </transforms>     
+            </transforms>
 
             <children>
                 <noderef id="snowmanButton" />
@@ -5596,7 +5622,7 @@
         <node id="snowmanEyeRight">
             <transforms>
                 <translate value3="1.3 0.7 -0.5" />
-            </transforms>     
+            </transforms>
 
             <children>
                 <noderef id="snowmanButton" />
@@ -5606,13 +5632,14 @@
         <node id="snowmanMouth">
             <transforms>
                 <translate value3="1.2 0 0" />
-            </transforms> 
+            </transforms>
 
-            <materialref id="whiteApp" />   
+            <materialref id="whiteApp" />
 
             <children>
                 <primitive>
-                    <sphere radius="0.5" slices="32" stacks="32" thetastart="1.5707" thetalength="3.1415" />
+                    <sphere radius="0.5" slices="32" stacks="32" thetastart="1.5707"
+                        thetalength="3.1415" />
                 </primitive>
             </children>
         </node>
@@ -5621,20 +5648,21 @@
             <transforms>
                 <translate value3="0 1.5 0" />
                 <scale value3="1.3 1.3 1.3" />
-            </transforms>     
+            </transforms>
 
             <materialref id="blackApp" />
 
             <children>
-                <noderef id="snowmanHatTop"/>
-                <noderef id="snowmanHatBase"/>
+                <noderef id="snowmanHatTop" />
+                <noderef id="snowmanHatBase" />
             </children>
         </node>
 
         <node id="snowmanHatBase">
             <children>
                 <primitive>
-                    <cylinder base="1.5" top="1.3" height="0.45" slices="32" stacks="32" capsclose="true"/>
+                    <cylinder base="1.5" top="1.3" height="0.45" slices="32" stacks="32"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -5642,11 +5670,12 @@
         <node id="snowmanHatTop">
             <transforms>
                 <translate value3="0 0.65 0" />
-            </transforms>     
+            </transforms>
 
             <children>
                 <primitive>
-                    <cylinder base="0.8" top="0.8" height="0.75" slices="32" stacks="12" capsclose="true"/>
+                    <cylinder base="0.8" top="0.8" height="0.75" slices="32" stacks="12"
+                        capsclose="true" />
                 </primitive>
             </children>
         </node>
@@ -5659,7 +5688,7 @@
                 <translate value3="0 0 20" />
             </transforms>
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
@@ -5669,7 +5698,7 @@
                 <translate value3="-30 0 50" />
             </transforms>
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
@@ -5679,7 +5708,7 @@
                 <translate value3="0 0 60" />
             </transforms>
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
@@ -5689,7 +5718,7 @@
                 <translate value3="0 0 -30" />
             </transforms>
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
@@ -5699,7 +5728,7 @@
                 <translate value3="-30 0 -50" />
             </transforms>
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
@@ -5709,7 +5738,7 @@
                 <translate value3="0 0 -60" />
             </transforms>
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
@@ -5719,7 +5748,7 @@
                 <translate value3="-35 0 0" />
             </transforms>
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
@@ -5729,7 +5758,7 @@
                 <translate value3="30 0 30" />
             </transforms>
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
@@ -5739,21 +5768,21 @@
                 <translate value3="30 0 -40" />
             </transforms>
             <children>
-                <noderef id="tree"/>
+                <noderef id="tree" />
             </children>
         </node>
 
         <node id="outsideTrees">
             <children>
-                <noderef id="outsideTree1"/>
-                <noderef id="outsideTree2"/>
-                <noderef id="outsideTree3"/>
-                <noderef id="outsideTree4"/>
-                <noderef id="outsideTree5"/>
-                <noderef id="outsideTree6"/>
-                <noderef id="outsideTree7"/>
-                <noderef id="outsideTree8"/>
-                <noderef id="outsideTree9"/>
+                <noderef id="outsideTree1" />
+                <noderef id="outsideTree2" />
+                <noderef id="outsideTree3" />
+                <noderef id="outsideTree4" />
+                <noderef id="outsideTree5" />
+                <noderef id="outsideTree6" />
+                <noderef id="outsideTree7" />
+                <noderef id="outsideTree8" />
+                <noderef id="outsideTree9" />
             </children>
         </node>
 

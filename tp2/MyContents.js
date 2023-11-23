@@ -40,14 +40,29 @@ class MyContents {
         this.reader.open("scenes/scene/scene.xml");
         this.sockTexture = "red";
         this.milkHeight = 0.4;
-        this.blinking=false;
+        this.blinking = false;
         this.milkOriginalHeight = 0.4;
         this.wireframe = false;
         this.santaPos = 0;
         this.santaOriginalY = 4;
         this.candleOn = true;
         this.axisVisible = false
-
+        this.options = {
+            minFilters: {
+                'NearestFilter': THREE.NearestFilter,
+                'NearestMipMapLinearFilter': THREE.NearestMipMapLinearFilter,
+                'NearestMipMapNearestFilter': THREE.NearestMipMapNearestFilter,
+                'LinearFilter ': THREE.LinearFilter,
+                'LinearMipMapLinearFilter (Default)': THREE.LinearMipMapLinearFilter,
+                'LinearMipmapNearestFilter': THREE.LinearMipmapNearestFilter,
+            },
+            magFilters: {
+                'NearestFilter': THREE.NearestFilter,
+                'LinearFilter (Default)': THREE.LinearFilter,
+            },
+        }
+        this.magFilter = THREE.LinearFilter
+        this.minFilter = THREE.LinearMipMapLinearFilter
     }
 
     /**
@@ -115,7 +130,27 @@ class MyContents {
         // create the scene
         this.nodeParser = new MyNodeParser(this, data);
         this.nodeParser.init();
+    }
 
+    updateMinFilter(value) {
+        for (let material of this.materialsObjects) {
+            if (material.map) {
+                material.map.minFilter = value
+                material.map.needsUpdate = true
+            }
+        }
+    }
+
+
+    updateMagFilter(value) {
+        for (let material of this.materialsObjects) {
+            if (material.map) {
+                material.map.magFilter = value
+                material.map.needsUpdate = true
+                console.log(material.map.magFilter)
+            }
+        
+        }
     }
 
     /**

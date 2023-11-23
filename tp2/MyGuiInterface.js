@@ -43,6 +43,10 @@ class MyGuiInterface {
     const wireframeFolder = this.datgui.addFolder('Wireframe');
     wireframeFolder.add(this.contents, "wireframe").onChange(() => { this.contents.updateWireframe()});
 
+    const textureFolder = this.datgui.addFolder('Texture')
+      textureFolder.add(this.contents, 'minFilter', this.contents.options.minFilters).name('minFilter (far)').onChange((value) => this.contents.updateMinFilter(value))
+      textureFolder.add(this.contents, 'magFilter', this.contents.options.magFilters).name('magFilter (close)').onChange((value) => this.contents.updateMagFilter(value))
+      textureFolder.open()
     // adds a folder to control the santa legs position
     const chimneyFolder = this.datgui.addFolder("Chimney");
     chimneyFolder.add(this.contents, 'santaPos', 0, 3).name("Santa Going up the chimney").onChange((value) => { this.contents.updateSantaPosition(value) });
