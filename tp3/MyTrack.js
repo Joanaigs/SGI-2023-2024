@@ -9,13 +9,13 @@ class MyTrack {
     constructor(app) {
         this.app = app;
         this.track1 = new THREE.CatmullRomCurve3([
-            new THREE.Vector3(-20, -4, 20),
-            new THREE.Vector3(0, -4, 0),
-            new THREE.Vector3(20, -4, 20)
+            new THREE.Vector3(-20, 50, 20),
+            new THREE.Vector3(0, 50, 0),
+            new THREE.Vector3(20, 50, 20)
         ]);
 
         // Define parameters for track generation
-        this.segments = 100; // Adjust as needed
+        this.segments = 10; // Adjust as needed
         this.width = 3; // Adjust as needed
         this.closedCurve = false; // Adjust as needed
 
@@ -52,14 +52,12 @@ class MyTrack {
         function calculateNormal(point, nextPoint, prevPoint) {
             let tangent = new THREE.Vector3();
             let normal = new THREE.Vector3();
-            let binormal = new THREE.Vector3();
 
             // Compute tangent
             tangent.subVectors(nextPoint, prevPoint).normalize();
 
-            // Compute binormal and normal
-            binormal.crossVectors(tangent, new THREE.Vector3(0, 1, 0)).normalize();
-            normal.crossVectors(binormal, tangent).normalize();
+            // Compute normal in the x-z plane
+            normal.set(-tangent.z, 0, tangent.x).normalize();
 
             return normal;
         }
@@ -82,10 +80,18 @@ class MyTrack {
 
             // Add positions, normals, and indices to the arrays
             positions.push(widthPoint1.x, widthPoint1.y, widthPoint1.z);
+            positions.push(point.x, point.y, point.z);
             positions.push(widthPoint2.x, widthPoint2.y, widthPoint2.z);
-            normals.push(normal.x, normal.y, normal.z);
-            normals.push(normal.x, normal.y, normal.z);
-            indices.push(i * 2, (i * 2 + 1) % (points.length * 2));
+            if(i != points.length-1){
+                indices.push(i, i + 1, i + 2);
+                indices.push(i + 1, i+2, i+5);
+                indices.push(i + 1, i+4, i+2);
+            }
+
+            normals.push(0, 1, 0);
+            normals.push(0, 1, 0);
+            normals.push(0, 1, 0);
+
         }
 
         // Set the buffer attributes
@@ -94,7 +100,7 @@ class MyTrack {
         bGeometry.setIndex(indices);
 
         // Create the final object to add to the scene
-        this.lineMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+        this.lineMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
         this.line = new THREE.Mesh(bGeometry, this.lineMaterial);
 
         this.curve = new THREE.Group();
