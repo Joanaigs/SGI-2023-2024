@@ -1,23 +1,46 @@
 import * as THREE from "three";
-import { MyApp } from "./MyApp.js";
 
 class MyTrack {
     /**
      * Constructs the object
      * @param {MyApp} app The application object
      */
-    constructor(app) {
+    constructor(app, size, width, position) {
         this.app = app;
+        this.position = position;
+        let i=size;
+        this.width = width;
         this.track1 = new THREE.CatmullRomCurve3([
-            new THREE.Vector3(-20, 50, 20),
-            new THREE.Vector3(0, 50, 0),
-            new THREE.Vector3(20, 50, 20)
+            new THREE.Vector3(8*i, 0, i*5), //start
+            new THREE.Vector3(8*i, 0, i*4), 
+            new THREE.Vector3(8*i, 0, i*2),
+            new THREE.Vector3(6*i, 0, i*1),
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(0, 0, i*2),
+            new THREE.Vector3(4*i, 0, i*3),
+            new THREE.Vector3(5*i, 0, i*4.5),
+
+            new THREE.Vector3(4*i, 0, i*6),
+            new THREE.Vector3(3.5*i, 0, i*6),
+            new THREE.Vector3(2*i, 0, i*5),
+
+            new THREE.Vector3(0*i, 0, i*6),
+            new THREE.Vector3(0*i, 0, i*15),
+            new THREE.Vector3(1.5*i, 0, i*16),
+            new THREE.Vector3(3*i, 0, i*15),
+            new THREE.Vector3(3*i, 0, i*10),
+            new THREE.Vector3(4*i, 0, i*9),
+            new THREE.Vector3(5*i, 0, i*10),
+            new THREE.Vector3(6*i, 0, i*12),
+            new THREE.Vector3(7*i, 0, i*13),
+            new THREE.Vector3(8*i, 0, i*12),
+
+            new THREE.Vector3(8*i, 0, i*5), //start
         ]);
 
         // Define parameters for track generation
-        this.segments = 10; // Adjust as needed
-        this.width = 3; // Adjust as needed
-        this.closedCurve = false; // Adjust as needed
+        this.segments = 300; 
+        this.closedCurve = false; 
 
         // Material for the track
         this.material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
@@ -49,15 +72,15 @@ class MyTrack {
         let indices = [];
 
         // Function to calculate the normal at a given point on the track
-        function calculateNormal(point, nextPoint, prevPoint) {
+        function calculateNormal(point, nextPoint) {
             let tangent = new THREE.Vector3();
             let normal = new THREE.Vector3();
 
             // Compute tangent
-            tangent.subVectors(nextPoint, prevPoint).normalize();
+            tangent.subVectors(nextPoint, point).normalize();
 
-            // Compute normal in the x-z plane
-            normal.set(-tangent.z, 0, tangent.x).normalize();
+            // Compute normal
+            normal.crossVectors(tangent, new THREE.Vector3(0, 1, 0)).normalize();
 
             return normal;
         }
@@ -65,13 +88,20 @@ class MyTrack {
         // Iterate through each point on the track
         for (let i = 0; i < points.length; i++) {
             let point = points[i];
-
+            let normal;
             // Calculate the normal at the current point
-            let normal = calculateNormal(
-                points[(i + 1) % points.length], // next point
-                points[i],                        // current point
-                points[(i - 1 + points.length) % points.length] // previous point
-            );
+            if (i === points.length - 1) {
+                normal = calculateNormal(
+                    points[(i - 1 + points.length) % points.length], // previous point
+                    points[i]                       // current point
+                );
+            } else {
+                normal = calculateNormal(
+                    points[i],                        // current point
+                    points[(i + 1) % points.length] // next point
+                );
+            }
+
 
             // Use the normal to calculate the positions of the two points before
             let widthVector = normal.clone().multiplyScalar(this.width / 2);
@@ -82,17 +112,20 @@ class MyTrack {
             positions.push(widthPoint1.x, widthPoint1.y, widthPoint1.z);
             positions.push(point.x, point.y, point.z);
             positions.push(widthPoint2.x, widthPoint2.y, widthPoint2.z);
-            if(i != points.length-1){
-                indices.push(i, i + 1, i + 2);
-                indices.push(i + 1, i+2, i+5);
-                indices.push(i + 1, i+4, i+2);
-            }
 
+            if (i != points.length - 1) {
+                let point_indx = i * 3;
+                indices.push(point_indx+1, point_indx, point_indx + 3);
+                indices.push(point_indx + 2, point_indx + 1, point_indx + 5);
+                indices.push(point_indx + 4, point_indx + 1, point_indx + 3);
+                indices.push(point_indx + 5, point_indx + 1, point_indx + 4);
+            }
             normals.push(0, 1, 0);
             normals.push(0, 1, 0);
             normals.push(0, 1, 0);
 
         }
+
 
         // Set the buffer attributes
         bGeometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
@@ -100,13 +133,14 @@ class MyTrack {
         bGeometry.setIndex(indices);
 
         // Create the final object to add to the scene
-        this.lineMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
+        this.lineMaterial = new THREE.MeshBasicMaterial({ color: 0x000000});
         this.line = new THREE.Mesh(bGeometry, this.lineMaterial);
 
         this.curve = new THREE.Group();
         this.curve.add(this.line);
 
         this.line.visible = this.showLine;
+        this.curve.position.set(this.position.x, this.position.y, this.position.z);
 
         this.app.scene.add(this.curve);
     }
