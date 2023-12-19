@@ -5,15 +5,15 @@
 
     <fog color="0.565 0.635 0.682 0.2" near="1000" far="2000.0" />
 
-    <skybox size="1000 500 1000" center="0 250 0" emissive="0.565 0.635 0.682 1.0" intensity="4.0"
+    <skybox size="2000 500 2000" center="0 249.0 0" emissive="0.565 0.635 0.682 1.0" intensity="4.0"
         up="scenes/scene/textures/snow_up.jpg" down="scenes/scene/textures/snow_dn.jpg"
         left="scenes/scene/textures/snow_lf.jpg" right="scenes/scene/textures/snow_rt.jpg"
         front="scenes/scene/textures/snow_ft.jpg" back="scenes/scene/textures/snow_bk.jpg" />
 
 
     <cameras initial="main">
-        <perspective id="main" angle="1.047" near="0.1" far="5000" location="0 500 0"
-        target="0 0 0" />
+        <perspective id="main" angle="1.047" near="0.1" far="5000" location="100 700 200"
+        target="100 0 200" />
         <perspective id="frontHouse" angle="1.047" near="0.1" far="5000" location="130 10 -25"
             target="50 10 -25" />
     </cameras>
@@ -243,28 +243,9 @@
         <node id="scene">
             <children>
 
-                <noderef id="roof" />
-                <noderef id="walls" />
-                <lodref id="frontPorch" />
-                <noderef id="foundation" />
-                <noderef id="frontDoorFloor" />
                 <noderef id="outsideTrees" />
                 <lodref id="snowman" />
-                <noderef id="outsideLeftFences" />
-                <noderef id="outsideRightFences" />
-                <noderef id="outsideRightFences" />
-                <noderef id="outsideRightFences" />
 
-                <pointlight id="sun" enabled="true"
-                    color="1 1 1 0"
-                    intensity="100"
-                    distance="0"
-                    decay="1"
-                    shadowfar="500"
-                    castshadow="true"
-                    position="120 80 1.047"
-                    shadowmapsize="512"
-                />
 
             </children>
         </node>
