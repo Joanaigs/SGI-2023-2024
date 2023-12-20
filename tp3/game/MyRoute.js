@@ -1,0 +1,59 @@
+import * as THREE from 'three';
+
+
+/**
+ *  This class contains the contents of out application
+ */
+class MyRoute {
+
+
+    constructor(scale, position) {
+        let i=scale;
+        this.route1 = [
+            new THREE.Vector3(8*i, 0, i*5), //start
+            new THREE.Vector3(8*i, 0, i*6),
+            new THREE.Vector3(8*i, 0, i*10),
+            new THREE.Vector3(8*i, 0, i*13),
+            new THREE.Vector3(7*i, 0, i*13.5),
+            new THREE.Vector3(6*i, 0, i*13),
+            new THREE.Vector3(5*i, 0, i*10),
+            new THREE.Vector3(4*i, 0, i*9.5),
+            new THREE.Vector3(3*i, 0, i*10),
+            new THREE.Vector3(3*i, 0, i*15),
+            new THREE.Vector3(1.5*i, 0, i*16),
+            new THREE.Vector3(0*i, 0, i*15),
+            new THREE.Vector3(0*i, 0, i*6),
+            new THREE.Vector3(2*i, 0, i*5),
+            new THREE.Vector3(3.5*i, 0, i*6),
+            new THREE.Vector3(4*i, 0, i*6),
+            new THREE.Vector3(5*i, 0, i*4.5),
+            new THREE.Vector3(4*i, 0, i*3),
+            new THREE.Vector3(0, 0, i*2),
+            new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(6*i, 0, i*1),
+            new THREE.Vector3(8*i, 0, i*2),
+            new THREE.Vector3(8*i, 0, i*4), 
+            new THREE.Vector3(8*i, 0, i*5), //start
+
+
+        ]
+        for(let i=0;i<this.route1.length;i++){
+            this.route1[i].add(position);
+        }
+    }
+
+    getRoutes (indice) {
+        switch (indice) {
+            case 1:
+                return this.route1;
+            default:
+                return this.route1;
+        }
+    }
+
+    
+
+    
+}
+
+export { MyRoute };

@@ -29,13 +29,22 @@ class MyTrack {
             new THREE.Vector3(1.5*i, 0, i*16),
             new THREE.Vector3(3*i, 0, i*15),
             new THREE.Vector3(3*i, 0, i*10),
-            new THREE.Vector3(4*i, 0, i*9),
+            new THREE.Vector3(4*i, 0, i*9.5),
             new THREE.Vector3(5*i, 0, i*10),
-            new THREE.Vector3(6*i, 0, i*12),
-            new THREE.Vector3(7*i, 0, i*13),
-            new THREE.Vector3(8*i, 0, i*12),
+            new THREE.Vector3(6*i, 0, i*13),
+            new THREE.Vector3(7*i, 0, i*13.5),
+            new THREE.Vector3(8*i, 0, i*13),
+            new THREE.Vector3(8*i, 0, i*10),
+
+            new THREE.Vector3(8*i, 0, i*6),
 
             new THREE.Vector3(8*i, 0, i*5), //start
+        ]);
+
+        this.trackCut = new THREE.CatmullRomCurve3([            
+            new THREE.Vector3(6*i, 0, i*13),
+            new THREE.Vector3(3*i, 0, i*15)
+
         ]);
 
         // Define parameters for track generation
@@ -54,11 +63,16 @@ class MyTrack {
         // Flag to show/hide mesh and wireframe
         this.showMesh = true;
         this.showLine = true;
+
+
     }
 
     drawTrack(track) {
         if (track === 1) {
             this.path = this.track1;
+        }
+        if(track === "Cut"){
+            this.path = this.trackCut;
         }
 
         let points = this.path.getPoints(this.segments);
@@ -142,8 +156,9 @@ class MyTrack {
         this.line.visible = this.showLine;
         this.curve.position.set(this.position.x, this.position.y, this.position.z);
 
-        this.app.scene.add(this.curve);
+        return this.curve;
     }
+
 }
 
 export { MyTrack };
