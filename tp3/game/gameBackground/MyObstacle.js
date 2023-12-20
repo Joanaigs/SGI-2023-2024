@@ -12,9 +12,9 @@ class MyObstacle {
             {key: new THREE.Vector3(5*this.scale, 0, this.scale*4.5), type: "CONFUSED"},
             {key: new THREE.Vector3(3*this.scale, 0, this.scale*14), type: "VELOCITY"},
             {key: new THREE.Vector3(1*this.scale, 0, this.scale*0), type: "SLIPPERY"},
-
         ]
-        this.obstaclesList = [];
+        this.obstaclesObject = new Map();
+
 
     }
 
@@ -38,7 +38,7 @@ class MyObstacle {
                 cube.position.set(obstacle.key.x, obstacle.key.y, obstacle.key.z);
                 cube.position.add(this.position);
                 this.game.app.scene.add(cube);
-                this.obstaclesList.push(cube);
+                this.obstaclesObject.set(cube, obstacle.type);
                 break;
             case "CONFUSED":
                 let geometry2 = new THREE.BoxGeometry( 4, 4, 4 );
@@ -47,7 +47,7 @@ class MyObstacle {
                 cube2.position.set(obstacle.key.x, obstacle.key.y, obstacle.key.z);
                 cube2.position.add(this.position);
                 this.game.app.scene.add(cube2);
-                this.obstaclesList.push(cube2);
+                this.obstaclesObject.set(cube2, obstacle.type);
                 break;
             case "SLIPPERY":
                 let geometry3 = new THREE.BoxGeometry( 4, 4, 4 );
@@ -56,13 +56,66 @@ class MyObstacle {
                 cube3.position.set(obstacle.key.x, obstacle.key.y, obstacle.key.z);
                 cube3.position.add(this.position);
                 this.game.app.scene.add(cube3);
-                this.obstaclesList.push(cube3);
+                this.obstaclesObject.set(cube3, obstacle.type);
+                break;
+        }
+    }
+
+    obstacleVelocity(){
+        const originalMaxVelocity = this.game.car.maxVelocity;
+        const originalVelocity = this.game.car.velocity;
+    
+        // Increase velocity and maxVelocity
+        this.game.car.velocity -= 0.5;
+        this.game.car.maxVelocity -= 0.5;
+        console.log(this.game.car.velocity);
+    
+        // Set a timeout to revert the changes after 10 seconds
+        setTimeout(() => {
+            this.game.car.maxVelocity = originalMaxVelocity;
+            this.game.car.velocity = originalVelocity;
+        }, 10000); // 10000 milliseconds = 10 seconds
+    }
+
+    obstacleConfused(){
+        this.game.car.confused = true;
+        setTimeout(() => {
+            this.game.car.confused = false;
+        }, 10000); // 10000 milliseconds = 10 seconds
+
+    }
+
+    obstacleSlippery(){
+        const originalRotationScale = this.game.car.rotationScale;
+
+        // Increase rotationScale
+        this.game.car.rotateScale += 0.5;
+        console.log(this.game.car.rotateScale);
+
+        setTimeout(() => {
+            this.game.car.rotationScale = originalRotationScale;
+        }, 10000); // 10000 milliseconds = 10 seconds
+    }
+
+    activateObstacle(object){
+        let obstacle = this.obstaclesObject.get(object);
+        console.log(obstacle);
+        switch (obstacle) {
+            case "VELOCITY":
+                this.obstacleVelocity();
+                break;
+            case "CONFUSED":
+                this.obstacleConfused();
+                break;
+            case "SLIPPERY":
+                this.obstacleSlippery();
                 break;
         }
     }
 
     getObstacles(){
-        return this.obstaclesList;
+        let keys = Array.from(this.obstaclesObject.keys());
+        return keys;
     }
 
 }
