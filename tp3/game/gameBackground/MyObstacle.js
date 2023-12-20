@@ -14,6 +14,7 @@ class MyObstacle {
             {key: new THREE.Vector3(1*this.scale, 0, this.scale*0), type: "SLIPPERY"},
 
         ]
+        this.obstaclesList = [];
 
     }
 
@@ -37,6 +38,7 @@ class MyObstacle {
                 cube.position.set(obstacle.key.x, obstacle.key.y, obstacle.key.z);
                 cube.position.add(this.position);
                 this.game.app.scene.add(cube);
+                this.obstaclesList.push(cube);
                 break;
             case "CONFUSED":
                 let geometry2 = new THREE.BoxGeometry( 4, 4, 4 );
@@ -45,6 +47,7 @@ class MyObstacle {
                 cube2.position.set(obstacle.key.x, obstacle.key.y, obstacle.key.z);
                 cube2.position.add(this.position);
                 this.game.app.scene.add(cube2);
+                this.obstaclesList.push(cube2);
                 break;
             case "SLIPPERY":
                 let geometry3 = new THREE.BoxGeometry( 4, 4, 4 );
@@ -53,11 +56,14 @@ class MyObstacle {
                 cube3.position.set(obstacle.key.x, obstacle.key.y, obstacle.key.z);
                 cube3.position.add(this.position);
                 this.game.app.scene.add(cube3);
+                this.obstaclesList.push(cube3);
                 break;
         }
     }
 
-
+    getObstacles(){
+        return this.obstaclesList;
+    }
 
 }
 

@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 
+
 /**
  *  This class contains the contents of out application
  */
@@ -15,10 +16,10 @@ class MyVehicleObject extends THREE.Object3D {
         let groupBody = new THREE.Group();
         let geometry = new THREE.BoxGeometry( 5, 2, 10 );
         let material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-        let cube = new THREE.Mesh( geometry, material );
-        cube.position.y = 1;
-        cube.position.z = 3;
-        groupBody.add(cube);
+        this.cube = new THREE.Mesh( geometry, material );
+        this.cube.position.y = 1;
+        this.cube.position.z = 3;
+        groupBody.add(this.cube);
 
         let groupTires = new THREE.Group();
         for (let i = 0; i < 4; i++) {

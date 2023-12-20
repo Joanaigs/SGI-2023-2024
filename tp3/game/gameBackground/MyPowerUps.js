@@ -16,6 +16,7 @@ class MyPowerUps {
             {key: new THREE.Vector3(0*this.scale, 0, this.scale*1), type: "CHANGE"},
 
         ]
+        this.powerUpsList = [];
 
     }
 
@@ -37,6 +38,7 @@ class MyPowerUps {
                 cube.position.set(powerUps.key.x, powerUps.key.y, powerUps.key.z);
                 cube.position.add(this.position);
                 this.game.app.scene.add(cube);
+                this.powerUpsList.push(cube);
                 break;
             case "CUT":
                 let geometry2 = new THREE.BoxGeometry( 4, 4, 4 );
@@ -45,6 +47,7 @@ class MyPowerUps {
                 cube2.position.set(powerUps.key.x, powerUps.key.y, powerUps.key.z);
                 cube2.position.add(this.position);
                 this.game.app.scene.add(cube2);
+                this.powerUpsList.push(cube2);
                 break;
             case "TIME":
                 let geometry3 = new THREE.BoxGeometry( 4, 4, 4 );
@@ -53,6 +56,7 @@ class MyPowerUps {
                 cube3.position.set(powerUps.key.x, powerUps.key.y, powerUps.key.z);
                 cube3.position.add(this.position);
                 this.game.app.scene.add(cube3);
+                this.powerUpsList.push(cube3);
                 break;
             case "CHANGE":
                 let geometry4 = new THREE.BoxGeometry( 4, 4, 4 );
@@ -61,10 +65,15 @@ class MyPowerUps {
                 cube4.position.set(powerUps.key.x, powerUps.key.y, powerUps.key.z);
                 cube4.position.add(this.position);
                 this.game.app.scene.add(cube4);
+                this.powerUpsList.push(cube4);
                 break;
             default:
                 break;
         }
+    }
+
+    getPowerUps(){
+        return this.powerUpsList;
     }
 
 

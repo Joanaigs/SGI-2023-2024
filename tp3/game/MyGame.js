@@ -17,7 +17,7 @@ class MyGame {
         this.scaleTrack = 50;
         this.position = new THREE.Vector3(-100, 0, -100);
         this.powerUps = new MyPowerUps(this,this.position);
-        this.obstacle = new MyObstacle(this,this.position);
+        this.obstacles = new MyObstacle(this,this.position);
         this.initBackgroud();
     }
 
@@ -28,8 +28,8 @@ class MyGame {
         let myTrack = new MyTrack(this.app, this.scaleTrack, 40, this.position);
         myTrack.drawTrack(1);
         this.powerUps.drawPowerUps(1);
-        this.obstacle.drawObstacles(1);
-        this.car = new MyVehicle(this.app, this.position, new THREE.Vector3(8*this.scaleTrack, 0, 5*this.scaleTrack) );
+        this.obstacles.drawObstacles(1);
+        this.car = new MyVehicle(this, this.position, new THREE.Vector3(8*this.scaleTrack, 0, 5*this.scaleTrack) );
     }
 
 

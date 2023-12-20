@@ -1,13 +1,16 @@
 import * as THREE from 'three';
 import { MyVehicleObject } from './MyVehicleObject.js';
+
+
 /**
  *  This class contains the contents of out application
  */
 class MyVehicle {
 
+    constructor(game, position, target) {
 
-    constructor(app, position, target) {
-        this.app = app
+        
+        this.game = game
         this.rotation = 0;
         this.rotateScale = 0.3;
         this.velocity = 0;
@@ -18,15 +21,36 @@ class MyVehicle {
         this.car = new MyVehicleObject();
         this.car.position.set(position.x, position.y, position.z);
         this.car.position.add(target);
-        this.app.scene.add(this.car);
+        this.game.app.scene.add(this.car);
         document.addEventListener('keydown', this.onKeyDown.bind(this));
         document.addEventListener('keyup', this.onKeyUp.bind(this));
 
     }
 
+    checkCollisions(obstacles, powerUps) {
+        
+        for (const obstacle of obstacles) {
+            const intersection = this.checkIntersection(this.car, obstacle);
+            if (intersection) {
+                console.log('Collision with obstacle!');
+            }
+        }
+
+        // Check collisions with power-ups
+        for (const powerUp of powerUps) {
+            const intersection = this.checkIntersection(this.car, powerUp);
+            if (intersection) {
+                console.log('Collision with power-up!');
+            }
+        }
+    }
+
+    checkInsideTrack(){
+        return false;
+    }
 
     left() {
-        this.rotation += this.rotateScale;
+        this.checkInsideTrack() ? this.velocity = 0 : this.rotation += this.rotateScale;
     }
 
     right() {
@@ -60,7 +84,6 @@ class MyVehicle {
     handleKeys() {
         if (this.keysPressed['a'] || this.keysPressed['arrowleft']) {
             this.left();
-            console.log("left");
         }
 
         if (this.keysPressed['d'] || this.keysPressed['arrowright']) {
@@ -84,7 +107,25 @@ class MyVehicle {
         );
         this.car.position.add(deltaPosition);
         this.car.rotation.y = this.rotation;
+        if (this.velocity!= 0){
+            this.checkCollisions(this.game.obstacles.getObstacles(), this.game.powerUps.getPowerUps());
+        }
     }
+
+    checkIntersection(object1, object2) {
+
+        // Get the bounding boxes of the two objects
+        const box1 = new THREE.Box3().setFromObject(object1);
+        const box2 = new THREE.Box3().setFromObject(object2);
+        
+        if (box1.intersectsBox(box2)) {
+            console.log('Intersection detected!');
+            return true;
+        }
+        return false;
+    }
+    
+    
 
 
 }
