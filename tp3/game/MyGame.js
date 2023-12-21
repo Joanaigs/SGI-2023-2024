@@ -14,8 +14,9 @@ class MyGame {
        constructs the object
        @param {MyApp} app The application object
     */
-    constructor(app, car, enemyCar, powerUps, obstacles, routes, cutPath) {
-        this.app = app
+    constructor(logic, car, enemyCar, powerUps, obstacles, routes, cutPath) {
+        this.logic = logic;
+        this.app = logic.app
         this.scaleTrack = 50;
         this.startTime = Date.now();
         this.penalties = 0;
@@ -30,14 +31,16 @@ class MyGame {
         this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(8 * this.scaleTrack, 0, 5 * this.scaleTrack), this.routes.getRoutes(1), enemyCar);
         this.gameOver = false;
         this.started = false;
-        this.semaphoreColors = [0xff0000, 0xffff00, 0x00ff00]; // Red, Yellow, Green
-        this.semaphoreInterval = 1000; // Time in milliseconds for each color change
+        this.semaphoreColors = [0xff0000, 0xffff00, 0x00ff00]; // Red, Yellow, Gree
+        this.semaphoreInterval = 1000; // Time in milliseconds for each color chang
 
+        this.keysPressed = {};
         this.raycaster = new THREE.Raycaster()
         this.raycaster.near = 1
         this.raycaster.far = 70
         this.pointer = new THREE.Vector2()
         this.pickableObj = []
+        this.paused = false
 
         this.createStartButton();
         this.pickingColor = "0x00ff00"
@@ -48,7 +51,9 @@ class MyGame {
             false
         );
 
-        window.addEventListener('click', this.onClick.bind(this), false); // Update the event listener to listen for clicks
+        document.addEventListener('click', this.onClick.bind(this), false); // Update the event listener to listen for clicks
+        document.addEventListener('keydown', this.onKeyDown.bind(this));
+        document.addEventListener('keyup', this.onKeyUp.bind(this));
 
 
 
@@ -81,7 +86,7 @@ class MyGame {
         this.semaphoreGeometry = new THREE.CylinderGeometry(2, 2, 0.5, 32);
         this.semaphoreMaterial = new THREE.MeshBasicMaterial({ color: this.semaphoreColors[0] });
         this.semaphore = new THREE.Mesh(this.semaphoreGeometry, this.semaphoreMaterial);
-        this.semaphore.position.set(this.startPosition.x, 15, this.startPosition.z-2);
+        this.semaphore.position.set(this.startPosition.x, 15, this.startPosition.z - 2);
         this.semaphore.rotateX(Math.PI / 2);
         this.app.scene.add(this.semaphore);
 
@@ -107,6 +112,16 @@ class MyGame {
     start() {
         this.automaticVehicle.start()
 
+    }
+
+    pause() {
+        this.automaticVehicle.pause()
+        this.car.pause()
+    }
+
+    continue() {
+        this.automaticVehicle.continue()
+        this.car.continue()
     }
 
 
@@ -135,6 +150,66 @@ class MyGame {
         // Set the camera to look at the car
         this.app.activeCamera.lookAt(this.car.car.position);
         this.app.controls.target = this.car.car.position;
+    }
+
+    onKeyDown(event) {
+        const key = event.key.toLowerCase();
+        this.keysPressed[key] = true;
+        this.handleKeys();
+    }
+
+    onKeyUp(event) {
+        const key = event.key.toLowerCase();
+        this.keysPressed[key] = false;
+        this.handleKeys();
+    }
+
+    handleKeys() {
+        if (this.started && !this.gameOver) {
+            if (!this.paused) {
+                if ((this.keysPressed['a'] || this.keysPressed['arrowleft']) && !(this.keysPressed['d'] || this.keysPressed['arrowright'])) {
+                    if (!this.car.confused)
+                        this.car.left();
+                    else
+                        this.car.right();
+                }
+
+                if (this.keysPressed['d'] || this.keysPressed['arrowright'] && !(this.keysPressed['a'] || this.keysPressed['arrowleft'])) {
+                    if (!this.car.confused)
+                        this.car.right();
+                    else
+                        this.car.left();
+                }
+
+                if (this.keysPressed['w'] || this.keysPressed['arrowup'] && !(this.keysPressed['s'] || this.keysPressed['arrowdown'])) {
+                    if (!this.car.confused)
+                        this.car.accelerate();
+                    else
+                        this.car.brake();
+                }
+
+                if (this.keysPressed['s'] || this.keysPressed['arrowdown'] && !(this.keysPressed['w'] || this.keysPressed['arrowup'])) {
+                    if (!this.car.confused)
+                        this.car.brake();
+                    else
+                        this.car.accelerate();
+                }
+            }
+            if(this.keysPressed[' ']){
+                if(this.paused){
+                    this.continue();
+                    this.paused = false;
+                }
+                else{
+                    this.pause();
+                    this.paused = true;
+                }
+            }
+        }
+        if (this.keysPressed['escape']) {
+            this.logic.state="menu";
+        }
+
     }
 
     onClick() {

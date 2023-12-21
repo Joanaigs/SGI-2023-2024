@@ -10,7 +10,7 @@ class MyRoute {
     constructor(scale, position) {
         let i=scale;
         this.route1 = [
-            new THREE.Vector3(8*i, 0, i*5), //start
+            new THREE.Vector3(7.8*i, 0, i*5), //start
             new THREE.Vector3(8*i, 0, i*7),
             new THREE.Vector3(8*i, 0, i*9),
             new THREE.Vector3(8*i, 0, i*12),

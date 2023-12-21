@@ -13,6 +13,7 @@ class MyGameLogic {
     constructor(app) {
         this.app = app
         this.state = "game";
+        this.previousState = null;
         this.myReader = new MyReader(this.app);
         this.gameSates();
         
@@ -23,7 +24,7 @@ class MyGameLogic {
     }
 
     gamePlay(){
-        this.game = new MyGame(this.app, this.myReader.car1, this.myReader.car2, this.myReader.powerUps, this.myReader.obstacles, this.myReader.routes, this.myReader.cutPath);
+        this.game = new MyGame(this, this.myReader.car1, this.myReader.car2, this.myReader.powerUps, this.myReader.obstacles, this.myReader.routes, this.myReader.cutPath);
     }
 
     gameOver(){
@@ -52,15 +53,16 @@ class MyGameLogic {
      * Updates the scene
      */
     update() {
-        switch(this.state){
-            case "game":
+        if(this.previousState != this.state){
+            this.previousState = this.state;
+            this.gameSates();
+            if(this.state == "game"){
                 this.game.update();
-                break;
-
+            }
         }
-
-
-        
+        else if(this.state == "game"){
+            this.game.update();
+        }
     }
 }
 

@@ -18,7 +18,6 @@ class MyVehicle {
         this.maxVelocity = 1;
         this.minVelocity = -0.5;
         this.confused = false;
-        this.keysPressed = {};
         this.powerUps = this.game.powerUps.getPowerUps();
         this.obstacles = this.game.obstacles.getObstacles();
         //map objeto and coliision
@@ -34,8 +33,7 @@ class MyVehicle {
         this.car.position.set(position.x, position.y, position.z);
         this.car.position.add(target);
         this.game.app.scene.add(this.car);
-        document.addEventListener('keydown', this.onKeyDown.bind(this));
-        document.addEventListener('keyup', this.onKeyUp.bind(this));
+
 
     }
 
@@ -98,50 +96,18 @@ class MyVehicle {
         }
     }
 
-    onKeyDown(event) {
-        const key = event.key.toLowerCase();
-        this.keysPressed[key] = true;
-        this.handleKeys();
+    pause(){
+        this.originalVelocity = this.velocity;
+        this.velocity = 0;
     }
 
-    onKeyUp(event) {
-        const key = event.key.toLowerCase();
-        this.keysPressed[key] = false;
-        this.handleKeys();
+    continue(){
+        this.velocity = this.originalVelocity;
     }
 
-    handleKeys() {
-        if ((this.keysPressed['a'] || this.keysPressed['arrowleft']) && !(this.keysPressed['d'] || this.keysPressed['arrowright'])) {
-            if (!this.confused)
-                this.left();
-            else
-                this.right();
-        }
-
-        if (this.keysPressed['d'] || this.keysPressed['arrowright'] && !(this.keysPressed['a'] || this.keysPressed['arrowleft'])) {
-            if (!this.confused)
-                this.right();
-            else
-                this.left();
-        }
-
-        if (this.keysPressed['w'] || this.keysPressed['arrowup'] && !(this.keysPressed['s'] || this.keysPressed['arrowdown'])) {
-            if (!this.confused)
-                this.accelerate();
-            else
-                this.brake();
-        }
-
-        if (this.keysPressed['s'] || this.keysPressed['arrowdown'] && !(this.keysPressed['w'] || this.keysPressed['arrowup'])) {
-            if (!this.confused)
-                this.brake();
-            else
-                this.accelerate();
-        }
-    }
 
     update() {
-        if (this.game.started) {
+        if (this.game.started || this.game.paused) {
             const deltaPosition = new THREE.Vector3(
                 this.velocity * Math.sin(this.rotation),
                 0,

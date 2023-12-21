@@ -78,6 +78,14 @@ class MyAutomaticVehicle {
         rotationAction.play()
     }
 
+    pause() {
+        this.mixer.timeScale = 0
+    }
+
+    continue() {
+        this.mixer.timeScale = 0.6
+    }
+
     debugKeyFrames() {
 
         let spline = new THREE.CatmullRomCurve3([...this.route])
