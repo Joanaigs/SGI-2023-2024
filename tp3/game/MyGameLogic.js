@@ -36,6 +36,7 @@ class MyGameLogic {
                     this.state = "game";
                     break;
                 case "game":
+                    this.app.setActiveCamera('car')
                     this.gamePlay();
                     break;
                 case "gameOver":
