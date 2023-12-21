@@ -20,7 +20,7 @@ class MyAutomaticVehicle {
         this.velocity = 0;
         this.acceleration = 0.1;
         this.maxVelocity = 1;
-        this.animationMaxDuration = 2000;
+        this.animationMaxDuration = -1;
         this.car = new MyVehicleObject();
         this.car.position.set(position.x, position.y, position.z);
         this.car.position.add(target);
@@ -28,15 +28,7 @@ class MyAutomaticVehicle {
     }
 
     start() {
-        this.debugKeyFrames()
-
-        let boxMaterial = new THREE.MeshPhongMaterial({
-            color: "#ffff77",
-            specular: "#000000",
-            emissive: "#000000",
-            shininess: 90
-        })
-
+        //this.debugKeyFrames()
 
         let pointsRoute = []
         let times = []
@@ -64,20 +56,17 @@ class MyAutomaticVehicle {
              const quaternion = new THREE.Quaternion();
              quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), direction);
  
-             // Add the quaternion to the list
              quaternionList.push(...quaternion);
         }
         console.log(quaternionList)
         const quaternionKF = new THREE.QuaternionKeyframeTrack('.quaternion', times, quaternionList);
-
-
-
 
         const positionClip = new THREE.AnimationClip('positionAnimation', this.animationMaxDuration, [positionKF])
         const rotationClip = new THREE.AnimationClip('rotationAnimation', this.animationMaxDuration, [quaternionKF])
 
         // Create an AnimationMixer
         this.mixer = new THREE.AnimationMixer(this.car)
+        this.mixer.timeScale = 0.6
 
         // Create AnimationActions for each clip
         const positionAction = this.mixer.clipAction(positionClip)
@@ -96,7 +85,7 @@ class MyAutomaticVehicle {
         // Setup visual control points
 
         for (let i = 0; i < this.route.length; i++) {
-            const geometry = new THREE.SphereGeometry(1, 32, 32)
+            const geometry = new THREE.SphereGeometry(5, 32, 32)
             const material = new THREE.MeshBasicMaterial({ color: 0x0000ff })
             const sphere = new THREE.Mesh(geometry, material)
             sphere.scale.set(0.2, 0.2, 0.2)
@@ -116,22 +105,6 @@ class MyAutomaticVehicle {
         if (this.mixer) {
             this.mixer.update(this.clock.getDelta());
         }
-    }
-
-    findNextPointOnRoute(position, route) {
-        let nextPointIndex = 0;
-        let minDistance = Infinity;
-
-        for (let i = 0; i < route.length; i++) {
-            const distance = position.distanceTo(route[i]);
-            if (distance < minDistance) {
-                nextPointIndex = i;
-                minDistance = distance;
-            }
-        }
-
-        // Move to the next point (use modulo to wrap around to the start if at the end)
-        return (nextPointIndex + 1) % route.length;
     }
 
 
