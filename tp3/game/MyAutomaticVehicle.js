@@ -8,7 +8,7 @@ import { MyVehicleObject } from './MyVehicleObject.js';
 class MyAutomaticVehicle {
 
 
-    constructor(game, position, target, route) {
+    constructor(game, position, target, route, car) {
 
 
         this.game = game
@@ -21,7 +21,7 @@ class MyAutomaticVehicle {
         this.acceleration = 0.1;
         this.maxVelocity = 1;
         this.animationMaxDuration = -1;
-        this.car = new MyVehicleObject();
+        this.car = car
         this.car.position.set(position.x, position.y, position.z);
         this.car.position.add(target);
         this.game.app.scene.add(this.car);

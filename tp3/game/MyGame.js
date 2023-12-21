@@ -14,34 +14,29 @@ class MyGame {
        constructs the object
        @param {MyApp} app The application object
     */
-    constructor(app) {
+    constructor(app, car, enemyCar, powerUps, obstacles, routes, cutPath) {
         this.app = app
         this.scaleTrack = 50;
         this.startTime = Date.now();
         this.penalties = 0;
         this.position = new THREE.Vector3(-100, 0, -100);
-        this.powerUps = new MyPowerUps(this,this.position);
-        this.obstacles = new MyObstacle(this,this.position);
-        this.routes = new MyRoute(this.scaleTrack, this.position);
-        this.initBackgroud();
+        this.powerUps = powerUps;
+        this.obstacles = obstacles;
+        this.routes = routes;
+        this.cutPath = cutPath;
+        this.car = new MyVehicle(this, this.position, new THREE.Vector3(8*this.scaleTrack, 0, 5*this.scaleTrack), car );
+        this.automaticVehicle = new MyAutomaticVehicle(this, this.position,new THREE.Vector3(8*this.scaleTrack, 0, 5*this.scaleTrack), this.routes.getRoutes(1), enemyCar );
+        this.gameOver=false;
+        this.started=false;
+
     }
 
     /**
      * initializes the contents
      */
-    initBackgroud() {
-        let myTrack = new MyTrack(this.app, this.scaleTrack, 40, this.position);
-        let track = myTrack.drawTrack(1);
-        this.app.scene.add(track);
-        this.cutPath = myTrack.drawTrack("Cut");
-        this.app.scene.add(this.cutPath);
-        this.cutPath.visible = false;
-        this.powerUps.drawPowerUps(1);
-        this.obstacles.drawObstacles(1);
-        this.route = this.routes.getRoutes(1);
-        this.car = new MyVehicle(this, this.position, new THREE.Vector3(8*this.scaleTrack, 0, 5*this.scaleTrack) );
-        this.automaticVehicle = new MyAutomaticVehicle(this, this.position,new THREE.Vector3(8*this.scaleTrack, 0, 5*this.scaleTrack), this.route );
+    start() {
         this.automaticVehicle.start()
+
     }
 
 
@@ -52,7 +47,24 @@ class MyGame {
         this.car.update();
         this.automaticVehicle.update();
 
-        
+        if(this.app.activeCameraName == "car")
+            this.updateCamera();
+    }
+
+    updateCamera() {
+        // Set the camera position to follow the car
+        const offset = new THREE.Vector3(0, 10, -20); 
+        const carPosition = this.car.car.position.clone();
+        const rotationMatrix = new THREE.Matrix4();
+        rotationMatrix.makeRotationY(this.car.rotation); 
+    
+        // Apply the rotation to the offset vector
+        offset.applyMatrix4(rotationMatrix);
+        this.app.activeCamera.position.copy(carPosition.add(offset));
+
+        // Set the camera to look at the car
+        this.app.activeCamera.lookAt(this.car.car.position);
+        this.app.controls.target = this.car.car.position;
     }
 }
 

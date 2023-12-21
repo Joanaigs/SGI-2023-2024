@@ -3,10 +3,10 @@ import * as THREE from 'three';
 class MyPowerUps {
 
 
-    constructor(game, position) {
+    constructor(app, position, scale) {
         this.position = position;
-        this.game = game;
-        this.scale=this.game.scaleTrack;
+        this.app = app;
+        this.scale=scale;
         //powerups, map of position and type 
         this.powerups1 = [
             {key: new THREE.Vector3(6.5*this.scale, 0, this.scale*13.5), type: "CUT"},
@@ -37,7 +37,7 @@ class MyPowerUps {
                 let cube = new THREE.Mesh( geometry, material );
                 cube.position.set(powerUps.key.x, powerUps.key.y, powerUps.key.z);
                 cube.position.add(this.position);
-                this.game.app.scene.add(cube);
+                this.app.scene.add(cube);
                 this.powerUpsObject.set(cube, powerUps.type);
                 break;
             case "CUT":
@@ -46,7 +46,7 @@ class MyPowerUps {
                 let cube2 = new THREE.Mesh( geometry2, material2 );
                 cube2.position.set(powerUps.key.x, powerUps.key.y, powerUps.key.z);
                 cube2.position.add(this.position);
-                this.game.app.scene.add(cube2);
+                this.app.scene.add(cube2);
                 this.powerUpsObject.set(cube2, powerUps.type);
                 break;
             case "TIME":
@@ -55,7 +55,7 @@ class MyPowerUps {
                 let cube3 = new THREE.Mesh( geometry3, material3 );
                 cube3.position.set(powerUps.key.x, powerUps.key.y, powerUps.key.z);
                 cube3.position.add(this.position);
-                this.game.app.scene.add(cube3);
+                this.app.scene.add(cube3);
                 this.powerUpsObject.set(cube3, powerUps.type);
                 break;
             case "CHANGE":
@@ -64,7 +64,7 @@ class MyPowerUps {
                 let cube4 = new THREE.Mesh( geometry4, material4 );
                 cube4.position.set(powerUps.key.x, powerUps.key.y, powerUps.key.z);
                 cube4.position.add(this.position);
-                this.game.app.scene.add(cube4);
+                this.app.scene.add(cube4);
                 this.powerUpsObject.set(cube4, powerUps.type);
                 break;
             default:
@@ -97,7 +97,8 @@ class MyPowerUps {
         console.log(this.game.penalties);
     }
 
-    activatePowerUp(object){
+    activatePowerUp(game, object){
+        this.game = game;
         let powerUp = this.powerUpsObject.get(object);
         console.log(powerUp);
         switch (powerUp) {

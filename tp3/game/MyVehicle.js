@@ -7,12 +7,12 @@ import { MyVehicleObject } from './MyVehicleObject.js';
  */
 class MyVehicle {
 
-    constructor(game, position, target) {
+    constructor(game, position, target, car) {
 
 
         this.game = game
         this.rotation = 0;
-        this.rotateScale = 0.3;
+        this.rotateScale = 0.1;
         this.velocity = 0;
         this.acceleration = 0.1;
         this.maxVelocity = 1;
@@ -30,7 +30,7 @@ class MyVehicle {
         for (let i = 0; i < this.obstacles.length; i++) {
             this.obstaclesActivated.set(this.obstacles[i], false);
         }
-        this.car = new MyVehicleObject();
+        this.car = car;
         this.car.position.set(position.x, position.y, position.z);
         this.car.position.add(target);
         this.game.app.scene.add(this.car);
@@ -45,7 +45,7 @@ class MyVehicle {
 
             if (!this.obstaclesActivated.get(obstacle) && intersection) {
                 console.log('Collision with obstacle!');
-                this.game.obstacles.activateObstacle(obstacle);
+                this.game.obstacles.activateObstacle(this.game, obstacle);
                 this.obstaclesActivated.set(obstacle, true);
             }
             else if (!intersection && this.obstaclesActivated.get(obstacle)) {
@@ -61,7 +61,7 @@ class MyVehicle {
                 const intersection = this.checkIntersection(this.car, powerUp);
                 if (intersection) {
                     console.log('Collision with power-up!');
-                    this.game.powerUps.activatePowerUp(powerUp);
+                    this.game.powerUps.activatePowerUp(this.game, powerUp);
                     this.poweupsActivated.set(powerUp, true);
                     powerUp.visible = false;
                     setTimeout(() => {
@@ -141,15 +141,17 @@ class MyVehicle {
     }
 
     update() {
-        const deltaPosition = new THREE.Vector3(
-            this.velocity * Math.sin(this.rotation),
-            0,
-            this.velocity * Math.cos(this.rotation)
-        );
-        this.car.position.add(deltaPosition);
-        this.car.rotation.y = this.rotation;
-        if (this.velocity != 0) {
-            this.checkCollisions(this.obstacles, this.powerUps);
+        if (this.game.started) {
+            const deltaPosition = new THREE.Vector3(
+                this.velocity * Math.sin(this.rotation),
+                0,
+                this.velocity * Math.cos(this.rotation)
+            );
+            this.car.position.add(deltaPosition);
+            this.car.rotation.y = this.rotation;
+            if (this.velocity != 0) {
+                this.checkCollisions(this.obstacles, this.powerUps);
+            }
         }
     }
 

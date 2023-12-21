@@ -14,6 +14,8 @@
     <cameras initial="main">
         <perspective id="main" angle="1.047" near="0.1" far="5000" location="100 700 200"
         target="100 0 200" />
+        <perspective id="car" angle="1.047" near="0.1" far="5000" location="100 700 200"
+        target="100 0 200" />
         <perspective id="frontHouse" angle="1.047" near="0.1" far="5000" location="130 10 -25"
             target="50 10 -25" />
     </cameras>
