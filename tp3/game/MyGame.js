@@ -114,7 +114,6 @@ class MyGame {
 
     start() {
         this.automaticVehicle.start()
-        this.changePositionObstacles()
 
 
     }
@@ -132,6 +131,8 @@ class MyGame {
     changePositionObstacles() {
         this.pause();
         this.app.setActiveCamera('main');
+        this.app.controls.target = this.app.cameraTarget['main'];
+
         this.obstaclesList = this.obstacles.getObstacles();
         console.log(this.obstaclesList)
         for (let i = 0; i < this.obstaclesList.length; i++) {
