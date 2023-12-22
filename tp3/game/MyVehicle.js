@@ -37,6 +37,12 @@ class MyVehicle {
 
     }
 
+    addObstacle(obstacle) {
+        console.log("addObstacle");
+        this.obstacles.push(obstacle);
+        this.obstaclesActivated.set(obstacle, false);
+    }
+
     checkCollisions(obstacles, powerUps) {
         for (const obstacle of obstacles) {
             const intersection = this.checkIntersection(this.car, obstacle);

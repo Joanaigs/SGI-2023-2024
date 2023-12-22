@@ -34,6 +34,7 @@ class MyReader {
         this.cutPath.visible = false;
         this.powerUps.drawPowerUps(1);
         this.obstacles.drawObstacles(1);
+        this.obstacles.drawObstaclesPark(1);
         this.routes = new MyRoute(this.scaleTrack, this.position);
         this.car1 = new MyVehicleObject();
         this.car2 = new MyVehicleObject();

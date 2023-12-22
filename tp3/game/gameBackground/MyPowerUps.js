@@ -97,6 +97,10 @@ class MyPowerUps {
         console.log(this.game.penalties);
     }
 
+    changePowerUp(){
+        this.game.changePositionObstacles();
+    }
+
     activatePowerUp(game, object){
         this.game = game;
         let powerUp = this.powerUpsObject.get(object);

@@ -12,7 +12,7 @@ class MyGameLogic {
     */
     constructor(app) {
         this.app = app
-        this.state = "game";
+        this.state = "menu";
         this.previousState = null;
         this.myReader = new MyReader(this.app);
         this.gameSates();
@@ -53,15 +53,13 @@ class MyGameLogic {
      * Updates the scene
      */
     update() {
+        if(this.state === "game" && this.game){
+            this.game.update();
+        }
         if(this.previousState != this.state){
             this.previousState = this.state;
             this.gameSates();
-            if(this.state == "game"){
-                this.game.update();
-            }
-        }
-        else if(this.state == "game"){
-            this.game.update();
+
         }
     }
 }

@@ -25,10 +25,11 @@ class MyGame {
 
         this.powerUps = powerUps;
         this.obstacles = obstacles;
+        this.obstaclesList = null;
         this.routes = routes;
         this.cutPath = cutPath;
-        this.car = new MyVehicle(this, this.position, new THREE.Vector3(8 * this.scaleTrack, 0, 5 * this.scaleTrack), car);
-        this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(8 * this.scaleTrack, 0, 5 * this.scaleTrack), this.routes.getRoutes(1), enemyCar);
+        this.car = new MyVehicle(this, this.position, new THREE.Vector3(8.2 * this.scaleTrack, 0, 5 * this.scaleTrack), car);
+        this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(7.8 * this.scaleTrack, 0, 5 * this.scaleTrack), this.routes.getRoutes(1), enemyCar);
         this.gameOver = false;
         this.started = false;
         this.semaphoreColors = [0xff0000, 0xffff00, 0x00ff00]; // Red, Yellow, Gree
@@ -36,11 +37,11 @@ class MyGame {
 
         this.keysPressed = {};
         this.raycaster = new THREE.Raycaster()
-        this.raycaster.near = 1
-        this.raycaster.far = 70
         this.pointer = new THREE.Vector2()
         this.pickableObj = []
         this.paused = false
+        this.selectedObstacle = null;
+
 
         this.createStartButton();
         this.pickingColor = "0x00ff00"
@@ -54,7 +55,6 @@ class MyGame {
         document.addEventListener('click', this.onClick.bind(this), false); // Update the event listener to listen for clicks
         document.addEventListener('keydown', this.onKeyDown.bind(this));
         document.addEventListener('keyup', this.onKeyUp.bind(this));
-
 
 
     }
@@ -82,6 +82,9 @@ class MyGame {
     }
 
     countDown() {
+        // Remove the button from the scene and add the semaphore
+        let indexToRemove = this.pickableObj.indexOf(this.button);
+        this.pickableObj.splice(indexToRemove, 1);
         this.app.scene.remove(this.button);
         this.semaphoreGeometry = new THREE.CylinderGeometry(2, 2, 0.5, 32);
         this.semaphoreMaterial = new THREE.MeshBasicMaterial({ color: this.semaphoreColors[0] });
@@ -111,6 +114,8 @@ class MyGame {
 
     start() {
         this.automaticVehicle.start()
+        this.changePositionObstacles()
+
 
     }
 
@@ -122,6 +127,38 @@ class MyGame {
     continue() {
         this.automaticVehicle.continue()
         this.car.continue()
+    }
+
+    changePositionObstacles() {
+        this.pause();
+        this.app.setActiveCamera('main');
+        this.obstaclesList = this.obstacles.getObstacles();
+        console.log(this.obstaclesList)
+        for (let i = 0; i < this.obstaclesList.length; i++) {
+            this.pickableObj.push(this.obstaclesList[i]);
+        }
+        //create park
+        this.obstaclesAvailable = this.obstacles.getObstaclesAvailable();
+        for (let i = 0; i < this.obstaclesAvailable.length; i++) {
+            this.pickableObj.push(this.obstaclesAvailable[i]);
+            this.obstaclesAvailable[i].visible = true;
+        }
+        let saveButtonGeometry = new THREE.BoxGeometry(20, 1.1, 10)
+        this.saveButton = new THREE.Mesh(saveButtonGeometry, new THREE.MeshBasicMaterial({ color: 0x000000 }))
+        this.saveButton.position.set(3.5*this.scaleTrack + this.position.x, 0, 7.5*this.scaleTrack + this.position.z);
+        this.app.scene.add(this.saveButton);
+        this.pickableObj.push(this.saveButton)
+    }
+
+    changePositionObstaclesSave() {
+        this.app.setActiveCamera('car');
+        this.pickableObj = [];
+        this.app.scene.remove(this.saveButton);
+        for(let i=0;i<this.obstaclesAvailable.length;i++){
+            this.obstaclesAvailable[i].visible = false;
+        }
+        this.continue();
+
     }
 
 
@@ -195,24 +232,35 @@ class MyGame {
                         this.car.accelerate();
                 }
             }
-            if(this.keysPressed[' ']){
-                if(this.paused){
+            if (this.keysPressed[' ']) {
+                if (this.paused) {
                     this.continue();
                     this.paused = false;
                 }
-                else{
+                else {
                     this.pause();
                     this.paused = true;
                 }
             }
         }
         if (this.keysPressed['escape']) {
-            this.logic.state="menu";
+            this.logic.state = "menu";
         }
 
     }
 
     onClick() {
+        if (this.selectedObstacle) {
+            if(!this.obstaclesList.includes(this.selectedObstacle)){
+                this.obstacles.addObstacle(this.selectedObstacle);
+                this.car.addObstacle(this.selectedObstacle);
+            }
+            // If an obstacle is already selected, place it at the click position
+            this.selectedObstacle.position.copy(this.selectedObstacle.position);
+            this.selectedObstacle.position.y = 0; // Lower the obstacle back to the ground
+            this.selectedObstacle = null; // Deselect the obstacle
+            return;
+        }
         // Raycast to check for intersection with the pickable objects
         this.raycaster.setFromCamera(this.pointer, this.app.activeCamera);
         const intersects = this.raycaster.intersectObjects(this.pickableObj);
@@ -221,12 +269,35 @@ class MyGame {
             const obj = intersects[0].object;
             if (obj.name === "startButton") {
                 this.countDown();
+                return
+            }
+            else if (obj === this.saveButton) {
+                this.changePositionObstaclesSave();
+                return
+            }
+            // Check if the clicked object is an obstacle
+            else if (this.obstaclesList.includes(obj)) {
+                if (!this.selectedObstacle) {
+                    // If no obstacle is selected, pick it up
+                    this.selectedObstacle = obj;
+                    this.selectedObstacle.position.y = 10; // Lift the obstacle above the ground
+                } 
+            }else if (this.obstaclesAvailable.includes(obj)) {
+                if(!this.selectedObstacle){
+                    this.obstaclesList.push(obj);
+                    let objClone = obj.clone();
+                    this.app.scene.add(objClone);
+                    this.selectedObstacle = objClone
+                    this.selectedObstacle.position.y = 10; // Lift the obstacle above the ground
+
+                }
             }
         }
     }
 
 
     onPointerMove(event) {
+
 
         // calculate pointer position in normalized device coordinates
         // (-1 to +1) for both components
@@ -235,7 +306,18 @@ class MyGame {
         this.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
         this.pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-        //console.log("Position x: " + this.pointer.x + " y: " + this.pointer.y);
+        if (this.selectedObstacle) {
+            // Calculate the new position for the selected obstacle based on the mouse movement
+            this.raycaster.setFromCamera(this.pointer, this.app.activeCamera);
+            const intersects = this.raycaster.intersectObjects([this.app.skybox]); // Use the ground as the dragging surface
+
+            if (intersects.length > 0) {
+                this.selectedObstacle.position.copy(intersects[0].point);
+                this.selectedObstacle.position.y = 10; // Lift the obstacle above the ground
+            }
+            return;
+        }
+
 
         //2. set the picking ray from the camera position and mouse coordinates
         this.raycaster.setFromCamera(this.pointer, this.app.activeCamera);
@@ -247,24 +329,25 @@ class MyGame {
     }
 
     /*
-* Helper to visualize the intersected object
-*
-*/
+    * Helper to visualize the intersected object
+    *
+    */
     pickingHelper(intersects) {
         if (intersects.length > 0) {
             const obj = intersects[0].object
             if (this.pickableObj.includes(obj)) {
                 this.changeColorOfFirstPickedObj(obj)
             }
-        } else {
-            this.restoreColorOfFirstPickedObj()
-        }
+            else {
+                this.restoreColorOfFirstPickedObj()
+            }
+        } 
     }
 
     /*
-* Change the color of the first intersected object
-*
-*/
+    * Change the color of the first intersected object
+    *
+    */
     changeColorOfFirstPickedObj(obj) {
         if (this.lastPickedObj != obj) {
             if (this.lastPickedObj)
@@ -276,9 +359,9 @@ class MyGame {
     }
 
     /*
-        * Restore the original color of the intersected object
-        *
-        */
+    * Restore the original color of the intersected object
+    *
+    */
     restoreColorOfFirstPickedObj() {
         if (this.lastPickedObj)
             this.lastPickedObj.material.color.setHex(this.lastPickedObj.currentHex);
