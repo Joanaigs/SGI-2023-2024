@@ -4,6 +4,7 @@ import { MyPowerUps} from './gameBackground/MyPowerUps.js';
 import { MyObstacle } from './gameBackground/MyObstacle.js';
 import { MyVehicleObject } from './MyVehicleObject.js';
 import { MyRoute } from './MyRoute.js';
+import { MyCheckpoints } from './MyCheckpoints.js';
 /**
  *  This class contains the contents of out application
  */
@@ -20,6 +21,7 @@ class MyReader {
         this.myTrack = new MyTrack(this.app, this.scaleTrack, 40, this.position);
         this.powerUps = new MyPowerUps(this.app,this.position, this.scaleTrack);
         this.obstacles = new MyObstacle(this.app,this.position, this.scaleTrack);
+        this.checkpoints = new MyCheckpoints(this.app, this.scaleTrack, this.position, 40);
         this.initBackgroud();
     }
 
@@ -38,6 +40,16 @@ class MyReader {
         this.routes = new MyRoute(this.scaleTrack, this.position);
         this.car1 = new MyVehicleObject();
         this.car2 = new MyVehicleObject();
+        this.checkpoints.drawCheckpoints();
+    }
+
+    reset(){
+        this.obstacles.reset();
+        this.app.scene.remove(this.car1);
+        this.app.scene.remove(this.car2);
+        this.car1=new MyVehicleObject();
+        this.car2=new MyVehicleObject();
+        this.cutPath.visible = false;
 
     }
 }

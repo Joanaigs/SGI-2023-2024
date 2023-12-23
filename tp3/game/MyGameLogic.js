@@ -24,7 +24,7 @@ class MyGameLogic {
     }
 
     gamePlay(){
-        this.game = new MyGame(this, this.myReader.car1, this.myReader.car2, this.myReader.powerUps, this.myReader.obstacles, this.myReader.routes, this.myReader.cutPath);
+        this.game = new MyGame(this, this.myReader.car1, this.myReader.car2, this.myReader.powerUps, this.myReader.obstacles, this.myReader.routes, this.myReader.cutPath, this.myReader.checkpoints);
     }
 
     gameOver(){
@@ -37,10 +37,11 @@ class MyGameLogic {
                     this.state = "game";
                     break;
                 case "game":
-                    this.app.setActiveCamera('car')
                     this.gamePlay();
                     break;
                 case "gameOver":
+                    this.game=null;
+                    this.myReader.reset();
                     this.gameOver();
                     this.state = "menu";
                     break;

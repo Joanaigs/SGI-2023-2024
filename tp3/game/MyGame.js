@@ -14,7 +14,7 @@ class MyGame {
        constructs the object
        @param {MyApp} app The application object
     */
-    constructor(logic, car, enemyCar, powerUps, obstacles, routes, cutPath) {
+    constructor(logic, car, enemyCar, powerUps, obstacles, routes, cutPath, checkpoints) {
         this.logic = logic;
         this.app = logic.app
         this.scaleTrack = 50;
@@ -28,12 +28,15 @@ class MyGame {
         this.obstaclesList = null;
         this.routes = routes;
         this.cutPath = cutPath;
+        this.checkpoints = checkpoints;
+        this.numberOfLaps = 3;
         this.car = new MyVehicle(this, this.position, new THREE.Vector3(8.2 * this.scaleTrack, 0, 5 * this.scaleTrack), car);
         this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(7.8 * this.scaleTrack, 0, 5 * this.scaleTrack), this.routes.getRoutes(1), enemyCar);
         this.gameOver = false;
         this.started = false;
         this.semaphoreColors = [0xff0000, 0xffff00, 0x00ff00]; // Red, Yellow, Gree
         this.semaphoreInterval = 1000; // Time in milliseconds for each color chang
+        this.gameOver=false;
 
         this.keysPressed = {};
         this.raycaster = new THREE.Raycaster()
@@ -167,10 +170,14 @@ class MyGame {
      * Updates the scene
      */
     update() {
+        if(this.gameOver){
+            this.logic.state = "gameOver";
+            return;
+        }
         this.car.update();
         this.automaticVehicle.update();
 
-        if (this.app.activeCameraName == "car")
+        if (this.app.activeCameraName === "car")
             this.updateCamera();
     }
 

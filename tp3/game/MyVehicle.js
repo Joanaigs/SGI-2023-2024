@@ -20,6 +20,13 @@ class MyVehicle {
         this.confused = false;
         this.powerUps = this.game.powerUps.getPowerUps();
         this.obstacles = this.game.obstacles.getObstacles();
+        this.checkPoints = this.game.checkpoints.getCheckpoints();
+        this.checkpointsCount = new Map();
+        this.checkPointCollided = false;
+        this.lastCheckpoint = null;
+        for (let i = 0; i < this.checkPoints.length; i++) {
+            this.checkpointsCount.set(this.checkPoints[i], 0);
+        }
         //map objeto and coliision
         this.poweupsActivated = new Map();
         this.obstaclesActivated = new Map();
@@ -76,6 +83,32 @@ class MyVehicle {
             }
         }
 
+        // Check collisions with checkpoints
+        for (const checkpoint of this.checkPoints) {
+            const intersection = this.checkIntersection(this.car, checkpoint);
+            if (intersection && this.lastCheckpoint !== checkpoint) {
+                let n = this.checkpointsCount.get(checkpoint);
+                this.checkpointsCount.set(checkpoint, n + 1);
+                this.checkPointCollided = true;
+                this.lastCheckpoint = checkpoint;
+                console.log("checkpoint: " + this.checkpointsCount.get(checkpoint));
+                this.checkEndGame();
+            }
+        }
+
+    }
+    checkEndGame() {
+        for (let i = 0; i < this.checkPoints.length; i++) {
+            let checkpoint = this.checkPoints[i];
+            if (i === 0 && this.checkpointsCount.get(checkpoint) < this.game.numberOfLaps+1) {
+                return false;
+
+            } else if (this.checkpointsCount.get(this.checkPoints[i]) < this.game.numberOfLaps) {
+                return false;
+            }
+        }
+        this.game.gameOver = true;
+        return true;
     }
 
     checkInsideTrack() {
@@ -102,12 +135,12 @@ class MyVehicle {
         }
     }
 
-    pause(){
+    pause() {
         this.originalVelocity = this.velocity;
         this.velocity = 0;
     }
 
-    continue(){
+    continue() {
         this.velocity = this.originalVelocity;
     }
 

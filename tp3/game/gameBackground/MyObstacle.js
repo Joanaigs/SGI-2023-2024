@@ -148,6 +148,15 @@ class MyObstacle {
         return keys;
     }
 
+    reset(){
+        for (let i = 0; i < this.obstacles.length; i++) {
+            let obstacle = this.obstaclesObject.get(this.obstacles[i]);
+            this.app.scene.remove(obstacle);
+        }
+        this.obstaclesObject.clear();
+        this.obstaclesAvailableObject.clear();
+    }
+
 }
 
 export { MyObstacle };

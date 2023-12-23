@@ -25,6 +25,14 @@ class MyAutomaticVehicle {
         this.car.position.set(position.x, position.y, position.z);
         this.car.position.add(target);
         this.game.app.scene.add(this.car);
+
+        this.checkPoints = this.game.checkpoints.getCheckpoints();
+        this.checkpointsCount = new Map();
+        this.checkPointCollided = false;
+        this.lastCheckpoint =null;
+        for(let i = 0; i < this.checkPoints.length; i++){
+            this.checkpointsCount.set(this.checkPoints[i], 0);
+        }
     }
 
     start() {
@@ -109,10 +117,57 @@ class MyAutomaticVehicle {
         this.game.app.scene.add(tubeMesh)
     }
 
+    checkCollisions() {
+        // Check collisions with checkpoints
+        for (const checkpoint of this.checkPoints) {
+            const intersection = this.checkIntersection(this.car, checkpoint);
+            if (intersection && this.lastCheckpoint !== checkpoint) {
+                let n= this.checkpointsCount.get(checkpoint);
+                this.checkpointsCount.set(checkpoint, n+1);
+                this.checkPointCollided = true;
+                this.lastCheckpoint = checkpoint;
+                console.log("checkpoint: "+this.checkpointsCount.get(checkpoint));
+                this.checkEndGame();
+            }
+        }
+
+    }
+
+    checkIntersection(object1, object2) {
+
+        // Get the bounding boxes of the two objects
+        const box1 = new THREE.Box3().setFromObject(object1);
+        const box2 = new THREE.Box3().setFromObject(object2);
+
+        if (box1.intersectsBox(box2)) {
+            return true;
+        }
+        return false;
+    }
+    
+    checkEndGame(){
+        for (let i = 0; i < this.checkPoints.length; i++) {
+            let checkpoint = this.checkPoints[i];
+            if (i === 0 && this.checkpointsCount.get(checkpoint) < this.game.numberOfLaps+1) {
+                return false;
+
+            } else if (this.checkpointsCount.get(this.checkPoints[i]) < this.game.numberOfLaps) {
+                return false;
+            }
+        }
+        this.game.gameOver=true;
+        return true;
+    }
+
     update() {
         if (this.mixer) {
             this.mixer.update(this.clock.getDelta());
         }
+
+        if (this.game.started || this.game.paused) {
+            this.checkCollisions(this.obstacles, this.powerUps);
+        }
+
     }
 
 
