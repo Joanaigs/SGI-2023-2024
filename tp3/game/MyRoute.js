@@ -40,7 +40,7 @@ class MyRoute {
             new THREE.Vector3(4*i, 0, 0.5*i),
             new THREE.Vector3(6*i, 0, i*1),
             new THREE.Vector3(8*i, 0, i*2),
-            new THREE.Vector3(8*i, 0, i*5), //start
+            new THREE.Vector3(7.8*i, 0, i*5), //start
 
 
         ]

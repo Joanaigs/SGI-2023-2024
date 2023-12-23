@@ -57,16 +57,20 @@ class MyAutomaticVehicle {
 
         let quaternionList = []
         for (let i = 0; i < this.route.length; i++) {
+            let direction;
              // Calculate the direction vector from the current point to the next point in the route
-             const direction = new THREE.Vector3().subVectors(this.route[(i + 1) % this.route.length], this.route[i]).normalize();
-
+             if(i===this.route.length-1){
+                direction = new THREE.Vector3().subVectors(this.route[(i) % this.route.length], this.route[i-1]).normalize();
+             }else{
+                direction = new THREE.Vector3().subVectors(this.route[(i + 1) % this.route.length], this.route[i]).normalize();
+             }
+             console.log(direction);
              // Calculate the quaternion based on the direction
              const quaternion = new THREE.Quaternion();
              quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), direction);
  
              quaternionList.push(...quaternion);
         }
-        console.log(quaternionList)
         const quaternionKF = new THREE.QuaternionKeyframeTrack('.quaternion', times, quaternionList);
 
         const positionClip = new THREE.AnimationClip('positionAnimation', this.animationMaxDuration, [positionKF])
