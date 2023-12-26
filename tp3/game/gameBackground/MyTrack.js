@@ -29,11 +29,14 @@ class MyTrack {
             new THREE.Vector3(1.5*i, 0, i*16),
             new THREE.Vector3(3*i, 0, i*15),
             new THREE.Vector3(3*i, 0, i*10),
-            new THREE.Vector3(4*i, 0, i*9),
+            new THREE.Vector3(4*i, 0, i*9.5),
             new THREE.Vector3(5*i, 0, i*10),
-            new THREE.Vector3(6*i, 0, i*12),
-            new THREE.Vector3(7*i, 0, i*13),
-            new THREE.Vector3(8*i, 0, i*12),
+            new THREE.Vector3(6*i, 0, i*13),
+            new THREE.Vector3(7*i, 0, i*13.5),
+            new THREE.Vector3(8*i, 0, i*13),
+            new THREE.Vector3(8*i, 0, i*10),
+
+            new THREE.Vector3(8*i, 0, i*6),
 
             new THREE.Vector3(8*i, 0, i*5), //start
         ]);

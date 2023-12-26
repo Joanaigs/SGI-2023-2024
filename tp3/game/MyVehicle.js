@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { MyVehicleObject } from './MyVehicleObject.js';
 
 
+
 /**
  *  This class contains the contents of out application
  */
@@ -110,6 +111,17 @@ class MyVehicle {
         if (this.velocity!= 0){
             this.checkCollisions(this.game.obstacles.getObstacles(), this.game.powerUps.getPowerUps());
         }
+
+        const rotationSpeed = this.velocity * 0.5;
+        
+        
+        this.car.children[0].children.forEach(wheel => {
+            console.log(wheel.children);
+            wheel.children.forEach( w => {
+                w.rotation.x += rotationSpeed * this.velocity;
+            })
+        });
+        
     }
 
     checkIntersection(object1, object2) {
