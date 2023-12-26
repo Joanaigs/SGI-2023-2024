@@ -108,21 +108,26 @@ class MyVehicle {
         );
         this.car.position.add(deltaPosition);
         this.car.rotation.y = this.rotation;
-        if (this.velocity!= 0){
+    
+        if (this.velocity !== 0) {
             this.checkCollisions(this.game.obstacles.getObstacles(), this.game.powerUps.getPowerUps());
         }
-
-        const rotationSpeed = this.velocity * 0.5;
-        
-        
+    
+        const movementDirection = Math.sign(this.velocity);
+        const rotationSpeed = Math.abs(this.velocity) * 0.8;
+    
+        console.log(this.velocity);
+    
         this.car.children[0].children.forEach(wheel => {
-            console.log(wheel.children);
-            wheel.children.forEach( w => {
-                w.rotation.x += rotationSpeed * this.velocity;
-            })
+            wheel.children.forEach(w => {
+                // Adjust the wheel rotation based on the movement direction and speed
+                w.rotation.x += (movementDirection * Math.PI / 30) * rotationSpeed;
+            });
         });
-        
     }
+    
+    
+    
 
     checkIntersection(object1, object2) {
 
