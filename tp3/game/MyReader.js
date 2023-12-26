@@ -20,12 +20,12 @@ class MyReader {
         this.position = new THREE.Vector3(-100, 0, -100);
         // texture
         this.textureLoader = new THREE.TextureLoader();
-        this.texture = this.textureLoader.load("scenes/scene/textures/track.jpg");
+        this.texture = this.textureLoader.load("textures/track.jpg");
         this.texture.wrapS = THREE.RepeatWrapping;
         this.texture.wrapT = THREE.RepeatWrapping;
         this.texture.repeat.set(1, 50);
 
-        this.texture2 = this.textureLoader.load("scenes/scene/textures/track1.jpg");
+        this.texture2 = this.textureLoader.load("textures/track1.jpg");
         this.texture2.wrapS = THREE.RepeatWrapping;
         this.texture2.wrapT = THREE.RepeatWrapping;
         this.texture2.repeat.set(1, 50);

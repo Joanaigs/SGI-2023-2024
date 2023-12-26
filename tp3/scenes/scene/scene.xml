@@ -6,9 +6,9 @@
     <fog color="0.565 0.635 0.682 0.2" near="3000" far="5000.0" />
 
     <skybox size="2000 500 2000" center="0 249.0 0" emissive="0.565 0.635 0.682 1.0" intensity="4.0"
-        up="scenes/scene/textures/up.jpg" down="scenes/scene/textures/dn.jpg"
-        left="scenes/scene/textures/lf.jpg" right="scenes/scene/textures/rt.jpg"
-        front="scenes/scene/textures/ft.jpg" back="scenes/scene/textures/bk.jpg" />
+        up="textures/up.jpg" down="textures/dn.jpg"
+        left="textures/lf.jpg" right="textures/rt.jpg"
+        front="textures/ft.jpg" back="textures/bk.jpg" />
 
 
     <cameras initial="main">
@@ -23,54 +23,54 @@
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas
     texturas -->
     <textures>
-        <texture id="floorTex" filepath="scenes/scene/textures/floor.jpg" />
-        <texture id="wallTex" filepath="scenes/scene/textures/wallPaper.jpg" />
-        <texture id="carpetTex" filepath="scenes/scene/textures/carpetTex.jpg" />
-        <texture id="lightMetalTex" filepath="scenes/scene/textures/metal.jpg" />
-        <texture id="curtainTex" filepath="scenes/scene/textures/curtain.jpg" />
-        <texture id="oakTex" filepath="scenes/scene/textures/oak.jpg" />
-        <texture id="logTex" filepath="scenes/scene/textures/logTexture.png" />
-        <texture id="darkWoodTex" filepath="scenes/scene/textures/darkWood.png" />
-        <texture id="painting1Tex" filepath="scenes/scene/textures/woman_1002.png"
-            mipmap0="scenes/scene/textures/woman_1002.png"
-            mipmap1="scenes/scene/textures/woman_501.png"
-            mipmap2="scenes/scene/textures/woman_250.png"
-            mipmap3="scenes/scene/textures/woman_125.png"
-            mipmap4="scenes/scene/textures/woman_62.png"
-            mipmap5="scenes/scene/textures/woman_31.png"
+        <texture id="floorTex" filepath="textures/floor.jpg" />
+        <texture id="wallTex" filepath="textures/wallPaper.jpg" />
+        <texture id="carpetTex" filepath="textures/carpetTex.jpg" />
+        <texture id="lightMetalTex" filepath="textures/metal.jpg" />
+        <texture id="curtainTex" filepath="textures/curtain.jpg" />
+        <texture id="oakTex" filepath="textures/oak.jpg" />
+        <texture id="logTex" filepath="textures/logTexture.png" />
+        <texture id="darkWoodTex" filepath="textures/darkWood.png" />
+        <texture id="painting1Tex" filepath="textures/woman_1002.png"
+            mipmap0="textures/woman_1002.png"
+            mipmap1="textures/woman_501.png"
+            mipmap2="textures/woman_250.png"
+            mipmap3="textures/woman_125.png"
+            mipmap4="textures/woman_62.png"
+            mipmap5="textures/woman_31.png"
             mipmaps="false"
         />
-        <texture id="painting2Tex" filepath="scenes/scene/textures/garden_1002.png"
-            mipmap0="scenes/scene/textures/garden_1002.png"
-            mipmap1="scenes/scene/textures/garden_501.png"
-            mipmap2="scenes/scene/textures/garden_250.png"
-            mipmap3="scenes/scene/textures/garden_126.png"
-            mipmap4="scenes/scene/textures/garden_62.png"
-            mipmap5="scenes/scene/textures/garden_31.png"
+        <texture id="painting2Tex" filepath="textures/garden_1002.png"
+            mipmap0="textures/garden_1002.png"
+            mipmap1="textures/garden_501.png"
+            mipmap2="textures/garden_250.png"
+            mipmap3="textures/garden_126.png"
+            mipmap4="textures/garden_62.png"
+            mipmap5="textures/garden_31.png"
             mipmaps="false"
         />
-        <texture id="lightWoodTex" filepath="scenes/scene/textures/lightWood.jpg" />
-        <texture id="musicTex" filepath="scenes/scene/textures/music.mp4" isVideo="true" />
-        <texture id="whiteWoodTex" filepath="scenes/scene/textures/whiteWood.jpg" />
-        <texture id="vaseTex" filepath="scenes/scene/textures/flowersPattern.jpg" />
-        <texture id="pineTex" filepath="scenes/scene/textures/pine.jpg" />
-        <texture id="woodTrunk" filepath="scenes/scene/textures/trunk.jpg" />
-        <texture id="woodTrunkBump" filepath="scenes/scene/textures/trunkBump.jpg" />
-        <texture id="presentTex" filepath="scenes/scene/textures/present.jpg" />
-        <texture id="present1Tex" filepath="scenes/scene/textures/present1.jpg" />
-        <texture id="tableCloth" filepath="scenes/scene/textures/tableCloth.jpg" />
-        <texture id="roofTex" filepath="scenes/scene/textures/roof.jpg" />
-        <texture id="bumpRoofTex" filepath="scenes/scene/textures/bumpRoof.jpg" />
-        <texture id="specularRoofTex" filepath="scenes/scene/textures/specularRoof.png" />
-        <texture id="outsideWall" filepath="scenes/scene/textures/outsideWall.jpg" />
-        <texture id="outsideWallBump" filepath="scenes/scene/textures/outsideWallBump.png" />
-        <texture id="candycaneTex" filepath="scenes/scene/textures/candycane.png" />
-        <texture id="sock1Tex" filepath="scenes/scene/textures/sock1.jpg" />
-        <texture id="sock2Tex" filepath="scenes/scene/textures/sock2.jpg" />
-        <texture id="cookieTex" filepath="scenes/scene/textures/cookie.jpg" />
-        <texture id="footprints" filepath="scenes/scene/textures/footprint.png" />
-        <texture id="glassTex" filepath="scenes/scene/textures/glass.png" />
-        <texture id="doorTex" filepath="scenes/scene/textures/door.png" />
+        <texture id="lightWoodTex" filepath="textures/lightWood.jpg" />
+        <texture id="musicTex" filepath="textures/music.mp4" isVideo="true" />
+        <texture id="whiteWoodTex" filepath="textures/whiteWood.jpg" />
+        <texture id="vaseTex" filepath="textures/flowersPattern.jpg" />
+        <texture id="pineTex" filepath="textures/pine.jpg" />
+        <texture id="woodTrunk" filepath="textures/trunk.jpg" />
+        <texture id="woodTrunkBump" filepath="textures/trunkBump.jpg" />
+        <texture id="presentTex" filepath="textures/present.jpg" />
+        <texture id="present1Tex" filepath="textures/present1.jpg" />
+        <texture id="tableCloth" filepath="textures/tableCloth.jpg" />
+        <texture id="roofTex" filepath="textures/roof.jpg" />
+        <texture id="bumpRoofTex" filepath="textures/bumpRoof.jpg" />
+        <texture id="specularRoofTex" filepath="textures/specularRoof.png" />
+        <texture id="outsideWall" filepath="textures/outsideWall.jpg" />
+        <texture id="outsideWallBump" filepath="textures/outsideWallBump.png" />
+        <texture id="candycaneTex" filepath="textures/candycane.png" />
+        <texture id="sock1Tex" filepath="textures/sock1.jpg" />
+        <texture id="sock2Tex" filepath="textures/sock2.jpg" />
+        <texture id="cookieTex" filepath="textures/cookie.jpg" />
+        <texture id="footprints" filepath="textures/footprint.png" />
+        <texture id="glassTex" filepath="textures/glass.png" />
+        <texture id="doorTex" filepath="textures/door.png" />
     </textures>
 
     <materials>

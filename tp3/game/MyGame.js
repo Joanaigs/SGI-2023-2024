@@ -173,6 +173,7 @@ class MyGame {
      * Updates the scene
      */
     update() {
+        this.powerUps.update();
         if(this.gameOver){
             this.logic.state = "gameOver";
             return;
