@@ -116,16 +116,13 @@ class MyVehicle {
         const movementDirection = Math.sign(this.velocity);
         const rotationSpeed = Math.abs(this.velocity) * 0.8;
     
-        console.log(this.velocity);
     
         this.car.children[0].children.forEach(wheel => {
             wheel.children.forEach(w => {
-                // Adjust the wheel rotation based on the movement direction and speed
                 w.rotation.x += (movementDirection * Math.PI / 30) * rotationSpeed;
             });
         });
     }
-    
     
     
 
