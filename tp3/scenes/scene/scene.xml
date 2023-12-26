@@ -3,12 +3,12 @@
 
     <globals background="0 0 0 1" ambient="1 1 1 1" />
 
-    <fog color="0.565 0.635 0.682 0.2" near="1000" far="2000.0" />
+    <fog color="0.565 0.635 0.682 0.2" near="3000" far="5000.0" />
 
     <skybox size="2000 500 2000" center="0 249.0 0" emissive="0.565 0.635 0.682 1.0" intensity="4.0"
-        up="scenes/scene/textures/snow_up.jpg" down="scenes/scene/textures/snow_dn.jpg"
-        left="scenes/scene/textures/snow_lf.jpg" right="scenes/scene/textures/snow_rt.jpg"
-        front="scenes/scene/textures/snow_ft.jpg" back="scenes/scene/textures/snow_bk.jpg" />
+        up="scenes/scene/textures/up.jpg" down="scenes/scene/textures/dn.jpg"
+        left="scenes/scene/textures/lf.jpg" right="scenes/scene/textures/rt.jpg"
+        front="scenes/scene/textures/ft.jpg" back="scenes/scene/textures/bk.jpg" />
 
 
     <cameras initial="main">

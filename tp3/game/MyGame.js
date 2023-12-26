@@ -5,6 +5,7 @@ import { MyObstacle } from './gameBackground/MyObstacle.js';
 import { MyVehicle } from './MyVehicle.js';
 import { MyRoute } from './MyRoute.js';
 import { MyAutomaticVehicle } from './MyAutomaticVehicle.js';
+import { MyDisplay } from './MyDisplay.js';
 /**
  *  This class contains the contents of out application
  */
@@ -60,6 +61,8 @@ class MyGame {
         document.addEventListener('keyup', this.onKeyUp.bind(this));
 
 
+        this.display = new MyDisplay(this, this.position);
+        this.app.scene.add(this.display);
     }
 
     createStartButton() {
@@ -183,7 +186,7 @@ class MyGame {
 
     updateCamera() {
         // Set the camera position to follow the car
-        const offset = new THREE.Vector3(0, 10, -30);
+        const offset = new THREE.Vector3(0, 70, -120);
         const carPosition = this.car.car.position.clone();
         const rotationMatrix = new THREE.Matrix4();
         rotationMatrix.makeRotationY(this.car.rotation);
