@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { MyShader } from '../MyShader.js';
 
 
 class MyPowerUps {
@@ -20,39 +21,29 @@ class MyPowerUps {
         ]
         this.powerUpsObject = new Map();
         this.texture= new THREE.TextureLoader().load('textures/wallPaper.jpg');
-        this.pulsateShader = {
-            uniforms: {
-                time: { type: 'f', value: 0.0 },
-                uSampler: { type: 'sampler2D', value: this.texture },
-            },
-            vertexShader: `
-            uniform float time;
-            varying vec2 vUv;
+
+        this.heartTexture= new THREE.TextureLoader().load('textures/candy.jpg');
+        this.heartShader = new MyShader(this.app, 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+            time: { type: 'f', value: 0.0 },
+            uSampler: { type: 'sampler2D', value: this.heartTexture },
+        })
+        this.teddyShader = new MyShader(this.app, 'shaders/pulsate.vert', 'shaders/pulsate.frag', {
+            time: { type: 'f', value: 0.0 },
+            baseColor: { type: 'vec3', value: new THREE.Vector3(1.0, 0.5, 0.2) },
+        })
+        this.speedTexture= new THREE.TextureLoader().load('models/heart/speed.jpg');
+        this.speedShader = new MyShader(this.app, 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+            time: { type: 'f', value: 0.0 },
+            uSampler: { type: 'sampler2D', value: this.speedTexture },
+        })
+        this.mintTexture= new THREE.TextureLoader().load('models/mint/mint.png');
+        this.mintShader = new MyShader(this.app, 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+            time: { type: 'f', value: 0.0 },
+            uSampler: { type: 'sampler2D', value: this.mintTexture },
+        })
 
 
-            void main() {
-                vUv = uv;
-                float pulse = 0.9 + 0.1 * sin( time );
-                vec4 modelViewPosition = modelViewMatrix * vec4( position * pulse, 1.0 );
-                gl_Position = projectionMatrix * modelViewPosition;
-            }
-        `,
-        fragmentShader: `
-            varying vec2 vUv;
-            uniform sampler2D uSampler;
-
-
-            void main() {
-                gl_FragColor = texture2D(uSampler, vUv);
-            }
-        `,
-        };
-
-        this.pulsateMaterial = new THREE.ShaderMaterial({
-            uniforms: this.pulsateShader.uniforms,
-            vertexShader: this.pulsateShader.vertexShader,
-            fragmentShader: this.pulsateShader.fragmentShader,
-        });
+        this.materialList = []
     }
 
     drawPowerUps(value) {
@@ -68,16 +59,12 @@ class MyPowerUps {
         switch (powerUps.type) {
             case "VELOCITY":
                 let candy = new OBJLoader();
-                candy.load('models/candy.obj', (object) => {
-                    this.heartTexture= new THREE.TextureLoader().load('textures/candy.jpg');
-                    this.pulsateShader.uniforms.uSampler.value=this.heartTexture;
-                    this.pulsateMaterial = new THREE.ShaderMaterial({
-                        uniforms: this.pulsateShader.uniforms,
-                        vertexShader: this.pulsateShader.vertexShader,
-                        fragmentShader: this.pulsateShader.fragmentShader,
-                    });
+                candy.load('models/heart/candy.obj', (loaded) => {
+                    let object = loaded.children[0];
                     object.rotation.y=Math.PI;
-                    object.children[0].material = this.pulsateMaterial
+                    let material = this.heartShader.buildShader();
+                    object.material = material;
+                    this.materialList.push(material);
                     object.scale.set(4, 4, 4);
                     object.position.set(powerUps.key.x, powerUps.key.y+4, powerUps.key.z);
                     object.position.add(this.position);
@@ -86,29 +73,48 @@ class MyPowerUps {
                 });
                 break;
             case "CUT":
-                let geometry2 = new THREE.BoxGeometry(4, 4, 4);
-                let cube2 = new THREE.Mesh(geometry2, this.pulsateMaterial);
-                cube2.position.set(powerUps.key.x, powerUps.key.y, powerUps.key.z);
-                cube2.position.add(this.position);
-                this.app.scene.add(cube2);
-                this.powerUpsObject.set(cube2, powerUps.type);
-                break;
+                let teddy = new OBJLoader();
+                teddy.load('models/gummy-bear/gummy.obj', (loaded) => {
+                    let object = loaded.children[0];
+                    object.rotation.y=-Math.PI/2;
+                    let material = this.teddyShader.buildShader();
+                    object.material = material;
+                    this.materialList.push(material);
+                    object.position.set(powerUps.key.x, powerUps.key.y+4, powerUps.key.z);
+                    object.position.add(this.position);
+                    this.app.scene.add(object);
+                    this.powerUpsObject.set(object, powerUps.type);
+                });
+                break;            
             case "TIME":
-                let geometry3 = new THREE.BoxGeometry(4, 4, 4);
-                let cube3 = new THREE.Mesh(geometry3, this.pulsateMaterial);
-                cube3.position.set(powerUps.key.x, powerUps.key.y, powerUps.key.z);
-                cube3.position.add(this.position);
-                this.app.scene.add(cube3);
-                this.powerUpsObject.set(cube3, powerUps.type);
+                let speed = new OBJLoader();
+                speed.load('models/heart/candy.obj', (loaded) => {
+                    let object = loaded.children[0];
+                    object.rotation.y=Math.PI;
+                    let material = this.speedShader.buildShader();
+                    object.material = material;
+                    this.materialList.push(material);
+                    object.scale.set(4, 4, 4);
+                    object.position.set(powerUps.key.x, powerUps.key.y+4, powerUps.key.z);
+                    object.position.add(this.position);
+                    this.app.scene.add(object);
+                    this.powerUpsObject.set(object, powerUps.type);
+                });
                 break;
             case "CHANGE":
-                let geometry4 = new THREE.BoxGeometry(4, 4, 4);
-                let cube4 = new THREE.Mesh(geometry4, this.pulsateMaterial);
-                cube4.position.set(powerUps.key.x, powerUps.key.y, powerUps.key.z);
-                cube4.position.add(this.position);
-                this.app.scene.add(cube4);
-                this.powerUpsObject.set(cube4, powerUps.type);
-                break;
+                let mint = new OBJLoader();
+                mint.load('models/mint/mint.obj', (loaded) => {
+                    let object = loaded.children[0];
+                    object.rotation.y=Math.PI;
+                    let material = this.mintShader.buildShader();
+                    object.material = material;
+                    this.materialList.push(material);
+                    object.position.set(powerUps.key.x, powerUps.key.y+4, powerUps.key.z);
+                    object.position.add(this.position);
+                    object.scale.set(0.05, 0.05, 0.05);
+                    this.app.scene.add(object);
+                    this.powerUpsObject.set(object, powerUps.type);
+                });
             default:
                 break;
         }
@@ -136,7 +142,6 @@ class MyPowerUps {
 
     timePowerUp() {
         this.game.penalties -= 1;
-        console.log(this.game.penalties);
     }
 
     changePowerUp() {
@@ -169,11 +174,14 @@ class MyPowerUps {
     getPowerUps() {
         //list of keys
         let keys = Array.from(this.powerUpsObject.keys());
+        console.log(keys);
         return keys;
     }
 
     update(){
-        this.pulsateMaterial.uniforms.time.value += 0.05;
+        for(let i=0;i<this.materialList.length;i++){
+            this.materialList[i].uniforms.time.value+=0.05;
+        }
     }
 
 

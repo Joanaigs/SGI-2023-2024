@@ -37,7 +37,7 @@ class MyGame {
         this.started = false;
         this.semaphoreColors = [0xff0000, 0xffff00, 0x00ff00]; // Red, Yellow, Gree
         this.semaphoreInterval = 1000; // Time in milliseconds for each color chang
-        this.gameOver=false;
+        this.gameOver = false;
 
         this.keysPressed = {};
         this.raycaster = new THREE.Raycaster()
@@ -55,7 +55,6 @@ class MyGame {
             this.onPointerMove.bind(this),
             false
         );
-
         document.addEventListener('click', this.onClick.bind(this), false); // Update the event listener to listen for clicks
         document.addEventListener('keydown', this.onKeyDown.bind(this));
         document.addEventListener('keyup', this.onKeyUp.bind(this));
@@ -140,7 +139,6 @@ class MyGame {
         this.app.controls.target = this.app.cameraTarget['main'];
 
         this.obstaclesList = this.obstacles.getObstacles();
-        console.log(this.obstaclesList)
         for (let i = 0; i < this.obstaclesList.length; i++) {
             this.pickableObj.push(this.obstaclesList[i]);
         }
@@ -152,7 +150,7 @@ class MyGame {
         }
         let saveButtonGeometry = new THREE.BoxGeometry(20, 1.1, 10)
         this.saveButton = new THREE.Mesh(saveButtonGeometry, new THREE.MeshBasicMaterial({ color: 0x000000 }))
-        this.saveButton.position.set(3.5*this.scaleTrack + this.position.x, 0, 7.5*this.scaleTrack + this.position.z);
+        this.saveButton.position.set(3.5 * this.scaleTrack + this.position.x, 0, 7.5 * this.scaleTrack + this.position.z);
         this.app.scene.add(this.saveButton);
         this.pickableObj.push(this.saveButton)
     }
@@ -161,7 +159,7 @@ class MyGame {
         this.app.setActiveCamera('car');
         this.pickableObj = [];
         this.app.scene.remove(this.saveButton);
-        for(let i=0;i<this.obstaclesAvailable.length;i++){
+        for (let i = 0; i < this.obstaclesAvailable.length; i++) {
             this.obstaclesAvailable[i].visible = false;
         }
         this.continue();
@@ -173,8 +171,11 @@ class MyGame {
      * Updates the scene
      */
     update() {
-        this.powerUps.update();
-        if(this.gameOver){
+        if(this.started || this.paused){
+            this.powerUps.update();
+            this.obstacles.update();
+        }
+        if (this.gameOver) {
             this.logic.state = "gameOver";
             return;
         }
@@ -263,7 +264,7 @@ class MyGame {
 
     onClick() {
         if (this.selectedObstacle) {
-            if(!this.obstaclesList.includes(this.selectedObstacle)){
+            if (!this.obstaclesList.includes(this.selectedObstacle)) {
                 this.obstacles.addObstacle(this.selectedObstacle);
                 this.car.addObstacle(this.selectedObstacle);
             }
@@ -293,9 +294,9 @@ class MyGame {
                     // If no obstacle is selected, pick it up
                     this.selectedObstacle = obj;
                     this.selectedObstacle.position.y = 10; // Lift the obstacle above the ground
-                } 
-            }else if (this.obstaclesAvailable.includes(obj)) {
-                if(!this.selectedObstacle){
+                }
+            } else if (this.obstaclesAvailable.includes(obj)) {
+                if (!this.selectedObstacle) {
                     this.obstaclesList.push(obj);
                     let objClone = obj.clone();
                     this.app.scene.add(objClone);
@@ -335,9 +336,9 @@ class MyGame {
         this.raycaster.setFromCamera(this.pointer, this.app.activeCamera);
 
         //3. compute intersections
-        var intersects = this.raycaster.intersectObjects(this.app.scene.children);
+        var intersects2 = this.raycaster.intersectObjects(this.pickableObj);
 
-        this.pickingHelper(intersects)
+        this.pickingHelper(intersects2)
     }
 
     /*
@@ -349,11 +350,11 @@ class MyGame {
             const obj = intersects[0].object
             if (this.pickableObj.includes(obj)) {
                 this.changeColorOfFirstPickedObj(obj)
-            }
-            else {
-                this.restoreColorOfFirstPickedObj()
-            }
+            }    
         } 
+        else {
+            this.restoreColorOfFirstPickedObj()
+        }
     }
 
     /*

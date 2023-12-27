@@ -247,6 +247,13 @@
 
                 <noderef id="outsideTrees" />
                 <lodref id="snowman" />
+                <pointlight id="sun" enabled="true"
+                    color="1 1 1 0"
+                    intensity="500"
+                    distance="0"
+                    decay="1"
+                    position="120 80 1.047"
+                />
 
 
             </children>
