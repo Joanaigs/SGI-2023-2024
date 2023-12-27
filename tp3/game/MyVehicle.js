@@ -42,6 +42,10 @@ class MyVehicle {
         this.game.app.scene.add(this.car);
 
 
+        this.trackTexture = new THREE.TextureLoader().load('./textures/track.png');
+        
+        this.renderTarget = new THREE.WebGLRenderTarget(411,700);
+
     }
 
     addObstacle(obstacle) {
@@ -116,7 +120,7 @@ class MyVehicle {
     }
 
     left() {
-        this.checkInsideTrack() ? this.velocity = 0 : this.rotation += this.rotateScale;
+        this.rotation += this.rotateScale;
     }
 
     right() {
@@ -145,6 +149,7 @@ class MyVehicle {
     }
 
 
+
     update() {
         if (this.game.started || this.game.paused) {
             const deltaPosition = new THREE.Vector3(
@@ -158,7 +163,19 @@ class MyVehicle {
                 this.checkCollisions(this.obstacles, this.powerUps);
             }
         }
+    
+        const movementDirection = Math.sign(this.velocity);
+        const rotationSpeed = Math.abs(this.velocity) * 0.8;
+    
+    
+        this.car.children[0].children.forEach(wheel => {
+            wheel.children.forEach(w => {
+                w.rotation.x += (movementDirection * Math.PI / 30) * rotationSpeed;
+            });
+        });
     }
+    
+    
 
     checkIntersection(object1, object2) {
 
@@ -172,9 +189,63 @@ class MyVehicle {
         return false;
     }
 
+    checkCarPosition(carPosition) {
+        const textureWidth = 411;
+        const textureHeight = 700;
+        const threshold = 0.1; // Adjust this threshold as needed
+    
+        // Normalizar as coordenadas para a textura
+        const normalizedX = (carPosition.x - 38);
+        const normalizedY = (carPosition.z - 29);// Inverter para corresponder à convenção three.js
+    
+        console.log('normalizedX:', normalizedX);
+        console.log('normalizedY:', normalizedY);
+    
+        // Criar um canvas temporário
+        const canvas = document.createElement('canvas');
+        canvas.width = textureWidth;
+        canvas.height = textureHeight;
+        const context = canvas.getContext('2d');
 
+    
+        // Verificar se a imagem foi completamente carregada
+        if (this.trackTexture && this.trackTexture.image && this.trackTexture.image.complete) {
+            // Desenhar a imagem no canvas
+            context.drawImage(this.trackTexture.image, 0, 0, 411, 700);
+            document.body.appendChild(canvas);
+    
+            // Obter os dados da textura
+            const imageData = context.getImageData(normalizedX, normalizedY, 1, 1).data;
+            
+            // Ler a cor da textura na posição (normalizedX, normalizedY)
+            const textureColor = new THREE.Color(
+                imageData[0] / 255,
+                imageData[1] / 255,
+                imageData[2] / 255
+            );
+            console.log(textureColor);
+    
+            // Compare a cor da textura com a cor esperada, considerando o threshold
+            return (
+                textureColor.r  < threshold &&
+                textureColor.g  < threshold &&
+                textureColor.b  < threshold
+            );
 
+        } else {
+            // A imagem ainda está sendo carregada ou não existe
+            console.error('A imagem ainda está sendo carregada ou não existe.');
+            return false;
+        }
+    }
+    
 
+    checkInsideTrack(deltaPosition) {
+        return this.checkCarPosition(deltaPosition);
+    }
 }
+    
+    
+
 
 export { MyVehicle };
