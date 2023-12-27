@@ -7,23 +7,40 @@ import { MyVehicleObject } from './MyVehicleObject.js';
  */
 class MyVehicle {
 
-    constructor(game, position, target) {
+    constructor(game, position, target, car) {
 
-        
+
         this.game = game
         this.rotation = 0;
-        this.rotateScale = 0.3;
+        this.rotateScale = 0.1;
         this.velocity = 0;
         this.acceleration = 0.1;
         this.maxVelocity = 1;
         this.minVelocity = -0.5;
-        this.keysPressed = {};
-        this.car = new MyVehicleObject();
+        this.confused = false;
+        this.powerUps = this.game.powerUps.getPowerUps();
+        this.obstacles = this.game.obstacles.getObstacles();
+        this.checkPoints = this.game.checkpoints.getCheckpoints();
+        this.checkpointsCount = new Map();
+        this.checkPointCollided = false;
+        this.lastCheckpoint = null;
+        for (let i = 0; i < this.checkPoints.length; i++) {
+            this.checkpointsCount.set(this.checkPoints[i], 0);
+        }
+        //map objeto and coliision
+        this.poweupsActivated = new Map();
+        this.obstaclesActivated = new Map();
+        for (let i = 0; i < this.powerUps.length; i++) {
+            this.poweupsActivated.set(this.powerUps[i], false);
+        }
+        for (let i = 0; i < this.obstacles.length; i++) {
+            this.obstaclesActivated.set(this.obstacles[i], false);
+        }
+        this.car = car;
         this.car.position.set(position.x, position.y, position.z);
         this.car.position.add(target);
         this.game.app.scene.add(this.car);
-        document.addEventListener('keydown', this.onKeyDown.bind(this));
-        document.addEventListener('keyup', this.onKeyUp.bind(this));
+
 
         this.trackTexture = new THREE.TextureLoader().load('./textures/track.png');
         
@@ -31,25 +48,74 @@ class MyVehicle {
 
     }
 
+    addObstacle(obstacle) {
+        console.log("addObstacle");
+        this.obstacles.push(obstacle);
+        this.obstaclesActivated.set(obstacle, false);
+    }
+
     checkCollisions(obstacles, powerUps) {
-        
         for (const obstacle of obstacles) {
             const intersection = this.checkIntersection(this.car, obstacle);
-            if (intersection) {
+
+            if (!this.obstaclesActivated.get(obstacle) && intersection) {
                 console.log('Collision with obstacle!');
+                this.game.obstacles.activateObstacle(this.game, obstacle);
+                this.obstaclesActivated.set(obstacle, true);
             }
+            else if (!intersection && this.obstaclesActivated.get(obstacle)) {
+                this.obstaclesActivated.set(obstacle, false);
+            }
+
+
         }
 
         // Check collisions with power-ups
         for (const powerUp of powerUps) {
-            const intersection = this.checkIntersection(this.car, powerUp);
-            if (intersection) {
-                console.log('Collision with power-up!');
+            if (!this.poweupsActivated.get(powerUp)) {
+                const intersection = this.checkIntersection(this.car, powerUp);
+                if (intersection) {
+                    console.log('Collision with power-up!');
+                    this.game.powerUps.activatePowerUp(this.game, powerUp);
+                    this.poweupsActivated.set(powerUp, true);
+                    powerUp.visible = false;
+                    setTimeout(() => {
+                        this.poweupsActivated.set(powerUp, false);
+                        powerUp.visible = true;
+                    }, 10000);
+                }
             }
         }
+
+        // Check collisions with checkpoints
+        for (const checkpoint of this.checkPoints) {
+            const intersection = this.checkIntersection(this.car, checkpoint);
+            if (intersection && this.lastCheckpoint !== checkpoint) {
+                let n = this.checkpointsCount.get(checkpoint);
+                this.checkpointsCount.set(checkpoint, n + 1);
+                this.checkPointCollided = true;
+                this.lastCheckpoint = checkpoint;
+                console.log("checkpoint: " + this.checkpointsCount.get(checkpoint));
+                this.checkEndGame();
+            }
+        }
+
+    }
+    checkEndGame() {
+        for (let i = 0; i < this.checkPoints.length; i++) {
+            let checkpoint = this.checkPoints[i];
+            if (i === 0 && this.checkpointsCount.get(checkpoint) < this.game.numberOfLaps+1) {
+                return false;
+
+            } else if (this.checkpointsCount.get(this.checkPoints[i]) < this.game.numberOfLaps) {
+                return false;
+            }
+        }
+        this.game.gameOver = true;
+        return true;
     }
 
-    checkInsideTrack(){
+    checkInsideTrack() {
         return false;
     }
 
@@ -73,57 +139,29 @@ class MyVehicle {
         }
     }
 
-    onKeyDown(event) {
-        const key = event.key.toLowerCase();
-        this.keysPressed[key] = true;
-        this.handleKeys();
+    pause() {
+        this.originalVelocity = this.velocity;
+        this.velocity = 0;
     }
 
-    onKeyUp(event) {
-        const key = event.key.toLowerCase();
-        this.keysPressed[key] = false;
-        this.handleKeys();
+    continue() {
+        this.velocity = this.originalVelocity;
     }
 
-    handleKeys() {
-        if (this.keysPressed['a'] || this.keysPressed['arrowleft']) {
-            this.left();
-        }
-
-        if (this.keysPressed['d'] || this.keysPressed['arrowright']) {
-            this.right();
-        }
-
-        if (this.keysPressed['w'] || this.keysPressed['arrowup']) {
-            this.accelerate();
-        }
-
-        if (this.keysPressed['s'] || this.keysPressed['arrowdown']) {
-            this.brake();
-        }
-    }
 
 
     update() {
-
-        
-        const deltaPosition = new THREE.Vector3(
-            this.velocity * Math.sin(this.rotation),
-            0,
-            this.velocity * Math.cos(this.rotation)
-        );
-        this.car.position.add(deltaPosition);
-        this.car.rotation.y = this.rotation;
-
-        if (this.checkInsideTrack(this.car.position)) {
-            console.log("dentro")
-        }
-        else{
-            console.log("fora")
-        }
-    
-        if (this.velocity !== 0) {
-            this.checkCollisions(this.game.obstacles.getObstacles(), this.game.powerUps.getPowerUps());
+        if (this.game.started || this.game.paused) {
+            const deltaPosition = new THREE.Vector3(
+                this.velocity * Math.sin(this.rotation),
+                0,
+                this.velocity * Math.cos(this.rotation)
+            );
+            this.car.position.add(deltaPosition);
+            this.car.rotation.y = this.rotation;
+            if (this.velocity != 0) {
+                this.checkCollisions(this.obstacles, this.powerUps);
+            }
         }
     
         const movementDirection = Math.sign(this.velocity);
@@ -144,9 +182,8 @@ class MyVehicle {
         // Get the bounding boxes of the two objects
         const box1 = new THREE.Box3().setFromObject(object1);
         const box2 = new THREE.Box3().setFromObject(object2);
-        
+
         if (box1.intersectsBox(box2)) {
-            console.log('Intersection detected!');
             return true;
         }
         return false;
@@ -201,9 +238,6 @@ class MyVehicle {
             return false;
         }
     }
-    
-    
-    
     
 
     checkInsideTrack(deltaPosition) {

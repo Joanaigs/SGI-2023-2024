@@ -34,6 +34,7 @@ class MySkybox {
         ];
 
         const skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterials);
+        skybox.name="skybox";
         skybox.position.set(this.center[0], this.center[1], this.center[2]);
 
         return skybox;

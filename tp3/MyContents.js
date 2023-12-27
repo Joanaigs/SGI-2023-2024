@@ -7,7 +7,7 @@ import { MyVideoTexture } from './classes/MyVideoTexture.js';
 import { MyMaterial } from './classes/MyMaterial.js';
 import { MyLights } from './classes/MyLights.js';
 import { MyNodeParser } from './MyNodeParser.js';
-import { MyGame } from './game/MyGame.js';
+import { MyGameLogic } from './game/MyGameLogic.js';
 
 /**
  *  This class contains the contents of out application
@@ -59,7 +59,7 @@ class MyContents {
      */
     onSceneLoaded(data) {
         this.onAfterSceneLoadedAndBeforeRender(data);
-        this.game = new MyGame(this.app);
+        this.game = new MyGameLogic(this.app);
 
     }
 
