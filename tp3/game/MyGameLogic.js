@@ -24,7 +24,7 @@ class MyGameLogic {
         setTimeout(() => {
             this.state = "game";
             console.log("game");
-        }, 4000);
+        }, 8000);
 
     }
 

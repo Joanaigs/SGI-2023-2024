@@ -220,19 +220,19 @@ class MyObstacle {
     }
 
     obstacleSlippery(){
-        const originalRotationScale = this.game.car.rotationScale;
 
         // Increase rotationScale
         this.game.car.rotateScale += 0.5;
 
         setTimeout(() => {
-            this.game.car.rotationScale = originalRotationScale;
+            this.game.car.rotateScale -=0.5;
         }, 10000); // 10000 milliseconds = 10 seconds
     }
 
     activateObstacle(game, object){
         this.game = game;
         let obstacle = this.obstaclesObject.get(object);
+        console.log(obstacle)
         switch (obstacle) {
             case "VELOCITY":
                 this.obstacleVelocity();
