@@ -24,7 +24,9 @@ class MyDisplay extends THREE.Object3D {
         let i=this.game.scale;
         let material = new THREE.SpriteMaterial( {color: 0x00ff00} );
         let cube = new THREE.Sprite(  material );
-        cube.position.set(0,0,0);
+        cube.scale.set(50, 30, 50);
+        cube.position.set(50,25,300);
+
         this.add(cube);
     }
 
