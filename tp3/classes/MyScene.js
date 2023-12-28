@@ -34,7 +34,7 @@ class MyScene extends THREE.Scene{
         if(skyboxes){
             let skybox = new MySkybox(skyboxes.default)
             let skyboxObject = skybox.addSkybox();
-            //this.add(skyboxObject);
+            this.add(skyboxObject);
             this.app.skybox = skyboxObject;
             this.app.skyboxObject = skybox;
 
