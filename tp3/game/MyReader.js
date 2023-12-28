@@ -5,6 +5,7 @@ import { MyObstacle } from './gameBackground/MyObstacle.js';
 import { MyVehicleObject } from './MyVehicleObject.js';
 import { MyRoute } from './MyRoute.js';
 import { MyCheckpoints } from './MyCheckpoints.js';
+import { MyShader } from './MyShader.js';
 /**
  *  This class contains the contents of out application
  */
@@ -29,7 +30,7 @@ class MyReader {
         this.texture2.wrapS = THREE.RepeatWrapping;
         this.texture2.wrapT = THREE.RepeatWrapping;
         this.texture2.repeat.set(1, 50);
-
+        this.backgroundLoaded = false;
 
 
         // Material for the track
@@ -42,13 +43,67 @@ class MyReader {
         this.powerUps = new MyPowerUps(this.app,this.position, this.scaleTrack);
         this.obstacles = new MyObstacle(this.app,this.position, this.scaleTrack);
         this.checkpoints = new MyCheckpoints(this.app, this.scaleTrack, this.position, 40);
+
+        //shaders
+        this.shaders = []
+        let textureFloor = new THREE.TextureLoader().load('textures/dn.jpg');
+        let textureFloorHeight = new THREE.TextureLoader().load('textures/dn_height_map.png');
+
+        this.shader = new MyShader( 'shaders/terrain.vert', 'shaders/terrain.frag', {
+            terrain:{ type: 'sampler2D', value: textureFloor},
+            heightMap: { type: 'sampler2D', value: textureFloorHeight },
+            time: { type: 'f', value: 0.0 }
+        })
+        this.shaders.push(this.shader);
+              
+        this.shaders.concat(this.powerUps.getShaders());
+        this.shaders.concat(this.obstacles.getShaders());
+        
+        this.waitForShaders();
+    }
+
+    waitForShaders() {
+        for(let i = 0; i < this.shaders.length; i++){
+            if (this.shaders[i].ready === false) {
+                setTimeout(this.waitForShaders.bind(this), 100)
+                return;
+            }
+        }
+        console.log("shaders loaded");
         this.initBackgroud();
+    }
+
+    waitForPowerUps() {
+        if (this.powerUps.loadedObjects < this.powerUps.powerups.length) {
+            setTimeout(this.waitForPowerUps.bind(this), 100)
+            return;
+        }
+        console.log("powerups loaded");
+        this.waitForObstacles();
+    }
+
+    waitForObstacles() {
+        if (this.obstacles.loadedObjects < this.obstacles.obstacles.length) {
+            setTimeout(this.waitForObstacles.bind(this), 100)
+            return;
+        }
+        console.log("obstacles loaded");
+        this.backgroundLoaded = true;
     }
 
     /**
      * initializes the contents
      */
     initBackgroud() {
+
+        //ground
+        const floorGeometry = new THREE.PlaneGeometry(this.app.skyboxObject.width, this.app.skyboxObject.depth, 100, 100);
+
+        let floor = new THREE.Mesh(floorGeometry, this.shader.material);
+        floor.rotation.x = Math.PI / 2;
+        floor.rotation.y = Math.PI;
+        floor.position.set(0, -1, 0);
+        this.app.scene.add(floor);
         let track = this.myTrack.drawTrack(1);
         this.app.scene.add(track);
         let track2 = this.myTrack2.drawTrack(1);
@@ -63,6 +118,8 @@ class MyReader {
         this.car1 = new MyVehicleObject();
         this.car2 = new MyVehicleObject();
         this.checkpoints.drawCheckpoints();
+        this.waitForObstacles();
+
     }
 
     reset(){
@@ -73,6 +130,11 @@ class MyReader {
         this.car2=new MyVehicleObject();
         this.cutPath.visible = false;
 
+    }
+
+    update(){
+        if(this.shader.ready)
+            this.shader.material.uniforms.time.value += 0.01;
     }
 }
 

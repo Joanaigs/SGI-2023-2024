@@ -25,27 +25,28 @@ class MyObstacle {
         this.obstaclesAvailableObject = new Map();
 
         this.garlicTexture= new THREE.TextureLoader().load('models/garlic/garlic.jpg');
-        this.garlicShader = new MyShader(this.app, 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+        this.garlicShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.garlicTexture },
         })
 
         
         this.tomatoTexture= new THREE.TextureLoader().load('models/tomato/tomato.jpg');
-        this.tomatoShader = new MyShader(this.app, 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+        this.tomatoShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.tomatoTexture },
         })
 
         this.potatoTexture= new THREE.TextureLoader().load('models/potato/potato.jpg');
-        this.potatoShader = new MyShader(this.app, 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+        this.potatoShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.potatoTexture },
         })
 
 
         this.materialList = []
-
+        this.loadedObjects = 0;
+        this.loadedObjectsAvailable = 0;
 
 
     }
@@ -54,17 +55,17 @@ class MyObstacle {
         this.obstaclesObject.set(obstacle, obstacle.name);
         switch (obstacle.name) {
             case "VELOCITY":
-                let material = this.garlicShader.buildShader();
+                let material = this.garlicShader.material;
                 this.materialList.push(material);
                 obstacle.material = material;
                 break;
             case "CONFUSED":
-                let material1 = this.potatoShader.buildShader();
+                let material1 = this.potatoShader.material;
                 this.materialList.push(material1);
                 obstacle.material = material1;
                 break;
             case "SLIPPERY":
-                let material2 = this.tomatoShader.buildShader();
+                let material2 = this.tomatoShader.material;
                 this.materialList.push(material2);
                 obstacle.material = material2;
                 break;
@@ -74,7 +75,7 @@ class MyObstacle {
     drawObstaclesPark(value) {
         if(value===1){
             for (let i = 0; i < this.obstacleAvailable1.length; i++) {
-                let obstacle = this.drawObstaclePark(this.obstacleAvailable1[i], false);
+                this.drawObstaclePark(this.obstacleAvailable1[i], false);
             }
         }
     }
@@ -88,13 +89,14 @@ class MyObstacle {
         }
     }
 
+
     drawObstacle(obstacle, visible=true){
         switch (obstacle.type) {
             case "VELOCITY":
                 let garlic = new OBJLoader();
                 garlic.load('models/garlic/garlic.obj', (loaded) => {
                     let object = loaded.children[0];
-                    let material = this.garlicShader.buildShader();
+                    let material = this.garlicShader.material;
                     object.material = material;
                     this.materialList.push(material);
                     object.scale.set(0.2, 0.2, 0.2);
@@ -104,6 +106,7 @@ class MyObstacle {
                     object.visible=visible;
                     this.app.scene.add(object);
                     this.obstaclesObject.set(object, obstacle.type);
+                    this.loadedObjects++;
                 });
                 break;
             case "CONFUSED":
@@ -111,7 +114,7 @@ class MyObstacle {
                 potato.load('models/potato/potato.obj', (loaded) => {
                     let object = loaded.children[0];
                     object.rotation.x=-Math.PI/2;
-                    let material = this.potatoShader.buildShader();
+                    let material = this.potatoShader.material;
                     object.material = material;
                     this.materialList.push(material);
                     object.scale.set(2, 2, 2);
@@ -121,6 +124,7 @@ class MyObstacle {
                     object.name="CONFUSED";
                     this.app.scene.add(object);
                     this.obstaclesObject.set(object, obstacle.type);
+                    this.loadedObjects++;
                 });
                 break;
             case "SLIPPERY":
@@ -128,7 +132,7 @@ class MyObstacle {
                 tomato.load('models/tomato/tomato.obj', (loaded) => {
                     let object = loaded.children[0];
                     object.rotation.x=-Math.PI/2;
-                    let material = this.tomatoShader.buildShader();
+                    let material = this.tomatoShader.material;
                     object.material = material;
                     this.materialList.push(material);
                     object.scale.set(2, 2, 2);
@@ -138,6 +142,7 @@ class MyObstacle {
                     object.name="SLIPPERY";
                     this.app.scene.add(object);
                     this.obstaclesObject.set(object, obstacle.type);
+                    this.loadedObjects++;
                 });
                 break;
         }
@@ -158,6 +163,7 @@ class MyObstacle {
                     object.name="VELOCITY";
                     this.app.scene.add(object);
                     this.obstaclesAvailableObject.set(object, obstacle.type);
+                    this.loadedObjectsAvailable++;
                 });
                 break;
             case "CONFUSED":
@@ -174,6 +180,7 @@ class MyObstacle {
                     object.name="CONFUSED";
                     this.app.scene.add(object);
                     this.obstaclesAvailableObject.set(object, obstacle.type);
+                    this.loadedObjectsAvailable++;
                 });
                 break;
             case "SLIPPERY":
@@ -190,6 +197,7 @@ class MyObstacle {
                     object.name="SLIPPERY";
                     this.app.scene.add(object);
                     this.obstaclesAvailableObject.set(object, obstacle.type);
+                    this.loadedObjectsAvailable++;
                 });
                 break;
         }
@@ -270,6 +278,10 @@ class MyObstacle {
         for(let i=0;i<this.materialList.length;i++){
             this.materialList[i].uniforms.time.value+=0.05;
         }
+    }
+
+    getShaders(){
+        return [this.garlicShader, this.potatoShader, this.tomatoShader]
     }
 
 }

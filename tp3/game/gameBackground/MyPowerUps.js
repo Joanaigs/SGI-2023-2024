@@ -23,24 +23,25 @@ class MyPowerUps {
         this.texture= new THREE.TextureLoader().load('textures/wallPaper.jpg');
 
         this.heartTexture= new THREE.TextureLoader().load('textures/candy.jpg');
-        this.heartShader = new MyShader(this.app, 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+        this.heartShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.heartTexture },
         })
-        this.teddyShader = new MyShader(this.app, 'shaders/pulsate.vert', 'shaders/pulsate.frag', {
+        this.teddyShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate.frag', {
             time: { type: 'f', value: 0.0 },
             baseColor: { type: 'vec3', value: new THREE.Vector3(1.0, 0.5, 0.2) },
         })
         this.speedTexture= new THREE.TextureLoader().load('models/heart/speed.jpg');
-        this.speedShader = new MyShader(this.app, 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+        this.speedShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.speedTexture },
         })
         this.mintTexture= new THREE.TextureLoader().load('models/mint/mint.png');
-        this.mintShader = new MyShader(this.app, 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+        this.mintShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.mintTexture },
         })
+        this.loadedObjects = 0;
 
 
         this.materialList = []
@@ -62,7 +63,7 @@ class MyPowerUps {
                 candy.load('models/heart/candy.obj', (loaded) => {
                     let object = loaded.children[0];
                     object.rotation.y=Math.PI;
-                    let material = this.heartShader.buildShader();
+                    let material = this.heartShader.material;
                     object.material = material;
                     this.materialList.push(material);
                     object.scale.set(4, 4, 4);
@@ -70,6 +71,7 @@ class MyPowerUps {
                     object.position.add(this.position);
                     this.app.scene.add(object);
                     this.powerUpsObject.set(object, powerUps.type);
+                    this.loadedObjects++;
                 });
                 break;
             case "CUT":
@@ -77,13 +79,14 @@ class MyPowerUps {
                 teddy.load('models/gummy-bear/gummy.obj', (loaded) => {
                     let object = loaded.children[0];
                     object.rotation.y=-Math.PI/2;
-                    let material = this.teddyShader.buildShader();
+                    let material = this.teddyShader.material;
                     object.material = material;
                     this.materialList.push(material);
                     object.position.set(powerUps.key.x, powerUps.key.y+4, powerUps.key.z);
                     object.position.add(this.position);
                     this.app.scene.add(object);
                     this.powerUpsObject.set(object, powerUps.type);
+                    this.loadedObjects++;
                 });
                 break;            
             case "TIME":
@@ -91,7 +94,7 @@ class MyPowerUps {
                 speed.load('models/heart/candy.obj', (loaded) => {
                     let object = loaded.children[0];
                     object.rotation.y=Math.PI;
-                    let material = this.speedShader.buildShader();
+                    let material = this.speedShader.material;
                     object.material = material;
                     this.materialList.push(material);
                     object.scale.set(4, 4, 4);
@@ -99,6 +102,7 @@ class MyPowerUps {
                     object.position.add(this.position);
                     this.app.scene.add(object);
                     this.powerUpsObject.set(object, powerUps.type);
+                    this.loadedObjects++;
                 });
                 break;
             case "CHANGE":
@@ -106,7 +110,7 @@ class MyPowerUps {
                 mint.load('models/mint/mint.obj', (loaded) => {
                     let object = loaded.children[0];
                     object.rotation.y=Math.PI;
-                    let material = this.mintShader.buildShader();
+                    let material = this.mintShader.material;
                     object.material = material;
                     this.materialList.push(material);
                     object.position.set(powerUps.key.x, powerUps.key.y+4, powerUps.key.z);
@@ -114,6 +118,7 @@ class MyPowerUps {
                     object.scale.set(0.05, 0.05, 0.05);
                     this.app.scene.add(object);
                     this.powerUpsObject.set(object, powerUps.type);
+                    this.loadedObjects++;
                 });
             default:
                 break;
@@ -182,6 +187,10 @@ class MyPowerUps {
         for(let i=0;i<this.materialList.length;i++){
             this.materialList[i].uniforms.time.value+=0.05;
         }
+    }
+
+    getShaders() {
+        return [this.heartShader, this.teddyShader, this.speedShader, this.mintShader]
     }
 
 

@@ -2,9 +2,8 @@ import * as THREE from 'three';
 
 /** Represents a plane with nrDivs divisions along both axis, with center at (0,0) */
 class MyShader {
-	constructor(app, vert_path, frag_path, uniformValues = null) {
+	constructor(vert_path, frag_path, uniformValues = null) {
 		
-        this.app = app;
         this.vert_path = vert_path
         this.frag_path = frag_path
         this.material = null
@@ -45,6 +44,7 @@ class MyShader {
     buildShader() {
         // are both resources loaded? 
         if (this.vertexShader !== undefined && this.fragmentShader !== undefined) {
+            console.log("building shader material")
             // build the shader material
             this.material = new THREE.ShaderMaterial({
                 // load uniforms, if any
