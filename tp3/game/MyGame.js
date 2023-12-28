@@ -6,6 +6,7 @@ import { MyVehicle } from './MyVehicle.js';
 import { MyRoute } from './MyRoute.js';
 import { MyAutomaticVehicle } from './MyAutomaticVehicle.js';
 import { MyDisplay } from './MyDisplay.js';
+
 /**
  *  This class contains the contents of out application
  */
