@@ -10,24 +10,24 @@ class MyWheel extends THREE.Object3D {
     build() {
         let groupTires = new THREE.Group();
         for (let i = 0; i < 4; i++) {
-            let geometry = new THREE.CylinderGeometry(1, 1, 0.5, 32);
+            let geometry = new THREE.CylinderGeometry(0.8, 0.8, 0.6, 32);
 
             const textureLoader = new THREE.TextureLoader();
             this.trackTexture = textureLoader.load('./textures/track.png');
-            let material = new THREE.MeshBasicMaterial({ map: this.trackTexture });
+            let material = new THREE.MeshBasicMaterial({ color:0x000000 });
 
             let cylinder = new THREE.Mesh(geometry, material);
             if (i % 2 == 0) {
-                cylinder.position.x = 2.5;
+                cylinder.position.x = 3.0;
             } else {
-                cylinder.position.x = -2.5;
+                cylinder.position.x = -3.0;
             }
             if (i < 2) {
-                cylinder.position.z = 7;
+                cylinder.position.z = 4.2;
             } else {
-                cylinder.position.z = 0;
+                cylinder.position.z = -4.1;
             }
-            cylinder.position.y = 0.5;
+            cylinder.position.y = 0.9;
             cylinder.rotateZ(Math.PI / 2);
             groupTires.add(cylinder);
         }

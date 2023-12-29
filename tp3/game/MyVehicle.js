@@ -167,13 +167,13 @@ class MyVehicle {
         const movementDirection = Math.sign(this.velocity);
         const rotationSpeed = Math.abs(this.velocity) * 0.8;
     
-        /*
+        
         this.car.children[0].children.forEach(wheel => {
             wheel.children.forEach(w => {
                 w.rotation.x += (movementDirection * Math.PI / 30) * rotationSpeed;
             });
         });
-        */
+        
     }
     
     

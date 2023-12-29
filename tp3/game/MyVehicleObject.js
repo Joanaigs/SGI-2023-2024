@@ -30,7 +30,7 @@ class MyVehicleObject extends THREE.Object3D {
                         console.log(child.material.color)
                         child.material.color.set(0xffffff);
                         child.material.emissive.set(0xFFBCF2 );
-                        child.material.shininess = 100;
+                        child.material.shininess = 10;
                         child.material.side = THREE.DoubleSide;
                     }
                 }
