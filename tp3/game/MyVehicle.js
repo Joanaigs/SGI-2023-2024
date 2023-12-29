@@ -12,6 +12,9 @@ class MyVehicle {
 
         this.game = game
         this.rotation = 0;
+        this.wheelRotation = 0;
+        this.maxRotation = 0.6;
+        this.minRotation = -0.6;
         this.rotateScale = 0.1;
         this.velocity = 0;
         this.acceleration = 0.1;
@@ -120,11 +123,15 @@ class MyVehicle {
     }
 
     left() {
-        this.rotation += this.rotateScale;
+        if(this.wheelRotation < this.maxRotation){
+            this.wheelRotation += this.rotateScale;
+        }
     }
 
     right() {
-        this.rotation -= this.rotateScale;
+        if(this.wheelRotation > this.minRotation){
+            this.wheelRotation -= this.rotateScale;
+        }
     }
 
     accelerate() {
@@ -158,7 +165,8 @@ class MyVehicle {
                 this.velocity * Math.cos(this.rotation)
             );
             this.car.position.add(deltaPosition);
-            this.car.rotation.y = this.rotation;
+            this.car.rotation.y = this.wheelRotation;
+         
             if (this.velocity != 0) {
                 this.checkCollisions(this.obstacles, this.powerUps);
             }
@@ -170,6 +178,8 @@ class MyVehicle {
         
         this.car.children[0].children.forEach(wheel => {
             wheel.children.forEach(w => {
+               
+                w.rotation.y = this.wheelRotation;
                 w.rotation.x += (movementDirection * Math.PI / 30) * rotationSpeed;
             });
         });

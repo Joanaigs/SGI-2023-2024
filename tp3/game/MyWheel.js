@@ -29,6 +29,7 @@ class MyWheel extends THREE.Object3D {
             }
             cylinder.position.y = 0.9;
             cylinder.rotateZ(Math.PI / 2);
+            cylinder.rotation.order = "YXZ";
             groupTires.add(cylinder);
         }
         this.add(groupTires);
