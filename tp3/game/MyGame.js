@@ -6,7 +6,7 @@ import { MyVehicle } from './MyVehicle.js';
 import { MyRoute } from './MyRoute.js';
 import { MyAutomaticVehicle } from './MyAutomaticVehicle.js';
 import { MyDisplay } from './MyDisplay.js';
-
+import { MyFont } from './MyFont.js';
 /**
  *  This class contains the contents of out application
  */
@@ -38,7 +38,9 @@ class MyGame {
         this.started = false;
         this.semaphoreColors = [0xff0000, 0xffff00, 0x00ff00]; // Red, Yellow, Gree
         this.semaphoreInterval = 1000; // Time in milliseconds for each color chang
-        this.gameOver=false;
+        this.gameOver = false;
+        this.myFont = new MyFont();
+
 
         this.keysPressed = {};
         this.raycaster = new THREE.Raycaster()
@@ -56,7 +58,6 @@ class MyGame {
             this.onPointerMove.bind(this),
             false
         );
-
         document.addEventListener('click', this.onClick.bind(this), false); // Update the event listener to listen for clicks
         document.addEventListener('keydown', this.onKeyDown.bind(this));
         document.addEventListener('keyup', this.onKeyUp.bind(this));
@@ -64,11 +65,13 @@ class MyGame {
 
         this.display = new MyDisplay(this, this.position);
         this.app.scene.add(this.display);
+
+
     }
 
     createStartButton() {
         this.cylinGeometry = new THREE.CylinderGeometry(0.5, 0.5, 20, 32);
-        this.bannerMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        this.bannerMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
         this.cylinder1 = new THREE.Mesh(this.cylinGeometry, this.bannerMaterial);
         this.cylinder1.position.set(this.startPosition.x - 20.5, 10, this.startPosition.z);
         this.app.scene.add(this.cylinder1);
@@ -83,6 +86,13 @@ class MyGame {
         this.button = new THREE.Mesh(this.boxGeometry, new THREE.MeshBasicMaterial({ color: 0xff0000 }))
         this.button.position.set(this.startPosition.x - 10, 15, this.startPosition.z);
         this.button.name = "startButton"
+           
+        this.startWord = this.myFont.getWord("START");
+        console.log(this.startWord)
+        this.startWord.position.set(this.startPosition.x + 10, 20, this.startPosition.z-10);
+        this.startWord.rotation.y = Math.PI;
+
+        this.app.scene.add(this.startWord);
         this.app.scene.add(this.button);
         this.pickableObj.push(this.button)
 
@@ -141,7 +151,6 @@ class MyGame {
         this.app.controls.target = this.app.cameraTarget['main'];
 
         this.obstaclesList = this.obstacles.getObstacles();
-        console.log(this.obstaclesList)
         for (let i = 0; i < this.obstaclesList.length; i++) {
             this.pickableObj.push(this.obstaclesList[i]);
         }
@@ -153,7 +162,7 @@ class MyGame {
         }
         let saveButtonGeometry = new THREE.BoxGeometry(20, 1.1, 10)
         this.saveButton = new THREE.Mesh(saveButtonGeometry, new THREE.MeshBasicMaterial({ color: 0x000000 }))
-        this.saveButton.position.set(3.5*this.scaleTrack + this.position.x, 0, 7.5*this.scaleTrack + this.position.z);
+        this.saveButton.position.set(3.5 * this.scaleTrack + this.position.x, 0, 7.5 * this.scaleTrack + this.position.z);
         this.app.scene.add(this.saveButton);
         this.pickableObj.push(this.saveButton)
     }
@@ -162,7 +171,7 @@ class MyGame {
         this.app.setActiveCamera('car');
         this.pickableObj = [];
         this.app.scene.remove(this.saveButton);
-        for(let i=0;i<this.obstaclesAvailable.length;i++){
+        for (let i = 0; i < this.obstaclesAvailable.length; i++) {
             this.obstaclesAvailable[i].visible = false;
         }
         this.continue();
@@ -174,18 +183,24 @@ class MyGame {
      * Updates the scene
      */
     update() {
-        if(this.gameOver){
+        if (this.started || this.paused) {
+            this.powerUps.update();
+            this.obstacles.update();
+        }
+        if (this.gameOver) {
             this.logic.state = "gameOver";
             return;
         }
         this.car.update();
         this.automaticVehicle.update();
 
+        if (this.app.activeCameraName === "followCar")
+            this.updateCameraFollow();
         if (this.app.activeCameraName === "car")
             this.updateCamera();
     }
 
-    updateCamera() {
+    updateCameraFollow() {
         // Set the camera position to follow the car
         const offset = new THREE.Vector3(0, 70, -120);
         const carPosition = this.car.car.position.clone();
@@ -197,6 +212,21 @@ class MyGame {
         this.app.activeCamera.position.copy(carPosition.add(offset));
 
         // Set the camera to look at the car
+        this.app.activeCamera.lookAt(this.car.car.position);
+        this.app.controls.target = this.car.car.position;
+    }
+
+    updateCamera() {
+        // Set the camera position to follow the car
+        const offset = new THREE.Vector3(90, 20, 0); // Adjusted offset for left side
+        const carPosition = this.car.car.position.clone();
+        const rotationMatrix = new THREE.Matrix4();
+        rotationMatrix.makeRotationY(this.car.rotation);
+
+        // Apply the rotation to the offset vector
+        offset.applyMatrix4(rotationMatrix);
+        this.app.activeCamera.position.copy(carPosition.add(offset));
+
         this.app.activeCamera.lookAt(this.car.car.position);
         this.app.controls.target = this.car.car.position;
     }
@@ -263,7 +293,7 @@ class MyGame {
 
     onClick() {
         if (this.selectedObstacle) {
-            if(!this.obstaclesList.includes(this.selectedObstacle)){
+            if (!this.obstaclesList.includes(this.selectedObstacle)) {
                 this.obstacles.addObstacle(this.selectedObstacle);
                 this.car.addObstacle(this.selectedObstacle);
             }
@@ -293,9 +323,9 @@ class MyGame {
                     // If no obstacle is selected, pick it up
                     this.selectedObstacle = obj;
                     this.selectedObstacle.position.y = 10; // Lift the obstacle above the ground
-                } 
-            }else if (this.obstaclesAvailable.includes(obj)) {
-                if(!this.selectedObstacle){
+                }
+            } else if (this.obstaclesAvailable.includes(obj)) {
+                if (!this.selectedObstacle) {
                     this.obstaclesList.push(obj);
                     let objClone = obj.clone();
                     this.app.scene.add(objClone);
@@ -335,9 +365,9 @@ class MyGame {
         this.raycaster.setFromCamera(this.pointer, this.app.activeCamera);
 
         //3. compute intersections
-        var intersects = this.raycaster.intersectObjects(this.app.scene.children);
+        var intersects2 = this.raycaster.intersectObjects(this.pickableObj);
 
-        this.pickingHelper(intersects)
+        this.pickingHelper(intersects2)
     }
 
     /*
@@ -350,10 +380,10 @@ class MyGame {
             if (this.pickableObj.includes(obj)) {
                 this.changeColorOfFirstPickedObj(obj)
             }
-            else {
-                this.restoreColorOfFirstPickedObj()
-            }
-        } 
+        }
+        else {
+            this.restoreColorOfFirstPickedObj()
+        }
     }
 
     /*

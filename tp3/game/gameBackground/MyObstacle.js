@@ -1,4 +1,7 @@
 import * as THREE from 'three';
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { MyShader } from '../MyShader.js';
+
 
 class MyObstacle {
 
@@ -21,67 +24,182 @@ class MyObstacle {
         this.obstaclesObject = new Map();
         this.obstaclesAvailableObject = new Map();
 
+        this.garlicTexture= new THREE.TextureLoader().load('models/garlic/garlic.jpg');
+        this.garlicShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+            time: { type: 'f', value: 0.0 },
+            uSampler: { type: 'sampler2D', value: this.garlicTexture },
+        })
+
+        
+        this.tomatoTexture= new THREE.TextureLoader().load('models/tomato/tomato.jpg');
+        this.tomatoShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+            time: { type: 'f', value: 0.0 },
+            uSampler: { type: 'sampler2D', value: this.tomatoTexture },
+        })
+
+        this.potatoTexture= new THREE.TextureLoader().load('models/potato/potato.jpg');
+        this.potatoShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+            time: { type: 'f', value: 0.0 },
+            uSampler: { type: 'sampler2D', value: this.potatoTexture },
+        })
+
+
+        this.materialList = []
+        this.loadedObjects = 0;
+        this.loadedObjectsAvailable = 0;
+
 
     }
 
     addObstacle(obstacle){
-        console.log("addObstacle");
         this.obstaclesObject.set(obstacle, obstacle.name);
+        switch (obstacle.name) {
+            case "VELOCITY":
+                let material = this.garlicShader.material;
+                this.materialList.push(material);
+                obstacle.material = material;
+                break;
+            case "CONFUSED":
+                let material1 = this.potatoShader.material;
+                this.materialList.push(material1);
+                obstacle.material = material1;
+                break;
+            case "SLIPPERY":
+                let material2 = this.tomatoShader.material;
+                this.materialList.push(material2);
+                obstacle.material = material2;
+                break;
+        }
     }
 
     drawObstaclesPark(value) {
         if(value===1){
             for (let i = 0; i < this.obstacleAvailable1.length; i++) {
-                let obstacle = this.drawObstacle(this.obstacleAvailable1[i], false);
-                this.obstaclesAvailableObject.set(obstacle, this.obstacleAvailable1[i].type);
+                this.drawObstaclePark(this.obstacleAvailable1[i], false);
             }
         }
     }
 
     drawObstacles(value) {
-        console.log("drawObstacles");
         if (value === 1) {
             this.obstacles=this.obstacle1;
         }
         for (let i = 0; i < this.obstacles.length; i++) {
-            let obstacle = this.drawObstacle(this.obstacles[i]);
-            this.obstaclesObject.set(obstacle, this.obstacles[i].type);
+            this.drawObstacle(this.obstacles[i]);
         }
     }
+
 
     drawObstacle(obstacle, visible=true){
         switch (obstacle.type) {
             case "VELOCITY":
-                console.log("velocity");
-                let geometry = new THREE.BoxGeometry( 4, 4, 4 );
-                let material = new THREE.MeshBasicMaterial( {color: 0xf0ff00} );
-                let cube = new THREE.Mesh( geometry, material );
-                cube.position.set(obstacle.key.x, obstacle.key.y, obstacle.key.z);
-                cube.position.add(this.position);
-                cube.name="VELOCITY";
-                cube.visible=visible;
-                this.app.scene.add(cube);
-                return cube;
+                let garlic = new OBJLoader();
+                garlic.load('models/garlic/garlic.obj', (loaded) => {
+                    let object = loaded.children[0];
+                    let material = this.garlicShader.material;
+                    object.material = material;
+                    this.materialList.push(material);
+                    object.scale.set(0.2, 0.2, 0.2);
+                    object.position.set(obstacle.key.x, obstacle.key.y+2, obstacle.key.z);
+                    object.position.add(this.position);
+                    object.name="VELOCITY";
+                    object.visible=visible;
+                    this.app.scene.add(object);
+                    this.obstaclesObject.set(object, obstacle.type);
+                    this.loadedObjects++;
+                });
+                break;
             case "CONFUSED":
-                let geometry2 = new THREE.BoxGeometry( 4, 4, 4 );
-                let material2 = new THREE.MeshBasicMaterial( {color: 0xff0f0f} );
-                let cube2 = new THREE.Mesh( geometry2, material2 );
-                cube2.position.set(obstacle.key.x, obstacle.key.y, obstacle.key.z);
-                cube2.position.add(this.position);
-                cube2.name="CONFUSED";
-                cube2.visible=visible;
-                this.app.scene.add(cube2);
-                return cube2;
+                let potato = new OBJLoader();
+                potato.load('models/potato/potato.obj', (loaded) => {
+                    let object = loaded.children[0];
+                    object.rotation.x=-Math.PI/2;
+                    let material = this.potatoShader.material;
+                    object.material = material;
+                    this.materialList.push(material);
+                    object.scale.set(2, 2, 2);
+                    object.position.set(obstacle.key.x, obstacle.key.y+2, obstacle.key.z);
+                    object.position.add(this.position);
+                    object.visible=visible;
+                    object.name="CONFUSED";
+                    this.app.scene.add(object);
+                    this.obstaclesObject.set(object, obstacle.type);
+                    this.loadedObjects++;
+                });
+                break;
             case "SLIPPERY":
-                let geometry3 = new THREE.BoxGeometry( 4, 4, 4 );
-                let material3 = new THREE.MeshBasicMaterial( {color: 0x30f33f} );
-                let cube3 = new THREE.Mesh( geometry3, material3 );
-                cube3.position.set(obstacle.key.x, obstacle.key.y, obstacle.key.z);
-                cube3.position.add(this.position);
-                cube3.name="SLIPPERY";
-                cube3.visible=visible;
-                this.app.scene.add(cube3);
-                return cube3;
+                let tomato = new OBJLoader();
+                tomato.load('models/tomato/tomato.obj', (loaded) => {
+                    let object = loaded.children[0];
+                    object.rotation.x=-Math.PI/2;
+                    let material = this.tomatoShader.material;
+                    object.material = material;
+                    this.materialList.push(material);
+                    object.scale.set(2, 2, 2);
+                    object.position.set(obstacle.key.x, obstacle.key.y+2, obstacle.key.z);
+                    object.position.add(this.position);
+                    object.visible=visible;
+                    object.name="SLIPPERY";
+                    this.app.scene.add(object);
+                    this.obstaclesObject.set(object, obstacle.type);
+                    this.loadedObjects++;
+                });
+                break;
+        }
+    }
+
+    drawObstaclePark(obstacle, visible=true){
+        switch (obstacle.type) {
+            case "VELOCITY":
+                let garlic = new OBJLoader();
+                garlic.load('models/garlic/garlic.obj', (loaded) => {
+                    let object = loaded.children[0];
+                    let material = new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.garlicTexture});
+                    object.material = material;
+                    object.scale.set(0.2, 0.2, 0.2);
+                    object.position.set(obstacle.key.x, obstacle.key.y+2, obstacle.key.z);
+                    object.position.add(this.position);
+                    object.visible=visible;
+                    object.name="VELOCITY";
+                    this.app.scene.add(object);
+                    this.obstaclesAvailableObject.set(object, obstacle.type);
+                    this.loadedObjectsAvailable++;
+                });
+                break;
+            case "CONFUSED":
+                let potato = new OBJLoader();
+                potato.load('models/potato/potato.obj', (loaded) => {
+                    let object = loaded.children[0];
+                    object.rotation.x=-Math.PI/2;
+                    let material = new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.potatoTexture});
+                    object.material = material;
+                    object.scale.set(2, 2, 2);
+                    object.position.set(obstacle.key.x, obstacle.key.y+2, obstacle.key.z);
+                    object.position.add(this.position);
+                    object.visible=visible;
+                    object.name="CONFUSED";
+                    this.app.scene.add(object);
+                    this.obstaclesAvailableObject.set(object, obstacle.type);
+                    this.loadedObjectsAvailable++;
+                });
+                break;
+            case "SLIPPERY":
+                let tomato = new OBJLoader();
+                tomato.load('models/tomato/tomato.obj', (loaded) => {
+                    let object = loaded.children[0];
+                    object.rotation.x=-Math.PI/2;
+                    let material = new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.tomatoTexture});
+                    object.material = material;
+                    object.scale.set(2, 2, 2);
+                    object.position.set(obstacle.key.x, obstacle.key.y+2, obstacle.key.z);
+                    object.position.add(this.position);
+                    object.visible=visible;
+                    object.name="SLIPPERY";
+                    this.app.scene.add(object);
+                    this.obstaclesAvailableObject.set(object, obstacle.type);
+                    this.loadedObjectsAvailable++;
+                });
+                break;
         }
     }
 
@@ -110,21 +228,19 @@ class MyObstacle {
     }
 
     obstacleSlippery(){
-        const originalRotationScale = this.game.car.rotationScale;
 
         // Increase rotationScale
         this.game.car.rotateScale += 0.5;
-        console.log(this.game.car.rotateScale);
 
         setTimeout(() => {
-            this.game.car.rotationScale = originalRotationScale;
+            this.game.car.rotateScale -=0.5;
         }, 10000); // 10000 milliseconds = 10 seconds
     }
 
     activateObstacle(game, object){
         this.game = game;
         let obstacle = this.obstaclesObject.get(object);
-        console.log(obstacle);
+        console.log(obstacle)
         switch (obstacle) {
             case "VELOCITY":
                 this.obstacleVelocity();
@@ -140,6 +256,7 @@ class MyObstacle {
 
     getObstacles(){
         let keys = Array.from(this.obstaclesObject.keys());
+        console.log(this.obstaclesObject);
         return keys;
     }
 
@@ -155,6 +272,16 @@ class MyObstacle {
         }
         this.obstaclesObject.clear();
         this.obstaclesAvailableObject.clear();
+    }
+
+    update(){
+        for(let i=0;i<this.materialList.length;i++){
+            this.materialList[i].uniforms.time.value+=0.05;
+        }
+    }
+
+    getShaders(){
+        return [this.garlicShader, this.potatoShader, this.tomatoShader]
     }
 
 }

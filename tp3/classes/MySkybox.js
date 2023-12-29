@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { MyShader } from '../game/MyShader.js';
 
 class MySkybox {
     constructor(primitiveData) {
@@ -24,6 +25,7 @@ class MySkybox {
         // Create a cube geometry for the skybox
         const skyboxGeometry = new THREE.BoxGeometry(this.width, this.height, this.depth);
 
+
         const skyboxMaterials = [
             new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(this.textures.right), side: THREE.BackSide, color: this.emissive}),
             new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(this.textures.left), side: THREE.BackSide, color: this.emissive}),
@@ -36,6 +38,8 @@ class MySkybox {
         const skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterials);
         skybox.name="skybox";
         skybox.position.set(this.center[0], this.center[1], this.center[2]);
+
+
 
         return skybox;
     }

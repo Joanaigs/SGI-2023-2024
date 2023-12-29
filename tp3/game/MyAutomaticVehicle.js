@@ -64,7 +64,6 @@ class MyAutomaticVehicle {
              }else{
                 direction = new THREE.Vector3().subVectors(this.route[(i + 1) % this.route.length], this.route[i]).normalize();
              }
-             console.log(direction);
              // Calculate the quaternion based on the direction
              const quaternion = new THREE.Quaternion();
              quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), direction);
@@ -130,7 +129,6 @@ class MyAutomaticVehicle {
                 this.checkpointsCount.set(checkpoint, n+1);
                 this.checkPointCollided = true;
                 this.lastCheckpoint = checkpoint;
-                console.log("checkpoint: "+this.checkpointsCount.get(checkpoint));
                 this.checkEndGame();
             }
         }
