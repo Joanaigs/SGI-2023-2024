@@ -24,13 +24,11 @@ class MyVehicleObject extends THREE.Object3D {
             // Adjusting material properties
             this.car.traverse((child) => {
                 if (child.isMesh) {
-                    console.log(child.material.type)
                     // Check if the mesh has a material, if it's not a multi-material, and if its current color is red
                     if (child.material.name == "red") {
-                        console.log(child.material.color)
-                        child.material.color.set(0xffffff);
-                        child.material.emissive.set(0xFFBCF2 );
-                        child.material.shininess = 10;
+                        child.material.color.set(0xFFBCF2);
+                        child.material.emissive.set(0);
+                        child.material.shininess = 0;
                         child.material.side = THREE.DoubleSide;
                     }
                 }

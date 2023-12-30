@@ -126,12 +126,23 @@ class MyVehicle {
         if(this.wheelRotation < this.maxRotation){
             this.wheelRotation += this.rotateScale;
         }
+
+        if(this.wheelRotation < 0)
+            this.rotation += this.wheelRotation * this.rotateScale;
+        else if(this.wheelRotation > 0)
+            this.rotation -= this.wheelRotation * this.rotateScale;
+
     }
 
     right() {
         if(this.wheelRotation > this.minRotation){
             this.wheelRotation -= this.rotateScale;
         }
+
+        if(this.wheelRotation < 0)
+            this.rotation += this.wheelRotation * this.rotateScale;
+        else if(this.wheelRotation > 0)
+            this.rotation -= this.wheelRotation * this.rotateScale;
     }
 
     accelerate() {
@@ -159,30 +170,30 @@ class MyVehicle {
 
     update() {
         if (this.game.started || this.game.paused) {
+
+            const movementDirection = Math.sign(this.velocity);
+            const rotationSpeed = Math.abs(this.velocity) * 0.8;
+    
+            this.car.children[0].children.forEach(wheel => {
+                wheel.children.forEach(w => {
+                    w.rotation.y = this.wheelRotation;
+                    w.rotation.x += (movementDirection * Math.PI / 30) * rotationSpeed;
+                });
+            });
+    
+            this.car.rotation.y = this.rotation;
             const deltaPosition = new THREE.Vector3(
-                this.velocity * Math.sin(this.rotation),
+                this.velocity * Math.sin(this.car.rotation.y),
                 0,
-                this.velocity * Math.cos(this.rotation)
+                this.velocity * Math.cos(this.car.rotation.y)
             );
             this.car.position.add(deltaPosition);
-            this.car.rotation.y = this.wheelRotation;
          
             if (this.velocity != 0) {
                 this.checkCollisions(this.obstacles, this.powerUps);
             }
         }
     
-        const movementDirection = Math.sign(this.velocity);
-        const rotationSpeed = Math.abs(this.velocity) * 0.8;
-    
-        
-        this.car.children[0].children.forEach(wheel => {
-            wheel.children.forEach(w => {
-               
-                w.rotation.y = this.wheelRotation;
-                w.rotation.x += (movementDirection * Math.PI / 30) * rotationSpeed;
-            });
-        });
         
     }
     

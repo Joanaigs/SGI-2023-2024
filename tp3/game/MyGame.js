@@ -88,7 +88,7 @@ class MyGame {
         this.button.name = "startButton"
            
         this.startWord = this.myFont.getWord("START");
-        console.log(this.startWord)
+
         this.startWord.position.set(this.startPosition.x + 10, 20, this.startPosition.z-10);
         this.startWord.rotation.y = Math.PI;
 
