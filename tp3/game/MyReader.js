@@ -120,8 +120,7 @@ class MyReader {
         this.checkpoints.drawCheckpoints();
 
         //uncomment and remove last line
-        //this.waitForObstacles();
-        this.backgroundLoaded = true;
+        this.waitForPowerUps();
 
 
     }

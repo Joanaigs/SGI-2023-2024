@@ -20,8 +20,7 @@ class MyGame {
         this.logic = logic;
         this.app = logic.app
         this.scaleTrack = 50;
-        this.startTime = Date.now();
-        this.penalties = 0;
+        this.penalties = -1;
         this.position = new THREE.Vector3(-100, 0, -100);
         this.startPosition = new THREE.Vector3(8 * this.scaleTrack + this.position.x, 0, 5.5 * this.scaleTrack + this.position.z);
 
@@ -63,8 +62,6 @@ class MyGame {
         document.addEventListener('keyup', this.onKeyUp.bind(this));
 
 
-        this.display = new MyDisplay(this, this.position);
-        this.app.scene.add(this.display);
 
 
     }
@@ -89,7 +86,8 @@ class MyGame {
            
         this.startWord = this.myFont.getWord("START");
         console.log(this.startWord)
-        this.startWord.position.set(this.startPosition.x + 10, 20, this.startPosition.z-10);
+        this.startWord.position.set(this.startPosition.x + 10, 15, this.startPosition.z-1);
+        this.startWord.scale.set(3, 3, 3);
         this.startWord.rotation.y = Math.PI;
 
         this.app.scene.add(this.startWord);
@@ -103,6 +101,7 @@ class MyGame {
         let indexToRemove = this.pickableObj.indexOf(this.button);
         this.pickableObj.splice(indexToRemove, 1);
         this.app.scene.remove(this.button);
+        this.app.scene.remove(this.startWord);
         this.semaphoreGeometry = new THREE.CylinderGeometry(2, 2, 0.5, 32);
         this.semaphoreMaterial = new THREE.MeshBasicMaterial({ color: this.semaphoreColors[0] });
         this.semaphore = new THREE.Mesh(this.semaphoreGeometry, this.semaphoreMaterial);
@@ -130,7 +129,11 @@ class MyGame {
 
 
     start() {
+        this.display = new MyDisplay(this, this.position);
+        this.startTime = Date.now();
         this.automaticVehicle.start()
+
+
 
 
     }
@@ -186,6 +189,9 @@ class MyGame {
         if (this.started || this.paused) {
             this.powerUps.update();
             this.obstacles.update();
+            //time in format mm:ss
+            let time = Math.floor((Date.now() - this.startTime) / 1000);
+            this.display.update(time, this.car.laps, this.car.maxVelocity, this.penalties);
         }
         if (this.gameOver) {
             this.logic.state = "gameOver";
@@ -202,7 +208,7 @@ class MyGame {
 
     updateCameraFollow() {
         // Set the camera position to follow the car
-        const offset = new THREE.Vector3(0, 70, -120);
+        const offset = new THREE.Vector3(0, 20, -50);
         const carPosition = this.car.car.position.clone();
         const rotationMatrix = new THREE.Matrix4();
         rotationMatrix.makeRotationY(this.car.rotation);
@@ -212,8 +218,8 @@ class MyGame {
         this.app.activeCamera.position.copy(carPosition.add(offset));
 
         // Set the camera to look at the car
-        this.app.activeCamera.lookAt(this.car.car.position);
-        this.app.controls.target = this.car.car.position;
+        this.app.activeCamera.lookAt(this.car.car.position.clone());
+        this.app.controls.target = this.car.car.position.clone();
     }
 
     updateCamera() {
@@ -227,8 +233,8 @@ class MyGame {
         offset.applyMatrix4(rotationMatrix);
         this.app.activeCamera.position.copy(carPosition.add(offset));
 
-        this.app.activeCamera.lookAt(this.car.car.position);
-        this.app.controls.target = this.car.car.position;
+        this.app.activeCamera.lookAt(this.car.car.position.clone());
+        this.app.controls.target = this.car.car.position.clone();
     }
 
     onKeyDown(event) {

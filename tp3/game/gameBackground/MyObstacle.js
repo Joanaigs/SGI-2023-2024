@@ -24,10 +24,10 @@ class MyObstacle {
         this.obstaclesObject = new Map();
         this.obstaclesAvailableObject = new Map();
 
-        this.garlicTexture= new THREE.TextureLoader().load('models/garlic/garlic.jpg');
-        this.garlicShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+        this.cabbageTexture= new THREE.TextureLoader().load('models/cabbage/cabbage.jpg');
+        this.cabbageShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
-            uSampler: { type: 'sampler2D', value: this.garlicTexture },
+            uSampler: { type: 'sampler2D', value: this.cabbageTexture },
         })
 
         
@@ -37,7 +37,7 @@ class MyObstacle {
             uSampler: { type: 'sampler2D', value: this.tomatoTexture },
         })
 
-        this.potatoTexture= new THREE.TextureLoader().load('models/potato/potato.jpg');
+        this.potatoTexture= new THREE.TextureLoader().load('models/potato/potato.png');
         this.potatoShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.potatoTexture },
@@ -55,7 +55,7 @@ class MyObstacle {
         this.obstaclesObject.set(obstacle, obstacle.name);
         switch (obstacle.name) {
             case "VELOCITY":
-                let material = this.garlicShader.material;
+                let material = this.cabbageShader.material;
                 this.materialList.push(material);
                 obstacle.material = material;
                 break;
@@ -93,13 +93,14 @@ class MyObstacle {
     drawObstacle(obstacle, visible=true){
         switch (obstacle.type) {
             case "VELOCITY":
-                let garlic = new OBJLoader();
-                garlic.load('models/garlic/garlic.obj', (loaded) => {
+                let cabbage = new OBJLoader();
+                cabbage.load('models/cabbage/cabbage.obj', (loaded) => {
                     let object = loaded.children[0];
-                    let material = this.garlicShader.material;
+                    let material = this.cabbageShader.material;
                     object.material = material;
                     this.materialList.push(material);
                     object.scale.set(0.2, 0.2, 0.2);
+                    object.rotation.x=-Math.PI/2;
                     object.position.set(obstacle.key.x, obstacle.key.y+2, obstacle.key.z);
                     object.position.add(this.position);
                     object.name="VELOCITY";
@@ -135,7 +136,6 @@ class MyObstacle {
                     let material = this.tomatoShader.material;
                     object.material = material;
                     this.materialList.push(material);
-                    object.scale.set(2, 2, 2);
                     object.position.set(obstacle.key.x, obstacle.key.y+2, obstacle.key.z);
                     object.position.add(this.position);
                     object.visible=visible;
@@ -151,14 +151,15 @@ class MyObstacle {
     drawObstaclePark(obstacle, visible=true){
         switch (obstacle.type) {
             case "VELOCITY":
-                let garlic = new OBJLoader();
-                garlic.load('models/garlic/garlic.obj', (loaded) => {
+                let cabbage = new OBJLoader();
+                cabbage.load('models/cabbage/cabbage.obj', (loaded) => {
                     let object = loaded.children[0];
-                    let material = new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.garlicTexture});
+                    let material = new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.cabbageTexture});
                     object.material = material;
                     object.scale.set(0.2, 0.2, 0.2);
                     object.position.set(obstacle.key.x, obstacle.key.y+2, obstacle.key.z);
                     object.position.add(this.position);
+                    object.rotation.x=-Math.PI/2;
                     object.visible=visible;
                     object.name="VELOCITY";
                     this.app.scene.add(object);
@@ -190,7 +191,6 @@ class MyObstacle {
                     object.rotation.x=-Math.PI/2;
                     let material = new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.tomatoTexture});
                     object.material = material;
-                    object.scale.set(2, 2, 2);
                     object.position.set(obstacle.key.x, obstacle.key.y+2, obstacle.key.z);
                     object.position.add(this.position);
                     object.visible=visible;
@@ -204,27 +204,20 @@ class MyObstacle {
     }
 
     obstacleVelocity(){
-        const originalMaxVelocity = this.game.car.maxVelocity;
-        const originalVelocity = this.game.car.velocity;
+        this.originalMaxVelocity = this.game.car.maxVelocity;
+        this.originalVelocity = this.game.car.velocity;
     
         // Increase velocity and maxVelocity
         this.game.car.velocity -= 0.5;
         this.game.car.maxVelocity -= 0.5;
-        console.log(this.game.car.velocity);
     
         // Set a timeout to revert the changes after 10 seconds
-        setTimeout(() => {
-            this.game.car.maxVelocity = originalMaxVelocity;
-            this.game.car.velocity = originalVelocity;
-        }, 10000); // 10000 milliseconds = 10 seconds
+        this.velocityTimeout = Date.now() + 10000;
     }
 
     obstacleConfused(){
         this.game.car.confused = true;
-        setTimeout(() => {
-            this.game.car.confused = false;
-        }, 10000); // 10000 milliseconds = 10 seconds
-
+        this.confusedTimeout = Date.now() + 10000;
     }
 
     obstacleSlippery(){
@@ -232,9 +225,8 @@ class MyObstacle {
         // Increase rotationScale
         this.game.car.rotateScale += 0.5;
 
-        setTimeout(() => {
-            this.game.car.rotateScale -=0.5;
-        }, 10000); // 10000 milliseconds = 10 seconds
+        // Set a timeout to revert the changes after 10 seconds
+        this.slipperyTimeout = Date.now() + 10000;
     }
 
     activateObstacle(game, object){
@@ -278,10 +270,24 @@ class MyObstacle {
         for(let i=0;i<this.materialList.length;i++){
             this.materialList[i].uniforms.time.value+=0.05;
         }
+
+        if(this.velocityTimeout && Date.now() > this.velocityTimeout){
+            this.game.car.maxVelocity = this.originalMaxVelocity;
+            this.game.car.velocity = this.originalVelocity;
+            this.velocityTimeout = null;
+        }
+        if(this.confusedTimeout && Date.now() > this.confusedTimeout){
+            this.game.car.confused = false;
+            this.confusedTimeout = null;
+        }
+        if(this.slipperyTimeout && Date.now() > this.slipperyTimeout){
+            this.game.car.rotateScale -= 0.5;
+            this.slipperyTimeout = null;
+        }
     }
 
     getShaders(){
-        return [this.garlicShader, this.potatoShader, this.tomatoShader]
+        return [this.cabbageShader, this.potatoShader, this.tomatoShader]
     }
 
 }

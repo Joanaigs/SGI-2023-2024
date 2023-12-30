@@ -16,8 +16,8 @@
         target="100 0 200" />
         <perspective id="car" angle="1.26" near="0.1" far="5000" location="400 10 300"
         target="75 0 300" />
-        <perspective id="followCar" angle="1.047" near="0.1" far="5000" location="100 700 200"
-        target="75 0 300" />
+        <perspective id="followCar" angle="1.047" near="0.1" far="5000" location="310 20 100"
+        target="310 0 150" />
         <perspective id="frontHouse" angle="1.047" near="0.1" far="5000" location="130 10 -25"
             target="50 10 -25" />
     </cameras>

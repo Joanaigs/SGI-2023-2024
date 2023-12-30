@@ -7,7 +7,7 @@ class MyFont extends THREE.Object3D {
     }
 
 
-    getWord(word){
+    getWord(word, color = 0xffffff){
         let wordMesh = new THREE.Group();
         for (let i = 0; i < word.length; i++) {
             let letter = this.getCharFrame(word[i]);
@@ -21,13 +21,13 @@ class MyFont extends THREE.Object3D {
 
 
             let plane = new THREE.PlaneGeometry(1, 1);
-            let sprite = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({ map: letterTexture, color: 0xffffff, transparent: true }));
-            sprite.position.set(i*20, 0, 0);
-            sprite.scale.set(10, 10, 10);
+            let sprite = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({ map: letterTexture, color: color, transparent: true }));
+            sprite.position.set(i, 0, 0);
             wordMesh.add(sprite);
         }
         return wordMesh;
     }
+
 
     getCharFrame(c) {
         // Define the properties for each character frame (adjust as needed)
@@ -40,7 +40,6 @@ class MyFont extends THREE.Object3D {
         const charCode = c.charCodeAt(0);
         const offsetX = (charCode % framesX  ) * frameWidth;
         const offsetY = Math.floor(charCode / framesY +1) * frameHeight;
-        console.log(offsetX, offsetY);
 
         return { offsetX, offsetY};
     }

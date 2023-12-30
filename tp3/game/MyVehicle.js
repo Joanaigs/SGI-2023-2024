@@ -12,6 +12,7 @@ class MyVehicle {
 
         this.game = game
         this.rotation = 0;
+        this.laps=0;
         this.rotateScale = 0.1;
         this.velocity = 0;
         this.acceleration = 0.1;
@@ -97,9 +98,19 @@ class MyVehicle {
                 this.lastCheckpoint = checkpoint;
                 console.log("checkpoint: " + this.checkpointsCount.get(checkpoint));
                 this.checkEndGame();
+                this.updateNumberOfLaps();
             }
         }
 
+    }
+    updateNumberOfLaps(){
+        let min = 5;
+        for(let i = 0; i < this.checkPoints.length; i++){
+            if(this.checkpointsCount.get(this.checkPoints[i]) < min){
+                min = this.checkpointsCount.get(this.checkPoints[i]);
+            }
+        }
+        this.laps = min;
     }
     checkEndGame() {
         for (let i = 0; i < this.checkPoints.length; i++) {
@@ -131,6 +142,9 @@ class MyVehicle {
         if (this.velocity < this.maxVelocity) {
             this.velocity += this.acceleration;
         }
+        if(this.velocity>=this.maxVelocity){
+            this.velocity=this.maxVelocity;
+        }
     }
 
     brake() {
@@ -161,6 +175,9 @@ class MyVehicle {
             this.car.rotation.y = this.rotation;
             if (this.velocity != 0) {
                 this.checkCollisions(this.obstacles, this.powerUps);
+            }
+            if(this.velocity>this.maxVelocity){
+                this.velocity=this.maxVelocity;
             }
         }
     
