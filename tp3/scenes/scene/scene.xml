@@ -14,6 +14,8 @@
     <cameras initial="main">
         <perspective id="main" angle="1.047" near="0.1" far="5000" location="100 700 200"
         target="100 0 200" />
+        <perspective id="playerGarage" angle="1.047" near="0.1" far="1000" location="-3000 249 -3000"
+        target="50 10 -25" />
         <perspective id="car" angle="1.26" near="0.1" far="5000" location="400 10 300"
         target="75 0 300" />
         <perspective id="followCar" angle="1.047" near="0.1" far="5000" location="310 20 100"

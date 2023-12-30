@@ -5,6 +5,8 @@ import { MyObstacle } from './gameBackground/MyObstacle.js';
 import { MyVehicleObject } from './MyVehicleObject.js';
 import { MyRoute } from './MyRoute.js';
 import { MyCheckpoints } from './MyCheckpoints.js';
+import { MySkybox } from '../classes/MySkybox.js';
+import { MyPark } from './MyPark.js';
 import { MyShader } from './MyShader.js';
 /**
  *  This class contains the contents of out application
@@ -71,6 +73,7 @@ class MyReader {
         }
         console.log("shaders loaded");
         this.initBackgroud();
+        this.initPlayerPark();
     }
 
     waitForPowerUps() {
@@ -132,7 +135,29 @@ class MyReader {
         this.car1=new MyVehicleObject();
         this.car2=new MyVehicleObject();
         this.cutPath.visible = false;
+    }
 
+    initPlayerPark(){
+        // Existing code for creating the first skybox
+        const skyboxData1 = {
+            size: [1000, 249, 1000],
+            center: [-2500, 249, -2500],
+            emissive: 0xffffff,
+            intensity: 2.0,
+            up: './textures/up.jpg',
+            down: './textures/dn.jpg',
+            back: './textures/bk.jpg',
+            left: './textures/lf.jpg',
+            front: './textures/ft.jpg',
+            right: './textures/rt.jpg',
+        };
+
+        const skybox1 = new MySkybox(skyboxData1);
+        const skyboxMesh1 = skybox1.addSkybox();
+        this.app.scene.add(skyboxMesh1);
+        
+        const playerPark = new MyPark();
+        this.app.scene.add(playerPark.buildPlayerPark());
     }
 
     update(){
