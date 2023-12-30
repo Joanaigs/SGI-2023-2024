@@ -118,7 +118,11 @@ class MyReader {
         this.car1 = new MyVehicleObject();
         this.car2 = new MyVehicleObject();
         this.checkpoints.drawCheckpoints();
-        this.waitForObstacles();
+
+        //uncomment and remove last line
+        //this.waitForObstacles();
+        this.backgroundLoaded = true;
+
 
     }
 
