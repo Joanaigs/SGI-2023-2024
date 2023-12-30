@@ -7,6 +7,7 @@ import { MyRoute } from './MyRoute.js';
 import { MyAutomaticVehicle } from './MyAutomaticVehicle.js';
 import { MyDisplay } from './MyDisplay.js';
 import { MyFont } from './MyFont.js';
+import { MyOutdoor } from './MyOutdoor.js';
 /**
  *  This class contains the contents of out application
  */
@@ -32,7 +33,7 @@ class MyGame {
         this.checkpoints = checkpoints;
         this.numberOfLaps = 3;
         this.car = new MyVehicle(this, this.position, new THREE.Vector3(8.2 * this.scaleTrack, 0, 5 * this.scaleTrack), car);
-        this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(7.8 * this.scaleTrack, 0, 5 * this.scaleTrack), this.routes.getRoutes(1), enemyCar);
+        this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(7.8 * this.scaleTrack, 0, 5 * this.scaleTrack), this.routes.getRoutes(3), enemyCar);
         this.gameOver = false;
         this.started = false;
         this.semaphoreColors = [0xff0000, 0xffff00, 0x00ff00]; // Red, Yellow, Gree
@@ -47,7 +48,8 @@ class MyGame {
         this.pickableObj = []
         this.paused = false
         this.selectedObstacle = null;
-
+        this.outdoor = new MyOutdoor(this.app, new THREE.Vector3(80, 2, 240));
+        this.app.scene.add(this.outdoor);
 
         this.createStartButton();
         this.pickingColor = "0x00ff00"
@@ -185,6 +187,8 @@ class MyGame {
      * Updates the scene
      */
     update() {
+        this.outdoor.update();
+
         if (this.started || this.paused) {
             this.powerUps.update();
             this.obstacles.update();

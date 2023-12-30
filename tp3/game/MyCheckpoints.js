@@ -14,22 +14,14 @@ class MyCheckpoints {
             new THREE.Vector3(8 * scale + position.x, 0, 5.5 * scale + position.z),//start
             new THREE.Vector3(8 * scale + position.x, 0, 8 * scale + position.z),
             new THREE.Vector3(7* scale + position.x, 0, 13.5* scale + position.z),
-            new THREE.Vector3(4* scale + position.x, 0, 9.5* scale + position.x),
             new THREE.Vector3(1.5* scale + position.x, 0, 16* scale + position.x),
             new THREE.Vector3(-0.6* scale + position.x, 0, 10* scale + position.x),
             new THREE.Vector3(2* scale + position.x, 0, 5* scale + position.x),
-            new THREE.Vector3(3.5* scale + position.x, 0, 6* scale + position.x),
             new THREE.Vector3(5* scale + position.x, 0, 4.5* scale + position.x),
             new THREE.Vector3(3* scale + position.x, 0, 2.8* scale + position.x),
             new THREE.Vector3(0* scale + position.x, 0, 0* scale + position.x),
             new THREE.Vector3(6* scale + position.x, 0, 1* scale + position.x),
             new THREE.Vector3(8* scale + position.x, 0, 2* scale + position.x),
-
-
-
-
-
-
 
         ]
         this.checkpoint1Rotation = [
@@ -37,10 +29,8 @@ class MyCheckpoints {
             0,
             Math.PI / 2,
             Math.PI / 2,
-            Math.PI / 2,
             0,
             Math.PI / 2, 
-            Math.PI / 2,
             0,
             Math.PI / 2,
             -Math.PI / 4,

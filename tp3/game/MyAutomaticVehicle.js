@@ -33,6 +33,7 @@ class MyAutomaticVehicle {
         for(let i = 0; i < this.checkPoints.length; i++){
             this.checkpointsCount.set(this.checkPoints[i], 0);
         }
+        this.debugKeyFrames()
     }
 
     start() {

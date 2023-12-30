@@ -5,12 +5,11 @@ class MyTrack {
      * Constructs the object
      * @param {MyApp} app The application object
      */
-    constructor(app, size, width, position, material) {
+    constructor(app, size, width, position) {
         this.app = app;
         this.position = position;
         let i = size;
         this.width = width;
-        this.material = material;
         this.track1 = new THREE.CatmullRomCurve3([
             new THREE.Vector3(8 * i, 0, i * 5), //start
             new THREE.Vector3(8 * i, 0, i * 4),
@@ -66,13 +65,15 @@ class MyTrack {
         return [0, uvScale, 0.5, uvScale, 1, uvScale];
     }
 
-    drawTrack(track) {
+    drawTrack(track, material) {
         this.nextUvScale = 0;
+        this.material = material;
         if (track === 1) {
             this.path = this.track1;
         }
         if (track === "Cut") {
             this.path = this.trackCut;
+            this.position.y -= 0.35;
         }
 
         let points = this.path.getPoints(this.segments);
