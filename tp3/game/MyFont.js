@@ -22,8 +22,7 @@ class MyFont extends THREE.Object3D {
 
             let plane = new THREE.PlaneGeometry(1, 1);
             let sprite = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({ map: letterTexture, color: 0xffffff, transparent: true }));
-            sprite.position.set(i*20, 0, 0);
-            sprite.scale.set(10, 10, 10);
+            sprite.position.set(i, 0, 0);
             wordMesh.add(sprite);
         }
         return wordMesh;
