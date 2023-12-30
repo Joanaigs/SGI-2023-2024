@@ -13,12 +13,12 @@ class MyVehicle {
         this.game = game
         this.rotation = 0;
         this.wheelRotation = 0;
-        this.maxRotation = 0.6;
+        this.maxRotation = 0.6
         this.minRotation = -0.6;
         this.rotateScale = 0.1;
         this.velocity = 0;
         this.acceleration = 0.1;
-        this.maxVelocity = 1;
+        this.maxVelocity = 1.0;
         this.minVelocity = -0.5;
         this.confused = false;
         this.powerUps = this.game.powerUps.getPowerUps();
@@ -127,10 +127,8 @@ class MyVehicle {
             this.wheelRotation += this.rotateScale;
         }
 
-        if(this.wheelRotation < 0)
-            this.rotation += this.wheelRotation * this.rotateScale;
-        else if(this.wheelRotation > 0)
-            this.rotation -= this.wheelRotation * this.rotateScale;
+        if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06;
+
 
     }
 
@@ -139,10 +137,7 @@ class MyVehicle {
             this.wheelRotation -= this.rotateScale;
         }
 
-        if(this.wheelRotation < 0)
-            this.rotation += this.wheelRotation * this.rotateScale;
-        else if(this.wheelRotation > 0)
-            this.rotation -= this.wheelRotation * this.rotateScale;
+        if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06;
     }
 
     accelerate() {
