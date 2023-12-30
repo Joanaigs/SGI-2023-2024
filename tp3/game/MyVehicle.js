@@ -206,6 +206,7 @@ class MyVehicle {
         return false;
     }
 
+    /*
     checkCarPosition(carPosition) {
         const textureWidth = 411;
         const textureHeight = 700;
@@ -255,11 +256,13 @@ class MyVehicle {
             return false;
         }
     }
-    
+    */
 
+    /*
     checkInsideTrack(deltaPosition) {
         return this.checkCarPosition(deltaPosition);
     }
+    */
 }
     
     

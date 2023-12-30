@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { MyReader } from './MyReader.js';
 import { MyGame } from './MyGame.js';
+import { MyMenu } from './MyMenu.js';
 /**
  *  This class contains the contents of out application
  */
@@ -15,6 +16,7 @@ class MyGameLogic {
         this.previousState = null;
         this.myReader = new MyReader(this.app);
         this.waitForReader();
+        
     }
 
     waitForReader() {
@@ -26,12 +28,6 @@ class MyGameLogic {
         this.gameSates();
     }
 
-    menu() {
-
-        this.state = "game";
-
-
-    }
 
     gamePlay() {
         this.app.setActiveCamera("followCar");
@@ -44,7 +40,8 @@ class MyGameLogic {
     gameSates() {
         switch (this.state) {
             case "menu":
-                this.menu();
+                this.menu = new MyMenu(this.app);
+                this.state = "game";
                 break;
             case "game":
                 this.gamePlay();
