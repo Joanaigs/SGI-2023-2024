@@ -9,6 +9,10 @@ class MyMenu {
     constructor(app) {
         this.myFont = new MyFont();
         this.app = app;
+        this.input = null;
+        this.playerCar = null;
+        this.automaticCar = null;
+        this.difficulty = null;
         this.initMenuEnvironment();
         this.buildStartPage();
 
@@ -55,6 +59,7 @@ class MyMenu {
         const skybox2 = new MySkybox(skyboxData2);
         const skyboxMesh2 = skybox2.addSkybox();
         this.app.scene.add(skyboxMesh2);
+        this.createUsernameInput(true);
     }
 
     buildStartPage() {
@@ -101,15 +106,46 @@ class MyMenu {
 
     }
 
+    createUsernameInput(hidden) {
+        this.usernameInput = document.createElement("input");
+        this.usernameInput.setAttribute("type", "text");
+        this.usernameInput.setAttribute("id", "username");
+        this.usernameInput.setAttribute("name", "username");
+        this.usernameInput.setAttribute("maxlength", "20");
+        this.usernameInput.setAttribute("style", `
+            position: absolute;
+            top: 40%;
+            left: 40%;
+            width: 300px;
+            height: 80px;
+            font-size: 24px; /* Adjust the font size as needed */
+            outline: none;
+            visibility: ${hidden ? 'hidden' : 'visible'}; /* Initial visibility */
+        `);
+        document.body.appendChild(this.usernameInput);
+    }
+
 
     playerNamePage(){
         console.log("oi");
         this.app.scene.remove(this.menuGroup);
+        this.usernameInput.style.visibility = 'visible';
 
         const insertName = this.myFont.getWord("Insert Your Name"); // Assuming getWord is a method to create a 3D text object
         insertName.position.set(this.startButton.position.x + 8, this.startButton.position.y + 5, this.startButton.position.z);
         insertName.rotation.y = Math.PI;
 
+        const boxGeometry = new THREE.BoxGeometry(3, 1, 0.5); // Adjust the size as needed
+        const boxMaterial = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 });
+        this.continueButton = new THREE.Mesh(boxGeometry, boxMaterial);
+        this.continueButton.position.set(-1970, 246, -2490);
+
+        const continueWord = this.myFont.getWord("NEXT"); // Assuming getWord is a method to create a 3D text object
+        continueWord.position.set(this.startButton.position.x+0.9, this.startButton.position.y-3, this.startButton.position.z - 0.3);
+        continueWord.rotation.y = Math.PI;
+        continueWord.scale.set(0.6, 0.6, 0.6)
+
+        this.app.scene.add(this.continueButton, continueWord);
         this.app.scene.add(insertName);
     }
 }

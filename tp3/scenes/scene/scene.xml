@@ -24,8 +24,9 @@
             target="50 10 -25" />
         <perspective id="playerGarage2" angle="1.1" near="0.01" far="2000" location="-2585 176 -2678"
         target="-2300 176 -2300" />
-        <perspective id="rightWallCamera" angle="1.047" near="0.1" far="5000" location="-1975 249 -2500"
-            target="-1975 249 -2300" />
+        <perspective id="rightWallCamera" angle="1.047" near="0.1" far="5000" location="-1971 249 -2510"
+            target="-1971 249 -2500" />
+
     </cameras>
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas
