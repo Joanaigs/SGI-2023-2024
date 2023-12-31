@@ -16,7 +16,7 @@ class MyPowerUps {
             { key: new THREE.Vector3(0.3 * this.scale, 0, this.scale * 15), type: "VELOCITY" },
             { key: new THREE.Vector3(8 * this.scale, 0, this.scale * 3), type: "VELOCITY" },
             { key: new THREE.Vector3(4.5 * this.scale, 0, this.scale * 5.5), type: "TIME" },
-            { key: new THREE.Vector3(0 * this.scale, 0, this.scale * 1), type: "CHANGE" },
+            { key: new THREE.Vector3(-0.2 * this.scale, 0, this.scale * 1), type: "CHANGE" },
 
         ]
         this.powerUpsObject = new Map();

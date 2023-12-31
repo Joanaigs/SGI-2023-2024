@@ -33,7 +33,7 @@ class MyGame {
         this.checkpoints = checkpoints;
         this.numberOfLaps = 3;
         this.car = new MyVehicle(this, this.position, new THREE.Vector3(8.2 * this.scaleTrack, 0, 5 * this.scaleTrack), car);
-        this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(7.8 * this.scaleTrack, 0, 5 * this.scaleTrack), this.routes.getRoutes(3), enemyCar);
+        this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(7.8 * this.scaleTrack, 0, 5 * this.scaleTrack), this.routes.getRoutes(2), enemyCar);
         this.gameOver = false;
         this.started = false;
         this.semaphoreColors = [0xff0000, 0xffff00, 0x00ff00]; // Red, Yellow, Gree
