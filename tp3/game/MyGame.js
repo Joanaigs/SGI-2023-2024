@@ -254,35 +254,6 @@ class MyGame {
 
     handleKeys() {
         if (this.started && !this.gameOver) {
-            if (!this.paused) {
-                if ((this.keysPressed['a'] || this.keysPressed['arrowleft']) && !(this.keysPressed['d'] || this.keysPressed['arrowright'])) {
-                    if (!this.car.confused)
-                        this.car.left();
-                    else
-                        this.car.right();
-                }
-
-                if (this.keysPressed['d'] || this.keysPressed['arrowright'] && !(this.keysPressed['a'] || this.keysPressed['arrowleft'])) {
-                    if (!this.car.confused)
-                        this.car.right();
-                    else
-                        this.car.left();
-                }
-
-                if (this.keysPressed['w'] || this.keysPressed['arrowup'] && !(this.keysPressed['s'] || this.keysPressed['arrowdown'])) {
-                    if (!this.car.confused)
-                        this.car.accelerate();
-                    else
-                        this.car.brake();
-                }
-
-                if (this.keysPressed['s'] || this.keysPressed['arrowdown'] && !(this.keysPressed['w'] || this.keysPressed['arrowup'])) {
-                    if (!this.car.confused)
-                        this.car.brake();
-                    else
-                        this.car.accelerate();
-                }
-            }
             if (this.keysPressed[' ']) {
                 if (this.paused) {
                     this.continue();
