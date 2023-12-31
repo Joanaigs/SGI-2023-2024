@@ -137,18 +137,12 @@ class MyVehicle {
         if(this.wheelRotation < this.maxRotation){
             this.wheelRotation += this.rotateScale;
         }
-
-        if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06;
-
-
     }
 
     right() {
         if(this.wheelRotation > this.minRotation){
             this.wheelRotation -= this.rotateScale;
         }
-
-        if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06;
     }
 
     accelerate() {
@@ -158,12 +152,14 @@ class MyVehicle {
         if(this.velocity>=this.maxVelocity){
             this.velocity=this.maxVelocity;
         }
+        if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06;
     }
 
     brake() {
         if (this.velocity > this.minVelocity) {
             this.velocity -= this.acceleration;
         }
+        if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06;
     }
 
     pause() {
@@ -214,12 +210,12 @@ class MyVehicle {
             }
             if(!this.game.keysPressed['a'] && !this.game.keysPressed['arrowleft'] && !this.game.keysPressed['d'] && !this.game.keysPressed['arrowright']){
                 if(this.wheelRotation>0){
-                    this.wheelRotation-=0.03;
+                    this.wheelRotation-=0.1;
                 }
                 else if(this.wheelRotation<0){
-                    this.wheelRotation+=0.03;
+                    this.wheelRotation+=0.1;
                 }
-                if(this.wheelRotation < 0.03 || this.wheelRotation > -0.03) 
+                if(this.wheelRotation < 0.1 || this.wheelRotation > -0.1) 
                     this.wheelRotation = 0;
 
             }
@@ -262,7 +258,7 @@ class MyVehicle {
         
     }
     
-    
+
 
     checkIntersection(object1, object2) {
 
