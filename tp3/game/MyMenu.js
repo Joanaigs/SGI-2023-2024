@@ -13,6 +13,7 @@ class MyMenu {
         this.playerCar = null;
         this.automaticCar = null;
         this.difficulty = null;
+        this.clickableObjects = []
         this.initMenuEnvironment();
         this.buildStartPage();
         this.pressedButton = null;
@@ -33,7 +34,7 @@ class MyMenu {
         raycaster.setFromCamera(mouse, this.app.activeCamera);
 
         // Check for intersections with the button
-        const intersects = raycaster.intersectObject(this.startButton);
+        const intersects = raycaster.intersectObjects(this.clickableObjects);
         console.log(intersects);
 
         if (intersects.length > 0 && intersects[0].object) {
@@ -42,6 +43,7 @@ class MyMenu {
             } else if (intersects[0].object === this.nameButton) {
                 this.input = this.usernameInput.value;
                 console.log("User input:", this.input);
+                this.chooseDificultyPage();
             }
         }
     }
@@ -65,7 +67,7 @@ class MyMenu {
         const skybox2 = new MySkybox(skyboxData2);
         const skyboxMesh2 = skybox2.addSkybox();
         this.app.scene.add(skyboxMesh2);
-        //this.createUsernameInput(true);
+        this.createUsernameInput(true);
     }
 
     buildStartPage() {
@@ -74,6 +76,7 @@ class MyMenu {
         const boxMaterial = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 });
         this.startButton = new THREE.Mesh(boxGeometry, boxMaterial);
         this.startButton.position.set(-1970, 249, -2490);
+        this.clickableObjects.push(this.startButton);
 
 
         const startWord = this.myFont.getWord("START"); // Assuming getWord is a method to create a 3D text object
@@ -135,7 +138,7 @@ class MyMenu {
 
     playerNamePage(){
         this.app.scene.remove(this.menuGroup);
-        //this.usernameInput.style.visibility = 'visible';
+        this.usernameInput.style.visibility = 'visible';
 
         const insertName = this.myFont.getWord("Insert Your Name"); // Assuming getWord is a method to create a 3D text object
         insertName.position.set(this.startButton.position.x + 8, this.startButton.position.y + 5, this.startButton.position.z);
@@ -146,6 +149,7 @@ class MyMenu {
         this.nameButton = new THREE.Mesh(boxGeometry, boxMaterial);
         this.nameButton.position.set(-1970, 246, -2490);
         this.nameButton.name = "inputButton"
+        this.clickableObjects.push(this.nameButton);
 
 
         const continueWord = this.myFont.getWord("NEXT"); // Assuming getWord is a method to create a 3D text object
