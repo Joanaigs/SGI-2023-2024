@@ -16,7 +16,7 @@ class MyPowerUps {
             { key: new THREE.Vector3(0.3 * this.scale, 0, this.scale * 15), type: "VELOCITY" },
             { key: new THREE.Vector3(8 * this.scale, 0, this.scale * 3), type: "VELOCITY" },
             { key: new THREE.Vector3(4.5 * this.scale, 0, this.scale * 5.5), type: "TIME" },
-            { key: new THREE.Vector3(0 * this.scale, 0, this.scale * 1), type: "CHANGE" },
+            { key: new THREE.Vector3(-0.2 * this.scale, 0, this.scale * 1), type: "CHANGE" },
 
         ]
         this.powerUpsObject = new Map();
@@ -45,6 +45,7 @@ class MyPowerUps {
 
 
         this.materialList = []
+        this.timeout = 10000;
     }
 
     drawPowerUps(value) {
@@ -126,16 +127,14 @@ class MyPowerUps {
     }
 
     velocityPowerUp() {
-        const originalMaxVelocity = this.game.car.maxVelocity;
+        this.originalMaxVelocity = this.game.car.maxVelocity;
 
         // Increase velocity and maxVelocity
         this.game.car.velocity += 0.5;
         this.game.car.maxVelocity += 0.5;
 
         // Set a timeout to revert the changes after 10 seconds
-        setTimeout(() => {
-            this.game.car.maxVelocity = originalMaxVelocity;
-        }, 10000); // 10000 milliseconds = 10 seconds
+        this.velovityTimeout = Date.now() + 10000;
     }
 
     velocityCutPowerUp() {
@@ -186,6 +185,10 @@ class MyPowerUps {
     update(){
         for(let i=0;i<this.materialList.length;i++){
             this.materialList[i].uniforms.time.value+=0.05;
+        }
+        if(this.velovityTimeout && Date.now() > this.velovityTimeout){
+            this.game.car.maxVelocity = this.originalMaxVelocity
+            this.velovityTimeout = null;
         }
     }
 

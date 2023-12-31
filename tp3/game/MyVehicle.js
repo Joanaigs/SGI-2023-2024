@@ -12,6 +12,7 @@ class MyVehicle {
 
         this.game = game
         this.rotation = 0;
+        this.laps=0;
         this.wheelRotation = 0;
         this.maxRotation = 0.6
         this.minRotation = -0.6;
@@ -100,9 +101,19 @@ class MyVehicle {
                 this.lastCheckpoint = checkpoint;
                 console.log("checkpoint: " + this.checkpointsCount.get(checkpoint));
                 this.checkEndGame();
+                this.updateNumberOfLaps();
             }
         }
 
+    }
+    updateNumberOfLaps(){
+        let min = 5;
+        for(let i = 0; i < this.checkPoints.length; i++){
+            if(this.checkpointsCount.get(this.checkPoints[i]) < min){
+                min = this.checkpointsCount.get(this.checkPoints[i]);
+            }
+        }
+        this.laps = min;
     }
     checkEndGame() {
         for (let i = 0; i < this.checkPoints.length; i++) {
@@ -144,6 +155,9 @@ class MyVehicle {
         if (this.velocity < this.maxVelocity) {
             this.velocity += this.acceleration;
         }
+        if(this.velocity>=this.maxVelocity){
+            this.velocity=this.maxVelocity;
+        }
     }
 
     brake() {
@@ -161,10 +175,63 @@ class MyVehicle {
         this.velocity = this.originalVelocity;
     }
 
+    handleKeys(){
+        if (!this.game.paused) {
+            if ((this.game.keysPressed['a'] || this.game.keysPressed['arrowleft']) && !(this.game.keysPressed['d'] || this.game.keysPressed['arrowright'])) {
+                if (!this.confused)
+                    this.left();
+                else
+                    this.right();
+            }
+
+            if (this.game.keysPressed['d'] || this.game.keysPressed['arrowright'] && !(this.game.keysPressed['a'] || this.game.keysPressed['arrowleft'])) {
+                if (!this.confused)
+                    this.right();
+                else
+                    this.left();
+            }
+
+            if (this.game.keysPressed['w'] || this.game.keysPressed['arrowup'] && !(this.game.keysPressed['s'] || this.game.keysPressed['arrowdown'])) {
+                if (!this.confused)
+                    this.accelerate();
+                else
+                    this.brake();
+            }
+
+            if (this.game.keysPressed['s'] || this.game.keysPressed['arrowdown'] && !(this.game.keysPressed['w'] || this.game.keysPressed['arrowup'])) {
+                if (!this.confused)
+                    this.brake();
+                else
+                    this.accelerate();
+            }
+            if(!this.game.keysPressed['w'] && !this.game.keysPressed['arrowup'] && !this.game.keysPressed['s'] && !this.game.keysPressed['arrowdown']){
+                if(this.velocity>0){
+                    this.velocity-=this.acceleration/4;
+                }
+                else if(this.velocity<=0){
+                    this.velocity=0;
+                }
+            }
+            if(!this.game.keysPressed['a'] && !this.game.keysPressed['arrowleft'] && !this.game.keysPressed['d'] && !this.game.keysPressed['arrowright']){
+                if(this.wheelRotation>0){
+                    this.wheelRotation-=0.03;
+                }
+                else if(this.wheelRotation<0){
+                    this.wheelRotation+=0.03;
+                }
+                if(this.wheelRotation < 0.03 || this.wheelRotation > -0.03) 
+                    this.wheelRotation = 0;
+
+            }
+
+        }
+    }
+
 
 
     update() {
         if (this.game.started || this.game.paused) {
+            this.handleKeys();
 
             const movementDirection = Math.sign(this.velocity);
             const rotationSpeed = Math.abs(this.velocity) * 0.8;
@@ -186,6 +253,9 @@ class MyVehicle {
          
             if (this.velocity != 0) {
                 this.checkCollisions(this.obstacles, this.powerUps);
+            }
+            if(this.velocity>this.maxVelocity){
+                this.velocity=this.maxVelocity;
             }
         }
     

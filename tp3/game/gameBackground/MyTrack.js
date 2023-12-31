@@ -5,25 +5,25 @@ class MyTrack {
      * Constructs the object
      * @param {MyApp} app The application object
      */
-    constructor(app, size, width, position, material) {
+    constructor(app, size, width, position) {
         this.app = app;
         this.position = position;
         let i = size;
         this.width = width;
-        this.material = material;
         this.track1 = new THREE.CatmullRomCurve3([
             new THREE.Vector3(8 * i, 0, i * 5), //start
             new THREE.Vector3(8 * i, 0, i * 4),
             new THREE.Vector3(8 * i, 0, i * 2),
             new THREE.Vector3(6 * i, 0, i * 1),
             new THREE.Vector3(0, 0, 0),
+            new THREE.Vector3(-0.5*i, 0, i * 1.3),
             new THREE.Vector3(0, 0, i * 2),
             new THREE.Vector3(4 * i, 0, i * 3),
             new THREE.Vector3(5 * i, 0, i * 4.5),
 
             new THREE.Vector3(4 * i, 0, i * 6),
-            new THREE.Vector3(3.5 * i, 0, i * 6),
-            new THREE.Vector3(2 * i, 0, i * 5),
+            new THREE.Vector3(3 * i, 0, i * 6),
+            new THREE.Vector3(1.5 * i, 0, i * 5.2),
 
             new THREE.Vector3(0 * i, 0, i * 6),
             new THREE.Vector3(0 * i, 0, i * 15),
@@ -66,13 +66,15 @@ class MyTrack {
         return [0, uvScale, 0.5, uvScale, 1, uvScale];
     }
 
-    drawTrack(track) {
+    drawTrack(track, material) {
         this.nextUvScale = 0;
+        this.material = material;
         if (track === 1) {
             this.path = this.track1;
         }
         if (track === "Cut") {
             this.path = this.trackCut;
+            this.position.y -= 0.35;
         }
 
         let points = this.path.getPoints(this.segments);

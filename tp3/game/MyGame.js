@@ -7,6 +7,7 @@ import { MyRoute } from './MyRoute.js';
 import { MyAutomaticVehicle } from './MyAutomaticVehicle.js';
 import { MyDisplay } from './MyDisplay.js';
 import { MyFont } from './MyFont.js';
+import { MyOutdoor } from './MyOutdoor.js';
 /**
  *  This class contains the contents of out application
  */
@@ -20,8 +21,7 @@ class MyGame {
         this.logic = logic;
         this.app = logic.app
         this.scaleTrack = 50;
-        this.startTime = Date.now();
-        this.penalties = 0;
+        this.penalties = -1;
         this.position = new THREE.Vector3(-100, 0, -100);
         this.startPosition = new THREE.Vector3(8 * this.scaleTrack + this.position.x, 0, 5.5 * this.scaleTrack + this.position.z);
 
@@ -33,7 +33,7 @@ class MyGame {
         this.checkpoints = checkpoints;
         this.numberOfLaps = 3;
         this.car = new MyVehicle(this, this.position, new THREE.Vector3(8.2 * this.scaleTrack, 0, 5 * this.scaleTrack), car);
-        this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(7.8 * this.scaleTrack, 0, 5 * this.scaleTrack), this.routes.getRoutes(1), enemyCar);
+        this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(7.8 * this.scaleTrack, 0, 5 * this.scaleTrack), this.routes.getRoutes(2), enemyCar);
         this.gameOver = false;
         this.started = false;
         this.semaphoreColors = [0xff0000, 0xffff00, 0x00ff00]; // Red, Yellow, Gree
@@ -48,7 +48,8 @@ class MyGame {
         this.pickableObj = []
         this.paused = false
         this.selectedObstacle = null;
-
+        this.outdoor = new MyOutdoor(this.app, new THREE.Vector3(80, 2, 240));
+        this.app.scene.add(this.outdoor);
 
         this.createStartButton();
         this.pickingColor = "0x00ff00"
@@ -63,8 +64,6 @@ class MyGame {
         document.addEventListener('keyup', this.onKeyUp.bind(this));
 
 
-        this.display = new MyDisplay(this, this.position);
-        this.app.scene.add(this.display);
 
 
     }
@@ -88,8 +87,8 @@ class MyGame {
         this.button.name = "startButton"
            
         this.startWord = this.myFont.getWord("START");
-
-        this.startWord.position.set(this.startPosition.x + 10, 20, this.startPosition.z-10);
+        this.startWord.position.set(this.startPosition.x + 10, 15, this.startPosition.z-1);
+        this.startWord.scale.set(3, 3, 3);
         this.startWord.rotation.y = Math.PI;
 
         this.app.scene.add(this.startWord);
@@ -103,6 +102,7 @@ class MyGame {
         let indexToRemove = this.pickableObj.indexOf(this.button);
         this.pickableObj.splice(indexToRemove, 1);
         this.app.scene.remove(this.button);
+        this.app.scene.remove(this.startWord);
         this.semaphoreGeometry = new THREE.CylinderGeometry(2, 2, 0.5, 32);
         this.semaphoreMaterial = new THREE.MeshBasicMaterial({ color: this.semaphoreColors[0] });
         this.semaphore = new THREE.Mesh(this.semaphoreGeometry, this.semaphoreMaterial);
@@ -130,7 +130,11 @@ class MyGame {
 
 
     start() {
+        this.display = new MyDisplay(this, this.position);
+        this.startTime = Date.now();
         this.automaticVehicle.start()
+
+
 
 
     }
@@ -183,9 +187,14 @@ class MyGame {
      * Updates the scene
      */
     update() {
+        this.outdoor.update();
+
         if (this.started || this.paused) {
             this.powerUps.update();
             this.obstacles.update();
+            //time in format mm:ss
+            let time = Math.floor((Date.now() - this.startTime) / 1000);
+            this.display.update(time, this.car.laps, this.car.maxVelocity, this.penalties);
         }
         if (this.gameOver) {
             this.logic.state = "gameOver";
@@ -202,7 +211,7 @@ class MyGame {
 
     updateCameraFollow() {
         // Set the camera position to follow the car
-        const offset = new THREE.Vector3(0, 70, -120);
+        const offset = new THREE.Vector3(0, 20, -50);
         const carPosition = this.car.car.position.clone();
         const rotationMatrix = new THREE.Matrix4();
         rotationMatrix.makeRotationY(this.car.rotation);
@@ -212,8 +221,8 @@ class MyGame {
         this.app.activeCamera.position.copy(carPosition.add(offset));
 
         // Set the camera to look at the car
-        this.app.activeCamera.lookAt(this.car.car.position);
-        this.app.controls.target = this.car.car.position;
+        this.app.activeCamera.lookAt(this.car.car.position.clone());
+        this.app.controls.target = this.car.car.position.clone();
     }
 
     updateCamera() {
@@ -227,8 +236,8 @@ class MyGame {
         offset.applyMatrix4(rotationMatrix);
         this.app.activeCamera.position.copy(carPosition.add(offset));
 
-        this.app.activeCamera.lookAt(this.car.car.position);
-        this.app.controls.target = this.car.car.position;
+        this.app.activeCamera.lookAt(this.car.car.position.clone());
+        this.app.controls.target = this.car.car.position.clone();
     }
 
     onKeyDown(event) {
@@ -245,35 +254,6 @@ class MyGame {
 
     handleKeys() {
         if (this.started && !this.gameOver) {
-            if (!this.paused) {
-                if ((this.keysPressed['a'] || this.keysPressed['arrowleft']) && !(this.keysPressed['d'] || this.keysPressed['arrowright'])) {
-                    if (!this.car.confused)
-                        this.car.left();
-                    else
-                        this.car.right();
-                }
-
-                if (this.keysPressed['d'] || this.keysPressed['arrowright'] && !(this.keysPressed['a'] || this.keysPressed['arrowleft'])) {
-                    if (!this.car.confused)
-                        this.car.right();
-                    else
-                        this.car.left();
-                }
-
-                if (this.keysPressed['w'] || this.keysPressed['arrowup'] && !(this.keysPressed['s'] || this.keysPressed['arrowdown'])) {
-                    if (!this.car.confused)
-                        this.car.accelerate();
-                    else
-                        this.car.brake();
-                }
-
-                if (this.keysPressed['s'] || this.keysPressed['arrowdown'] && !(this.keysPressed['w'] || this.keysPressed['arrowup'])) {
-                    if (!this.car.confused)
-                        this.car.brake();
-                    else
-                        this.car.accelerate();
-                }
-            }
             if (this.keysPressed[' ']) {
                 if (this.paused) {
                     this.continue();

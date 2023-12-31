@@ -32,15 +32,26 @@ class MyReader {
         this.texture2.wrapS = THREE.RepeatWrapping;
         this.texture2.wrapT = THREE.RepeatWrapping;
         this.texture2.repeat.set(1, 50);
+
+        this.textureCut = this.textureLoader.load("textures/track.jpg");
+        this.textureCut.wrapS = THREE.RepeatWrapping;
+        this.textureCut.wrapT = THREE.RepeatWrapping;
+        this.textureCut.repeat.set(1, 3.5);
+
+        this.textureCut2 = this.textureLoader.load("textures/track1.jpg");
+        this.textureCut2.wrapS = THREE.RepeatWrapping;
+        this.textureCut2.wrapT = THREE.RepeatWrapping;
+        this.textureCut2.repeat.set(1, 3.5);
         this.backgroundLoaded = false;
+
 
 
         // Material for the track
         this.material = new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.texture });
         
         
-        this.myTrack = new MyTrack(this.app, this.scaleTrack, 40, this.position, this.material);
-        this.myTrack2 = new MyTrack(this.app, this.scaleTrack, 60, new THREE.Vector3(-100, -0.5, -100), new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.texture2}));
+        this.myTrack = new MyTrack(this.app, this.scaleTrack, 40, this.position);
+        this.myTrack2 = new MyTrack(this.app, this.scaleTrack, 60, new THREE.Vector3(-100, -0.5, -100));
 
         this.powerUps = new MyPowerUps(this.app,this.position, this.scaleTrack);
         this.obstacles = new MyObstacle(this.app,this.position, this.scaleTrack);
@@ -107,12 +118,15 @@ class MyReader {
         floor.rotation.y = Math.PI;
         floor.position.set(0, -1, 0);
         this.app.scene.add(floor);
-        let track = this.myTrack.drawTrack(1);
+        let track = this.myTrack.drawTrack(1, this.material);
         this.app.scene.add(track);
-        let track2 = this.myTrack2.drawTrack(1);
+        let track2 = this.myTrack2.drawTrack(1, new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.texture2}));
         this.app.scene.add(track2);
-        this.cutPath = this.myTrack.drawTrack("Cut");
+        this.cutPath = this.myTrack.drawTrack("Cut", new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.textureCut }));
         this.app.scene.add(this.cutPath);
+        this.cutPath2 = this.myTrack2.drawTrack("Cut", new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.textureCut2}));
+        this.cutPath2.position.set(0, -0.5, 0);
+        this.cutPath.add(this.cutPath2);
         this.cutPath.visible = false;
         this.powerUps.drawPowerUps(1);
         this.obstacles.drawObstacles(1);
@@ -123,8 +137,7 @@ class MyReader {
         this.checkpoints.drawCheckpoints();
 
         //uncomment and remove last line
-        //this.waitForObstacles();
-        this.backgroundLoaded = true;
+        this.waitForPowerUps();
 
 
     }
