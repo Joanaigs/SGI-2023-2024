@@ -3,7 +3,7 @@ import { MySkybox } from '../classes/MySkybox.js';
 import { MyFont } from './MyFont.js';
 
 /**
- *  This class contains a representation of the menu
+ *  This class contains the functions needed to allow the logic of the Menu++++++++++++++++++++++++
  */
 class MyMenu {
     constructor(app) {
@@ -15,6 +15,7 @@ class MyMenu {
         this.difficulty = null;
         this.initMenuEnvironment();
         this.buildStartPage();
+        this.pressedButton = null;
 
         document.addEventListener('mousedown', (event) => {
             this.onDocumentMouseDown(event);
@@ -33,10 +34,15 @@ class MyMenu {
 
         // Check for intersections with the button
         const intersects = raycaster.intersectObject(this.startButton);
+        console.log(intersects);
 
-        if (intersects.length > 0) {
-            if( intersects[0].object === this.startButton)
+        if (intersects.length > 0 && intersects[0].object) {
+            if (intersects[0].object === this.startButton) {
                 this.playerNamePage();
+            } else if (intersects[0].object === this.nameButton) {
+                this.input = this.usernameInput.value;
+                console.log("User input:", this.input);
+            }
         }
     }
 
@@ -59,7 +65,7 @@ class MyMenu {
         const skybox2 = new MySkybox(skyboxData2);
         const skyboxMesh2 = skybox2.addSkybox();
         this.app.scene.add(skyboxMesh2);
-        this.createUsernameInput(true);
+        //this.createUsernameInput(true);
     }
 
     buildStartPage() {
@@ -68,6 +74,7 @@ class MyMenu {
         const boxMaterial = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 });
         this.startButton = new THREE.Mesh(boxGeometry, boxMaterial);
         this.startButton.position.set(-1970, 249, -2490);
+
 
         const startWord = this.myFont.getWord("START"); // Assuming getWord is a method to create a 3D text object
         startWord.position.set(this.startButton.position.x + 3, this.startButton.position.y, this.startButton.position.z - 0.3);
@@ -127,9 +134,8 @@ class MyMenu {
 
 
     playerNamePage(){
-        console.log("oi");
         this.app.scene.remove(this.menuGroup);
-        this.usernameInput.style.visibility = 'visible';
+        //this.usernameInput.style.visibility = 'visible';
 
         const insertName = this.myFont.getWord("Insert Your Name"); // Assuming getWord is a method to create a 3D text object
         insertName.position.set(this.startButton.position.x + 8, this.startButton.position.y + 5, this.startButton.position.z);
@@ -137,16 +143,27 @@ class MyMenu {
 
         const boxGeometry = new THREE.BoxGeometry(3, 1, 0.5); // Adjust the size as needed
         const boxMaterial = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 });
-        this.continueButton = new THREE.Mesh(boxGeometry, boxMaterial);
-        this.continueButton.position.set(-1970, 246, -2490);
+        this.nameButton = new THREE.Mesh(boxGeometry, boxMaterial);
+        this.nameButton.position.set(-1970, 246, -2490);
+        this.nameButton.name = "inputButton"
+
 
         const continueWord = this.myFont.getWord("NEXT"); // Assuming getWord is a method to create a 3D text object
         continueWord.position.set(this.startButton.position.x+0.9, this.startButton.position.y-3, this.startButton.position.z - 0.3);
         continueWord.rotation.y = Math.PI;
         continueWord.scale.set(0.6, 0.6, 0.6)
 
-        this.app.scene.add(this.continueButton, continueWord);
+
+        this.app.scene.add(this.nameButton, continueWord);
         this.app.scene.add(insertName);
+    }
+
+    chooseDificultyPage(){
+        
+        const insertName = this.myFont.getWord("Select difficulty");
+        insertName.position.set(this.startButton.position.x + 8, this.startButton.position.y + 5, this.startButton.position.z);
+        insertName.rotation.y = Math.PI;
+
     }
 }
 
