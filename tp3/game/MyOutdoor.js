@@ -5,8 +5,28 @@ class MyOutdoor extends THREE.Object3D {
         super();
         this.app = app;
         this.pos = position;
+        this.buildOutside();
         this.captureImages();
-        this.animate();
+        this.startTimer = Date.now();
+    }
+
+    buildOutside() {
+        //base
+        const baseGeometry = new THREE.CylinderGeometry(5, 5, 50);
+        const baseMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
+        const base = new THREE.Mesh(baseGeometry, baseMaterial);
+        base.position.set(this.pos.x, this.pos.y+25, this.pos.z);
+        this.add(base);
+
+        //back
+        const backGeometry = new THREE.BoxGeometry(100, 50, 10);
+        const backMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
+        const back = new THREE.Mesh(backGeometry, backMaterial);
+        back.position.set(this.pos.x, this.pos.y+75, this.pos.z);
+        this.add(back);
+
+
+
     }
 
     captureImages() {
@@ -24,7 +44,7 @@ class MyOutdoor extends THREE.Object3D {
        
 
         // Create a plane with a custom shader material for LGray visualization
-        const planeLGrayGeometry = new THREE.PlaneGeometry(40, 40, 200, 200);
+        const planeLGrayGeometry = new THREE.PlaneGeometry(90, 40, 200, 200);
         this.lGrayMaterial = new THREE.ShaderMaterial({
             vertexShader: `
             #include <packing>
@@ -50,7 +70,7 @@ class MyOutdoor extends THREE.Object3D {
                 float heightValue = 1.0-readDepth( tDepth, vUv );
             
                 // Calculate the offset based on the height value
-                vec3 offset = normal * heightValue * 5.0;
+                vec3 offset = normal * heightValue * 10.0;
             
                 // Update the vertex position with the calculated offset
                 gl_Position = projectionMatrix * modelViewMatrix * vec4( position + offset, 1.0 );
@@ -89,20 +109,21 @@ class MyOutdoor extends THREE.Object3D {
                 tDepth: { type: 'sampler2D', value: this.renderTarget.depthTexture }
             }
         });
-        console.log(this.lGrayMaterial.fragmentShader);
 
         this.plane = new THREE.Mesh(planeLGrayGeometry, this.lGrayMaterial);
 
         // Set the position and rotation of the LGray plane
-        this.plane.position.set(this.pos.x + 100, this.pos.y+20, this.pos.z);
+        this.plane.position.set(this.pos.x, this.pos.y+75, this.pos.z-5);
         this.plane.rotateY(Math.PI);
 
         // Add the LGray plane to the scene
         this.add(this.plane);
 
+        this.updateImage();
+
     }
 
-    animate() {
+    updateImage() {
 
          // Set the render target for rendering
          this.app.renderer.setRenderTarget(this.renderTarget);
@@ -116,16 +137,15 @@ class MyOutdoor extends THREE.Object3D {
         // Reset the render target
         this.app.renderer.setRenderTarget(null);
 
-        setTimeout(() => {
-            this.animate();
-        }, 60000);
 
         
     }
 
     update() {
-        // Update the rotation of the LGray plane
-        this.plane.quaternion.copy(this.app.activeCamera.quaternion);
+        if (Date.now() - this.startTimer > 60000) {
+            this.updateImage();
+            this.startTimer = Date.now();
+        }
     }
 }
 

@@ -21,7 +21,7 @@ class MyGame {
         this.logic = logic;
         this.app = logic.app
         this.scaleTrack = 50;
-        this.penalties = -1;
+        this.penalties = 0;
         this.position = new THREE.Vector3(-100, 0, -100);
         this.startPosition = new THREE.Vector3(8 * this.scaleTrack + this.position.x, 0, 5.5 * this.scaleTrack + this.position.z);
 
@@ -48,7 +48,7 @@ class MyGame {
         this.pickableObj = []
         this.paused = false
         this.selectedObstacle = null;
-        this.outdoor = new MyOutdoor(this.app, new THREE.Vector3(80, 2, 240));
+        this.outdoor = new MyOutdoor(this.app, new THREE.Vector3(200, 2, 600));
         this.app.scene.add(this.outdoor);
 
         this.createStartButton();
