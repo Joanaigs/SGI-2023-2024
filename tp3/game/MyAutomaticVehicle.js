@@ -48,7 +48,6 @@ class MyAutomaticVehicle {
             times.push(i)
 
         }
-        console.log(pointsRoute)
 
 
         const positionKF = new THREE.VectorKeyframeTrack('.position', times,
@@ -74,10 +73,8 @@ class MyAutomaticVehicle {
             // Calculate the quaternion based on the direction
             const quaternion = new THREE.Quaternion();
             quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), direction);
-            console.log(direction);
 
             let angle = Math.atan2( direction.x, direction.z);
-            console.log(angle)
             if(angle < -Math.PI/2){
                 angle = angle + Math.PI
             }
@@ -90,12 +87,10 @@ class MyAutomaticVehicle {
             } else if (angle < minRotation) {
                 angle = minRotation;
             }
-            console.log(angle)
             const quaternionWheel = new THREE.Quaternion();
             quaternionWheel.setFromAxisAngle(new THREE.Vector3(0, 1, 0), angle);
             quaternionWheel.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2));
 
-            console.log(quaternionWheel)
 
             quaternionList.push(...quaternion);
             quaternionListWheel.push(...quaternionWheel);
@@ -109,11 +104,9 @@ class MyAutomaticVehicle {
 
         // Create an AnimationMixer
         this.mixer = new THREE.AnimationMixer(this.car)
-        console.log(this.car.children[0])
         this.mixerWheel1 = new THREE.AnimationMixer(this.car.children[0].wheelsGroup.children[0])
         this.mixerWheel2 = new THREE.AnimationMixer(this.car.children[0].wheelsGroup.children[1])
 
-        console.log(this.car)
         this.mixer.timeScale = 0.6
         this.mixerWheel1.timeScale = 0.6
         this.mixerWheel2.timeScale = 0.6
@@ -221,7 +214,7 @@ class MyAutomaticVehicle {
         }
 
 
-        if (this.game.started || this.game.paused) {
+        if (this.game.started && !this.game.paused) {
             this.checkCollisions(this.obstacles, this.powerUps);
         }
 

@@ -8,7 +8,7 @@ import { MyFont } from './MyFont.js';
 class MyDisplay{
 
 
-    constructor(game, position) {
+    constructor(game, camera) {
         this.game = game;
         this.lasTime = 0;
         this.lastLaps = 0;
@@ -18,14 +18,15 @@ class MyDisplay{
         this.timePowerUp = 0;
         this.pause = false;
         this.font =new MyFont();
-        this.buildDisplayCamera(this.game.app.activeCamera);
+        this.camera = this.game.app.cameras[camera];
+        this.buildDisplayCamera(this.camera);
 
 
     }
 
     // Inside the buildDisplayCamera method
     buildDisplayCamera(camera) {
-        let hudGroup = new THREE.Group();
+        this.hudGroup = new THREE.Group();
 
         let height = 2 * Math.tan(camera.fov * Math.PI / 360)*5;
         let width = height * camera.aspect;
@@ -34,7 +35,7 @@ class MyDisplay{
         this.timeGroup = new THREE.Group();
         this.time = this.font.getWord("Timer:");
         this.timeGroup.add(this.time);
-        hudGroup.add(this.timeGroup);
+        this.hudGroup.add(this.timeGroup);
 
         // Create the laps object
         this.lapsGroup = new THREE.Group();
@@ -44,7 +45,7 @@ class MyDisplay{
         this.lapsGroup.add(this.laps);
         this.lapsGroup.add(this.lapsValue);
         this.lapsGroup.position.set(0, -1, 0);
-        hudGroup.add(this.lapsGroup);
+        this.hudGroup.add(this.lapsGroup);
 
         // Create the velocity object
         this.velocityGroup = new THREE.Group();
@@ -54,10 +55,10 @@ class MyDisplay{
         this.velocityGroup.add(this.velocity);
         this.velocityGroup.add(this.velocityValue);
         this.velocityGroup.position.set(0, -2, 0);
-        hudGroup.add(this.velocityGroup);
+        this.hudGroup.add(this.velocityGroup);
 
-        hudGroup.position.set(-width/2+0.5, height/2-0.5, -5);
-        hudGroup.scale.set(0.15, 0.15, 0.15);
+        this.hudGroup.position.set(-width/2+0.5, height/2-0.5, -5);
+        this.hudGroup.scale.set(0.15, 0.15, 0.15);
 
         //PowerUps
         this.powerUpsGroup = new THREE.Group();
@@ -78,13 +79,15 @@ class MyDisplay{
         this.obstaclesOffset = 1;
 
         // Add the group to the scene (assuming your scene is accessible from this.game.app)
-        camera.add(hudGroup);
+        camera.add(this.hudGroup);
         camera.add(this.powerUpsGroup);
         camera.add(this.obstaclesGroup);
 
     }
 
     update(time, laps, velocity, penalty) {
+        if(this.game.paused)
+            return;
         if (time != this.lasTime) {
             this.timeGroup.remove(this.timeValue);
             this.timeValue = this.font.getWord(time.toString());
@@ -94,7 +97,6 @@ class MyDisplay{
             if(penalty==0){
                 this.timeGroup.remove(this.penalty);
                 this.lastPenalty=0;
-                return;
             }
             if(penalty>0){
                 this.timeGroup.remove(this.penalty);
@@ -124,6 +126,7 @@ class MyDisplay{
             this.velocityGroup.add(this.velocityValue)
             this.velocity = velocity;
         }
+        console.log(this.game.powerUps)
         if(this.game.powerUps.velovityTimeout){
             this.powerUpsGroup.visible="true"
             this.powerUpsGroup.remove(this.powerUpsVelocityValue);
@@ -152,6 +155,7 @@ class MyDisplay{
         else if(this.obstaclesValueVelocity){
             this.obstaclesGroup.remove(this.obstacleVelocity)
             this.obstaclesGroup.remove(this.obstaclesValueVelocity)
+            this.obstacleVelocity=null;
             this.obstaclesOffset-=1;
             this.obstaclesValueVelocity=null;
         }
@@ -159,7 +163,6 @@ class MyDisplay{
             console.log("asss")
             this.obstaclesGroup.visible=true
             if(this.obstacleConfused == null){
-                console.log("assseee")
                 this.obstacleConfused = this.font.getWord("Confused:");
                 this.obstaclesGroup.add(this.obstacleConfused);
                 this.obstacleConfused.position.set(1, -this.obstaclesOffset, 0);
@@ -173,6 +176,7 @@ class MyDisplay{
         }else if(this.obstaclesValueConfused){
             this.obstaclesGroup.remove(this.obstacleConfused)
             this.obstaclesGroup.remove(this.obstaclesValueConfused)
+            this.obstacleConfused=null;
             this.obstaclesOffset-=1;
             this.obstaclesValueConfused=null;
         }
@@ -193,6 +197,7 @@ class MyDisplay{
         else if(this.obstaclesValueSlippery){
             this.obstaclesGroup.remove(this.obstacleSlippery)
             this.obstaclesGroup.remove(this.obstaclesValueSlippery)
+            this.obstacleSlippery=null;
             this.obstaclesOffset-=1;
             this.obstaclesValueSlippery=null;
         }
@@ -200,6 +205,12 @@ class MyDisplay{
             this.obstaclesGroup.visible=false
         }
     
+    }
+
+    reset(){
+        this.camera.remove(this.hudGroup);
+        this.camera.remove(this.powerUpsGroup);
+        this.camera.remove(this.obstaclesGroup);
     }
 
 

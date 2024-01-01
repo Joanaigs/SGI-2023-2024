@@ -53,7 +53,6 @@ class MyVehicle {
     }
 
     addObstacle(obstacle) {
-        console.log("addObstacle");
         this.obstacles.push(obstacle);
         this.obstaclesActivated.set(obstacle, false);
     }
@@ -125,7 +124,7 @@ class MyVehicle {
                 return false;
             }
         }
-        this.game.gameOver = true;
+        this.game.gameOver();
         return true;
     }
 
@@ -230,7 +229,7 @@ class MyVehicle {
 
 
     update() {
-        if (this.game.started || this.game.paused) {
+        if (this.game.started && !this.game.paused) {
             this.handleKeys();
 
             const movementDirection = Math.sign(this.velocity);
