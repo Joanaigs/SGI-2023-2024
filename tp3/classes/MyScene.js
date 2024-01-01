@@ -26,8 +26,8 @@ class MyScene extends THREE.Scene{
         }
         //ambient light
         if(globalData.ambient){
-            const ambientLight = new THREE.AmbientLight(globalData.ambient, 1);
-            this.add(ambientLight);
+            this.ambientLight = new THREE.AmbientLight(globalData.ambient, 1);
+            this.add(this.ambientLight);
         }
 
         //skybox

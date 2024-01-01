@@ -47,7 +47,7 @@ class MyReader {
 
 
         // Material for the track
-        this.material = new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.texture });
+        this.material = new THREE.MeshPhongMaterial({ color: 0xffffff, map: this.texture });
         
         
         this.myTrack = new MyTrack(this.app, this.scaleTrack, 40, this.position);
@@ -120,11 +120,11 @@ class MyReader {
         this.app.scene.add(floor);
         let track = this.myTrack.drawTrack(1, this.material);
         this.app.scene.add(track);
-        let track2 = this.myTrack2.drawTrack(1, new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.texture2}));
+        let track2 = this.myTrack2.drawTrack(1, new THREE.MeshPhongMaterial({ color: 0xffffff, map: this.texture2}));
         this.app.scene.add(track2);
-        this.cutPath = this.myTrack.drawTrack("Cut", new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.textureCut }));
+        this.cutPath = this.myTrack.drawTrack("Cut", new THREE.MeshPhongMaterial({ color: 0xffffff, map: this.textureCut }));
         this.app.scene.add(this.cutPath);
-        this.cutPath2 = this.myTrack2.drawTrack("Cut", new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.textureCut2}));
+        this.cutPath2 = this.myTrack2.drawTrack("Cut", new THREE.MeshPhongMaterial({ color: 0xffffff, map: this.textureCut2}));
         this.cutPath2.position.set(0, -0.5, 0);
         this.cutPath.add(this.cutPath2);
         this.cutPath.visible = false;

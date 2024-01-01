@@ -227,6 +227,42 @@ class MyObstacle {
 
         // Set a timeout to revert the changes after 10 seconds
         this.slipperyTimeout = Date.now() + 10000;
+
+        this.createRainParticleSystem();
+        //darken ambient light
+        this.game.app.scene.ambientLight.intensity -= 0.7;
+        this.game.app.scene.ambientLight.color = new THREE.Color(0x222222);
+
+    }
+
+    createRainParticleSystem() {
+        const particleCount = 100;
+        const particles = new THREE.BufferGeometry();
+    
+        const positions = [];
+        const velocities = [];
+        let minx = -100;
+        let maxx = 100;
+
+        let minz = -100;
+        let maxz =  100;
+    
+        for (let i = 0; i < particleCount; i++) {
+            // Randomly position particles above the scene
+            positions.push(Math.random() * (maxx - minx) + minx, 100, Math.random() * (maxz - minz) + minz);
+            
+            // Assign random velocities to simulate rain movement
+            velocities.push(0, -Math.random() * 3, 0);
+        }
+    
+        particles.setAttribute('position', new THREE.BufferAttribute(new Float32Array(positions), 3));
+        particles.setAttribute('velocity', new THREE.BufferAttribute(new Float32Array(velocities), 3));
+    
+        const material = new THREE.PointsMaterial({ color: 0x0077ff, size: 2 });
+    
+        this.particleSystem = new THREE.Points(particles, material);
+        this.particleSystem.position.copy(this.game.car.car.position);
+        this.app.scene.add(this.particleSystem);
     }
 
     activateObstacle(game, object){
@@ -283,6 +319,37 @@ class MyObstacle {
         if(this.slipperyTimeout && Date.now() > this.slipperyTimeout){
             this.game.car.rotateScale -= 0.5;
             this.slipperyTimeout = null;
+            this.app.scene.remove(this.particleSystem);
+            this.particleSystem = null;
+            this.game.app.scene.ambientLight.intensity += 0.7;
+            this.game.app.scene.ambientLight.color = new THREE.Color(0xffffff);
+        }
+
+        if (this.particleSystem) {
+            console.log("here")
+            const positions = this.particleSystem.geometry.attributes.position.array;
+            const velocities = this.particleSystem.geometry.attributes.velocity.array;
+    
+            for (let i = 0; i < positions.length; i += 3) {
+
+                positions[i] += velocities[i];
+                positions[i + 1] += velocities[i + 1];
+                positions[i + 2] += velocities[i + 2];
+    
+                // Reset position if particles fall below a certain threshold
+                if (positions[i + 1] < -20) {
+                    let minx = -100;
+                    let maxx = 100;
+            
+                    let minz = -100;
+                    let maxz =  100;
+                    positions[i] = Math.random() * (maxx - minx) + minx;
+                    positions[i + 1] = 100;
+                    positions[i + 2] = Math.random() * (maxz - minz) + minz;
+                }
+            }
+            this.particleSystem.position.copy(this.game.car.car.position);
+            this.particleSystem.geometry.attributes.position.needsUpdate = true;
         }
     }
 
