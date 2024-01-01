@@ -53,12 +53,12 @@ class MyPark extends THREE.Object3D {
         this.ceiling.position.set(-2500, 153, -2500);
 
         // Donut on top
-        let donutGeometry = new THREE.TorusGeometry(10, 4, 16, 100); // Adjust parameters as needed
+        let donutGeometry = new THREE.TorusGeometry(10, 4, 64, 100); // Adjust parameters as needed
         let donutMaterial = new THREE.MeshBasicMaterial({ color: 0xFFD700 });
         let donut = new THREE.Mesh(donutGeometry, donutMaterial);
         donut.position.set(-2509, 149, -2520.5);
 
-        let donutGeometry2 = new THREE.TorusGeometry(10, 4, 16, 100); // Adjust parameters as needed
+        let donutGeometry2 = new THREE.TorusGeometry(10, 4, 64, 100); // Adjust parameters as needed
         let donutMaterial2 = new THREE.MeshBasicMaterial({ color: 0xEC5DBD });
         let donut2 = new THREE.Mesh(donutGeometry2, donutMaterial2);
         donut2.position.set(-2509, 149, -2522.5);
