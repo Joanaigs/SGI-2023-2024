@@ -57,7 +57,9 @@ class MyNurbs{
      * @returns the object with the material
      */
     addMaterial(material, castshadow, receiveshadows){
-        material.setRepeat(this.maxLenght-this.minlenght, this.maxHeight-this.minHeight)
+        if(material.type !== "ShaderMaterial"){
+            material.setRepeat(this.maxLenght-this.minlenght, this.maxHeight-this.minHeight)
+        }
         let object = new THREE.Mesh(this.nurb, material);
         if(castshadow){
             object.castShadow = true;

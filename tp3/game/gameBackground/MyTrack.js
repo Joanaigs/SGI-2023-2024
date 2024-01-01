@@ -63,6 +63,7 @@ class MyTrack {
     calculateUVCoordinates(segmentLength, totalLength) {
         let uvScale = this.nextUvScale ;
         this.nextUvScale += (segmentLength / totalLength);
+        if(uvScale > 1) uvScale = 1;
         return [0, uvScale, 0.5, uvScale, 1, uvScale];
     }
 

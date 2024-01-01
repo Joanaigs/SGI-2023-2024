@@ -89,6 +89,7 @@ class MyOutdoor extends THREE.Object3D {
                 tDepth: { type: 'sampler2D', value: this.renderTarget.depthTexture }
             }
         });
+        console.log(this.lGrayMaterial.fragmentShader);
 
         this.plane = new THREE.Mesh(planeLGrayGeometry, this.lGrayMaterial);
 

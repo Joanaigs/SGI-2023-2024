@@ -79,6 +79,9 @@ class MySceneData  {
             {name: "bumpref", type: "string", required: false, default: null}, // bump map is to be used in later classes
             {name: "bumpscale", type: "float", required: false, default: 1.0},
             {name: "specularref", type: "string", required: false, default: null}, // specular map is to be used in later classes
+            {name: "shaderfrag", type: "string", required: false, default: null}, // fragment shader is to be used in later classes
+            {name: "shadervert", type: "string", required: false, default: null}, // vertex shader is to be used in later classes
+            {name: "shaderuniforms", type: "string", required: false, default: null}, // uniforms is to be used in later classes
 		]
 
         this.descriptors["orthogonal"] = [
