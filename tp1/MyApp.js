@@ -139,7 +139,6 @@ class MyApp  {
         this.cameras['Left'] = orthoLeft
 
         // create a left view orthographic camera
-        console.log(left, right, top, bottom, near, far)
         const orthoRight = new THREE.OrthographicCamera( left, right, top, bottom, near, far);
         orthoRight.up = new THREE.Vector3(0,1,0);
         orthoRight.position.set(this.frustumSize /4,0,0) 

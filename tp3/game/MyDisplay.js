@@ -29,7 +29,6 @@ class MyDisplay{
 
         let height = 2 * Math.tan(camera.fov * Math.PI / 360)*5;
         let width = height * camera.aspect;
-        console.log(width, height);
         // Create the time object
         this.timeGroup = new THREE.Group();
         this.time = this.font.getWord("Timer:");
@@ -156,10 +155,8 @@ class MyDisplay{
             this.obstaclesValueVelocity=null;
         }
         if(this.game.obstacles.confusedTimeout){
-            console.log("asss")
             this.obstaclesGroup.visible=true
             if(this.obstacleConfused == null){
-                console.log("assseee")
                 this.obstacleConfused = this.font.getWord("Confused:");
                 this.obstaclesGroup.add(this.obstacleConfused);
                 this.obstacleConfused.position.set(1, -this.obstaclesOffset, 0);

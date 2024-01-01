@@ -155,10 +155,8 @@ class MyPowerUps {
     activatePowerUp(game, object) {
         this.game = game;
         let powerUp = this.powerUpsObject.get(object);
-        console.log(powerUp);
         switch (powerUp) {
             case "VELOCITY":
-                console.log("velocity");
                 this.velocityPowerUp();
                 break;
             case "CUT":
