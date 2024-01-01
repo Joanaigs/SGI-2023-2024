@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 /**
  *  This class contains the contents of out application
@@ -8,9 +8,10 @@ class MyPark extends THREE.Object3D {
 
     constructor() {
         super();
-        this.groupBody = new THREE.Group();
+        this.playerPark = new THREE.Group();
     }
 
+    /*
     buildPlayerPark() {
         // walls
         let wallGeometry = new THREE.BoxGeometry(40, 30, 40);
@@ -70,8 +71,7 @@ class MyPark extends THREE.Object3D {
         this.shopName.position.set(-2500, 160, -2515.5);
 
         let shopNameLogoGeometry = new THREE.PlaneGeometry(34, 8);
-        let shopNameLogoTexture = new THREE.TextureLoader().load('./textures/donut.png'); // new THREE.MeshBasicMaterial({ color: 0xFFC0CB, side: THREE.DoubleSide });
-        let shopNameLogoMaterial = new THREE.MeshBasicMaterial({ map: shopNameLogoTexture, side: THREE.DoubleSide});
+        let shopNameLogoMaterial = new THREE.MeshBasicMaterial({ color:0xEC5DBD, side: THREE.DoubleSide});
         this.shopNameLogo = new THREE.Mesh(shopNameLogoGeometry, shopNameLogoMaterial);
         this.shopNameLogo.position.set(-2500, 160, -2518); // Adjust the position as need
 
@@ -101,10 +101,23 @@ class MyPark extends THREE.Object3D {
         this.groupBody.translateY(10);
         return this.groupBody;
     }
+    */
     
+    buildPlayerPark(){
+        const loader = new GLTFLoader();
+        loader.load('./models/playerCandyShop/candyShop.gltf', (gltf) => {
+            this.playerCandyShop = gltf.scene;
+            this.playerCandyShop.scale.set(100, 100, 100);
+            this.playerCandyShop.rotation.y = Math.PI;
+            this.playerCandyShop.position.set(-2500, 138, -2500);
     
-    
+            this.playerPark.add(this.playerCandyShop);
+        });
 
+        return this.playerPark;
+
+    }
+    
 
 }
 

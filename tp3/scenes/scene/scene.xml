@@ -77,6 +77,14 @@
                     position="120 80 1.047"
                 />
 
+                <pointlight id="garageSun" enabled="true"
+                    color="1 1 1 0"
+                    intensity="500"
+                    distance="0"
+                    decay="1"
+                    position="-2500 300 -2600"
+                />
+
                 <noderef id="candycane1" />
                 <noderef id="canycane2" />
                 <noderef id="canycane3" />

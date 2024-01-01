@@ -159,7 +159,7 @@ class MyReader {
             emissive: 0xffffff,
             intensity: 2.0,
             up: './textures/up.jpg',
-            down: './textures/dn.jpg',
+            down: './textures/dn_2.jpg',
             back: './textures/bk.jpg',
             left: './textures/lf.jpg',
             front: './textures/ft.jpg',
