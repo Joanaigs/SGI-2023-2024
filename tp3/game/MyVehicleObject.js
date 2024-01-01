@@ -59,7 +59,7 @@ class MyVehicleObject extends THREE.Object3D {
             this.car = gltf.scene;
             this.car.scale.set(1.5, 1.5, 1.5);
             this.car.rotation.y = Math.PI;
-            this.car.position.set(0, 0, 0);
+            this.car.position.set(0, 0.3, 0);
     
             // Adjusting material properties
             this.car.traverse((child) => {

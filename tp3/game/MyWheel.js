@@ -52,14 +52,14 @@ class MyWheel extends THREE.Object3D {
 
             let cylinder = new THREE.Mesh(geometry, material);
             if (i % 2 == 0) {
-                cylinder.position.x = 3.0;
+                cylinder.position.x = 2.8;
             } else {
-                cylinder.position.x = -3.0;
+                cylinder.position.x = -2.8;
             }
             if (i < 2) {
                 cylinder.position.z = 4.2;
             } else {
-                cylinder.position.z = -4.1;
+                cylinder.position.z = -3.0;
             }
             cylinder.position.y = 0.9;
             cylinder.rotateZ(Math.PI / 2);
