@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MyVehicleObject } from './MyVehicleObject.js';
 
 /**
  *  This class contains the contents of out application
@@ -114,6 +115,12 @@ class MyPark extends THREE.Object3D {
             this.playerPark.add(this.playerCandyShop);
         });
 
+        this.car1 = new MyVehicleObject("purple");
+        this.car1.position.set(-2400, 128, -2500);
+        this.car1.scale.set(3,3,3);
+        //this.car2 = new MyVehicleObject("cyan");
+
+        this.playerPark.add(this.car1);
         return this.playerPark;
 
     }

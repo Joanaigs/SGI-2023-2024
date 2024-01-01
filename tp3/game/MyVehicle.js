@@ -208,10 +208,10 @@ class MyVehicle {
             }
             if(!this.game.keysPressed['a'] && !this.game.keysPressed['arrowleft'] && !this.game.keysPressed['d'] && !this.game.keysPressed['arrowright']){
                 if(this.wheelRotation>0){
-                    this.wheelRotation-=0.1;
+                    this.wheelRotation-=this.rotateScale;
                 }
                 else if(this.wheelRotation<0){
-                    this.wheelRotation+=0.1;
+                    this.wheelRotation+=this.rotateScale;
                 }
                 if(this.wheelRotation < 0.1 || this.wheelRotation > -0.1) 
                     this.wheelRotation = 0;
