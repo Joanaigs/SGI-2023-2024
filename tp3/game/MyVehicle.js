@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { MyVehicleObject } from './MyVehicleObject.js';
 
 
 /**
@@ -8,7 +7,6 @@ import { MyVehicleObject } from './MyVehicleObject.js';
 class MyVehicle {
 
     constructor(game, position, target, car) {
-
 
         this.game = game
         this.rotation = 0;
