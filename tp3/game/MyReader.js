@@ -132,8 +132,8 @@ class MyReader {
         this.obstacles.drawObstacles(1);
         this.obstacles.drawObstaclesPark(1);
         this.routes = new MyRoute(this.scaleTrack, this.position);
-        this.car1 = new MyVehicleObject();
-        this.car2 = new MyVehicleObject();
+        this.car1 = new MyVehicleObject("cyan");
+        this.car2 = new MyVehicleObject("purple");
         this.checkpoints.drawCheckpoints();
 
         //uncomment and remove last line
@@ -146,8 +146,8 @@ class MyReader {
         this.obstacles.reset();
         this.app.scene.remove(this.car1);
         this.app.scene.remove(this.car2);
-        this.car1=new MyVehicleObject();
-        this.car2=new MyVehicleObject();
+        this.car1=new MyVehicleObject("cyan");
+        this.car2=new MyVehicleObject("purple");
         this.cutPath.visible = false;
     }
 
@@ -159,7 +159,7 @@ class MyReader {
             emissive: 0xffffff,
             intensity: 2.0,
             up: './textures/up.jpg',
-            down: './textures/dn.jpg',
+            down: './textures/dn_2.jpg',
             back: './textures/bk.jpg',
             left: './textures/lf.jpg',
             front: './textures/ft.jpg',

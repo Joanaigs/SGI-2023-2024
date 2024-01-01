@@ -13,16 +13,19 @@
 
     <cameras initial="main">
         <perspective id="main" angle="1.047" near="0.1" far="5000" location="100 700 200"
-            target="100 0 200" />
-        <perspective id="playerGarage" angle="1.047" near="0.1" far="1000"
-            location="-3000 249 -3000"
-            target="50 10 -25" />
+        target="100 0 200" />
+        <perspective id="playerGarage" angle="1.047" near="0.1" far="5000" location="-3000 249 -3000"
+        target="50 10 -25" />
         <perspective id="car" angle="1.26" near="0.1" far="5000" location="400 10 300"
             target="75 0 300" />
         <perspective id="followCar" angle="1.047" near="0.1" far="5000" location="310 20 100"
             target="310 0 150" />
         <perspective id="frontHouse" angle="1.047" near="0.1" far="5000" location="130 10 -25"
             target="50 10 -25" />
+        <perspective id="playerGarage2" angle="1.1" near="0.01" far="2000" location="-2585 176 -2678"
+        target="-2300 176 -2300" />
+        <perspective id="rightWallCamera" angle="1.047" near="0.1" far="5000" location="-1971 249 -2510"
+            target="-1971 249 -2500" />
         <perspective id="origin" angle="1.047" near="0.1" far="5000" location="5 5 5"
             target="0 0 0" />
     </cameras>
@@ -74,12 +77,24 @@
                     position="120 80 1.047"
                 />
 
+                <pointlight id="garageSun" enabled="true"
+                    color="1 1 1 0"
+                    intensity="500"
+                    distance="0"
+                    decay="1"
+                    position="-2500 300 -2600"
+                />
+
                 <noderef id="candycane1" />
                 <noderef id="canycane2" />
                 <noderef id="canycane3" />
                 <noderef id="icecream" />
                 <noderef id="chupachupa" />
                 <noderef id="lolipop" />
+                <noderef id="candycaneGarage" />
+                <noderef id="candycaneGarage2" />
+                <noderef id="candycaneGarage3" />
+                <noderef id="candycaneGarage4" />
 
 
             </children>
@@ -257,6 +272,54 @@
                 <rotate value3="0 0 0.6" />
 
 
+            </transforms>
+
+            <children>
+                <noderef id="fullCandyCane" />
+            </children>
+        </node>
+
+
+        <node id="candycaneGarage">
+            <transforms>
+                <translate value3="-2350 190 -2500" />
+                <rotate value3="0.0 3.14 0.0"/>
+                <scale value3="0.3 0.3 0.3"/>
+            </transforms>
+
+            <children>
+                <noderef id="fullCandyCane" />
+            </children>
+        </node>
+
+        <node id="candycaneGarage4">
+            <transforms>
+                <translate value3="-2330 190 -2500" />
+                <scale value3="0.3 0.3 0.3"/>
+            </transforms>
+
+            <children>
+                <noderef id="fullCandyCane" />
+            </children>
+        </node>
+
+        
+        <node id="candycaneGarage2">
+            <transforms>
+                <translate value3="-2650 190 -2500" />
+                <scale value3="0.3 0.3 0.3"/>
+            </transforms>
+
+            <children>
+                <noderef id="fullCandyCane" />
+            </children>
+        </node>
+
+        <node id="candycaneGarage3">
+            <transforms>
+                <translate value3="-2670 190 -2500" />
+                <rotate value3="0.0 3.14 0.0"/>
+                <scale value3="0.3 0.3 0.3"/>
             </transforms>
 
             <children>

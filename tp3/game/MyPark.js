@@ -1,5 +1,6 @@
 import * as THREE from 'three';
-
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MyVehicleObject } from './MyVehicleObject.js';
 
 /**
  *  This class contains the contents of out application
@@ -8,9 +9,10 @@ class MyPark extends THREE.Object3D {
 
     constructor() {
         super();
-        this.groupBody = new THREE.Group();
+        this.playerPark = new THREE.Group();
     }
 
+    /*
     buildPlayerPark() {
         // walls
         let wallGeometry = new THREE.BoxGeometry(40, 30, 40);
@@ -53,12 +55,12 @@ class MyPark extends THREE.Object3D {
         this.ceiling.position.set(-2500, 153, -2500);
 
         // Donut on top
-        let donutGeometry = new THREE.TorusGeometry(10, 4, 16, 100); // Adjust parameters as needed
+        let donutGeometry = new THREE.TorusGeometry(10, 4, 64, 100); // Adjust parameters as needed
         let donutMaterial = new THREE.MeshBasicMaterial({ color: 0xFFD700 });
         let donut = new THREE.Mesh(donutGeometry, donutMaterial);
         donut.position.set(-2509, 149, -2520.5);
 
-        let donutGeometry2 = new THREE.TorusGeometry(10, 4, 16, 100); // Adjust parameters as needed
+        let donutGeometry2 = new THREE.TorusGeometry(10, 4, 64, 100); // Adjust parameters as needed
         let donutMaterial2 = new THREE.MeshBasicMaterial({ color: 0xEC5DBD });
         let donut2 = new THREE.Mesh(donutGeometry2, donutMaterial2);
         donut2.position.set(-2509, 149, -2522.5);
@@ -70,8 +72,7 @@ class MyPark extends THREE.Object3D {
         this.shopName.position.set(-2500, 160, -2515.5);
 
         let shopNameLogoGeometry = new THREE.PlaneGeometry(34, 8);
-        let shopNameLogoTexture = new THREE.TextureLoader().load('./textures/donut.png'); // new THREE.MeshBasicMaterial({ color: 0xFFC0CB, side: THREE.DoubleSide });
-        let shopNameLogoMaterial = new THREE.MeshBasicMaterial({ map: shopNameLogoTexture, side: THREE.DoubleSide});
+        let shopNameLogoMaterial = new THREE.MeshBasicMaterial({ color:0xEC5DBD, side: THREE.DoubleSide});
         this.shopNameLogo = new THREE.Mesh(shopNameLogoGeometry, shopNameLogoMaterial);
         this.shopNameLogo.position.set(-2500, 160, -2518); // Adjust the position as need
 
@@ -101,10 +102,29 @@ class MyPark extends THREE.Object3D {
         this.groupBody.translateY(10);
         return this.groupBody;
     }
+    */
     
+    buildPlayerPark(){
+        const loader = new GLTFLoader();
+        loader.load('./models/playerCandyShop/candyShop.gltf', (gltf) => {
+            this.playerCandyShop = gltf.scene;
+            this.playerCandyShop.scale.set(100, 100, 100);
+            this.playerCandyShop.rotation.y = Math.PI;
+            this.playerCandyShop.position.set(-2500, 128, -2500);
     
-    
+            this.playerPark.add(this.playerCandyShop);
+        });
 
+        this.car1 = new MyVehicleObject("purple");
+        this.car1.position.set(-2400, 128, -2500);
+        this.car1.scale.set(3,3,3);
+        //this.car2 = new MyVehicleObject("cyan");
+
+        this.playerPark.add(this.car1);
+        return this.playerPark;
+
+    }
+    
 
 }
 

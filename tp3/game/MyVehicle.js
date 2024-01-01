@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { MyVehicleObject } from './MyVehicleObject.js';
 
 
 /**
@@ -9,13 +8,13 @@ class MyVehicle {
 
     constructor(game, position, target, car) {
 
-
         this.game = game
         this.rotation = 0;
         this.laps=0;
         this.wheelRotation = 0;
         this.maxRotation = 0.6
         this.minRotation = -0.6;
+        this.carRotationScale = 1.0;
         this.rotateScale = 0.1;
         this.velocity = 0;
         this.acceleration = 0.1;
@@ -136,18 +135,12 @@ class MyVehicle {
         if(this.wheelRotation < this.maxRotation){
             this.wheelRotation += this.rotateScale;
         }
-
-        if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06;
-
-
     }
 
     right() {
         if(this.wheelRotation > this.minRotation){
             this.wheelRotation -= this.rotateScale;
         }
-
-        if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06;
     }
 
     accelerate() {
@@ -157,12 +150,14 @@ class MyVehicle {
         if(this.velocity>=this.maxVelocity){
             this.velocity=this.maxVelocity;
         }
+        if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06 * this.carRotationScale;
     }
 
     brake() {
         if (this.velocity > this.minVelocity) {
             this.velocity -= this.acceleration;
         }
+        if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06 * this.carRotationScale;
     }
 
     pause() {
@@ -213,12 +208,12 @@ class MyVehicle {
             }
             if(!this.game.keysPressed['a'] && !this.game.keysPressed['arrowleft'] && !this.game.keysPressed['d'] && !this.game.keysPressed['arrowright']){
                 if(this.wheelRotation>0){
-                    this.wheelRotation-=0.03;
+                    this.wheelRotation-=this.rotateScale;
                 }
                 else if(this.wheelRotation<0){
-                    this.wheelRotation+=0.03;
+                    this.wheelRotation+=this.rotateScale;
                 }
-                if(this.wheelRotation < 0.03 || this.wheelRotation > -0.03) 
+                if(this.wheelRotation < 0.1 || this.wheelRotation > -0.1) 
                     this.wheelRotation = 0;
 
             }
@@ -261,7 +256,7 @@ class MyVehicle {
         
     }
     
-    
+
 
     checkIntersection(object1, object2) {
 
@@ -275,6 +270,7 @@ class MyVehicle {
         return false;
     }
 
+    /*
     checkCarPosition(carPosition) {
         const textureWidth = 411;
         const textureHeight = 700;
@@ -324,11 +320,13 @@ class MyVehicle {
             return false;
         }
     }
-    
+    */
 
+    /*
     checkInsideTrack(deltaPosition) {
         return this.checkCarPosition(deltaPosition);
     }
+    */
 }
     
     

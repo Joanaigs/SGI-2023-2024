@@ -60,7 +60,7 @@ class MyGame {
             this.onPointerMove.bind(this),
             false
         );
-        document.addEventListener('click', this.onClick.bind(this), false); // Update the event listener to listen for clicks
+        document.addEventListener('click', this.onClick.bind(this), false); 
         document.addEventListener('keydown', this.onKeyDown.bind(this));
         document.addEventListener('keyup', this.onKeyUp.bind(this));
 

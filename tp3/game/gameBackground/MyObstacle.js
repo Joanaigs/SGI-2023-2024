@@ -223,7 +223,7 @@ class MyObstacle {
     obstacleSlippery() {
 
         // Increase rotationScale
-        this.game.car.rotateScale += 0.5;
+        this.game.car.carRotationScale += 1.5;
 
         // Set a timeout to revert the changes after 10 seconds
         this.slipperyTimeout = Date.now() + 10000;
@@ -333,7 +333,7 @@ class MyObstacle {
                     this.confusedTimeout = null;
                 }
                 if (this.slipperyTimeout && Date.now() > this.slipperyTimeout) {
-                    this.game.car.rotateScale -= 0.5;
+                    this.game.car.carRotationScale -= 1.5;
                     this.slipperyTimeout = null;
                     this.app.scene.remove(this.particleSystem);
                     this.particleSystem = null;
