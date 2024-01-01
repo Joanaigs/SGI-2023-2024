@@ -14,6 +14,7 @@ class MyVehicle {
         this.wheelRotation = 0;
         this.maxRotation = 0.6
         this.minRotation = -0.6;
+        this.carRotationScale = 1.0;
         this.rotateScale = 0.1;
         this.velocity = 0;
         this.acceleration = 0.1;
@@ -150,14 +151,14 @@ class MyVehicle {
         if(this.velocity>=this.maxVelocity){
             this.velocity=this.maxVelocity;
         }
-        if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06;
+        if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06 * this.carRotationScale;
     }
 
     brake() {
         if (this.velocity > this.minVelocity) {
             this.velocity -= this.acceleration;
         }
-        if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06;
+        if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06 * this.carRotationScale;
     }
 
     pause() {
