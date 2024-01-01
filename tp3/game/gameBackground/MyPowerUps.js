@@ -20,24 +20,24 @@ class MyPowerUps {
 
         ]
         this.powerUpsObject = new Map();
-        this.texture= new THREE.TextureLoader().load('textures/wallPaper.jpg');
+        this.texture = new THREE.TextureLoader().load('textures/wallPaper.jpg');
 
-        this.heartTexture= new THREE.TextureLoader().load('textures/candy.jpg');
-        this.heartShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+        this.heartTexture = new THREE.TextureLoader().load('textures/candy.jpg');
+        this.heartShader = new MyShader('shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.heartTexture },
         })
-        this.teddyShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate.frag', {
+        this.teddyShader = new MyShader('shaders/pulsate.vert', 'shaders/pulsate.frag', {
             time: { type: 'f', value: 0.0 },
             baseColor: { type: 'vec3', value: new THREE.Vector3(1.0, 0.5, 0.2) },
         })
-        this.speedTexture= new THREE.TextureLoader().load('models/heart/speed.jpg');
-        this.speedShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+        this.speedTexture = new THREE.TextureLoader().load('models/heart/speed.jpg');
+        this.speedShader = new MyShader('shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.speedTexture },
         })
-        this.mintTexture= new THREE.TextureLoader().load('models/mint/mint.png');
-        this.mintShader = new MyShader( 'shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
+        this.mintTexture = new THREE.TextureLoader().load('models/mint/mint.png');
+        this.mintShader = new MyShader('shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.mintTexture },
         })
@@ -63,12 +63,12 @@ class MyPowerUps {
                 let candy = new OBJLoader();
                 candy.load('models/heart/candy.obj', (loaded) => {
                     let object = loaded.children[0];
-                    object.rotation.y=Math.PI;
+                    object.rotation.y = Math.PI;
                     let material = this.heartShader.material;
                     object.material = material;
                     this.materialList.push(material);
                     object.scale.set(4, 4, 4);
-                    object.position.set(powerUps.key.x, powerUps.key.y+4, powerUps.key.z);
+                    object.position.set(powerUps.key.x, powerUps.key.y + 4, powerUps.key.z);
                     object.position.add(this.position);
                     this.app.scene.add(object);
                     this.powerUpsObject.set(object, powerUps.type);
@@ -79,27 +79,27 @@ class MyPowerUps {
                 let teddy = new OBJLoader();
                 teddy.load('models/gummy-bear/gummy.obj', (loaded) => {
                     let object = loaded.children[0];
-                    object.rotation.y=-Math.PI/2;
+                    object.rotation.y = -Math.PI / 2;
                     let material = this.teddyShader.material;
                     object.material = material;
                     this.materialList.push(material);
-                    object.position.set(powerUps.key.x, powerUps.key.y+4, powerUps.key.z);
+                    object.position.set(powerUps.key.x, powerUps.key.y + 4, powerUps.key.z);
                     object.position.add(this.position);
                     this.app.scene.add(object);
                     this.powerUpsObject.set(object, powerUps.type);
                     this.loadedObjects++;
                 });
-                break;            
+                break;
             case "TIME":
                 let speed = new OBJLoader();
                 speed.load('models/heart/candy.obj', (loaded) => {
                     let object = loaded.children[0];
-                    object.rotation.y=Math.PI;
+                    object.rotation.y = Math.PI;
                     let material = this.speedShader.material;
                     object.material = material;
                     this.materialList.push(material);
                     object.scale.set(4, 4, 4);
-                    object.position.set(powerUps.key.x, powerUps.key.y+4, powerUps.key.z);
+                    object.position.set(powerUps.key.x, powerUps.key.y + 4, powerUps.key.z);
                     object.position.add(this.position);
                     this.app.scene.add(object);
                     this.powerUpsObject.set(object, powerUps.type);
@@ -110,11 +110,11 @@ class MyPowerUps {
                 let mint = new OBJLoader();
                 mint.load('models/mint/mint.obj', (loaded) => {
                     let object = loaded.children[0];
-                    object.rotation.y=Math.PI;
+                    object.rotation.y = Math.PI;
                     let material = this.mintShader.material;
                     object.material = material;
                     this.materialList.push(material);
-                    object.position.set(powerUps.key.x, powerUps.key.y+4, powerUps.key.z);
+                    object.position.set(powerUps.key.x, powerUps.key.y + 4, powerUps.key.z);
                     object.position.add(this.position);
                     object.scale.set(0.05, 0.05, 0.05);
                     this.app.scene.add(object);
@@ -139,9 +139,7 @@ class MyPowerUps {
 
     velocityCutPowerUp() {
         this.game.cutPath.visible = true;
-        setTimeout(() => {
-            this.game.cutPath.visible = false;
-        }, 5000);
+        this.cutTimoout = Date.now() + this.timeout;
     }
 
     timePowerUp() {
@@ -180,13 +178,33 @@ class MyPowerUps {
         return keys;
     }
 
-    update(){
-        for(let i=0;i<this.materialList.length;i++){
-            this.materialList[i].uniforms.time.value+=0.05;
+    update() {
+        if (!this.game)
+            return;
+        if (!this.game.paused && this.started) {
+            for (let i = 0; i < this.materialList.length; i++) {
+                this.materialList[i].uniforms.time.value += 0.05;
+            }
         }
-        if(this.velovityTimeout && Date.now() > this.velovityTimeout){
-            this.game.car.maxVelocity = this.originalMaxVelocity
-            this.velovityTimeout = null;
+        if (this.game.paused) {
+            if (!this.pausedClock)
+                    this.pausedClock = Date.now();
+        } else {
+            if (this.pausedClock) {
+                if(this.velovityTimeout)
+                    this.velovityTimeout += Date.now() - this.pausedClock;
+                if(this.cutTimoout)
+                    this.cutTimoout += Date.now() - this.pausedClock;
+                this.pausedClock = null;
+            }
+            if (this.velovityTimeout && Date.now() > this.velovityTimeout) {
+                this.game.car.maxVelocity = this.originalMaxVelocity
+                this.velovityTimeout = null;
+            }
+            if (this.cutTimoout && Date.now() > this.cutTimoout) {
+                this.game.cutPath.visible = false;
+                this.cutTimoout = null;
+            }
         }
     }
 

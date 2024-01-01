@@ -12,7 +12,8 @@ class MyVehicle {
         this.rotation = 0;
         this.laps=0;
         this.wheelRotation = 0;
-        this.maxRotation = 0.6
+        this.maxRotation = 0.6;
+        this.carsCollided = false;
         this.minRotation = -0.6;
         this.carRotationScale = 1.0;
         this.rotateScale = 0.1;
@@ -52,59 +53,10 @@ class MyVehicle {
     }
 
     addObstacle(obstacle) {
-        console.log("addObstacle");
         this.obstacles.push(obstacle);
         this.obstaclesActivated.set(obstacle, false);
     }
 
-    checkCollisions(obstacles, powerUps) {
-        for (const obstacle of obstacles) {
-            const intersection = this.checkIntersection(this.car, obstacle);
-
-            if (!this.obstaclesActivated.get(obstacle) && intersection) {
-                console.log('Collision with obstacle!');
-                this.game.obstacles.activateObstacle(this.game, obstacle);
-                this.obstaclesActivated.set(obstacle, true);
-            }
-            else if (!intersection && this.obstaclesActivated.get(obstacle)) {
-                this.obstaclesActivated.set(obstacle, false);
-            }
-
-
-        }
-
-        // Check collisions with power-ups
-        for (const powerUp of powerUps) {
-            if (!this.poweupsActivated.get(powerUp)) {
-                const intersection = this.checkIntersection(this.car, powerUp);
-                if (intersection) {
-                    console.log('Collision with power-up!');
-                    this.game.powerUps.activatePowerUp(this.game, powerUp);
-                    this.poweupsActivated.set(powerUp, true);
-                    powerUp.visible = false;
-                    setTimeout(() => {
-                        this.poweupsActivated.set(powerUp, false);
-                        powerUp.visible = true;
-                    }, 10000);
-                }
-            }
-        }
-
-        // Check collisions with checkpoints
-        for (const checkpoint of this.checkPoints) {
-            const intersection = this.checkIntersection(this.car, checkpoint);
-            if (intersection && this.lastCheckpoint !== checkpoint) {
-                let n = this.checkpointsCount.get(checkpoint);
-                this.checkpointsCount.set(checkpoint, n + 1);
-                this.checkPointCollided = true;
-                this.lastCheckpoint = checkpoint;
-                console.log("checkpoint: " + this.checkpointsCount.get(checkpoint));
-                this.checkEndGame();
-                this.updateNumberOfLaps();
-            }
-        }
-
-    }
     updateNumberOfLaps(){
         let min = 5;
         for(let i = 0; i < this.checkPoints.length; i++){
@@ -124,7 +76,7 @@ class MyVehicle {
                 return false;
             }
         }
-        this.game.gameOver = true;
+        this.game.gameOver();
         return true;
     }
 
@@ -225,7 +177,7 @@ class MyVehicle {
 
 
     update() {
-        if (this.game.started || this.game.paused) {
+        if (this.game.started && !this.game.paused) {
             this.handleKeys();
 
             const movementDirection = Math.sign(this.velocity);
@@ -255,6 +207,67 @@ class MyVehicle {
         }
     
         
+    }
+
+    checkCollisions(obstacles, powerUps) {
+        for (const obstacle of obstacles) {
+            const intersection = this.checkIntersection(this.car, obstacle);
+
+            if (!this.obstaclesActivated.get(obstacle) && intersection) {
+                console.log('Collision with obstacle!');
+                this.game.obstacles.activateObstacle(this.game, obstacle);
+                this.obstaclesActivated.set(obstacle, true);
+            }
+            else if (!intersection && this.obstaclesActivated.get(obstacle)) {
+                this.obstaclesActivated.set(obstacle, false);
+            }
+
+
+        }
+
+        const intersectionEnemy = this.checkIntersection(this.car, this.game.automaticVehicle.car);
+        if(intersectionEnemy && !this.carsCollided){
+            this.originalVelocity = this.maxVelocity;
+            this.maxVelocity = this.originalVelocity*0.6;
+            this.carsCollided = true;
+            console.log('Collision with enemy!');
+            setTimeout(() => {
+                this.maxVelocity = this.originalVelocity;
+                this.carsCollided = false;
+            }, 2000);
+        }
+
+        // Check collisions with power-ups
+        for (const powerUp of powerUps) {
+            if (!this.poweupsActivated.get(powerUp)) {
+                const intersection = this.checkIntersection(this.car, powerUp);
+                if (intersection) {
+                    console.log('Collision with power-up!');
+                    this.game.powerUps.activatePowerUp(this.game, powerUp);
+                    this.poweupsActivated.set(powerUp, true);
+                    powerUp.visible = false;
+                    setTimeout(() => {
+                        this.poweupsActivated.set(powerUp, false);
+                        powerUp.visible = true;
+                    }, 10000);
+                }
+            }
+        }
+
+        // Check collisions with checkpoints
+        for (const checkpoint of this.checkPoints) {
+            const intersection = this.checkIntersection(this.car, checkpoint);
+            if (intersection && this.lastCheckpoint !== checkpoint) {
+                let n = this.checkpointsCount.get(checkpoint);
+                this.checkpointsCount.set(checkpoint, n + 1);
+                this.checkPointCollided = true;
+                this.lastCheckpoint = checkpoint;
+                console.log("checkpoint: " + this.checkpointsCount.get(checkpoint));
+                this.checkEndGame();
+                this.updateNumberOfLaps();
+            }
+        }
+
     }
     
 

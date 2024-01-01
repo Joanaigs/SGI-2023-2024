@@ -22,23 +22,26 @@ class MyGame {
         this.app = logic.app
         this.scaleTrack = 50;
         this.penalties = 0;
-        this.position = new THREE.Vector3(-100, 0, -100);
-        this.startPosition = new THREE.Vector3(8 * this.scaleTrack + this.position.x, 0, 5.5 * this.scaleTrack + this.position.z);
-
+        this.numberOfLaps = 3;
+        this.gameOver = false;
+        this.started = false;
         this.powerUps = powerUps;
         this.obstacles = obstacles;
         this.obstaclesList = null;
         this.routes = routes;
         this.cutPath = cutPath;
+        this.paused = false
+
+        this.position = new THREE.Vector3(-100, 0, -100);
+        this.startPosition = new THREE.Vector3(8 * this.scaleTrack + this.position.x, 0, 5.5 * this.scaleTrack + this.position.z);
+
+
         this.checkpoints = checkpoints;
-        this.numberOfLaps = 3;
         this.car = new MyVehicle(this, this.position, new THREE.Vector3(8.2 * this.scaleTrack, 0, 5 * this.scaleTrack), car);
         this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(7.8 * this.scaleTrack, 0, 5 * this.scaleTrack), this.routes.getRoutes(2), enemyCar);
-        this.gameOver = false;
-        this.started = false;
+
         this.semaphoreColors = [0xff0000, 0xffff00, 0x00ff00]; // Red, Yellow, Gree
         this.semaphoreInterval = 1000; // Time in milliseconds for each color chang
-        this.gameOver = false;
         this.myFont = new MyFont();
 
 
@@ -46,11 +49,9 @@ class MyGame {
         this.raycaster = new THREE.Raycaster()
         this.pointer = new THREE.Vector2()
         this.pickableObj = []
-        this.paused = false
         this.selectedObstacle = null;
         this.outdoor = new MyOutdoor(this.app, new THREE.Vector3(200, 2, 600));
         this.app.scene.add(this.outdoor);
-
         this.createStartButton();
         this.pickingColor = "0x00ff00"
 
@@ -130,23 +131,28 @@ class MyGame {
 
 
     start() {
-        this.display = new MyDisplay(this, this.position);
+        this.display = new MyDisplay(this, 'followCar');
         this.startTime = Date.now();
         this.automaticVehicle.start()
+    }
 
-
-
+    gameOver() {
+        this.gameOver = true;
+        this.logic.state = "gameOver";
+        this.display.reset();
 
     }
 
     pause() {
         this.automaticVehicle.pause()
         this.car.pause()
+        this.paused = true;
     }
 
     continue() {
         this.automaticVehicle.continue()
         this.car.continue()
+        this.paused = false;
     }
 
     changePositionObstacles() {
@@ -172,7 +178,7 @@ class MyGame {
     }
 
     changePositionObstaclesSave() {
-        this.app.setActiveCamera('car');
+        this.app.setActiveCamera('followCar');
         this.pickableObj = [];
         this.app.scene.remove(this.saveButton);
         for (let i = 0; i < this.obstaclesAvailable.length; i++) {
@@ -188,20 +194,17 @@ class MyGame {
      */
     update() {
         this.outdoor.update();
+        this.powerUps.update();
+        this.obstacles.update();
 
-        if (this.started || this.paused) {
-            this.powerUps.update();
-            this.obstacles.update();
-            //time in format mm:ss
-            let time = Math.floor((Date.now() - this.startTime) / 1000);
+        //time in format mm:ss
+        let time = Math.floor((Date.now() - this.startTime) / 1000);
+        if(this.display)
             this.display.update(time, this.car.laps, this.car.maxVelocity, this.penalties);
-        }
-        if (this.gameOver) {
-            this.logic.state = "gameOver";
-            return;
-        }
+        
         this.car.update();
         this.automaticVehicle.update();
+        
 
         if (this.app.activeCameraName === "followCar")
             this.updateCameraFollow();
