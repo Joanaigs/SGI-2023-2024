@@ -8,6 +8,7 @@ import { MyMaterial } from './classes/MyMaterial.js';
 import { MyLights } from './classes/MyLights.js';
 import { MyNodeParser } from './MyNodeParser.js';
 import { MyGameLogic } from './game/MyGameLogic.js';
+import { MyShader } from './game/MyShader.js';
 
 /**
  *  This class contains the contents of out application
@@ -59,8 +60,9 @@ class MyContents {
      */
     onSceneLoaded(data) {
         this.onAfterSceneLoadedAndBeforeRender(data);
-        this.game = new MyGameLogic(this.app);
-
+        this.data = data;
+        // create the scene
+        this.waitForshaders();
     }
 
     /**
@@ -74,6 +76,7 @@ class MyContents {
 
         // create the lights
         this.app.initCameras(data.cameras, data.activeCameraId)
+        this.shaders = [];
 
         // create the lights
         for (var key in data.textures) {
@@ -101,12 +104,50 @@ class MyContents {
             if (material.specularMapRef !== null) {
                 specularTexture = this.getTexture(material.specularref);
             }
-            this.materials.set(material.id, new MyMaterial(material, texture, bumpTexture, specularTexture));
+            if(material.shaderfrag){
+                let uniforms = {};
+                //uniforms are sepearted by a comma, name, type, value
+                console.log(material.shaderuniforms);
+                let uniform = material.shaderuniforms.split(",");
+                for(let i=0; i<uniform.length; i++){
+                    let uniformName = uniform[i].split(" ")[0];
+                    let uniformType = uniform[i].split(" ")[1];
+                    let uniformValue = uniform[i].split(" ")[2];
+                    if(uniformType == "float"){
+                        uniforms[uniformName] = {type: "f", value: parseFloat(uniformValue)};
+                    }
+                    else if(uniformType == "sampler2D"){
+                        uniforms[uniformName] = {type: "sampler2D", value: new THREE.TextureLoader().load(uniformValue)};
+                    }
+                }
+
+                uniforms["color"] = {type: "vec4", value: new THREE.Vector4(material.color.r, material.color.g, material.color.b, material.color.a)};
+                console.log(uniforms);
+                let shader = new MyShader(material.shadervert,material.shaderfrag, uniforms);
+                shader.id = material.id;
+                this.shaders.push(shader);
+                
+            
+            }
+            else
+                this.materials.set(material.id, new MyMaterial(material, texture, bumpTexture, specularTexture));
         }
 
-        // create the scene
-        this.nodeParser = new MyNodeParser(this, data);
+    }
+
+    waitForshaders(){
+        for(let i = 0; i < this.shaders.length; i++){
+            if (this.shaders[i].ready === false) {
+                setTimeout(this.waitForshaders.bind(this), 100)
+                return;
+            }
+        }
+        for(let i = 0; i < this.shaders.length; i++){
+            this.materials.set(this.shaders[i].id, this.shaders[i].material);
+        }
+        this.nodeParser = new MyNodeParser(this, this.data);
         this.nodeParser.init();
+        this.game = new MyGameLogic(this.app);
     }
 
     /**
@@ -123,7 +164,8 @@ class MyContents {
      * Updates the scene
      */
     update() {
-        this.game.update();
+        if(this.game)
+            this.game.update();
 
         
     }

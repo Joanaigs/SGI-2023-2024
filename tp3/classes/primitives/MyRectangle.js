@@ -27,7 +27,8 @@ class MyRectangle {
      * @returns the object with the material
      */
     addMaterial(material, castshadow, receiveshadows){
-        material.setRepeat(this.width, this.height)
+        if(material.type !== "ShaderMaterial")
+            material.setRepeat(this.width, this.height)
         let object = new THREE.Mesh(this.rectangle, material);
         object.position.set(this.xy1[0] + this.width/2, this.xy1[1] + this.height/2, 0);
         if(castshadow){

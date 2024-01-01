@@ -116,7 +116,8 @@ class MyPolygon extends THREE.Group {
    */
   addMaterial(material1, castshadow, receiveshadows) {
     material1.vertexColors = true;
-    material1.setRepeat(this.radius, this.radius);
+    if(material1.type !== "ShaderMaterial")
+      material1.setRepeat(this.radius, this.radius);
     let object = new THREE.Mesh(this.geometry, material1);
     if (castshadow) {
       object.castShadow = true;

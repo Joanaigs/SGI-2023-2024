@@ -27,7 +27,8 @@ class MySphere{
      * @returns the object with the material
      */
     addMaterial(material, castshadow, receiveshadows){
-        material.setRepeat(this.radius*2*Math.PI, this.radius*2*Math.PI)
+        if(material.type !== "ShaderMaterial")
+            material.setRepeat(this.radius*2*Math.PI, this.radius*2*Math.PI)
         let object = new THREE.Mesh(this.sphere, material);
         if(castshadow){
             object.castShadow = true;

@@ -72,7 +72,7 @@ class MyDisplay{
         // Obstacles
         this.obstaclesGroup = new THREE.Group();
         this.obstacles = this.font.getWord("Obstacles");
-        this.obstaclesGroup.position.set(width/2-2,-height/2+0.5, -5);
+        this.obstaclesGroup.position.set(width/2-4,-height/2+0.5, -5);
         this.obstaclesGroup.scale.set(0.12, 0.12, 0.12);
         this.obstaclesGroup.add(this.obstacles);
         this.obstaclesOffset = 1;
@@ -146,7 +146,7 @@ class MyDisplay{
             }
             this.obstaclesGroup.remove(this.obstaclesValueVelocity);
             this.obstaclesValueVelocity = this.font.getWord(((this.game.obstacles.velocityTimeout-Date.now())/1000).toString());
-            this.obstaclesValueVelocity.position.set(19, -this.obstacleVelocityOffset, 0);
+            this.obstaclesValueVelocity.position.set(20, -this.obstacleVelocityOffset, 0);
             this.obstaclesGroup.add(this.obstaclesValueVelocity)
         }
         else if(this.obstaclesValueVelocity){
