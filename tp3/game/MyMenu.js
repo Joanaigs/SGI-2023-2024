@@ -3,7 +3,7 @@ import { MySkybox } from '../classes/MySkybox.js';
 import { MyFont } from './MyFont.js';
 
 /**
- *  This class contains the functions needed to allow the logic of the Menu++++++++++++++++++++++++
+ *  This class contains the functions needed to allow the logic of the Menu
  */
 class MyMenu {
     constructor(app) {
@@ -39,11 +39,52 @@ class MyMenu {
 
         if (intersects.length > 0 && intersects[0].object) {
             if (intersects[0].object === this.startButton) {
+                let remove = this.clickableObjects.indexOf(this.startButton);
+                this.clickableObjects.splice(remove, 1);
                 this.playerNamePage();
-            } else if (intersects[0].object === this.nameButton) {
-                this.input = this.usernameInput.value;
-                console.log("User input:", this.input);
+            } else if (intersects[0].object.name === "inputButton" ) {
+                let remove = this.clickableObjects.indexOf(this.nameButton);
+                this.clickableObjects.splice(remove, 1);
+                this.input = document.getElementById("username").value
+                this.input = (document.getElementById("username").value == "")? "player": this.input;
+                this.usernameInput.style.visibility = 'hidden';
                 this.chooseDificultyPage();
+            }
+            else if(intersects[0].object.name === "hardButton"){
+                this.difficulty = "hard";
+                let remove = this.clickableObjects.indexOf(this.hardButton);
+                this.clickableObjects.splice(remove, 1);
+                this.hardButton.material.color.setHex(0xFF80AB); 
+                this.easyButton.material.color.setHex(0xFFBCF2);
+                this.normalButton.material.color.setHex(0xFFBCF2);
+                this.clickableObjects.push(this.easyButton);
+                this.clickableObjects.push(this.normalButton);
+            }
+            else if(intersects[0].object.name === "normalButton"){
+                this.difficulty = "normal";
+                let remove = this.clickableObjects.indexOf(this.normalButton);
+                this.clickableObjects.splice(remove, 1);
+                this.normalButton.material.color.setHex(0xFF80AB); 
+                this.easyButton.material.color.setHex(0xFFBCF2);
+                this.hardButton.material.color.setHex(0xFFBCF2);
+                this.clickableObjects.push(this.easyButton);
+                this.clickableObjects.push(this.hardButton);
+
+            }
+            else if(intersects[0].object.name === "easyButton"){
+                this.difficulty = "easy";
+                let remove = this.clickableObjects.indexOf(this.easyButton);
+                this.clickableObjects.splice(remove, 1);
+                this.easyButton.material.color.setHex(0xFF80AB); 
+                this.normalButton.material.color.setHex(0xFFBCF2);
+                this.hardButton.material.color.setHex(0xFFBCF2);
+                this.clickableObjects.push(this.normalButton);
+                this.clickableObjects.push(this.hardButton);
+            }
+            else if(intersects[0].object.name === "difficultyButton"){
+                let remove = this.clickableObjects.indexOf(this.difficultyButton);
+                this.clickableObjects.splice(remove, 1);
+                this.choosePlayerCar();
             }
         }
     }
@@ -158,16 +199,79 @@ class MyMenu {
         continueWord.scale.set(0.6, 0.6, 0.6)
 
 
-        this.app.scene.add(this.nameButton, continueWord);
-        this.app.scene.add(insertName);
+        this.namePageGroup = new THREE.Group();
+        this.namePageGroup.add(this.nameButton, continueWord,insertName );
+        this.app.scene.add(this.namePageGroup);
     }
 
-    chooseDificultyPage(){
-        
-        const insertName = this.myFont.getWord("Select difficulty");
-        insertName.position.set(this.startButton.position.x + 8, this.startButton.position.y + 5, this.startButton.position.z);
-        insertName.rotation.y = Math.PI;
+    chooseDificultyPage() {
+        this.app.scene.remove(this.namePageGroup);
 
+        const chooseDifficulty = this.myFont.getWord("Choose Game Difficulty"); // Assuming getWord is a method to create a 3D text object
+        chooseDifficulty.position.set(this.startButton.position.x + 10, this.startButton.position.y + 7, this.startButton.position.z);
+        chooseDifficulty.rotation.y = Math.PI;
+    
+        // Create a box (cube) for the easy button
+        const easyButtonGeometry = new THREE.BoxGeometry(5, 2, 0.5);
+        const easyButtonMaterial = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 });
+        this.easyButton = new THREE.Mesh(easyButtonGeometry, easyButtonMaterial);
+        this.easyButton.position.set(-1970, 253, -2490);
+        this.easyButton.name = "easyButton";
+        this.clickableObjects.push(this.easyButton);
+    
+        const easyWord = this.myFont.getWord("EASY");
+        easyWord.position.set(this.easyButton.position.x+1, this.easyButton.position.y-0.1, this.easyButton.position.z-1);
+        easyWord.rotation.y = Math.PI;
+        easyWord.scale.set(0.7, 0.7, 0.7);
+    
+        // Create a box (cube) for the normal button
+        const normalButtonGeometry = new THREE.BoxGeometry(5, 2, 0.5);
+        const normalButtonMaterial = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 });
+        this.normalButton = new THREE.Mesh(normalButtonGeometry, normalButtonMaterial);
+        this.normalButton.position.set(-1970, 249, -2490);
+        this.normalButton.name = "normalButton";
+        this.clickableObjects.push(this.normalButton);
+    
+        const normalWord = this.myFont.getWord("NORMAL");
+        normalWord.position.set(this.normalButton.position.x+1.7, this.normalButton.position.y, this.normalButton.position.z-1);
+        normalWord.rotation.y = Math.PI;
+        normalWord.scale.set(0.7, 0.7, 0.7);
+    
+        // Create a box (cube) for the hard button
+        const hardButtonGeometry = new THREE.BoxGeometry(5, 2, 0.5);
+        const hardButtonMaterial = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 });
+        this.hardButton = new THREE.Mesh(hardButtonGeometry, hardButtonMaterial);
+        this.hardButton.position.set(-1970, 245, -2490);
+        this.hardButton.name = "hardButton";
+        this.clickableObjects.push(this.hardButton);
+    
+        const hardWord = this.myFont.getWord("HARD");
+        hardWord.position.set(this.hardButton.position.x+1, this.hardButton.position.y+0.1, this.hardButton.position.z-1);
+        hardWord.rotation.y = Math.PI;
+        hardWord.scale.set(0.7, 0.7, 0.7);
+
+        // Create NEXT button
+        const boxGeometry = new THREE.BoxGeometry(3, 1, 0.5); // Adjust the size as needed
+        const boxMaterial = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 });
+        this.difficultyButton = new THREE.Mesh(boxGeometry, boxMaterial);
+        this.difficultyButton.position.set(-1970, 242, -2490);
+        this.difficultyButton.name = "difficultyButton"
+        this.clickableObjects.push(this.difficultyButton);
+
+        const continueWord = this.myFont.getWord("NEXT"); // Assuming getWord is a method to create a 3D text object
+        continueWord.position.set(this.startButton.position.x+0.9, this.startButton.position.y-7, this.startButton.position.z - 0.3);
+        continueWord.rotation.y = Math.PI;
+        continueWord.scale.set(0.6, 0.6, 0.6)
+
+        // Create a group to contain all the buttons
+        this.difficultyPageGroup = new THREE.Group();
+        this.difficultyPageGroup.add(chooseDifficulty, this.easyButton, easyWord, this.normalButton, normalWord, this.hardButton, hardWord, continueWord, this.difficultyButton);
+        this.app.scene.add(this.difficultyPageGroup);
+    }
+    
+
+    choosePlayerCar(){
+        this.app.scene.remove(this.difficultyPageGroup);
     }
 }
 
