@@ -14,7 +14,7 @@ class MyWheel extends THREE.Object3D {
 
             const textureLoader = new THREE.TextureLoader();
             this.trackTexture = textureLoader.load('./textures/track.png');
-            let material = new THREE.MeshBasicMaterial({ color:0x000000 });
+            let material = new THREE.MeshBasicMaterial({ map:this.trackTexture});
 
             let cylinder = new THREE.Mesh(geometry, material);
             if (i % 2 == 0) {
