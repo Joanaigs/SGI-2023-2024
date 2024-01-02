@@ -16,6 +16,7 @@ class MyApp {
     constructor() {
         this.scene = null
         this.stats = null
+        this.showBoundingBoxes = false
 
         // camera related attributes
         this.activeCamera = null

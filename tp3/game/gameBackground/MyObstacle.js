@@ -51,6 +51,10 @@ class MyObstacle {
 
     }
 
+    setGame(game) {
+        this.game = game;
+    }
+
     addObstacle(obstacle) {
         this.obstaclesObject.set(obstacle, obstacle.name);
         switch (obstacle.name) {
@@ -302,7 +306,7 @@ class MyObstacle {
 
     update() {
         if (this.game) {
-            if (!this.game.paused && this.started) {
+            if (!this.game.paused && this.game.started) {
                 for (let i = 0; i < this.materialList.length; i++) {
                     this.materialList[i].uniforms.time.value += 0.05;
                 }
@@ -340,7 +344,6 @@ class MyObstacle {
                 }
 
                 if (this.particleSystem) {
-                    console.log("here")
                     const positions = this.particleSystem.geometry.attributes.position.array;
                     const velocities = this.particleSystem.geometry.attributes.velocity.array;
 

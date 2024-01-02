@@ -13,6 +13,7 @@ class MyGuiInterface {
   constructor(app) {
     this.app = app;
     this.datgui = new GUI();
+    this.datgui.close();
     this.contents = null;
   }
 
@@ -30,8 +31,7 @@ class MyGuiInterface {
   init() {
     // adds a folder to the gui interface for the camera
     const cameraFolder = this.datgui.addFolder("Camera");
-    cameraFolder.add(this.app, "activeCameraName", this.app.camerasNames).name("active camera");
-    cameraFolder.open();
+    cameraFolder.add(this.app, "activeCameraName", this.app.camerasNames).name("active camera").listen();
 
     // adds a folder to the gui interface for the axis
     const axisFolder = this.datgui.addFolder("Axis");
@@ -39,7 +39,16 @@ class MyGuiInterface {
       this.contents.updateAxis();
     });
 
+    const boundingBoxFolder = this.datgui.addFolder("Bounding Boxes");
+    boundingBoxFolder.add(this.app, "showBoundingBoxes");
+
   }
+
+  updateGui() {
+    // update the gui interface
+  }
+
+
 }
 
 export { MyGuiInterface };

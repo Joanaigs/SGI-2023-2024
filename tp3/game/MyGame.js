@@ -32,6 +32,8 @@ class MyGame {
         this.cutPath = cutPath;
         this.paused = false
 
+        this.powerUps.setGame(this);
+        this.obstacles.setGame(this);
         this.position = new THREE.Vector3(-100, 0, -100);
         this.startPosition = new THREE.Vector3(8 * this.scaleTrack + this.position.x, 0, 5.5 * this.scaleTrack + this.position.z);
 
@@ -131,14 +133,19 @@ class MyGame {
 
 
     start() {
+        this.started = true;
         this.display = new MyDisplay(this, 'followCar');
         this.startTime = Date.now();
         this.automaticVehicle.start()
     }
 
-    gameOver() {
+    gameOverFinal() {
         this.gameOver = true;
         this.logic.state = "gameOver";
+        if(this.car.gameTime<this.automaticVehicle.gameTime)
+            console.log("YOU WIN")
+        else
+           console.log("YOU LOSE")
         this.display.reset();
 
     }
@@ -197,10 +204,8 @@ class MyGame {
         this.powerUps.update();
         this.obstacles.update();
 
-        //time in format mm:ss
-        let time = Math.floor((Date.now() - this.startTime) / 1000);
         if(this.display)
-            this.display.update(time, this.car.laps, this.car.maxVelocity, this.penalties);
+            this.display.update((Date.now() - this.startTime)-this.car.timeInPause, this.car.laps, this.car.maxVelocity, this.penalties);
         
         this.car.update();
         this.automaticVehicle.update();
@@ -210,6 +215,9 @@ class MyGame {
             this.updateCameraFollow();
         if (this.app.activeCameraName === "car")
             this.updateCamera();
+
+        if(this.car.gameOver && this.automaticVehicle.gameOver)
+            this.gameOverFinal();
     }
 
     updateCameraFollow() {

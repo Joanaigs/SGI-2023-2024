@@ -7,7 +7,7 @@ import * as THREE from 'three';
 class MyAutomaticVehicle {
 
 
-    constructor(game, position, target, route, car, timeScale=0.6) {
+    constructor(game, position, target, route, car, timeScale = 0.6) {
 
 
         this.game = game
@@ -16,6 +16,7 @@ class MyAutomaticVehicle {
         this.mixerWheel2 = null;
         this.mixerWheel1RotX = null;
         this.mixerWheel2RotX = null;
+        this.timeInPaused = 0;
         this.route = route;
         this.clock = new THREE.Clock()
         this.rotation = 0;
@@ -64,11 +65,11 @@ class MyAutomaticVehicle {
         let quaternionListWheel = [];
         const xAxis = new THREE.Vector3(0, 1, 0)
         let rotationListWheelX = [
-            ...new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(xAxis,0)),
-            ...new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(xAxis,-Math.PI/2)),
-            ...new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(xAxis,Math.PI)),
-            ...new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(xAxis,Math.PI/2)),
-            ...new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(xAxis,0)),];
+            ...new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(xAxis, 0)),
+            ...new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(xAxis, -Math.PI / 2)),
+            ...new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(xAxis, Math.PI)),
+            ...new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(xAxis, Math.PI / 2)),
+            ...new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(xAxis, 0)),];
         let rotationTimes = [0, 1, 2, 3, 4];
 
         const maxRotation = 0.6;
@@ -86,11 +87,11 @@ class MyAutomaticVehicle {
             const quaternion = new THREE.Quaternion();
             quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), direction);
 
-            let angle = Math.atan2( direction.x, direction.z);
-            if(angle < -Math.PI/2){
+            let angle = Math.atan2(direction.x, direction.z);
+            if (angle < -Math.PI / 2) {
                 angle = angle + Math.PI
             }
-            if(angle > Math.PI/2){
+            if (angle > Math.PI / 2) {
                 angle = angle - Math.PI
             }
             //limit angle between -0.6 and 0.6
@@ -128,10 +129,10 @@ class MyAutomaticVehicle {
         this.mixer.timeScale = this.timeScale
         this.mixerWheel1.timeScale = this.timeScale
         this.mixerWheel2.timeScale = this.timeScale
-        this.mixerWheel1RotX.timeScale = this.timeScale*10
-        this.mixerWheel2RotX.timeScale = this.timeScale*10
-        this.mixerWheel3RotX.timeScale = this.timeScale*10
-        this.mixerWheel4RotX.timeScale = this.timeScale*10
+        this.mixerWheel1RotX.timeScale = this.timeScale * 10
+        this.mixerWheel2RotX.timeScale = this.timeScale * 10
+        this.mixerWheel3RotX.timeScale = this.timeScale * 10
+        this.mixerWheel4RotX.timeScale = this.timeScale * 10
 
         // Create AnimationActions for each clip
         const positionAction = this.mixer.clipAction(positionClip)
@@ -153,9 +154,11 @@ class MyAutomaticVehicle {
 
 
 
-        for(let i = 0; i < this.animations.length; i++){
+        for (let i = 0; i < this.animations.length; i++) {
             this.animations[i].play();
         }
+        this.startTime = Date.now();
+
     }
 
     pause() {
@@ -164,14 +167,16 @@ class MyAutomaticVehicle {
         this.mixerWheel2.timeScale = 0
         this.mixerWheel1RotX.timeScale = 0
         this.mixerWheel2RotX.timeScale = 0
+        this.pausedTime = Date.now()
     }
 
     continue() {
         this.mixer.timeScale = this.timeScale
         this.mixerWheel1.timeScale = this.timeScale
         this.mixerWheel2.timeScale = this.timeScale
-        this.mixerWheel1RotX.timeScale = this.timeScale*10
-        this.mixerWheel2RotX.timeScale = this.timeScale*10
+        this.mixerWheel1RotX.timeScale = this.timeScale * 10
+        this.mixerWheel2RotX.timeScale = this.timeScale * 10
+        this.timeInPaused += Date.now() - this.pausedTime
     }
 
     debugKeyFrames() {
@@ -234,37 +239,47 @@ class MyAutomaticVehicle {
                 return false;
             }
         }
-        this.game.gameOver = true;
+        this.gameOver = true;
+        this.gameTime = Date.now() - this.startTime - this.timeInPaused;
+        this.mixer.timeScale = 0
+        this.mixerWheel1.timeScale = 0
+        this.mixerWheel2.timeScale = 0
+        this.mixerWheel1RotX.timeScale = 0
+        this.mixerWheel2RotX.timeScale = 0
+
         return true;
     }
 
     update() {
-        let delta = this.clock.getDelta()
-        if (this.mixer) {
-            this.mixer.update(delta);
-        }
-        if (this.mixerWheel1) {
-            this.mixerWheel1.update(delta);
-        }
-        if (this.mixerWheel2) {
-            this.mixerWheel2.update(delta);
-        }
-        if (this.mixerWheel1RotX) {
-            this.mixerWheel1RotX.update(delta);
-        }
-        if (this.mixerWheel2RotX) {
-            this.mixerWheel2RotX.update(delta);
-        }
-        if (this.mixerWheel3RotX) {
-            this.mixerWheel3RotX.update(delta);
-        }
-        if (this.mixerWheel4RotX) {
-            this.mixerWheel4RotX.update(delta);
-        }
+        if (!this.gameOver) {
+            let delta = this.clock.getDelta()
+            if (this.mixer) {
+                this.mixer.update(delta);
+            }
+            if (this.mixerWheel1) {
+                this.mixerWheel1.update(delta);
+            }
+            if (this.mixerWheel2) {
+                this.mixerWheel2.update(delta);
+            }
+            if (this.mixerWheel1RotX) {
+                this.mixerWheel1RotX.update(delta);
+            }
+            if (this.mixerWheel2RotX) {
+                this.mixerWheel2RotX.update(delta);
+            }
+            if (this.mixerWheel3RotX) {
+                this.mixerWheel3RotX.update(delta);
+            }
+            if (this.mixerWheel4RotX) {
+                this.mixerWheel4RotX.update(delta);
+            }
 
 
-        if (this.game.started && !this.game.paused) {
-            this.checkCollisions(this.obstacles, this.powerUps);
+            if (this.game.started && !this.game.paused) {
+                this.checkCollisions(this.obstacles, this.powerUps);
+            }
+
         }
 
     }

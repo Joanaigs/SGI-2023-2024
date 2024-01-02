@@ -9,8 +9,10 @@ class MyVehicle {
     constructor(game, position, target, car) {
 
         this.game = game
+        this.helperObj = new Map();
+        this.timeInPause = 0;
         this.rotation = 0;
-        this.laps=0;
+        this.laps = 0;
         this.wheelRotation = 0;
         this.maxRotation = 0.6;
         this.carsCollided = false;
@@ -47,8 +49,10 @@ class MyVehicle {
 
 
         this.trackTexture = new THREE.TextureLoader().load('./textures/track.png');
-        
-        this.renderTarget = new THREE.WebGLRenderTarget(411,700);
+
+        this.renderTarget = new THREE.WebGLRenderTarget(411, 700);
+
+        this.normalVelTex = new THREE.TextureLoader().load('./textures/velocity_normal.png');
 
     }
 
@@ -57,10 +61,10 @@ class MyVehicle {
         this.obstaclesActivated.set(obstacle, false);
     }
 
-    updateNumberOfLaps(){
+    updateNumberOfLaps() {
         let min = 5;
-        for(let i = 0; i < this.checkPoints.length; i++){
-            if(this.checkpointsCount.get(this.checkPoints[i]) < min){
+        for (let i = 0; i < this.checkPoints.length; i++) {
+            if (this.checkpointsCount.get(this.checkPoints[i]) < min) {
                 min = this.checkpointsCount.get(this.checkPoints[i]);
             }
         }
@@ -69,14 +73,15 @@ class MyVehicle {
     checkEndGame() {
         for (let i = 0; i < this.checkPoints.length; i++) {
             let checkpoint = this.checkPoints[i];
-            if (i === 0 && this.checkpointsCount.get(checkpoint) < this.game.numberOfLaps+1) {
+            if (i === 0 && this.checkpointsCount.get(checkpoint) < this.game.numberOfLaps + 1) {
                 return false;
 
             } else if (this.checkpointsCount.get(this.checkPoints[i]) < this.game.numberOfLaps) {
                 return false;
             }
         }
-        this.game.gameOver();
+        this.gameOver = true;
+        this.gameTime = Date.now() - this.game.startTime - this.timeInPause + this.game.penalties;
         return true;
     }
 
@@ -85,13 +90,13 @@ class MyVehicle {
     }
 
     left() {
-        if(this.wheelRotation < this.maxRotation){
+        if (this.wheelRotation < this.maxRotation) {
             this.wheelRotation += this.rotateScale;
         }
     }
 
     right() {
-        if(this.wheelRotation > this.minRotation){
+        if (this.wheelRotation > this.minRotation) {
             this.wheelRotation -= this.rotateScale;
         }
     }
@@ -100,8 +105,8 @@ class MyVehicle {
         if (this.velocity < this.maxVelocity) {
             this.velocity += this.acceleration;
         }
-        if(this.velocity>=this.maxVelocity){
-            this.velocity=this.maxVelocity;
+        if (this.velocity >= this.maxVelocity) {
+            this.velocity = this.maxVelocity;
         }
         if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06 * this.carRotationScale;
     }
@@ -116,13 +121,15 @@ class MyVehicle {
     pause() {
         this.originalVelocity = this.velocity;
         this.velocity = 0;
+        this.timePaused = Date.now();
     }
 
     continue() {
         this.velocity = this.originalVelocity;
+        this.timeInPause += Date.now() - this.timePaused;
     }
 
-    handleKeys(){
+    handleKeys() {
         if (!this.game.paused) {
             if ((this.game.keysPressed['a'] || this.game.keysPressed['arrowleft']) && !(this.game.keysPressed['d'] || this.game.keysPressed['arrowright'])) {
                 if (!this.confused)
@@ -151,22 +158,22 @@ class MyVehicle {
                 else
                     this.accelerate();
             }
-            if(!this.game.keysPressed['w'] && !this.game.keysPressed['arrowup'] && !this.game.keysPressed['s'] && !this.game.keysPressed['arrowdown']){
-                if(this.velocity>0){
-                    this.velocity-=this.acceleration/4;
+            if (!this.game.keysPressed['w'] && !this.game.keysPressed['arrowup'] && !this.game.keysPressed['s'] && !this.game.keysPressed['arrowdown']) {
+                if (this.velocity > 0) {
+                    this.velocity -= this.acceleration / 4;
                 }
-                else if(this.velocity<=0){
-                    this.velocity=0;
+                else if (this.velocity <= 0) {
+                    this.velocity = 0;
                 }
             }
-            if(!this.game.keysPressed['a'] && !this.game.keysPressed['arrowleft'] && !this.game.keysPressed['d'] && !this.game.keysPressed['arrowright']){
-                if(this.wheelRotation>0){
-                    this.wheelRotation-=this.rotateScale;
+            if (!this.game.keysPressed['a'] && !this.game.keysPressed['arrowleft'] && !this.game.keysPressed['d'] && !this.game.keysPressed['arrowright']) {
+                if (this.wheelRotation > 0) {
+                    this.wheelRotation -= this.rotateScale;
                 }
-                else if(this.wheelRotation<0){
-                    this.wheelRotation+=this.rotateScale;
+                else if (this.wheelRotation < 0) {
+                    this.wheelRotation += this.rotateScale;
                 }
-                if(this.wheelRotation < 0.1 || this.wheelRotation > -0.1) 
+                if (this.wheelRotation < 0.1 || this.wheelRotation > -0.1)
                     this.wheelRotation = 0;
 
             }
@@ -177,22 +184,22 @@ class MyVehicle {
 
 
     update() {
-        if (this.game.started && !this.game.paused) {
+        if (this.game.started && !this.game.paused && !this.gameOver) {
             this.handleKeys();
 
             const movementDirection = Math.sign(this.velocity);
             const rotationSpeed = Math.abs(this.velocity) * 0.8;
-    
+
             this.car.children[0].children.forEach((wheel, index) => {
                 wheel.children.forEach((w, subIndex) => {
                     if (subIndex === 0 || subIndex === 1) {
                         w.rotation.y = this.wheelRotation;
                     }
                     w.rotation.x += (movementDirection * Math.PI / 30) * rotationSpeed;
-        
+
                 });
             });
-    
+
             this.car.rotation.y = this.rotation;
             const deltaPosition = new THREE.Vector3(
                 this.velocity * Math.sin(this.car.rotation.y),
@@ -200,16 +207,16 @@ class MyVehicle {
                 this.velocity * Math.cos(this.car.rotation.y)
             );
             this.car.position.add(deltaPosition);
-         
+
             if (this.velocity != 0) {
                 this.checkCollisions(this.obstacles, this.powerUps);
             }
-            if(this.velocity>this.maxVelocity){
-                this.velocity=this.maxVelocity;
+            if (this.velocity > this.maxVelocity) {
+                this.velocity = this.maxVelocity;
             }
         }
-    
-        
+
+
     }
 
     checkCollisions(obstacles, powerUps) {
@@ -229,9 +236,9 @@ class MyVehicle {
         }
 
         const intersectionEnemy = this.checkIntersection(this.car, this.game.automaticVehicle.car);
-        if(intersectionEnemy && !this.carsCollided){
+        if (intersectionEnemy && !this.carsCollided) {
             this.originalVelocity = this.maxVelocity;
-            this.maxVelocity = this.originalVelocity*0.6;
+            this.maxVelocity = this.originalVelocity * 0.6;
             this.carsCollided = true;
             console.log('Collision with enemy!');
             setTimeout(() => {
@@ -272,7 +279,7 @@ class MyVehicle {
         }
 
     }
-    
+
 
 
     checkIntersection(object1, object2) {
@@ -280,6 +287,28 @@ class MyVehicle {
         // Get the bounding boxes of the two objects
         const box1 = new THREE.Box3().setFromObject(object1);
         const box2 = new THREE.Box3().setFromObject(object2);
+
+        if (this.game.app.showBoundingBoxes) {
+            if (this.helper1) {
+                this.game.app.scene.remove(this.helper1);
+            }
+            if (this.helperObj.get(object2)) {
+                this.game.app.scene.remove(this.helperObj.get(object2));
+            }
+            this.helper1 = new THREE.Box3Helper(box1, 0xffff00);
+            this.game.app.scene.add(this.helper1);
+            this.helper2 = new THREE.Box3Helper(box2, 0xffff00);
+            this.game.app.scene.add(this.helper2);
+            this.helperObj.set(object2, this.helper2);
+        }
+        else{
+            if (this.helper1) {
+                this.game.app.scene.remove(this.helper1);
+            }
+            if (this.helperObj.get(object2)) {
+                this.game.app.scene.remove(this.helperObj.get(object2));
+            }
+        }
 
         if (box1.intersectsBox(box2)) {
             return true;
@@ -345,8 +374,8 @@ class MyVehicle {
     }
     */
 }
-    
-    
+
+
 
 
 export { MyVehicle };

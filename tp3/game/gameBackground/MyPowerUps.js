@@ -48,6 +48,10 @@ class MyPowerUps {
         this.timeout = 10000;
     }
 
+    setGame(game) {
+        this.game = game;
+    }
+
     drawPowerUps(value) {
         if (value === 1) {
             this.powerups = this.powerups1;
@@ -181,7 +185,7 @@ class MyPowerUps {
     update() {
         if (!this.game)
             return;
-        if (!this.game.paused && this.started) {
+        if (!this.game.paused && this.game.started) {
             for (let i = 0; i < this.materialList.length; i++) {
                 this.materialList[i].uniforms.time.value += 0.05;
             }
