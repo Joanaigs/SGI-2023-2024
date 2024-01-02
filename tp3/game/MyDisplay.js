@@ -160,12 +160,14 @@ class MyDisplay{
             if(velocity==1){
                 this.velocity.material.map=this.normalVelTex;
             }
-            if(velocity==1.5)
+            if(velocity>1)
                 this.velocity.material.map=this.powerupVelTex;
-            if(velocity==0.5)
-                this.velocity.material.map=this.obstacleVelTex;
-            if(velocity==0.6)
+            if(velocity>=0.6 && velocity<1)
                 this.velocity.material.map=this.colisionVelTex;
+            if(velocity>=0.5 && velocity<0.6)
+                this.velocity.material.map=this.obstacleVelTex;
+            if(velocity<0.5)
+                this.velocity.material.map=this.outsideVelTex;
         }
         if(this.game.car.velocity!=this.lastCarVelocity){
             this.velocityGroup.remove(this.velocityValue);
@@ -180,7 +182,7 @@ class MyDisplay{
             this.powerUpsGroup.visible="true"
             this.powerUpsGroup.remove(this.powerUpsVelocityValue);
             this.powerUpsVelocityValue = this.font.getWord(((this.game.powerUps.velovityTimeout-Date.now())/1000).toString());
-            this.powerUpsVelocityValue.position.set(16, -1, 0);
+            this.powerUpsVelocityValue.position.set(9, -1, 0);
             this.powerUpsGroup.add(this.powerUpsVelocityValue)
         }
         else if(this.powerUpsGroup.visible){
@@ -198,7 +200,7 @@ class MyDisplay{
             }
             this.obstaclesGroup.remove(this.obstaclesValueVelocity);
             this.obstaclesValueVelocity = this.font.getWord(((this.game.obstacles.velocityTimeout-Date.now())/1000).toString());
-            this.obstaclesValueVelocity.position.set(20, -this.obstacleVelocityOffset, 0);
+            this.obstaclesValueVelocity.position.set(11, -this.obstacleVelocityOffset, 0);
             this.obstaclesGroup.add(this.obstaclesValueVelocity)
         }
         else if(this.obstaclesValueVelocity){
@@ -219,7 +221,7 @@ class MyDisplay{
             }
             this.obstaclesGroup.remove(this.obstaclesValueConfused);
             this.obstaclesValueConfused = this.font.getWord(((this.game.obstacles.confusedTimeout-Date.now())/1000).toString());
-            this.obstaclesValueConfused.position.set(11, -this.obstacleConfusedOffset, 0);
+            this.obstaclesValueConfused.position.set(6.5, -this.obstacleConfusedOffset, 0);
             this.obstaclesGroup.add(this.obstaclesValueConfused)
         }else if(this.obstaclesValueConfused){
             this.obstaclesGroup.remove(this.obstacleConfused)
@@ -239,7 +241,7 @@ class MyDisplay{
             }
             this.obstaclesGroup.remove(this.obstaclesValueSlippery);
             this.obstaclesValueSlippery = this.font.getWord(((this.game.obstacles.slipperyTimeout-Date.now())/1000).toString());
-            this.obstaclesValueSlippery.position.set(11, -this.obstacleSlipperyOffset, 0);
+            this.obstaclesValueSlippery.position.set(6.5, -this.obstacleSlipperyOffset, 0);
             this.obstaclesGroup.add(this.obstaclesValueSlippery)
         }
         else if(this.obstaclesValueSlippery){

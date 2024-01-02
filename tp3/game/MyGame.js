@@ -49,6 +49,7 @@ class MyGame {
             route = this.routes.getRoutes(1);
         else
             route = this.routes.getRoutes(2);
+        console.log(route)
         this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(7.8 * this.scaleTrack, 0, 5 * this.scaleTrack), route, enemyCar, difficulty);
 
         this.semaphoreColors = [0xff0000, 0xffff00, 0x00ff00]; // Red, Yellow, Gree

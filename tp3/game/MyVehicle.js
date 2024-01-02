@@ -218,6 +218,18 @@ class MyVehicle {
             if (this.velocity > this.maxVelocity) {
                 this.velocity = this.maxVelocity;
             }
+
+            this.inside = this.checkInsideTrack();
+            if(!this.inside && !this.velocityReduced){
+                this.valueDecreased = this.maxVelocity * 0.7;
+                this.maxVelocity -= this.valueDecreased;
+                this.velocityReduced = true;
+            }
+            else if(this.inside && this.velocityReduced){
+                this.maxVelocity += this.valueDecreased;
+                this.velocityReduced = false;
+            }
+
         }
 
     }

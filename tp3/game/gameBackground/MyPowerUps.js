@@ -140,11 +140,11 @@ class MyPowerUps {
     }
 
     velocityPowerUp() {
-        this.originalMaxVelocity = this.game.car.maxVelocity;
+        this.originalScaleVelocity = this.game.car.velocity*2;
 
         // Increase velocity and maxVelocity
-        this.game.car.velocity += 0.5;
-        this.game.car.maxVelocity += 0.5;
+        this.game.car.velocity += this.originalScaleVelocity;
+        this.game.car.maxVelocity += this.originalScaleVelocity;
 
         // Set a timeout to revert the changes after 10 seconds
         this.velovityTimeout = Date.now() + 10000;
@@ -211,7 +211,7 @@ class MyPowerUps {
                 this.pausedClock = null;
             }
             if (this.velovityTimeout && Date.now() > this.velovityTimeout) {
-                this.game.car.maxVelocity -= 0.5;
+                this.game.car.maxVelocity -= this.originalScaleVelocity;
                 this.velovityTimeout = null;
             }
             if (this.cutTimoout && Date.now() > this.cutTimoout) {

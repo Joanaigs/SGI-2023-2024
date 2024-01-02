@@ -216,12 +216,11 @@ class MyObstacle {
     }
 
     obstacleVelocity() {
-        this.originalMaxVelocity = this.game.car.maxVelocity;
-        this.originalVelocity = this.game.car.velocity;
+        this.scaleVelocity = this.game.car.velocity*0.5;
 
         // Increase velocity and maxVelocity
-        this.game.car.velocity -= 0.5;
-        this.game.car.maxVelocity -= 0.5;
+        this.game.car.velocity -= this.scaleVelocity;
+        this.game.car.maxVelocity -= this.scaleVelocity;
 
         // Set a timeout to revert the changes after 10 seconds
         this.velocityTimeout = Date.now() + 10000;
@@ -334,7 +333,7 @@ class MyObstacle {
                     this.pausedClock = null;
                 }
                 if (this.velocityTimeout && Date.now() > this.velocityTimeout) {
-                    this.game.car.maxVelocity += 0.5;
+                    this.game.car.maxVelocity += this.scaleVelocity;
                     this.velocityTimeout = null;
                 }
                 if (this.confusedTimeout && Date.now() > this.confusedTimeout) {
