@@ -44,7 +44,7 @@ class MyWheel extends THREE.Object3D {
     buildTruckWheels() {
         let groupTires = new THREE.Group();
         for (let i = 0; i < 4; i++) {
-            let geometry = new THREE.CylinderGeometry(0.8, 0.8, 0.6, 32);
+            let geometry = new THREE.CylinderGeometry(0.9, 0.9, 0.5, 32);
 
             const textureLoader = new THREE.TextureLoader();
             this.trackTexture = textureLoader.load('./textures/track.png');
@@ -52,9 +52,9 @@ class MyWheel extends THREE.Object3D {
 
             let cylinder = new THREE.Mesh(geometry, material);
             if (i % 2 == 0) {
-                cylinder.position.x = 2.8;
+                cylinder.position.x = 2.9;
             } else {
-                cylinder.position.x = -2.8;
+                cylinder.position.x = -2.9;
             }
             if (i < 2) {
                 cylinder.position.z = 4.2;
