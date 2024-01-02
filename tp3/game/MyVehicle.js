@@ -324,7 +324,7 @@ class MyVehicle {
     
         // Normalizar as coordenadas para a textura
         const normalizedX = (carPosition.x - 38);
-        const normalizedY = (carPosition.z - 29);// Inverter para corresponder à convenção three.js
+        const normalizedY = (carPosition.z - 29);
     
         console.log('normalizedX:', normalizedX);
         console.log('normalizedY:', normalizedY);
