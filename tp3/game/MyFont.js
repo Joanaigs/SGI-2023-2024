@@ -1,9 +1,10 @@
 import * as THREE from 'three';
 
 class MyFont extends THREE.Object3D {
-    constructor() {
+    constructor(center = true) {
         super();
         this.texture = new THREE.TextureLoader().load('textures/font1.png');
+        this.center = center;
     }
 
 
@@ -22,7 +23,10 @@ class MyFont extends THREE.Object3D {
 
             let plane = new THREE.PlaneGeometry(1, 1);
             let sprite = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({ map: letterTexture, color: color, transparent: true }));
-            sprite.position.set(i, 0, 0);
+            if(this.center)
+                sprite.position.set(i*(0.5)+word.length/6, 0, 0);
+            else
+                sprite.position.set(i*(0.5), 0, 0);
             wordMesh.add(sprite);
         }
         return wordMesh;

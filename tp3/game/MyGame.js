@@ -19,7 +19,7 @@ class MyGame {
        constructs the object
        @param {MyApp} app The application object
     */
-    constructor(logic, car, enemyCar, powerUps, obstacles, routes, cutPath, checkpoints, track) {
+    constructor(logic, car, enemyCar, powerUps, obstacles, routes, cutPath, checkpoints, track, difficulty) {
         this.logic = logic;
         this.app = logic.app
         this.scaleTrack = 50;
@@ -44,11 +44,11 @@ class MyGame {
 
         this.checkpoints = checkpoints;
         this.car = new MyVehicle(this, this.position, new THREE.Vector3(8.2 * this.scaleTrack, 0, 5 * this.scaleTrack), car);
-        this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(7.8 * this.scaleTrack, 0, 5 * this.scaleTrack), this.routes.getRoutes(2), enemyCar);
+        this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(7.8 * this.scaleTrack, 0, 5 * this.scaleTrack), this.routes.getRoutes(2), enemyCar, difficulty);
 
         this.semaphoreColors = [0xff0000, 0xffff00, 0x00ff00]; // Red, Yellow, Gree
         this.semaphoreInterval = 1000; // Time in milliseconds for each color chang
-        this.myFont = new MyFont();
+        this.myFont = new MyFont(false);
 
 
         this.keysPressed = {};

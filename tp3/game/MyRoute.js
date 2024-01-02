@@ -11,8 +11,8 @@ class MyRoute {
         let i=scale;
         this.route1 = [
             new THREE.Vector3(7.8*i, 0, i*5), //start
-            new THREE.Vector3(8*i, 0, i*7),
-            new THREE.Vector3(8*i, 0, i*9),
+            new THREE.Vector3(8*i, 0, i*7.5),
+            new THREE.Vector3(8*i, 0, i*10),
             new THREE.Vector3(8*i, 0, i*12),
             new THREE.Vector3(8*i, 0, i*13),
             new THREE.Vector3(7*i, 0, i*13.5),
@@ -46,8 +46,8 @@ class MyRoute {
         ]
         this.route2 = [
             new THREE.Vector3(7.8*i, 0, i*5), //start
-            new THREE.Vector3(7.7*i, 0, i*7),
-            new THREE.Vector3(7.7*i, 0, i*9),
+            new THREE.Vector3(7.7*i, 0, i*7.5),
+            new THREE.Vector3(7.7*i, 0, i*10),
             new THREE.Vector3(8.2*i, 0, i*12),
             new THREE.Vector3(8*i, 0, i*13),
             new THREE.Vector3(7*i, 0, i*13.3),

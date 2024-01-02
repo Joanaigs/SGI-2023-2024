@@ -35,7 +35,19 @@ class MyGameLogic {
 
     gamePlay() {
         this.app.setActiveCamera("followCar");
-        this.game = new MyGame(this, this.myReader.car1, this.myReader.car2, this.myReader.powerUps, this.myReader.obstacles, this.myReader.routes, this.myReader.cutPath, this.myReader.checkpoints, this.myReader.track2);
+        let difficult;
+        switch (this.difficulty) {
+            case "easy":
+                difficult = 0.5;
+                break;
+            case "medium":
+                difficult = 0.7;
+                break;
+            case "hard":
+                difficult = 0.9;
+                break;
+        }
+        this.game = new MyGame(this, this.myReader.car1, this.myReader.car2, this.myReader.powerUps, this.myReader.obstacles, this.myReader.routes, this.myReader.cutPath, this.myReader.checkpoints, this.myReader.track2, difficult);
     }
 
     gameOver() {
