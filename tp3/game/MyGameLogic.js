@@ -3,6 +3,7 @@ import { MyReader } from './MyReader.js';
 import { MyGame } from './MyGame.js';
 import { MyMenu } from './MyMenu.js';
 import { MyVehicleObject } from './MyVehicleObject.js';
+import { MyFinal} from './MyFinal.js';
 
 /**
  *  This class contains the contents of out application
@@ -22,6 +23,9 @@ class MyGameLogic {
         this.difficulty;
         this.playerCar = null;
         this.botCar = null;
+
+        this.final = new MyFinal(this);
+        
         
     }
 

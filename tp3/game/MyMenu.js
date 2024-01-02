@@ -3,8 +3,6 @@ import { MySkybox } from '../classes/MySkybox.js';
 import { MyFont } from './MyFont.js';
 import { MyPark } from './MyPark.js';
 
-
-
 /**
  *  This class contains the functions needed to allow the logic of the Menu
  */
