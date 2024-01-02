@@ -44,8 +44,6 @@ class MyReader {
         this.textureCut2.repeat.set(1, 3.5);
         this.backgroundLoaded = false;
 
-
-
         // Material for the track
         this.material = new THREE.MeshPhongMaterial({ color: 0xffffff, map: this.texture });
         
@@ -132,8 +130,8 @@ class MyReader {
         this.obstacles.drawObstacles(1);
         this.obstacles.drawObstaclesPark(1);
         this.routes = new MyRoute(this.scaleTrack, this.position);
-        this.car1 = new MyVehicleObject("cyan");
-        this.car2 = new MyVehicleObject("purple");
+        this.car1 = new MyVehicleObject("redTruck");
+        this.car2 = new MyVehicleObject("cyanTruck");
         this.checkpoints.drawCheckpoints();
 
         //uncomment and remove last line
@@ -173,6 +171,7 @@ class MyReader {
         const playerPark = new MyPark();
         this.app.scene.add(playerPark.buildPlayerPark());
     }
+
 
     update(){
         if(this.shader.ready)

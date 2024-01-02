@@ -268,7 +268,6 @@ class MyObstacle {
     activateObstacle(game, object) {
         this.game = game;
         let obstacle = this.obstaclesObject.get(object);
-        console.log(obstacle)
         switch (obstacle) {
             case "VELOCITY":
                 this.obstacleVelocity();
@@ -284,7 +283,6 @@ class MyObstacle {
 
     getObstacles() {
         let keys = Array.from(this.obstaclesObject.keys());
-        console.log(this.obstaclesObject);
         return keys;
     }
 

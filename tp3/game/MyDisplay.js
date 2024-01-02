@@ -36,7 +36,6 @@ class MyDisplay{
 
         let height = 2 * Math.tan(camera.fov * Math.PI / 360)*5;
         let width = height * camera.aspect;
-        console.log(width, height);
         // Create the time object
         this.timeGroup = new THREE.Group();
         this.hudGroup.add(this.timeGroup);

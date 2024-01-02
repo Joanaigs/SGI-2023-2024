@@ -35,7 +35,6 @@ class MyMenu {
 
         // Check for intersections with the button
         const intersects = raycaster.intersectObjects(this.clickableObjects);
-        console.log(intersects);
 
         if (intersects.length > 0 && intersects[0].object) {
             if (intersects[0].object === this.startButton) {

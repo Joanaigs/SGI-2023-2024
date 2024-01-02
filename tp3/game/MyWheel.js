@@ -40,6 +40,40 @@ class MyWheel extends THREE.Object3D {
         return this;
     }
 
+
+    buildTruckWheels() {
+        let groupTires = new THREE.Group();
+        for (let i = 0; i < 4; i++) {
+            let geometry = new THREE.CylinderGeometry(0.9, 0.9, 0.5, 32);
+
+            const textureLoader = new THREE.TextureLoader();
+            this.trackTexture = textureLoader.load('./textures/track.png');
+            let material = new THREE.MeshBasicMaterial({ map:this.trackTexture});
+
+            let cylinder = new THREE.Mesh(geometry, material);
+            if (i % 2 == 0) {
+                cylinder.position.x = 2.9;
+            } else {
+                cylinder.position.x = -2.9;
+            }
+            if (i < 2) {
+                cylinder.position.z = 4.2;
+            } else {
+                cylinder.position.z = -3.0;
+            }
+            cylinder.position.y = 0.9;
+            cylinder.rotateZ(Math.PI / 2);
+            cylinder.rotation.order = "YXZ";
+            groupTires.add(cylinder);
+        }
+        this.add(groupTires);
+
+        // Save the wheels group reference for animation
+        this.wheelsGroup = groupTires;
+
+        return this;
+    }
+
 }
 
 export { MyWheel };
