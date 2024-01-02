@@ -41,6 +41,10 @@ class MyGameLogic {
         switch (this.state) {
             case "menu":
                 this.menu = new MyMenu(this.app);
+                this.username = this.menu.input;
+                this.difficulty = this.menu.difficulty;
+                this.playerCar = this.menu.playerCar;
+                this.botCar = this.menu.botCar;
                 this.state = "game";
                 break;
             case "game":

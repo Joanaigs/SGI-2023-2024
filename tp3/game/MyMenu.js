@@ -18,6 +18,7 @@ class MyMenu {
         this.clickableObjects = []
         this.initMenuEnvironment();
         this.buildStartPage();
+
         this.pressedButton = null;
 
         document.addEventListener('mousedown', (event) => {
@@ -462,7 +463,86 @@ class MyMenu {
     }
 
     displayGameInfo(){
+        this.app.scene.remove(this.botParkScene);
+        this.gameInfoPage = new THREE.Group();
+
+        const gameInfoTitle = this.myFont.getWord("GAME INFO"); 
+        gameInfoTitle.position.set(-1965, 256, -2490);
+        gameInfoTitle.rotation.y = Math.PI;
     
+        // Player username
+        const playerUsernameWord = this.myFont.getWord("Player Username: ");
+        playerUsernameWord.position.set(-1957, 253, -2490);
+        playerUsernameWord.rotation.y = Math.PI;
+        playerUsernameWord.scale.set(0.7, 0.7, 0.7);
+
+        const playerUsernameInfo = this.myFont.getWord(this.input);
+        playerUsernameInfo.position.set(-1969, 253, -2490);
+        playerUsernameInfo.rotation.y = Math.PI;
+        playerUsernameInfo.scale.set(0.7, 0.7, 0.7);
+
+        // difficulty username
+        const difficultyWord = this.myFont.getWord("Game Difficulty: ");
+        difficultyWord.position.set(-1957, 250, -2490);
+        difficultyWord.rotation.y = Math.PI;
+        difficultyWord.scale.set(0.7, 0.7, 0.7);
+
+        const difficultyInfo = this.myFont.getWord(this.difficulty);
+        difficultyInfo.position.set(-1969, 250, -2490);
+        difficultyInfo.rotation.y = Math.PI;
+        difficultyInfo.scale.set(0.7, 0.7, 0.7);
+
+        // playercar
+        const playerCarWord = this.myFont.getWord("Player Vehicle: ");
+        playerCarWord.position.set(-1957, 247, -2490);
+        playerCarWord.rotation.y = Math.PI;
+        playerCarWord.scale.set(0.7, 0.7, 0.7);
+
+        const playerChoice = this.normalizeCarType(this.playerCar);
+        const playerCarInfo = this.myFont.getWord(playerChoice);
+        playerCarInfo.position.set(-1969, 247, -2490);
+        playerCarInfo.rotation.y = Math.PI;
+        playerCarInfo.scale.set(0.7, 0.7, 0.7);
+
+        // botcar
+        const botCarWord = this.myFont.getWord("Bot Vehicle: ");
+        botCarWord.position.set(-1957, 244, -2490);
+        botCarWord.rotation.y = Math.PI;
+        botCarWord.scale.set(0.7, 0.7, 0.7);
+
+        const botChoice = this.normalizeCarType(this.botCar);
+        const botCarInfo = this.myFont.getWord(botChoice);
+        botCarInfo.position.set(-1969, 244, -2490);
+        botCarInfo.rotation.y = Math.PI;
+        botCarInfo.scale.set(0.7, 0.7, 0.7);
+
+        //startRace
+        const boxGeometry = new THREE.BoxGeometry(8, 2, 0.1); 
+        const boxMaterial = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 });
+        this.startGameButton = new THREE.Mesh(boxGeometry, boxMaterial);
+        this.startGameButton.position.set(-1969, 241, -2490);
+        this.startGameButton.name = "startGameButton"
+
+        const continueWord = this.myFont.getWord("START RACE!"); 
+        continueWord.position.set(this.startGameButton.position.x+3.5, this.startGameButton.position.y, this.startGameButton.position.z - 0.2);
+        continueWord.rotation.y = Math.PI;
+        continueWord.scale.set(0.7, 0.7, 0.7);
+        this.clickableObjects.push(this.startGameButton);
+
+        this.gameInfoPage.add(gameInfoTitle, playerUsernameInfo, playerUsernameWord, difficultyWord, difficultyInfo, playerCarWord, playerCarInfo, botCarWord, botCarInfo, this.startGameButton, continueWord);
+        this.app.scene.add(this.gameInfoPage);
+    }
+
+    normalizeCarType(carType){
+        if(carType == "pinkTruck") return "Pink Truck"
+        else if (carType == "cyanTruck") return "Cyan Truck"
+        else if (carType == "orangeTruck") return "Orange Truck"
+        else if(carType == "redTruck") return "Red Truck"
+        if (carType == "pinkCar") return "Pink Car"
+        else if (carType == "cyanCar") return "Cyan Car"
+        else if (carType == "orangeCar") return "Orange Car"
+        else if (carType == "redCar") return "Red Car"
+
     }
 
 }
