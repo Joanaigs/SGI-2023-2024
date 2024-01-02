@@ -8,14 +8,15 @@ import { MyPark } from './MyPark.js';
  *  This class contains the functions needed to allow the logic of the Menu
  */
 class MyMenu {
-    constructor(app) {
+    constructor(gameLogic) {
         this.myFont = new MyFont();
-        this.app = app;
+        this.gameLogic = gameLogic;
+        this.app = gameLogic.app;
         this.input = null;
         this.playerCar = null;
         this.automaticCar = null;
         this.difficulty = null;
-        this.clickableObjects = []
+        this.clickableObjects = [];
         this.initMenuEnvironment();
         this.buildStartPage();
 
@@ -193,8 +194,20 @@ class MyMenu {
             }
             else if(intersects[0].object.name === "botCarButton"){
                 this.resetClickableObjects();
-                this.app.setActiveCamera("rightWallCamera");
+                this.app.setActiveCamera("menu");
                 this.displayGameInfo();
+            }
+            else if(intersects[0].object.name === "startGameButton"){
+                this.resetClickableObjects();
+                console.log(this.input);
+                console.log(this.difficulty);
+                console.log(this.playerCar);
+                console.log(this.botCar);
+                this.gameLogic.username = this.input;
+                this.gameLogic.difficulty = this.difficulty
+                this.gameLogic.playerCar = this.playerCar;
+                this.gameLogic.botCar = this.botCar;
+                this.gameLogic.state = "game";
             }
         }
     }

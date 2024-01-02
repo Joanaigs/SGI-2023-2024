@@ -16,6 +16,10 @@ class MyGameLogic {
         this.previousState = null;
         this.myReader = new MyReader(this.app);
         this.waitForReader();
+        this.username = "";
+        this.difficulty;
+        this.playerCar = null;
+        this.botCar = null;
         
     }
 
@@ -40,12 +44,8 @@ class MyGameLogic {
     gameSates() {
         switch (this.state) {
             case "menu":
-                this.menu = new MyMenu(this.app);
-                this.username = this.menu.input;
-                this.difficulty = this.menu.difficulty;
-                this.playerCar = this.menu.playerCar;
-                this.botCar = this.menu.botCar;
-                this.state = "game";
+                this.app.setActiveCamera("menu")
+                this.menu = new MyMenu(this);
                 break;
             case "game":
                 this.gamePlay();

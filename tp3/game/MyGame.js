@@ -142,8 +142,6 @@ class MyGame {
             }, this.semaphoreInterval);
         }, this.semaphoreInterval * 3);
 
-
-
     }
 
 
@@ -152,7 +150,6 @@ class MyGame {
         this.display = new MyDisplay(this, 'followCar');
         this.startTime = Date.now();
         this.automaticVehicle.start()
-        this.changePositionObstacles();
     }
 
     gameOverFinal() {
