@@ -132,7 +132,7 @@ class MyDisplay{
             this.pausedGroup.visible=false;
         }
             
-        if (time != this.lasTime) {
+        if (time != this.lasTime && !this.game.car.gameOver) {
             const formattedTime = this.formatTime(time);
             this.timeGroup.remove(this.timeValue);
             this.timeValue = this.font.getWord(formattedTime);
@@ -153,7 +153,7 @@ class MyDisplay{
         if (laps != this.lastLaps) {
             this.lapsGroup.remove(this.lapsValue);
             this.lapsValue = this.font.getWord(laps.toString());
-            this.lapsValue.position.set(5, 0, 0);
+            this.lapsValue.scale.set(1.5, 1.5, 1.5);
             this.lapsGroup.add(this.lapsValue)
             this.lastLaps = laps;
         }

@@ -9,6 +9,7 @@ class MyVehicle {
     constructor(game, position, target, car) {
 
         this.game = game
+        this.timeInPause = 0;
         this.rotation = 0;
         this.laps=0;
         this.wheelRotation = 0;
@@ -78,7 +79,8 @@ class MyVehicle {
                 return false;
             }
         }
-        this.game.gameOver();
+        this.gameOver=true;
+        this.gameTime = Date.now() - this.game.startTime - this.timeInPause + this.game.penalties;
         return true;
     }
 
@@ -118,10 +120,12 @@ class MyVehicle {
     pause() {
         this.originalVelocity = this.velocity;
         this.velocity = 0;
+        this.timePaused = Date.now();
     }
 
     continue() {
         this.velocity = this.originalVelocity;
+        this.timeInPause += Date.now() - this.timePaused;
     }
 
     handleKeys(){
@@ -179,7 +183,7 @@ class MyVehicle {
 
 
     update() {
-        if (this.game.started && !this.game.paused) {
+        if (this.game.started && !this.game.paused && !this.gameOver) {
             this.handleKeys();
 
             const movementDirection = Math.sign(this.velocity);

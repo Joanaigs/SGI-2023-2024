@@ -136,9 +136,13 @@ class MyGame {
         this.automaticVehicle.start()
     }
 
-    gameOver() {
+    gameOverFinal() {
         this.gameOver = true;
         this.logic.state = "gameOver";
+        if(this.car.gameTime<this.automaticVehicle.gameTime)
+            console.log("YOU WIN")
+        else
+           console.log("YOU LOSE")
         this.display.reset();
 
     }
@@ -198,7 +202,7 @@ class MyGame {
         this.obstacles.update();
 
         if(this.display)
-            this.display.update(Date.now() - this.startTime, this.car.laps, this.car.maxVelocity, this.penalties);
+            this.display.update((Date.now() - this.startTime)-this.car.timeInPause, this.car.laps, this.car.maxVelocity, this.penalties);
         
         this.car.update();
         this.automaticVehicle.update();
@@ -208,6 +212,9 @@ class MyGame {
             this.updateCameraFollow();
         if (this.app.activeCameraName === "car")
             this.updateCamera();
+
+        if(this.car.gameOver && this.automaticVehicle.gameOver)
+            this.gameOverFinal();
     }
 
     updateCameraFollow() {
