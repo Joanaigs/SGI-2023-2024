@@ -26,20 +26,29 @@ class MyPowerUps {
         this.heartShader = new MyShader('shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.heartTexture },
+            baseColor: { type: 'vec3', value: new THREE.Vector3(1.0, 1.0, 1.0) },
+            scale: { type: 'f', value: 0.0 },
+
         })
         this.teddyShader = new MyShader('shaders/pulsate.vert', 'shaders/pulsate.frag', {
             time: { type: 'f', value: 0.0 },
             baseColor: { type: 'vec3', value: new THREE.Vector3(1.0, 0.5, 0.2) },
+            scale: { type: 'f', value: 0.0 },
         })
         this.speedTexture = new THREE.TextureLoader().load('models/heart/speed.jpg');
         this.speedShader = new MyShader('shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.speedTexture },
+            baseColor: { type: 'vec3', value: new THREE.Vector3(1.0, 1.0, 1.0) },
+            scale: { type: 'f', value: 0.0 },
+
         })
         this.mintTexture = new THREE.TextureLoader().load('models/mint/mint.png');
         this.mintShader = new MyShader('shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.mintTexture },
+            baseColor: { type: 'vec3', value: new THREE.Vector3(1.0, 1.0, 1.0) },
+            scale: { type: 'f', value: 0.0 },
         })
         this.loadedObjects = 0;
 

@@ -17,9 +17,9 @@ class MyObstacle {
             { key: new THREE.Vector3(1 * this.scale, 0, this.scale * 0), type: "SLIPPERY" },
         ]
         this.obstacleAvailable1 = [
-            { key: new THREE.Vector3(3 * this.scale, 0, this.scale * 8), type: "CONFUSED" },
-            { key: new THREE.Vector3(3.5 * this.scale, 0, this.scale * 8), type: "VELOCITY" },
-            { key: new THREE.Vector3(4 * this.scale, 0, this.scale * 8), type: "SLIPPERY" },
+            { key: new THREE.Vector3(4.1 * this.scale, 0, this.scale * 7.5), type: "CONFUSED" },
+            { key: new THREE.Vector3(3.9 * this.scale, -2, this.scale * 7.5), type: "VELOCITY" },
+            { key: new THREE.Vector3(4 * this.scale, -2, this.scale * 7.3), type: "SLIPPERY" },
         ]
         this.obstaclesObject = new Map();
         this.obstaclesAvailableObject = new Map();
@@ -28,6 +28,8 @@ class MyObstacle {
         this.cabbageShader = new MyShader('shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.cabbageTexture },
+            baseColor: { type: 'vec3', value: new THREE.Vector3(1.0, 1.0, 1.0) },
+            scale: { type: 'f', value: 0.0 },
         })
 
 
@@ -35,12 +37,18 @@ class MyObstacle {
         this.tomatoShader = new MyShader('shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.tomatoTexture },
+            baseColor: { type: 'vec3', value: new THREE.Vector3(1.0, 1.0, 1.0) },
+            scale: { type: 'f', value: 0.0 },
+
         })
 
         this.potatoTexture = new THREE.TextureLoader().load('models/potato/potato.png');
         this.potatoShader = new MyShader('shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.potatoTexture },
+            baseColor: { type: 'vec3', value: new THREE.Vector3(1.0, 1.0, 1.0) },
+            scale: { type: 'f', value: 0.0 },
+
         })
 
 
@@ -59,17 +67,17 @@ class MyObstacle {
         this.obstaclesObject.set(obstacle, obstacle.name);
         switch (obstacle.name) {
             case "VELOCITY":
-                let material = this.cabbageShader.material;
+                let material = this.cabbageShader.material.clone();
                 this.materialList.push(material);
                 obstacle.material = material;
                 break;
             case "CONFUSED":
-                let material1 = this.potatoShader.material;
+                let material1 = this.potatoShader.material.clone();
                 this.materialList.push(material1);
                 obstacle.material = material1;
                 break;
             case "SLIPPERY":
-                let material2 = this.tomatoShader.material;
+                let material2 = this.tomatoShader.material.clone();
                 this.materialList.push(material2);
                 obstacle.material = material2;
                 break;
@@ -103,7 +111,7 @@ class MyObstacle {
                     let material = this.cabbageShader.material;
                     object.material = material;
                     this.materialList.push(material);
-                    object.scale.set(0.2, 0.2, 0.2);
+                    object.scale.set(0.4, 0.4, 0.4);
                     object.rotation.x = -Math.PI / 2;
                     object.position.set(obstacle.key.x, obstacle.key.y + 2, obstacle.key.z);
                     object.position.add(this.position);
@@ -122,7 +130,7 @@ class MyObstacle {
                     let material = this.potatoShader.material;
                     object.material = material;
                     this.materialList.push(material);
-                    object.scale.set(2, 2, 2);
+                    object.scale.set(3, 3, 3);
                     object.position.set(obstacle.key.x, obstacle.key.y + 2, obstacle.key.z);
                     object.position.add(this.position);
                     object.visible = visible;
@@ -160,7 +168,7 @@ class MyObstacle {
                     let object = loaded.children[0];
                     let material = new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.cabbageTexture });
                     object.material = material;
-                    object.scale.set(0.2, 0.2, 0.2);
+                    object.scale.set(0.4, 0.4, 0.4);
                     object.position.set(obstacle.key.x, obstacle.key.y + 2, obstacle.key.z);
                     object.position.add(this.position);
                     object.rotation.x = -Math.PI / 2;
@@ -178,7 +186,7 @@ class MyObstacle {
                     object.rotation.x = -Math.PI / 2;
                     let material = new THREE.MeshBasicMaterial({ color: 0xffffff, map: this.potatoTexture });
                     object.material = material;
-                    object.scale.set(2, 2, 2);
+                    object.scale.set(3, 3, 3);
                     object.position.set(obstacle.key.x, obstacle.key.y + 2, obstacle.key.z);
                     object.position.add(this.position);
                     object.visible = visible;
