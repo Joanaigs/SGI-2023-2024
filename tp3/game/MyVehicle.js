@@ -26,7 +26,7 @@ class MyVehicle {
         this.confused = false;
         this.track = this.game.track;
         this.velocityReduced = false;
-  
+
         console.log(this.track);
 
         this.powerUps = this.game.powerUps.getPowerUps();
@@ -103,11 +103,22 @@ class MyVehicle {
     }
 
     accelerate() {
-        if (this.velocity < this.maxVelocity) {
-            this.velocity += this.acceleration;
-        }
-        if (this.velocity >= this.maxVelocity) {
-            this.velocity = this.maxVelocity;
+        if (this.maxVelocity < 0) {
+            console.log("maxVelocity: " + this.maxVelocity);
+            if (this.velocity < 0.15) {
+                this.velocity += this.acceleration;
+                console.log("velocity: " + this.velocity);
+            }
+            else
+                this.velocity = 0.15;
+        } else {
+            if (this.velocity < this.maxVelocity) {
+                this.velocity += this.acceleration;
+            }
+            if (this.velocity >= this.maxVelocity) {
+                console.log("as: " + this.maxVelocity);
+                this.velocity = this.maxVelocity;
+            }
         }
         if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06 * this.carRotationScale;
     }
@@ -210,22 +221,19 @@ class MyVehicle {
             this.car.position.add(deltaPosition);
 
             // check if it's out of the track
-  
+
 
             if (this.velocity != 0) {
                 this.checkCollisions(this.obstacles, this.powerUps);
             }
-            if (this.velocity > this.maxVelocity) {
-                this.velocity = this.maxVelocity;
-            }
 
             this.inside = this.checkInsideTrack();
-            if(!this.inside && !this.velocityReduced){
+            if (!this.inside && !this.velocityReduced) {
                 this.valueDecreased = this.maxVelocity * 0.7;
                 this.maxVelocity -= this.valueDecreased;
                 this.velocityReduced = true;
             }
-            else if(this.inside && this.velocityReduced){
+            else if (this.inside && this.velocityReduced) {
                 this.maxVelocity += this.valueDecreased;
                 this.velocityReduced = false;
             }
@@ -298,14 +306,14 @@ class MyVehicle {
     checkInsideTrack() {
         const raycaster = new THREE.Raycaster();
         raycaster.set(this.car.position, new THREE.Vector3(0, -1, 0).normalize());
-        
+
         const intersects = raycaster.intersectObject(this.track);
-        
+
         // If there are intersections, check the texture of the first intersected object
-        if(intersects.length == 0){
-            if(this.game.cutPath.visible){
+        if (intersects.length == 0) {
+            if (this.game.cutPath.visible) {
                 const intersectsCut = raycaster.intersectObject(this.game.cutPath);
-                if(intersectsCut.length > 0) return true;
+                if (intersectsCut.length > 0) return true;
             }
             return false;
         }
@@ -333,7 +341,7 @@ class MyVehicle {
             this.game.app.scene.add(this.helper2);
             this.helperObj.set(object2, this.helper2);
         }
-        else{
+        else {
             if (this.helper1) {
                 this.game.app.scene.remove(this.helper1);
             }
