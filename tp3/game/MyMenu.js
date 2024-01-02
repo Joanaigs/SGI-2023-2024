@@ -536,11 +536,10 @@ class MyMenu {
         else if (carType == "cyanTruck") return "Cyan Truck"
         else if (carType == "orangeTruck") return "Orange Truck"
         else if(carType == "redTruck") return "Red Truck"
-        if (carType == "pinkCar") return "Pink Car"
+        else if (carType == "pinkCar") return "Pink Car"
         else if (carType == "cyanCar") return "Cyan Car"
         else if (carType == "orangeCar") return "Orange Car"
         else if (carType == "redCar") return "Red Car"
-
     }
 
 }

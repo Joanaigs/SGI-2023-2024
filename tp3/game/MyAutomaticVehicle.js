@@ -63,13 +63,13 @@ class MyAutomaticVehicle {
 
         let quaternionList = [];
         let quaternionListWheel = [];
-        const xAxis = new THREE.Vector3(0, 1, 0)
+        const xAxis = new THREE.Vector3(-1, 0, 0)
         let rotationListWheelX = [
-            ...new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(xAxis, 0)),
-            ...new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(xAxis, -Math.PI / 2)),
-            ...new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(xAxis, Math.PI)),
-            ...new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(xAxis, Math.PI / 2)),
-            ...new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2).multiply(new THREE.Quaternion().setFromAxisAngle(xAxis, 0)),];
+            ...new THREE.Quaternion().setFromAxisAngle(xAxis, 0),
+            ...new THREE.Quaternion().setFromAxisAngle(xAxis, -Math.PI / 2),
+            ...new THREE.Quaternion().setFromAxisAngle(xAxis, Math.PI),
+            ...new THREE.Quaternion().setFromAxisAngle(xAxis, Math.PI / 2),
+            ...new THREE.Quaternion().setFromAxisAngle(xAxis, 0),];
         let rotationTimes = [0, 1, 2, 3, 4];
 
         const maxRotation = 0.6;
@@ -102,8 +102,6 @@ class MyAutomaticVehicle {
             }
             const quaternionWheel = new THREE.Quaternion();
             quaternionWheel.setFromAxisAngle(new THREE.Vector3(0, 1, 0), angle);
-            quaternionWheel.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 2));
-
 
             quaternionList.push(...quaternion);
             quaternionListWheel.push(...quaternionWheel);
@@ -143,8 +141,8 @@ class MyAutomaticVehicle {
         const rotationActionWheel2 = this.mixerWheel2.clipAction(rotationClipWheel)
         const rotationActionWheel3X = this.mixerWheel3RotX.clipAction(rotationClipWheelX)
         const rotationActionWheel4X = this.mixerWheel4RotX.clipAction(rotationClipWheelX)
-        this.animations.push(positionAction);
-        this.animations.push(rotationAction);
+        // this.animations.push(positionAction);
+        // this.animations.push(rotationAction);
         this.animations.push(rotationActionWheel1X);
         this.animations.push(rotationActionWheel1);
         this.animations.push(rotationActionWheel2X);
