@@ -90,9 +90,9 @@
                 <noderef id="candycane1" />
                 <noderef id="canycane2" />
                 <noderef id="canycane3" />
-                <noderef id="icecream" />
-                <noderef id="chupachupa" />
-                <noderef id="lolipop" />
+                <noderef id="icecream1" />
+                <noderef id="chupachupa1" />
+                <noderef id="lolipop1" />
                 <noderef id="candycaneGarage" />
                 <noderef id="candycaneGarage2" />
                 <noderef id="candycaneGarage3" />
@@ -238,49 +238,6 @@
 
         </node>
 
-        <node id="candycane1">
-            <transforms>
-                <translate value3="-500 200 700" />
-                <rotate value3="0 -1 0" />
-                <scale value3="0.8 0.8 0.8" />
-
-    
-
-            </transforms>
-
-            <children>
-                <noderef id="fullCandyCane" />
-            </children>
-        </node>
-
-        <node id="canycane2">
-            <transforms>
-                <translate value3="600 160 -250" />
-                <rotate value3="0 -1.54 0" />
-                <rotate value3="0 0 0.6" />
-
-
-            </transforms>
-
-            <children>
-                <noderef id="fullCandyCane" />
-            </children>
-        </node>
-
-        <node id="canycane3">
-            <transforms>
-                <translate value3="600 160 0.5" />
-                <rotate value3="0 1.54 0" />
-                <rotate value3="0 0 0.6" />
-
-
-            </transforms>
-
-            <children>
-                <noderef id="fullCandyCane" />
-            </children>
-        </node>
-
 
         <node id="candycaneGarage">
             <transforms>
@@ -331,19 +288,7 @@
 
         <!-- Icecream -->
 
-        <node id="icecream">
-
-            <transforms>
-                <translate value3="300 50 -500" />
-                <rotate value3="0 0 0" />
-                <scale value3="80 80 80" />
-            </transforms>
-
-            <children>
-                <noderef id="icecreamObject" />
-            </children>
-
-        </node>
+        
 
         <node id="icecreamObject">
 
@@ -471,18 +416,6 @@
         </node>
 
         <!-- ChupaChupa-->
-        <node id="chupachupa">
-            <transforms>
-                <translate value3="-300 20 200" />
-                <rotate value3="0 0 0" />
-                <scale value3="20 20 20" />
-            </transforms>
-
-            <children>
-                <lodref id="chupachupalod" />
-            </children>
-        </node>
-
         <node id="chupachupaFirst">
 
 
@@ -559,18 +492,6 @@
 
         <!-- Lolipops-->
 
-        <node id="lolipop">
-            <transforms>
-                <translate value3="800 15 600" />
-                <rotate value3="0 1.54 0" />
-                <scale value3="20 20 20" />
-            </transforms>
-
-            <children>
-                <noderef id="lolipopObject" />
-            </children>
-        </node>
-
         <node id="lolipopObject">
 
             <children>
@@ -609,6 +530,91 @@
                 </primitive>
             </children>
         </node>
+
+        <!--Outside Ring-->
+
+        <node id="lolipop1">
+            <transforms>
+                <translate value3="800 15 600" />
+                <rotate value3="0 1.54 0" />
+                <scale value3="20 20 20" />
+            </transforms>
+
+            <children>
+                <noderef id="lolipopObject" />
+            </children>
+        </node>
+
+        <node id="chupachupa1">
+            <transforms>
+                <translate value3="-300 20 200" />
+                <rotate value3="0 0 0" />
+                <scale value3="20 20 20" />
+            </transforms>
+
+            <children>
+                <lodref id="chupachupalod" />
+            </children>
+        </node>
+
+        <node id="icecream1">
+
+            <transforms>
+                <translate value3="-25 0 600" />
+                <rotate value3="0 -1.54 0" />
+                <scale value3="20 20 20" />
+            </transforms>
+
+            <children>
+                <noderef id="icecreamObject" />
+            </children>
+
+        </node>
+
+        <node id="candycane1">
+            <transforms>
+                <translate value3="-500 200 700" />
+                <rotate value3="0 -1 0" />
+                <scale value3="0.8 0.8 0.8" />
+
+    
+
+            </transforms>
+
+            <children>
+                <noderef id="fullCandyCane" />
+            </children>
+        </node>
+
+        <node id="canycane2">
+            <transforms>
+                <translate value3="450 160 -750" />
+                <rotate value3="0 2.0 0" />
+                <scale value3="0.8 0.8 0.8" />
+
+
+            </transforms>
+
+            <children>
+                <noderef id="fullCandyCane" />
+            </children>
+        </node>
+
+        <node id="canycane3">
+            <transforms>
+                <translate value3="500 160 -650" />
+                <rotate value3="0 -1.0 0" />
+                <scale value3="0.8 0.8 0.8" />
+
+
+
+            </transforms>
+
+            <children>
+                <noderef id="fullCandyCane" />
+            </children>
+        </node>
+
         
 
 
