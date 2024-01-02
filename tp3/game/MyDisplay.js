@@ -46,7 +46,6 @@ class MyDisplay{
         this.lapsValue.scale.set(1.5, 1.5, 1.5);
         this.maxValue = this.font.getWord("/"+this.game.numberOfLaps.toString());
         this.maxValue.position.set(1.5, -0.25, 0);
-        console.log(this.maxValue);
         this.lapsGroup.add(this.maxValue);
         this.lapsGroup.add(this.lapsValue);
         this.lapsGroup.position.set(0, -1.3, 0);
@@ -168,7 +167,6 @@ class MyDisplay{
             if(velocity==0.6)
                 this.velocity.material.map=this.colisionVelTex;
         }
-        console.log(this.game.car.velocity, this.lastCarVelocity)
         if(this.game.car.velocity!=this.lastCarVelocity){
             this.velocityGroup.remove(this.velocityValue);
             this.velocityValue= this.font.getWord(Math.round(this.game.car.velocity*100).toString());

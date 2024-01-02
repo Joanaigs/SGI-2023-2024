@@ -32,6 +32,8 @@ class MyGame {
         this.cutPath = cutPath;
         this.paused = false
 
+        this.powerUps.setGame(this);
+        this.obstacles.setGame(this);
         this.position = new THREE.Vector3(-100, 0, -100);
         this.startPosition = new THREE.Vector3(8 * this.scaleTrack + this.position.x, 0, 5.5 * this.scaleTrack + this.position.z);
 
@@ -131,6 +133,7 @@ class MyGame {
 
 
     start() {
+        this.started = true;
         this.display = new MyDisplay(this, 'followCar');
         this.startTime = Date.now();
         this.automaticVehicle.start()
