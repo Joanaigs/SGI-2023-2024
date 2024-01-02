@@ -4,6 +4,7 @@ import { MyFont } from './MyFont.js';
 import { MyPark } from './MyPark.js';
 
 
+
 /**
  *  This class contains the functions needed to allow the logic of the Menu
  */
@@ -382,7 +383,7 @@ class MyMenu {
                 child.parent.remove(child);
             }
         });
-        this.app.setActiveCamera("playerGarage");
+        this.app.setActiveCamera("playerGarage2");
 
         this.playerParkScene = new THREE.Group();
         const playerPark = new MyPark();

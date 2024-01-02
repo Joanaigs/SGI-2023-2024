@@ -22,8 +22,8 @@
             target="310 0 150" />
         <perspective id="frontHouse" angle="1.047" near="0.1" far="5000" location="130 10 -25"
             target="50 10 -25" />
-        <perspective id="playerGarage2" angle="1.1" near="0.01" far="2000" location="-2585 176 -2678"
-        target="-2300 176 -2300" />
+        <perspective id="playerGarage2" angle="1.1" near="0.01" far="2000" location="-2510 175 -2758"
+        target="-2489 162 -2353" />
         <perspective id="menu" angle="1.047" near="0.1" far="5000" location="-1971 249 -2510"
             target="-1971 249 -2500" />
         <perspective id="origin" angle="1.047" near="0.1" far="5000" location="5 5 5"

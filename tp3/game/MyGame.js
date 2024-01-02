@@ -44,7 +44,12 @@ class MyGame {
 
         this.checkpoints = checkpoints;
         this.car = new MyVehicle(this, this.position, new THREE.Vector3(8.2 * this.scaleTrack, 0, 5 * this.scaleTrack), car);
-        this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(7.8 * this.scaleTrack, 0, 5 * this.scaleTrack), this.routes.getRoutes(2), enemyCar, difficulty);
+        let route;
+        if(enemyCar.typeCar == "truck")
+            route = this.routes.getRoutes(1);
+        else
+            route = this.routes.getRoutes(2);
+        this.automaticVehicle = new MyAutomaticVehicle(this, this.position, new THREE.Vector3(7.8 * this.scaleTrack, 0, 5 * this.scaleTrack), route, enemyCar, difficulty);
 
         this.semaphoreColors = [0xff0000, 0xffff00, 0x00ff00]; // Red, Yellow, Gree
         this.semaphoreInterval = 1000; // Time in milliseconds for each color chang

@@ -2,6 +2,8 @@ import * as THREE from 'three';
 import { MyReader } from './MyReader.js';
 import { MyGame } from './MyGame.js';
 import { MyMenu } from './MyMenu.js';
+import { MyVehicleObject } from './MyVehicleObject.js';
+
 /**
  *  This class contains the contents of out application
  */
@@ -47,7 +49,9 @@ class MyGameLogic {
                 difficult = 0.9;
                 break;
         }
-        this.game = new MyGame(this, this.myReader.car1, this.myReader.car2, this.myReader.powerUps, this.myReader.obstacles, this.myReader.routes, this.myReader.cutPath, this.myReader.checkpoints, this.myReader.track2, difficult);
+        let car = new MyVehicleObject(this.playerCar);
+        let enemyCar = new MyVehicleObject(this.botCar);
+        this.game = new MyGame(this, car, enemyCar, this.myReader.powerUps, this.myReader.obstacles, this.myReader.routes, this.myReader.cutPath, this.myReader.checkpoints, this.myReader.track2, difficult);
     }
 
     gameOver() {
@@ -78,7 +82,6 @@ class MyGameLogic {
      * Updates the scene
      */
     update() {
-        console.log(this.app.activeCamera)
         this.myReader.update();
         if (this.previousState != this.state) {
             this.previousState = this.state;
