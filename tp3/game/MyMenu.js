@@ -382,7 +382,7 @@ class MyMenu {
                 child.parent.remove(child);
             }
         });
-        this.app.setActiveCamera("playerGarage2");
+        this.app.setActiveCamera("playerGarage");
 
         this.playerParkScene = new THREE.Group();
         const playerPark = new MyPark();

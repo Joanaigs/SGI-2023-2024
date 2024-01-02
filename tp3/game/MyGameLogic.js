@@ -78,6 +78,7 @@ class MyGameLogic {
      * Updates the scene
      */
     update() {
+        console.log(this.app.activeCamera)
         this.myReader.update();
         if (this.previousState != this.state) {
             this.previousState = this.state;
