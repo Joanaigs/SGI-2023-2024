@@ -140,7 +140,7 @@ class MyPowerUps {
     }
 
     velocityPowerUp() {
-        this.originalScaleVelocity = this.game.car.velocity*2;
+        this.originalScaleVelocity = this.game.car.velocity*1;
 
         // Increase velocity and maxVelocity
         this.game.car.velocity += this.originalScaleVelocity;
