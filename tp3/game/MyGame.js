@@ -197,10 +197,8 @@ class MyGame {
         this.powerUps.update();
         this.obstacles.update();
 
-        //time in format mm:ss
-        let time = Math.floor((Date.now() - this.startTime) / 1000);
         if(this.display)
-            this.display.update(time, this.car.laps, this.car.maxVelocity, this.penalties);
+            this.display.update(Date.now() - this.startTime, this.car.laps, this.car.maxVelocity, this.penalties);
         
         this.car.update();
         this.automaticVehicle.update();

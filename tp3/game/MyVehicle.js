@@ -50,6 +50,8 @@ class MyVehicle {
         
         this.renderTarget = new THREE.WebGLRenderTarget(411,700);
 
+        this.normalVelTex= new THREE.TextureLoader().load('./textures/velocity_normal.png');
+
     }
 
     addObstacle(obstacle) {
