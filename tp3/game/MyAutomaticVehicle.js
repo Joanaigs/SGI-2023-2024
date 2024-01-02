@@ -141,8 +141,8 @@ class MyAutomaticVehicle {
         const rotationActionWheel2 = this.mixerWheel2.clipAction(rotationClipWheel)
         const rotationActionWheel3X = this.mixerWheel3RotX.clipAction(rotationClipWheelX)
         const rotationActionWheel4X = this.mixerWheel4RotX.clipAction(rotationClipWheelX)
-        // this.animations.push(positionAction);
-        // this.animations.push(rotationAction);
+        this.animations.push(positionAction);
+        this.animations.push(rotationAction);
         this.animations.push(rotationActionWheel1X);
         this.animations.push(rotationActionWheel1);
         this.animations.push(rotationActionWheel2X);
