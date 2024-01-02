@@ -11,7 +11,7 @@ class MyMenu {
     constructor(gameLogic) {
         this.myFont = new MyFont();
         this.gameLogic = gameLogic;
-        this.app = gameLogic.app;
+        this.app = this.gameLogic.app;
         this.input = null;
         this.playerCar = null;
         this.automaticCar = null;
@@ -46,7 +46,6 @@ class MyMenu {
 
         // Check for intersections with the button
         const intersects = raycaster.intersectObjects(this.clickableObjects);
-        console.log(intersects);
 
         if (intersects.length > 0 && intersects[0].object) {
             if (intersects[0].object === this.startButton) {
@@ -105,8 +104,6 @@ class MyMenu {
                 this.clickableObjects.push(this.playerCyanTrunk);
                 this.clickableObjects.push(this.playerPinkCar);
                 this.clickableObjects.push(this.playerCarButton);
-                console.log("olé");
-                console.log(this.playerCar);
             }
             else if(intersects[0].object.name === "cyanTrunk"){
                 this.playerCar = "cyanTrunk";
@@ -117,8 +114,6 @@ class MyMenu {
                 this.clickableObjects.push(this.playerCyanCar);
                 this.clickableObjects.push(this.playerPinkTrunk);
                 this.clickableObjects.push(this.playerCarButton);
-                console.log("olé");
-                console.log(this.playerCar);
             }
             else if(intersects[0].object.name === "cyanCar"){
                 this.playerCar = "cyanCar";
@@ -129,8 +124,6 @@ class MyMenu {
                 this.clickableObjects.push(this.playerCyanTrunk);
                 this.clickableObjects.push(this.playerPinkTrunk);
                 this.clickableObjects.push(this.playerCarButton);
-                console.log("olé");
-                console.log(this.playerCar);
             }
             else if(intersects[0].object.name === "pinkCar"){
                 this.playerCar = "pinkCar";
@@ -141,8 +134,6 @@ class MyMenu {
                 this.clickableObjects.push(this.playerCyanTrunk);
                 this.clickableObjects.push(this.playerPinkTrunk);
                 this.clickableObjects.push(this.playerCarButton);
-                console.log("olé");
-                console.log(this.playerCar);
             }
             else if(intersects[0].object.name === "playerCarButton"){
                 this.resetClickableObjects();
@@ -156,8 +147,6 @@ class MyMenu {
                 this.clickableObjects.push(this.botRedCar);
                 this.clickableObjects.push(this.botRedTrunk);
                 this.clickableObjects.push(this.botOrangeCar);
-                console.log("olé");
-                console.log(this.botCar);
             }
             else if(intersects[0].object.name === "botRedTrunk"){
                 this.botCar = "redTrunk";
@@ -167,8 +156,6 @@ class MyMenu {
                 this.clickableObjects.push(this.botOrangeCar);
                 this.clickableObjects.push(this.botOrangeTrunk);
                 this.clickableObjects.push(this.botRedCar);
-                console.log("olé");
-                console.log(this.botCar);
             }
             else if(intersects[0].object.name === "botRedCar"){
                 this.botCar = "redCar";
@@ -178,8 +165,6 @@ class MyMenu {
                 this.clickableObjects.push(this.botOrangeCar);
                 this.clickableObjects.push(this.botOrangeTrunk);
                 this.clickableObjects.push(this.botRedTrunk);
-                console.log("olé");
-                console.log(this.botCar);
             }
             else if(intersects[0].object.name === "botOrangeCar"){
                 this.botCar = "orangeCar";
@@ -189,24 +174,20 @@ class MyMenu {
                 this.clickableObjects.push(this.botRedCar);
                 this.clickableObjects.push(this.botRedTrunk);
                 this.clickableObjects.push(this.botOrangeTrunk);
-                console.log("olé");
-                console.log(this.botCar);
             }
             else if(intersects[0].object.name === "botCarButton"){
                 this.resetClickableObjects();
-                this.app.setActiveCamera("menu");
                 this.displayGameInfo();
             }
             else if(intersects[0].object.name === "startGameButton"){
                 this.resetClickableObjects();
-                console.log(this.input);
-                console.log(this.difficulty);
-                console.log(this.playerCar);
-                console.log(this.botCar);
                 this.gameLogic.username = this.input;
                 this.gameLogic.difficulty = this.difficulty
                 this.gameLogic.playerCar = this.playerCar;
                 this.gameLogic.botCar = this.botCar;
+                document.removeEventListener('mousedown', (event) => {
+                    this.onDocumentMouseDown(event);
+                });
                 this.gameLogic.state = "game";
             }
         }
@@ -268,7 +249,7 @@ class MyMenu {
         inesName.rotation.y = Math.PI;
         inesName.scale.set(0.8, 0.8, 0.8);
 
-        const joanaName = this.myFont.getWord("Joana Santos up202005435"); // Assuming getWord is a method to create a 3D text object
+        const joanaName = this.myFont.getWord("Joana Santos up202006279"); // Assuming getWord is a method to create a 3D text object
         joanaName.position.set(this.startButton.position.x + 9, this.startButton.position.y - 7, this.startButton.position.z);
         joanaName.rotation.y = Math.PI;
         joanaName.scale.set(0.8, 0.8, 0.8);
@@ -388,6 +369,7 @@ class MyMenu {
 
         // Create a group to contain all the buttons
         this.difficultyPageGroup = new THREE.Group();
+        this.difficultyPageGroup.name = "difGroup";
         this.difficultyPageGroup.add(chooseDifficulty, this.easyButton, easyWord, this.normalButton, normalWord, this.hardButton, hardWord, continueWord, this.difficultyButton);
         this.app.scene.add(this.difficultyPageGroup);
     }
@@ -395,6 +377,11 @@ class MyMenu {
 
     choosePlayerCar(){
         this.app.scene.remove(this.difficultyPageGroup);
+        this.app.scene.traverse(function (child) {
+            if (child.name === "difGroup") {
+                child.parent.remove(child);
+            }
+        });
         this.app.setActiveCamera("playerGarage2");
 
         this.playerParkScene = new THREE.Group();
@@ -434,8 +421,6 @@ class MyMenu {
     }
 
     chooseBotCar(){
-        this.app.scene.remove(this.playerParkScene);
-        console.log("hi");
         this.botParkScene = new THREE.Group();
         const botPark = new MyPark();
         this.botBackground = botPark.initPark();
@@ -455,8 +440,6 @@ class MyMenu {
         this.clickableObjects.push(this.botOrangeTrunk); 
         this.clickableObjects.push(this.botRedTrunk); 
         
-        console.log("vermelho");
-        console.log(this.botRedCar);
 
         // Next Button
         const boxGeometry = new THREE.BoxGeometry(20, 10, 0.1); 
@@ -477,6 +460,7 @@ class MyMenu {
 
     displayGameInfo(){
         this.app.scene.remove(this.botParkScene);
+        this.app.setActiveCamera("menu");
         this.gameInfoPage = new THREE.Group();
 
         const gameInfoTitle = this.myFont.getWord("GAME INFO"); 
