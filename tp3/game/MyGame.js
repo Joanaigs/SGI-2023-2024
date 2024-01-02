@@ -17,7 +17,7 @@ class MyGame {
        constructs the object
        @param {MyApp} app The application object
     */
-    constructor(logic, car, enemyCar, powerUps, obstacles, routes, cutPath, checkpoints) {
+    constructor(logic, car, enemyCar, powerUps, obstacles, routes, cutPath, checkpoints, track) {
         this.logic = logic;
         this.app = logic.app
         this.scaleTrack = 50;
@@ -31,6 +31,8 @@ class MyGame {
         this.routes = routes;
         this.cutPath = cutPath;
         this.paused = false
+        this.track = track;
+
 
         this.powerUps.setGame(this);
         this.obstacles.setGame(this);

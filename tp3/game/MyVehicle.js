@@ -20,10 +20,15 @@ class MyVehicle {
         this.carRotationScale = 1.0;
         this.rotateScale = 0.1;
         this.velocity = 0;
-        this.acceleration = 0.1;
+        this.acceleration = 0.05;
         this.maxVelocity = 1.0;
         this.minVelocity = -0.5;
         this.confused = false;
+        this.track = this.game.track;
+        this.velocityReduced = false;
+  
+        console.log(this.track);
+
         this.powerUps = this.game.powerUps.getPowerUps();
         this.obstacles = this.game.obstacles.getObstacles();
         this.checkPoints = this.game.checkpoints.getCheckpoints();
@@ -83,10 +88,6 @@ class MyVehicle {
         this.gameOver = true;
         this.gameTime = Date.now() - this.game.startTime - this.timeInPause + this.game.penalties;
         return true;
-    }
-
-    checkInsideTrack() {
-        return false;
     }
 
     left() {
@@ -208,6 +209,9 @@ class MyVehicle {
             );
             this.car.position.add(deltaPosition);
 
+            // check if it's out of the track
+  
+
             if (this.velocity != 0) {
                 this.checkCollisions(this.obstacles, this.powerUps);
             }
@@ -215,7 +219,6 @@ class MyVehicle {
                 this.velocity = this.maxVelocity;
             }
         }
-
 
     }
 
@@ -237,12 +240,12 @@ class MyVehicle {
 
         const intersectionEnemy = this.checkIntersection(this.car, this.game.automaticVehicle.car);
         if (intersectionEnemy && !this.carsCollided) {
-            this.originalVelocity = this.maxVelocity;
-            this.maxVelocity = this.originalVelocity * 0.6;
+            this.changedVelocity = this.maxVelocity * 0.4;
+            this.maxVelocity -= this.changedVelocity
             this.carsCollided = true;
             console.log('Collision with enemy!');
             setTimeout(() => {
-                this.maxVelocity = this.originalVelocity;
+                this.maxVelocity += this.changedVelocity;
                 this.carsCollided = false;
             }, 2000);
         }
@@ -278,6 +281,23 @@ class MyVehicle {
             }
         }
 
+    }
+
+    checkInsideTrack() {
+        const raycaster = new THREE.Raycaster();
+        raycaster.set(this.car.position, new THREE.Vector3(0, -1, 0).normalize());
+        
+        const intersects = raycaster.intersectObject(this.track);
+        
+        // If there are intersections, check the texture of the first intersected object
+        if(intersects.length == 0){
+            if(this.game.cutPath.visible){
+                const intersectsCut = raycaster.intersectObject(this.game.cutPath);
+                if(intersectsCut.length > 0) return true;
+            }
+            return false;
+        }
+        return true;
     }
 
 

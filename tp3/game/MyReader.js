@@ -115,8 +115,8 @@ class MyReader {
         this.app.scene.add(floor);
         let track = this.myTrack.drawTrack(1, this.material);
         this.app.scene.add(track);
-        let track2 = this.myTrack2.drawTrack(1, new THREE.MeshPhongMaterial({ color: 0xffffff, map: this.texture2}));
-        this.app.scene.add(track2);
+        this.track2 = this.myTrack2.drawTrack(1, new THREE.MeshPhongMaterial({ color: 0xffffff, map: this.texture2}));
+        this.app.scene.add(this.track2);
         this.cutPath = this.myTrack.drawTrack("Cut", new THREE.MeshPhongMaterial({ color: 0xffffff, map: this.textureCut }));
         this.app.scene.add(this.cutPath);
         this.cutPath2 = this.myTrack2.drawTrack("Cut", new THREE.MeshPhongMaterial({ color: 0xffffff, map: this.textureCut2}));

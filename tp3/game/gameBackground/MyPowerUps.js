@@ -202,7 +202,7 @@ class MyPowerUps {
                 this.pausedClock = null;
             }
             if (this.velovityTimeout && Date.now() > this.velovityTimeout) {
-                this.game.car.maxVelocity = this.originalMaxVelocity
+                this.game.car.maxVelocity -= 0.5;
                 this.velovityTimeout = null;
             }
             if (this.cutTimoout && Date.now() > this.cutTimoout) {

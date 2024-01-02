@@ -326,8 +326,7 @@ class MyObstacle {
                     this.pausedClock = null;
                 }
                 if (this.velocityTimeout && Date.now() > this.velocityTimeout) {
-                    this.game.car.maxVelocity = this.originalMaxVelocity;
-                    this.game.car.velocity = this.originalVelocity;
+                    this.game.car.maxVelocity += 0.5;
                     this.velocityTimeout = null;
                 }
                 if (this.confusedTimeout && Date.now() > this.confusedTimeout) {
