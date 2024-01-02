@@ -1,6 +1,6 @@
 varying vec2 vUv;
 uniform float time;
-uniform vec3 baseColor; // Add a uniform for the base color
+uniform vec3 baseColor; 
 
 void main() {
     // Define a pulsating factor using the sine function

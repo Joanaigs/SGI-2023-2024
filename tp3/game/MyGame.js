@@ -8,6 +8,8 @@ import { MyAutomaticVehicle } from './MyAutomaticVehicle.js';
 import { MyDisplay } from './MyDisplay.js';
 import { MyFont } from './MyFont.js';
 import { MyOutdoor } from './MyOutdoor.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
 /**
  *  This class contains the contents of out application
  */
@@ -58,15 +60,26 @@ class MyGame {
         this.app.scene.add(this.outdoor);
         this.createStartButton();
         this.pickingColor = "0x00ff00"
+        this.pickingColorVector = new THREE.Vector3(0, 1, 0)
 
         document.addEventListener(
             "pointermove",
             this.onPointerMove.bind(this),
             false
         );
-        document.addEventListener('click', this.onClick.bind(this), false); 
+        document.addEventListener('click', this.onClick.bind(this), false);
         document.addEventListener('keydown', this.onKeyDown.bind(this));
         document.addEventListener('keyup', this.onKeyUp.bind(this));
+
+        const loader = new GLTFLoader();
+        loader.load('./models/playerPark1.gltf', (gltf) => {
+            this.playerCandyShop = gltf.scene;
+            this.playerCandyShop.scale.set(40, 40, 40);
+            this.playerCandyShop.rotation.y = Math.PI;
+            this.playerCandyShop.position.set(75, -0.5, 300);
+            this.playerCandyShop.visible = false;
+            this.app.scene.add(this.playerCandyShop);
+        });
 
 
 
@@ -90,9 +103,9 @@ class MyGame {
         this.button = new THREE.Mesh(this.boxGeometry, new THREE.MeshBasicMaterial({ color: 0xff0000 }))
         this.button.position.set(this.startPosition.x - 10, 15, this.startPosition.z);
         this.button.name = "startButton"
-           
+
         this.startWord = this.myFont.getWord("START");
-        this.startWord.position.set(this.startPosition.x + 10, 15, this.startPosition.z-1);
+        this.startWord.position.set(this.startPosition.x + 10, 15, this.startPosition.z - 1);
         this.startWord.scale.set(3, 3, 3);
         this.startWord.rotation.y = Math.PI;
 
@@ -139,15 +152,16 @@ class MyGame {
         this.display = new MyDisplay(this, 'followCar');
         this.startTime = Date.now();
         this.automaticVehicle.start()
+        this.changePositionObstacles();
     }
 
     gameOverFinal() {
         this.gameOver = true;
         this.logic.state = "gameOver";
-        if(this.car.gameTime<this.automaticVehicle.gameTime)
+        if (this.car.gameTime < this.automaticVehicle.gameTime)
             console.log("YOU WIN")
         else
-           console.log("YOU LOSE")
+            console.log("YOU LOSE")
         this.display.reset();
 
     }
@@ -166,8 +180,8 @@ class MyGame {
 
     changePositionObstacles() {
         this.pause();
-        this.app.setActiveCamera('main');
-        this.app.controls.target = this.app.cameraTarget['main'];
+        this.app.setActiveCamera('pickObstacles');
+        this.app.controls.target = this.app.cameraTarget['pickObstacles'];
 
         this.obstaclesList = this.obstacles.getObstacles();
         for (let i = 0; i < this.obstaclesList.length; i++) {
@@ -179,9 +193,18 @@ class MyGame {
             this.pickableObj.push(this.obstaclesAvailable[i]);
             this.obstaclesAvailable[i].visible = true;
         }
+        this.playerCandyShop.visible = true;
+
         let saveButtonGeometry = new THREE.BoxGeometry(20, 1.1, 10)
         this.saveButton = new THREE.Mesh(saveButtonGeometry, new THREE.MeshBasicMaterial({ color: 0x000000 }))
-        this.saveButton.position.set(3.5 * this.scaleTrack + this.position.x, 0, 7.5 * this.scaleTrack + this.position.z);
+        this.saveButton.position.set(2.95 * this.scaleTrack + this.position.x, 0, 7.4 * this.scaleTrack + this.position.z);
+        let text = this.myFont.getWord("SAVE");
+        this.saveButton.add(text);
+        text.position.set(6, 1.1, 0);
+        text.scale.set(4, 4, 4);
+        text.rotation.x = Math.PI / 2;
+        text.rotation.y = Math.PI;
+        console.log(this.saveButton.position)
         this.app.scene.add(this.saveButton);
         this.pickableObj.push(this.saveButton)
     }
@@ -193,6 +216,7 @@ class MyGame {
         for (let i = 0; i < this.obstaclesAvailable.length; i++) {
             this.obstaclesAvailable[i].visible = false;
         }
+        this.playerCandyShop.visible = false;
         this.continue();
 
     }
@@ -202,23 +226,24 @@ class MyGame {
      * Updates the scene
      */
     update() {
+        //console.log(this.app.activeCamera)
         this.outdoor.update();
         this.powerUps.update();
         this.obstacles.update();
 
-        if(this.display)
-            this.display.update((Date.now() - this.startTime)-this.car.timeInPause, this.car.laps, this.car.maxVelocity, this.penalties);
-        
+        if (this.display)
+            this.display.update((Date.now() - this.startTime) - this.car.timeInPause, this.car.laps, this.car.maxVelocity, this.penalties);
+
         this.car.update();
         this.automaticVehicle.update();
-        
+
 
         if (this.app.activeCameraName === "followCar")
             this.updateCameraFollow();
         if (this.app.activeCameraName === "car")
             this.updateCamera();
 
-        if(this.car.gameOver && this.automaticVehicle.gameOver)
+        if (this.car.gameOver && this.automaticVehicle.gameOver)
             this.gameOverFinal();
     }
 
@@ -289,10 +314,12 @@ class MyGame {
             if (!this.obstaclesList.includes(this.selectedObstacle)) {
                 this.obstacles.addObstacle(this.selectedObstacle);
                 this.car.addObstacle(this.selectedObstacle);
+                this.pickableObj.push(this.selectedObstacle);
+                this.obstacles.materialList.push(this.selectedObstacle.material);
             }
             // If an obstacle is already selected, place it at the click position
             this.selectedObstacle.position.copy(this.selectedObstacle.position);
-            this.selectedObstacle.position.y = 0; // Lower the obstacle back to the ground
+            this.selectedObstacle.position.y = 1; // Lower the obstacle back to the ground
             this.selectedObstacle = null; // Deselect the obstacle
             return;
         }
@@ -315,7 +342,7 @@ class MyGame {
                 if (!this.selectedObstacle) {
                     // If no obstacle is selected, pick it up
                     this.selectedObstacle = obj;
-                    this.selectedObstacle.position.y = 10; // Lift the obstacle above the ground
+                    this.selectedObstacle.position.y = 1; // Lift the obstacle above the ground
                 }
             } else if (this.obstaclesAvailable.includes(obj)) {
                 if (!this.selectedObstacle) {
@@ -323,7 +350,7 @@ class MyGame {
                     let objClone = obj.clone();
                     this.app.scene.add(objClone);
                     this.selectedObstacle = objClone
-                    this.selectedObstacle.position.y = 10; // Lift the obstacle above the ground
+                    this.selectedObstacle.position.y = 1; // Lift the obstacle above the ground
 
                 }
             }
@@ -348,7 +375,7 @@ class MyGame {
 
             if (intersects.length > 0) {
                 this.selectedObstacle.position.copy(intersects[0].point);
-                this.selectedObstacle.position.y = 10; // Lift the obstacle above the ground
+                this.selectedObstacle.position.y = 1; // Lift the obstacle above the ground
             }
             return;
         }
@@ -384,12 +411,22 @@ class MyGame {
     *
     */
     changeColorOfFirstPickedObj(obj) {
-        if (this.lastPickedObj != obj) {
-            if (this.lastPickedObj)
-                this.lastPickedObj.material.color.setHex(this.lastPickedObj.currentHex);
+        if (obj.material.type === "ShaderMaterial") {
+            if (this.lastPickedObj) {
+                this.lastPickedObj.material.uniforms['baseColor'].value = this.lastPickedObj.currentHex;
+            }
             this.lastPickedObj = obj;
-            this.lastPickedObj.currentHex = this.lastPickedObj.material.color.getHex();
-            this.lastPickedObj.material.color.setHex(this.pickingColor);
+            this.lastPickedObj.material.uniforms['scale'].value = 0.8;
+            this.lastPickedObj.currentHex = this.lastPickedObj.material.uniforms['baseColor'].value;
+            this.lastPickedObj.material.uniforms['baseColor'].value = this.pickingColorVector;
+        } else {
+            if (this.lastPickedObj != obj) {
+                if (this.lastPickedObj)
+                    this.lastPickedObj.material.color.setHex(this.lastPickedObj.currentHex);
+                this.lastPickedObj = obj;
+                this.lastPickedObj.currentHex = this.lastPickedObj.material.color.getHex();
+                this.lastPickedObj.material.color.setHex(this.pickingColor);
+            }
         }
     }
 
@@ -398,8 +435,13 @@ class MyGame {
     *
     */
     restoreColorOfFirstPickedObj() {
-        if (this.lastPickedObj)
-            this.lastPickedObj.material.color.setHex(this.lastPickedObj.currentHex);
+        if (this.lastPickedObj){
+            if(this.lastPickedObj.material.type === "ShaderMaterial"){
+                this.lastPickedObj.material.uniforms['baseColor'].value = this.lastPickedObj.currentHex;  
+                this.lastPickedObj.material.uniforms['scale'].value = 0.0;  
+            }else
+                this.lastPickedObj.material.color.setHex(this.lastPickedObj.currentHex);
+        }
         this.lastPickedObj = null;
     }
 }

@@ -133,6 +133,8 @@ class MyApp {
                     cameraTemp1.lookAt(new THREE.Vector3(cameras[camera].target[0], cameras[camera].target[1], cameras[camera].target[2]));
                     this.cameraTarget[cameras[camera].id] = new THREE.Vector3(cameras[camera].target[0], cameras[camera].target[1], cameras[camera].target[2]);
                     this.cameras[cameras[camera].id] = cameraTemp1;
+                   
+
                     this.scene.add(cameraTemp1);
                     break;
                 case "orthogonal":
@@ -157,7 +159,8 @@ class MyApp {
             // if the camera is the active camera
             if (camera === this.activeCameraName) {
                 // update the camera target
-                this.controls.target = this.cameraTarget[camera]
+                if(this.controls)
+                    this.controls.target = this.cameraTarget[camera]
             }
         }
     }
@@ -169,6 +172,7 @@ class MyApp {
     setActiveCamera(cameraName) {
         this.activeCameraName = cameraName
         this.activeCamera = this.cameras[this.activeCameraName]
+        this.updateTarget();
     }
 
     /**
