@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'; // Import the GLTFLoader
 
 class MyWheel extends THREE.Object3D {
     constructor() {
@@ -7,73 +8,75 @@ class MyWheel extends THREE.Object3D {
         this.clock = new THREE.Clock();
     }
 
+    loadModel(callback) {
+        const loader = new GLTFLoader();
+        loader.load('./models/wheel.gltf', (gltf) => {
+            this.wheel = gltf.scene;
+            if (callback) callback();
+        });
+    }
+
     build() {
-        let groupTires = new THREE.Group();
-        for (let i = 0; i < 4; i++) {
-            let geometry = new THREE.CylinderGeometry(0.8, 0.8, 0.6, 32);
+        this.loadModel(() => {
+            let groupTires = new THREE.Group();
 
-            const textureLoader = new THREE.TextureLoader();
-            this.trackTexture = textureLoader.load('./textures/track.png');
-            let material = new THREE.MeshBasicMaterial({ map:this.trackTexture});
-
-            let cylinder = new THREE.Mesh(geometry, material);
-            if (i % 2 == 0) {
-                cylinder.position.x = 3.0;
-            } else {
-                cylinder.position.x = -3.0;
+            for (let i = 0; i < 4; i++) {
+                const wheel = this.wheel.clone(); // Clone the loaded model
+                if (i % 2 == 0) {
+                    wheel.position.x = 3.0;
+                    wheel.rotateY(Math.PI);
+                } else {
+                    wheel.position.x = -3.0;
+                }
+                if (i < 2) {
+                    wheel.position.z = 4.2;
+                } else {
+                    wheel.position.z = -4.1;
+                }
+                wheel.position.y = 0.9;
+                wheel.rotation.order = "YXZ";
+                groupTires.add(wheel);
             }
-            if (i < 2) {
-                cylinder.position.z = 4.2;
-            } else {
-                cylinder.position.z = -4.1;
-            }
-            cylinder.position.y = 0.9;
-            cylinder.rotateZ(Math.PI / 2);
-            cylinder.rotation.order = "YXZ";
-            groupTires.add(cylinder);
-        }
-        this.add(groupTires);
 
-        // Save the wheels group reference for animation
-        this.wheelsGroup = groupTires;
+            this.add(groupTires);
+
+            // Save the wheels group reference for animation
+            this.wheelsGroup = groupTires;
+        });
 
         return this;
     }
-
 
     buildTruckWheels() {
-        let groupTires = new THREE.Group();
-        for (let i = 0; i < 4; i++) {
-            let geometry = new THREE.CylinderGeometry(0.9, 0.9, 0.5, 32);
+        this.loadModel(() => {
+            let groupTires = new THREE.Group();
 
-            const textureLoader = new THREE.TextureLoader();
-            this.trackTexture = textureLoader.load('./textures/track.png');
-            let material = new THREE.MeshBasicMaterial({ map:this.trackTexture});
-
-            let cylinder = new THREE.Mesh(geometry, material);
-            if (i % 2 == 0) {
-                cylinder.position.x = 2.9;
-            } else {
-                cylinder.position.x = -2.9;
+            for (let i = 0; i < 4; i++) {
+                const wheel = this.wheel.clone(); // Clone the loaded model
+                if (i % 2 == 0) {
+                    wheel.position.x = 2.9;
+                    wheel.rotateY(Math.PI);
+                } else {
+                    wheel.position.x = -2.9;
+                }
+                if (i < 2) {
+                    wheel.position.z = 4.2;
+                } else {
+                    wheel.position.z = -3.0;
+                }
+                wheel.position.y = 0.9;
+                wheel.rotation.order = "YXZ";
+                groupTires.add(wheel);
             }
-            if (i < 2) {
-                cylinder.position.z = 4.2;
-            } else {
-                cylinder.position.z = -3.0;
-            }
-            cylinder.position.y = 0.9;
-            cylinder.rotateZ(Math.PI / 2);
-            cylinder.rotation.order = "YXZ";
-            groupTires.add(cylinder);
-        }
-        this.add(groupTires);
 
-        // Save the wheels group reference for animation
-        this.wheelsGroup = groupTires;
+            this.add(groupTires);
+
+            // Save the wheels group reference for animation
+            this.wheelsGroup = groupTires;
+        });
 
         return this;
     }
-
 }
 
 export { MyWheel };

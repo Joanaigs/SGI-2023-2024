@@ -381,8 +381,7 @@ class MyVehicle {
             );
 
         } else {
-            // A imagem ainda está sendo carregada ou não existe
-            console.error('A imagem ainda está sendo carregada ou não existe.');
+            console.error('loading');
             return false;
         }
     }

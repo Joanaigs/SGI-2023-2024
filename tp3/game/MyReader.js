@@ -127,7 +127,7 @@ class MyReader {
         this.obstacles.drawObstacles(1);
         this.obstacles.drawObstaclesPark(1);
         this.routes = new MyRoute(this.scaleTrack, this.position);
-        this.car1 = new MyVehicleObject("redTruck");
+        this.car1 = new MyVehicleObject("cyanCar");
         this.car2 = new MyVehicleObject("cyanTruck");
         this.checkpoints.drawCheckpoints();
 
