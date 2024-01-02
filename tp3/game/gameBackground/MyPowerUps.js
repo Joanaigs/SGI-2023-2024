@@ -147,7 +147,7 @@ class MyPowerUps {
         this.game.car.maxVelocity += this.originalScaleVelocity;
 
         // Set a timeout to revert the changes after 10 seconds
-        this.velovityTimeout = Date.now() + 10000;
+        this.velovityTimeout = Date.now() + 5000;
     }
 
     velocityCutPowerUp() {
