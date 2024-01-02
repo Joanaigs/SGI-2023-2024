@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { MySkybox } from '../classes/MySkybox.js';
 import { MyFont } from './MyFont.js';
+import { MyPark } from './MyPark.js';
+
 
 /**
  *  This class contains the functions needed to allow the logic of the Menu
@@ -23,6 +25,13 @@ class MyMenu {
         });
     }
 
+    resetClickableObjects() {
+        while (this.clickableObjects.length > 0) {
+            this.clickableObjects.pop();
+        }
+    }
+
+    
     onDocumentMouseDown(event) {
         // Calculate mouse coordinates in normalized device coordinates
         const mouse = new THREE.Vector2();
@@ -35,6 +44,7 @@ class MyMenu {
 
         // Check for intersections with the button
         const intersects = raycaster.intersectObjects(this.clickableObjects);
+        console.log(intersects);
 
         if (intersects.length > 0 && intersects[0].object) {
             if (intersects[0].object === this.startButton) {
@@ -81,9 +91,109 @@ class MyMenu {
                 this.clickableObjects.push(this.hardButton);
             }
             else if(intersects[0].object.name === "difficultyButton"){
-                let remove = this.clickableObjects.indexOf(this.difficultyButton);
-                this.clickableObjects.splice(remove, 1);
+                this.resetClickableObjects();
                 this.choosePlayerCar();
+            }
+            else if(intersects[0].object.name === "pinkTrunk"){
+                let remove = this.clickableObjects.indexOf(this.pinkTrunk);
+                this.clickableObjects.splice(remove, 1);
+                this.playerCar = "pinkTrunk";
+
+                this.clickableObjects.push(this.playerCyanCar);
+                this.clickableObjects.push(this.playerCyanTrunk);
+                this.clickableObjects.push(this.playerPinkCar);
+                this.clickableObjects.push(this.playerCarButton);
+                console.log("olé");
+                console.log(this.playerCar);
+            }
+            else if(intersects[0].object.name === "cyanTrunk"){
+                this.playerCar = "cyanTrunk";
+                let remove = this.clickableObjects.indexOf(this.cyanTrunk);
+                this.clickableObjects.splice(remove, 1);
+
+                this.clickableObjects.push(this.playerPinkCar);
+                this.clickableObjects.push(this.playerCyanCar);
+                this.clickableObjects.push(this.playerPinkTrunk);
+                this.clickableObjects.push(this.playerCarButton);
+                console.log("olé");
+                console.log(this.playerCar);
+            }
+            else if(intersects[0].object.name === "cyanCar"){
+                this.playerCar = "cyanCar";
+                let remove = this.clickableObjects.indexOf(this.cyanCar);
+                this.clickableObjects.splice(remove, 1);
+
+                this.clickableObjects.push(this.playerPinkCar);
+                this.clickableObjects.push(this.playerCyanTrunk);
+                this.clickableObjects.push(this.playerPinkTrunk);
+                this.clickableObjects.push(this.playerCarButton);
+                console.log("olé");
+                console.log(this.playerCar);
+            }
+            else if(intersects[0].object.name === "pinkCar"){
+                this.playerCar = "pinkCar";
+                let remove = this.clickableObjects.indexOf(this.pinkCar);
+                this.clickableObjects.splice(remove, 1);
+
+                this.clickableObjects.push(this.playerCyanCar);
+                this.clickableObjects.push(this.playerCyanTrunk);
+                this.clickableObjects.push(this.playerPinkTrunk);
+                this.clickableObjects.push(this.playerCarButton);
+                console.log("olé");
+                console.log(this.playerCar);
+            }
+            else if(intersects[0].object.name === "playerCarButton"){
+                this.resetClickableObjects();
+                this.chooseBotCar();
+            }
+            else if(intersects[0].object.name === "botOrangeTrunk"){
+                let remove = this.clickableObjects.indexOf(this.botOrangeTrunk);
+                this.clickableObjects.splice(remove, 1);
+                this.botCar = "orangeTrunk";
+            
+                this.clickableObjects.push(this.botRedCar);
+                this.clickableObjects.push(this.botRedTrunk);
+                this.clickableObjects.push(this.botOrangeCar);
+                console.log("olé");
+                console.log(this.botCar);
+            }
+            else if(intersects[0].object.name === "botRedTrunk"){
+                this.botCar = "redTrunk";
+                let remove = this.clickableObjects.indexOf(this.botRedTrunk);
+                this.clickableObjects.splice(remove, 1);
+            
+                this.clickableObjects.push(this.botOrangeCar);
+                this.clickableObjects.push(this.botOrangeTrunk);
+                this.clickableObjects.push(this.botRedCar);
+                console.log("olé");
+                console.log(this.botCar);
+            }
+            else if(intersects[0].object.name === "botRedCar"){
+                this.botCar = "redCar";
+                let remove = this.clickableObjects.indexOf(this.botRedCar);
+                this.clickableObjects.splice(remove, 1);
+            
+                this.clickableObjects.push(this.botOrangeCar);
+                this.clickableObjects.push(this.botOrangeTrunk);
+                this.clickableObjects.push(this.botRedTrunk);
+                console.log("olé");
+                console.log(this.botCar);
+            }
+            else if(intersects[0].object.name === "botOrangeCar"){
+                this.botCar = "orangeCar";
+                let remove = this.clickableObjects.indexOf(this.botOrangeCar);
+                this.clickableObjects.splice(remove, 1);
+            
+                this.clickableObjects.push(this.botRedCar);
+                this.clickableObjects.push(this.botRedTrunk);
+                this.clickableObjects.push(this.botOrangeTrunk);
+                console.log("olé");
+                console.log(this.botCar);
+            }
+            else if(intersects[0].object.name === "botCarButton"){
+                this.resetClickableObjects();
+                this.app.setActiveCamera("rightWallCamera");
+                this.displayGameInfo();
             }
         }
     }
@@ -271,7 +381,90 @@ class MyMenu {
 
     choosePlayerCar(){
         this.app.scene.remove(this.difficultyPageGroup);
+        this.app.setActiveCamera("playerGarage2");
+
+        this.playerParkScene = new THREE.Group();
+        const playerPark = new MyPark();
+        this.background = playerPark.initPark();
+        this.shop = playerPark.buildPlayerPark();
+
+        // Add button for each car
+        this.playerPinkCar = playerPark.getPlayerCar(0);
+        this.playerCyanCar = playerPark.getPlayerCar(1);
+        this.playerCyanTrunk = playerPark.getPlayerCar(2);
+        this.playerPinkTrunk = playerPark.getPlayerCar(3);
+        this.playerPinkCar.name = "pinkCar";
+        this.playerCyanCar.name = "cyanCar";
+        this.playerCyanTrunk.name = "cyanTrunk";
+        this.playerPinkTrunk.name = "pinkTrunk";
+        this.clickableObjects.push(this.playerCyanCar);
+        this.clickableObjects.push(this.playerPinkCar);
+        this.clickableObjects.push(this.playerCyanTrunk);
+        this.clickableObjects.push(this.playerPinkTrunk);
+
+        // Next Button
+        const boxGeometry = new THREE.BoxGeometry(20, 10, 0.1); 
+        const boxMaterial = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 });
+        this.playerCarButton = new THREE.Mesh(boxGeometry, boxMaterial);
+        this.playerCarButton.position.set(-2500, 140, -2650);
+        this.playerCarButton.name = "playerCarButton"
+        const continueWord = this.myFont.getWord("NEXT"); // Assuming getWord is a method to create a 3D text object
+        continueWord.position.set(this.playerCarButton.position.x+7, this.playerCarButton.position.y, this.playerCarButton.position.z - 0.2);
+        continueWord.rotation.y = Math.PI;
+        continueWord.scale.set(5, 5, 5);
+        this.clickableObjects.push(this.playerCarButton);
+
+        // Save all elements on a variable
+        this.playerParkScene.add(this.playerCarButton, continueWord, this.playerCyanCar, this.playerPinkCar, this.playerCyanTrunk, this.playerPinkTrunk, this.background, this.shop);
+        this.app.scene.add(this.playerParkScene);
     }
+
+    chooseBotCar(){
+        this.app.scene.remove(this.playerParkScene);
+        console.log("hi");
+        this.botParkScene = new THREE.Group();
+        const botPark = new MyPark();
+        this.botBackground = botPark.initPark();
+        this.botShop = botPark.buildBotPark();
+
+        // Add button for each car
+        this.botOrangeCar = botPark.getBotCar(0);
+        this.botRedCar = botPark.getBotCar(1); 
+        this.botRedTrunk = botPark.getBotCar(2); 
+        this.botOrangeTrunk = botPark.getBotCar(3);
+        this.botRedCar.name = "botRedCar";
+        this.botOrangeCar.name = "botOrangeCar"; 
+        this.botOrangeTrunk.name = "botOrangeTrunk"; 
+        this.botRedTrunk.name = "botRedTrunk";
+        this.clickableObjects.push(this.botRedCar);
+        this.clickableObjects.push(this.botOrangeCar);
+        this.clickableObjects.push(this.botOrangeTrunk); 
+        this.clickableObjects.push(this.botRedTrunk); 
+        
+        console.log("vermelho");
+        console.log(this.botRedCar);
+
+        // Next Button
+        const boxGeometry = new THREE.BoxGeometry(20, 10, 0.1); 
+        const boxMaterial = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 });
+        this.botCarButton = new THREE.Mesh(boxGeometry, boxMaterial);
+        this.botCarButton.position.set(-2500, 140, -2650);
+        this.botCarButton.name = "botCarButton"
+        this.clickableObjects.push(this.botCarButton);
+        const continueWord = this.myFont.getWord("NEXT"); // Assuming getWord is a method to create a 3D text object
+        continueWord.position.set(this.botCarButton.position.x+7, this.botCarButton.position.y, this.botCarButton.position.z - 0.2);
+        continueWord.rotation.y = Math.PI;
+        continueWord.scale.set(5, 5, 5);
+
+        // Save all elements on a variable
+        this.botParkScene.add(this.botCarButton, continueWord, this.botBackground, this.botShop, this.botRedCar, this.botOrangeCar, this.botOrangeTrunk, this.botRedTrunk);
+        this.app.scene.add(this.botParkScene);
+    }
+
+    displayGameInfo(){
+    
+    }
+
 }
 
 export { MyMenu };
