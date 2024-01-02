@@ -18,7 +18,7 @@ class MyDisplay{
         this.timePowerUp = 0;
         this.lastCarVelocity = 0;
         this.pause = false;
-        this.font =new MyFont();
+        this.font =new MyFont(false);
         this.camera = this.game.app.cameras[camera];
         this.buildDisplayCamera(this.camera);
         this.normalVelTex= new THREE.TextureLoader().load('./textures/velocity_normal.png');
@@ -45,7 +45,7 @@ class MyDisplay{
         this.lapsValue = this.font.getWord("0");
         this.lapsValue.scale.set(1.5, 1.5, 1.5);
         this.maxValue = this.font.getWord("/"+this.game.numberOfLaps.toString());
-        this.maxValue.position.set(1.5, -0.25, 0);
+        this.maxValue.position.set(0.5, -0.25, 0);
         this.lapsGroup.add(this.maxValue);
         this.lapsGroup.add(this.lapsValue);
         this.lapsGroup.position.set(0, -1.3, 0);
@@ -55,10 +55,10 @@ class MyDisplay{
         this.velocityGroup = new THREE.Group();
         this.velocity = new THREE.Mesh(new THREE.PlaneGeometry(2, 1), new THREE.MeshBasicMaterial({ map: this.normalVelTex, transparent: true }));
         this.velocityValue = this.font.getWord("0");
-        this.velocityValue.position.set(-0.3, -0.3, 0);
+        this.velocityValue.position.set(-0.1, -0.3, 0);
         this.velocityValue.scale.set(0.3, 0.3, 0.3);
         this.velocityText = this.font.getWord("km/h");
-        this.velocityText.position.set(-0.3, -0.55, 0);
+        this.velocityText.position.set(-0.1, -0.55, 0);
         this.velocityText.scale.set(0.15, 0.15, 0.15);
         this.velocityGroup.add(this.velocityText);
         this.velocityGroup.add(this.velocityValue);
@@ -66,7 +66,7 @@ class MyDisplay{
         this.velocityGroup.position.set(width/2-1.5,-height/2+1, -5);
 
         this.hudGroup.position.set(-width/2+0.5, height/2-0.5, -5);
-        this.hudGroup.scale.set(0.15, 0.15, 0.15);
+        this.hudGroup.scale.set(0.25, 0.25, 0.25);
 
 
 
@@ -89,13 +89,13 @@ class MyDisplay{
         this.powerUpsVelocity.position.set(1, -1, 0);
         this.powerUpsGroup.add(this.powerUpsVelocity);
         this.powerUpsGroup.position.set(-width/2+0.5, -height/2+1.5, -5);
-        this.powerUpsGroup.scale.set(0.12, 0.12, 0.12);
+        this.powerUpsGroup.scale.set(0.22, 0.22, 0.22);
         this.powerUpsGroup.visible=false;
         // Obstacles
         this.obstaclesGroup = new THREE.Group();
         this.obstacles = this.font.getWord("Obstacles");
         this.obstaclesGroup.position.set(-width/2+0.5,-height/2+1, -5);
-        this.obstaclesGroup.scale.set(0.12, 0.12, 0.12);
+        this.obstaclesGroup.scale.set(0.22, 0.22, 0.22);
         this.obstaclesGroup.add(this.obstacles);
         this.obstaclesOffset = 1;
 
@@ -170,8 +170,8 @@ class MyDisplay{
         if(this.game.car.velocity!=this.lastCarVelocity){
             this.velocityGroup.remove(this.velocityValue);
             this.velocityValue= this.font.getWord(Math.round(this.game.car.velocity*100).toString());
-            this.velocityValue.position.set(-0.3, -0.3, 0);
-            this.velocityValue.scale.set(0.3, 0.3, 0.3);
+            this.velocityValue.position.set(-0.2, -0.3, 0);
+            this.velocityValue.scale.set(0.4, 0.4, 0.4);
             this.velocityGroup.add(this.velocityValue);
             this.lastCarVelocity=this.game.car.velocity;
         }

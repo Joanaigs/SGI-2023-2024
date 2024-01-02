@@ -40,6 +40,7 @@ class MyVehicleObject extends THREE.Object3D {
                         child.material.emissive.set(0);
                         child.material.shininess = 0;
                         child.material.side = THREE.DoubleSide;
+
                     }
                 }
             });
@@ -51,6 +52,7 @@ class MyVehicleObject extends THREE.Object3D {
         this.groupWheels = wheelsObject.buildTruckWheels(); 
         this.add(this.groupWheels);
         this.add(this.groupBody);
+        this.typeCar="truck";
     }
 
     buildCar(hexColor) {
@@ -73,7 +75,6 @@ class MyVehicleObject extends THREE.Object3D {
                     }
                 }
             });
-    
             this.groupBody.add(this.car);
         });
 
@@ -81,6 +82,7 @@ class MyVehicleObject extends THREE.Object3D {
         this.groupWheels = wheelsObject.build(); 
         this.add(this.groupWheels);
         this.add(this.groupBody);
+        this.typeCar="car";
     }
 
 }
