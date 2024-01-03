@@ -27,7 +27,6 @@ class MyPowerUps {
 
         ]
         this.powerUpsObject = new Map();
-        this.texture = new THREE.TextureLoader().load('textures/wallPaper.jpg');
 
         this.heartTexture = new THREE.TextureLoader().load('models/heart/heart.jpg');
         this.heartShader = new MyShader('shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
