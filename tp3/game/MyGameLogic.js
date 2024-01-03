@@ -83,6 +83,8 @@ class MyGameLogic {
                 this.game.update();
                 break;
             case "gameOver":
+                this.botCar = (this.botCar == null)? "orangeTrunk" : this.botCar;
+                this.playerCar = (this.playerCar ==null)? "pinkTrunk" : this.playerCar;
                 this.app.setActiveCamera("final")
                 this.winnerCar = this.game.winner.clone();
                 this.winnerCar.position.set(-1960, 230, -3000);
@@ -98,35 +100,26 @@ class MyGameLogic {
                 }
                 else{
                     this.winnerName = "BOT";
-                    this.loserName = "this.input";
+                    this.loserName = this.input;
                     this.winnerCarName = this.normalizeCarType(this.botCar);
                     this.loserCarName = this.normalizeCarType(this.playerCar);
                 }
-                this.loserTime =this.game.loserTime;
-                this.winnerTime = this.game.winnerTime;
 
-                /*
-                this.winnerCar = new MyVehicleObject("pinkTruck");
-                this.winnerCar.position.set(-1960, 230, -3000);
-                this.loserCar = new MyVehicleObject("cyanTruck");
-                this.loserCar.position.set(-1980, 230, -3000);
-                this.app.scene.add(this.winnerCar, this.loserCar);
-                this.winnerName = "player";
-                this.loserName = "bot";
-                this.mode = "normal";
-                this.winnerCarName = "Pink Truck";
-                this.loserCarName = "Red Truck";
-                this.loserTime ="00:00:02";
-                this.winnerTime="00:00:01"
-                */
+                this.loserTime = this.formatTime(this.game.loserTime);
+                this.winnerTime =  this.formatTime(this.game.winnerTime);
+                
+                console.log("aqui!");
+
                 if(this.game){
                     this.game.reset();
                     this.game = null;
                     this.myReader.reset();
                 }
+
                 this.game = null;
                 this.myReader.reset();
-
+                
+                this.console.log("oi");
                 this.final = new MyFinal(this);
 
                 
@@ -143,6 +136,21 @@ class MyGameLogic {
         else if (carType == "cyanCar") return "Cyan Car"
         else if (carType == "orangeCar") return "Orange Car"
         else if (carType == "redCar") return "Red Car"
+    }
+
+
+    formatTime(milliseconds) {
+        const totalSeconds = Math.floor(milliseconds / 1000);
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        const millisecondsPart = Math.floor((milliseconds % 1000) / 10); // Take the first two digits
+    
+        return `${this.padNumber(minutes)}:${this.padNumber(seconds)}:${this.padNumber(millisecondsPart)}`;
+    }
+
+
+     padNumber(number) {
+        return number < 10 ? `0${number}` : number.toString();
     }
 
     /**

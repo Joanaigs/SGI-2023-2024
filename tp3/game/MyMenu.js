@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { MySkybox } from '../classes/MySkybox.js';
 import { MyFont } from './MyFont.js';
 import { MyPark } from './MyPark.js';
+import { MyKeyboardListener } from './MyKeyboardListener.js';
 
 /**
  *  This class contains the functions needed to allow the logic of the Menu
@@ -9,6 +10,7 @@ import { MyPark } from './MyPark.js';
 class MyMenu {
     constructor(gameLogic) {
         this.myFont = new MyFont();
+        this.myNonCenteredFont = new MyFont();
         this.gameLogic = gameLogic;
         this.app = this.gameLogic.app;
         this.input = null;
@@ -118,12 +120,13 @@ class MyMenu {
                 let remove = this.clickableObjects.indexOf(this.startButton);
                 this.clickableObjects.splice(remove, 1);
                 this.playerNamePage();
+                this.canEnterName = true;
             } else if (intersects[0].object.name === "inputButton" ) {
+                this.listener.removeEventListeners();
                 let remove = this.clickableObjects.indexOf(this.nameButton);
                 this.clickableObjects.splice(remove, 1);
-                this.input = document.getElementById("username").value
-                this.input = (document.getElementById("username").value == "")? "player": this.input;
-                this.usernameInput.style.visibility = 'hidden';
+                this.canEnterName = false;
+                this.input = (this.input == "")? "player" : this.input;
                 this.chooseDificultyPage();
             }
             else if(intersects[0].object.name === "hardButton"){
@@ -170,6 +173,7 @@ class MyMenu {
                 this.clickableObjects.push(this.hardButton);
             }
             else if(intersects[0].object.name === "difficultyButton"){
+                this.listener.removeEventListeners();
                 this.resetClickableObjects();
                 this.choosePlayerCar();
             }
@@ -325,7 +329,6 @@ class MyMenu {
         const skybox2 = new MySkybox(skyboxData2);
         const skyboxMesh2 = skybox2.addSkybox();
         this.app.scene.add(skyboxMesh2);
-        this.createUsernameInput(true);
     }
 
     buildStartPage() {
@@ -343,7 +346,7 @@ class MyMenu {
         startWord.scale.set(1.5, 1.5, 1.5); // Use set method to set scale
 
         const feupName = this.myFont.getWord("FEUP"); // Assuming getWord is a method to create a 3D text object
-        feupName.position.set(this.startButton.position.x + 0.5, this.startButton.position.y + 7, this.startButton.position.z);
+        feupName.position.set(this.startButton.position.x + 1.5, this.startButton.position.y + 7, this.startButton.position.z);
         feupName.rotation.y = Math.PI;
 
         // Name of the game
@@ -353,17 +356,17 @@ class MyMenu {
         gameName.scale.set(2, 2, 2); // Use set method to set scale
 
         const studentsName = this.myFont.getWord("Made by the students:"); // Assuming getWord is a method to create a 3D text object
-        studentsName.position.set(this.startButton.position.x + 8, this.startButton.position.y - 5, this.startButton.position.z);
+        studentsName.position.set(this.startButton.position.x + 7, this.startButton.position.y - 5, this.startButton.position.z);
         studentsName.rotation.y = Math.PI;
         studentsName.scale.set(0.8, 0.8, 0.8);
 
         const inesName = this.myFont.getWord("Ines Cardoso up202005435"); // Assuming getWord is a method to create a 3D text object
-        inesName.position.set(this.startButton.position.x + 9, this.startButton.position.y - 6, this.startButton.position.z);
+        inesName.position.set(this.startButton.position.x + 8, this.startButton.position.y - 6, this.startButton.position.z);
         inesName.rotation.y = Math.PI;
         inesName.scale.set(0.8, 0.8, 0.8);
 
         const joanaName = this.myFont.getWord("Joana Santos up202006279"); // Assuming getWord is a method to create a 3D text object
-        joanaName.position.set(this.startButton.position.x + 9, this.startButton.position.y - 7, this.startButton.position.z);
+        joanaName.position.set(this.startButton.position.x + 8, this.startButton.position.y - 7, this.startButton.position.z);
         joanaName.rotation.y = Math.PI;
         joanaName.scale.set(0.8, 0.8, 0.8);
 
@@ -374,33 +377,42 @@ class MyMenu {
 
     }
 
-    createUsernameInput(hidden) {
-        this.usernameInput = document.createElement("input");
-        this.usernameInput.setAttribute("type", "text");
-        this.usernameInput.setAttribute("id", "username");
-        this.usernameInput.setAttribute("name", "username");
-        this.usernameInput.setAttribute("maxlength", "20");
-        this.usernameInput.setAttribute("style", `
-            position: absolute;
-            top: 40%;
-            left: 40%;
-            width: 300px;
-            height: 80px;
-            font-size: 24px; /* Adjust the font size as needed */
-            outline: none;
-            visibility: ${hidden ? 'hidden' : 'visible'}; /* Initial visibility */
-        `);
-        document.body.appendChild(this.usernameInput);
+    createUsernameInput() {
+        this.listener = new MyKeyboardListener(window);
+    
+        this.listener.onKeyPress((pressedKey) => {
+            if (this.canEnterName) {
+                this.input += pressedKey;
+
+                if (this.wordMesh) {
+                    this.app.scene.remove(this.wordMesh);
+                }
+
+                this.wordMesh = this.myNonCenteredFont.getWord(this.input);
+                this.wordMesh.position.set(this.startButton.position.x + 4, this.startButton.position.y, this.startButton.position.z - 0.3);
+                this.wordMesh.rotation.y = -Math.PI;
+                this.wordMesh.scale.set(2, 2, 2);
+                this.app.scene.add(this.wordMesh);
+    
+                this.canEnterName = false;
+                setTimeout(() => {
+                    this.canEnterName = true;
+                }, 80);
+            }
+        });
     }
 
 
     playerNamePage(){
         this.app.scene.remove(this.menuGroup);
-        this.usernameInput.style.visibility = 'visible';
 
         const insertName = this.myFont.getWord("Insert Your Name"); // Assuming getWord is a method to create a 3D text object
-        insertName.position.set(this.startButton.position.x + 8, this.startButton.position.y + 5, this.startButton.position.z);
+        insertName.position.set(this.startButton.position.x + 6, this.startButton.position.y + 5, this.startButton.position.z);
         insertName.rotation.y = Math.PI;
+
+        this.input = "";
+        this.canEnterName = true;
+        this.createUsernameInput();
 
         const boxGeometry = new THREE.BoxGeometry(3, 1, 0.5); // Adjust the size as needed
         const boxMaterial = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 });
@@ -423,9 +435,10 @@ class MyMenu {
 
     chooseDificultyPage() {
         this.app.scene.remove(this.namePageGroup);
+        this.app.scene.remove(this.wordMesh);
 
         const chooseDifficulty = this.myFont.getWord("Choose Game Difficulty"); // Assuming getWord is a method to create a 3D text object
-        chooseDifficulty.position.set(this.startButton.position.x + 10, this.startButton.position.y + 7, this.startButton.position.z);
+        chooseDifficulty.position.set(this.startButton.position.x + 8, this.startButton.position.y + 7, this.startButton.position.z-2);
         chooseDifficulty.rotation.y = Math.PI;
     
         // Create a box (cube) for the easy button
@@ -437,7 +450,7 @@ class MyMenu {
         this.clickableObjects.push(this.easyButton);
     
         const easyWord = this.myFont.getWord("EASY");
-        easyWord.position.set(this.easyButton.position.x+1, this.easyButton.position.y-0.1, this.easyButton.position.z-1);
+        easyWord.position.set(this.easyButton.position.x+1, this.easyButton.position.y-0.5, this.easyButton.position.z-2);
         easyWord.rotation.y = Math.PI;
         easyWord.scale.set(0.7, 0.7, 0.7);
     
@@ -450,7 +463,7 @@ class MyMenu {
         this.clickableObjects.push(this.normalButton);
     
         const normalWord = this.myFont.getWord("NORMAL");
-        normalWord.position.set(this.normalButton.position.x+1.7, this.normalButton.position.y, this.normalButton.position.z-1);
+        normalWord.position.set(this.normalButton.position.x+1.7, this.normalButton.position.y, this.normalButton.position.z-2);
         normalWord.rotation.y = Math.PI;
         normalWord.scale.set(0.7, 0.7, 0.7);
     
@@ -537,7 +550,7 @@ class MyMenu {
         this.playerCarButton.position.set(-2500, 140, -2650);
         this.playerCarButton.name = "playerCarButton"
         const continueWord = this.myFont.getWord("NEXT"); // Assuming getWord is a method to create a 3D text object
-        continueWord.position.set(this.playerCarButton.position.x+7, this.playerCarButton.position.y, this.playerCarButton.position.z - 0.2);
+        continueWord.position.set(this.playerCarButton.position.x+7, this.playerCarButton.position.y, this.playerCarButton.position.z - 0.7);
         continueWord.rotation.y = Math.PI;
         continueWord.scale.set(5, 5, 5);
         this.clickableObjects.push(this.playerCarButton);
