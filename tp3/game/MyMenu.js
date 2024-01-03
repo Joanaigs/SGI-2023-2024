@@ -10,7 +10,7 @@ import { MyKeyboardListener } from './MyKeyboardListener.js';
 class MyMenu {
     constructor(gameLogic) {
         this.myFont = new MyFont();
-        this.myNonCenteredFont = new MyFont();
+        this.myNonCenteredFont = new MyFont(false);
         this.gameLogic = gameLogic;
         this.app = this.gameLogic.app;
         this.input = null;
@@ -127,6 +127,7 @@ class MyMenu {
                 this.clickableObjects.splice(remove, 1);
                 this.canEnterName = false;
                 this.input = (this.input == "")? "player" : this.input;
+                this.gameLogic.username = this.input;
                 this.chooseDificultyPage();
             }
             else if(intersects[0].object.name === "hardButton"){
@@ -614,47 +615,47 @@ class MyMenu {
         gameInfoTitle.rotation.y = Math.PI;
     
         // Player username
-        const playerUsernameWord = this.myFont.getWord("Player Username: ");
-        playerUsernameWord.position.set(-1957, 253, -2490);
+        const playerUsernameWord = this.myNonCenteredFont.getWord("Player Username: ");
+        playerUsernameWord.position.set(-1962, 253, -2490);
         playerUsernameWord.rotation.y = Math.PI;
         playerUsernameWord.scale.set(0.7, 0.7, 0.7);
 
-        const playerUsernameInfo = this.myFont.getWord(this.input);
+        const playerUsernameInfo = this.myNonCenteredFont.getWord(this.input);
         playerUsernameInfo.position.set(-1969, 253, -2490);
         playerUsernameInfo.rotation.y = Math.PI;
         playerUsernameInfo.scale.set(0.7, 0.7, 0.7);
 
         // difficulty username
-        const difficultyWord = this.myFont.getWord("Game Difficulty: ");
-        difficultyWord.position.set(-1957, 250, -2490);
+        const difficultyWord = this.myNonCenteredFont.getWord("Game Difficulty: ");
+        difficultyWord.position.set(-1962, 250, -2490);
         difficultyWord.rotation.y = Math.PI;
         difficultyWord.scale.set(0.7, 0.7, 0.7);
 
-        const difficultyInfo = this.myFont.getWord(this.difficulty);
+        const difficultyInfo = this.myNonCenteredFont.getWord(this.difficulty);
         difficultyInfo.position.set(-1969, 250, -2490);
         difficultyInfo.rotation.y = Math.PI;
         difficultyInfo.scale.set(0.7, 0.7, 0.7);
 
         // playercar
-        const playerCarWord = this.myFont.getWord("Player Vehicle: ");
-        playerCarWord.position.set(-1957, 247, -2490);
+        const playerCarWord = this.myNonCenteredFont.getWord("Player Vehicle: ");
+        playerCarWord.position.set(-1962, 247, -2490);
         playerCarWord.rotation.y = Math.PI;
         playerCarWord.scale.set(0.7, 0.7, 0.7);
 
         const playerChoice = this.normalizeCarType(this.playerCar);
-        const playerCarInfo = this.myFont.getWord(playerChoice);
+        const playerCarInfo = this.myNonCenteredFont.getWord(playerChoice);
         playerCarInfo.position.set(-1969, 247, -2490);
         playerCarInfo.rotation.y = Math.PI;
         playerCarInfo.scale.set(0.7, 0.7, 0.7);
 
         // botcar
-        const botCarWord = this.myFont.getWord("Bot Vehicle: ");
-        botCarWord.position.set(-1957, 244, -2490);
+        const botCarWord = this.myNonCenteredFont.getWord("Bot Vehicle: ");
+        botCarWord.position.set(-1962, 244, -2490);
         botCarWord.rotation.y = Math.PI;
         botCarWord.scale.set(0.7, 0.7, 0.7);
 
         const botChoice = this.normalizeCarType(this.botCar);
-        const botCarInfo = this.myFont.getWord(botChoice);
+        const botCarInfo = this.myNonCenteredFont.getWord(botChoice);
         botCarInfo.position.set(-1969, 244, -2490);
         botCarInfo.rotation.y = Math.PI;
         botCarInfo.scale.set(0.7, 0.7, 0.7);
@@ -669,7 +670,7 @@ class MyMenu {
         const continueWord = this.myFont.getWord("START RACE!"); 
         continueWord.position.set(this.startGameButton.position.x+3.5, this.startGameButton.position.y, this.startGameButton.position.z - 0.2);
         continueWord.rotation.y = Math.PI;
-        continueWord.scale.set(0.7, 0.7, 0.7);
+        continueWord.scale.set(0.8, 0.8, 0.8);
         this.clickableObjects.push(this.startGameButton);
 
         this.gameInfoPage.add(gameInfoTitle, playerUsernameInfo, playerUsernameWord, difficultyWord, difficultyInfo, playerCarWord, playerCarInfo, botCarWord, botCarInfo, this.startGameButton, continueWord);

@@ -43,7 +43,7 @@ class MyPark extends THREE.Object3D {
             this.playerCandyShop = gltf.scene;
             this.playerCandyShop.scale.set(100, 100, 100);
             this.playerCandyShop.rotation.y = Math.PI;
-            this.playerCandyShop.position.set(-2500, 128, -2500);
+            this.playerCandyShop.position.set(-2500, 126, -2500);
 
             for(let i = 0; i < this.playerCandyShop.children.length; i++){
                 if(this.playerCandyShop.children[i].type == "Mesh"){
