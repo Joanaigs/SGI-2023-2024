@@ -30,9 +30,9 @@ class MyGameLogic {
             setTimeout(this.waitForReader.bind(this), 100);
             return;
         }
-        //this.state = "menu";
-        this.state = "gameOver";
-        this.gameSates();
+        this.state = "menu";
+        //this.state = "gameOver";
+        this.gameStates();
     }
 
 
@@ -55,10 +55,19 @@ class MyGameLogic {
         this.game = new MyGame(this, car, enemyCar, this.myReader.powerUps, this.myReader.obstacles, this.myReader.routes, this.myReader.cutPath, this.myReader.checkpoints, this.myReader.track2, difficult);
     }
 
-    gameOver() {
+    restartGame(){
+        this.game.reset();
+        this.state = "game"
+        this.gameStates();
     }
 
-    gameSates() {
+    backToMenu(){
+        this.game.reset();
+        this.state = "menu"
+        this.gameStates();
+    }
+
+    gameStates() {
         switch (this.state) {
             case "menu":
                 if(this.game)
@@ -71,23 +80,43 @@ class MyGameLogic {
                 this.game.update();
                 break;
             case "gameOver":
+                console.log(this.game.winner);
+                this.winnerCar = this.game.winner.clone();
+                this.winnerCar.position.set(-1960, 230, -3000);
+                console.log(this.game.loser);
+                this.loserCar = this.game.loser.clone();
+                this.loserCar.position.set(-1980, 230, -3000);
+                this.app.scene.add(this.winnerCar, this.loserCar);
+
+                if(this.winnerCar == this.car){
+                    this.winnerName = this.input;
+                    this.loserName = "BOT"
+                    this.winnerCarName = this.normalizeCarType(this.playerCar);
+                    this.loserCarName = this.normalizeCarType(this.botCar);
+                }
+                else{
+                    this.winnerName = "BOT";
+                    this.loserName = this.input;
+                    this.winnerCarName = this.normalizeCarType(this.botCar);
+                    this.loserCarName = this.normalizeCarType(this.playerCar);
+                }
+                this.loserTime =this.game.loserTime;
+                this.winnerTime = this.game.winnerTime;
+
                 /*
-                this.winnerCar = this.game.winner;
-                this.loserCar = this.game.loser;
-                this.loser = this.car;
-                this.loserTime = this.car.gameTime;
-                this.loserName = "player"
-                this.winner = this.automaticVehicle;
-                this.winnerTime = this.automaticVehicle;
-                this.winnerName = "BOT"
-
-
-                */
                 this.winnerCar = new MyVehicleObject("pinkTruck");
                 this.winnerCar.position.set(-1960, 230, -3000);
                 this.loserCar = new MyVehicleObject("cyanTruck");
                 this.loserCar.position.set(-1980, 230, -3000);
                 this.app.scene.add(this.winnerCar, this.loserCar);
+                this.winnerName = "player";
+                this.loserName = "bot";
+                this.mode = "normal";
+                this.winnerCarName = "Pink Truck";
+                this.loserCarName = "Red Truck";
+                this.loserTime ="00:00:02";
+                this.winnerTime="00:00:01"
+                */
 
                 this.final = new MyFinal(this);
                 if(this.game){
@@ -100,7 +129,16 @@ class MyGameLogic {
         }
     }
 
-
+    normalizeCarType(carType){
+        if(carType == "pinkTruck") return "Pink Truck"
+        else if (carType == "cyanTruck") return "Cyan Truck"
+        else if (carType == "orangeTruck") return "Orange Truck"
+        else if(carType == "redTruck") return "Red Truck"
+        else if (carType == "pinkCar") return "Pink Car"
+        else if (carType == "cyanCar") return "Cyan Car"
+        else if (carType == "orangeCar") return "Orange Car"
+        else if (carType == "redCar") return "Red Car"
+    }
 
     /**
      * Updates the scene
@@ -109,7 +147,7 @@ class MyGameLogic {
         this.myReader.update();
         if (this.previousState != this.state) {
             this.previousState = this.state;
-            this.gameSates();
+            this.gameStates();
 
         }
         else if (this.state === "game" && this.game) {

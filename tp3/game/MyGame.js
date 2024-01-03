@@ -24,7 +24,7 @@ class MyGame {
         this.app = logic.app
         this.scaleTrack = 50;
         this.penalties = 0;
-        this.numberOfLaps = 3;
+        this.numberOfLaps = 0;
         this.gameOver = false;
         this.started = false;
         this.powerUps = powerUps;
@@ -164,20 +164,16 @@ class MyGame {
         this.gameOver = true;
         this.logic.state = "gameOver";
         if (this.car.gameTime < this.automaticVehicle.gameTime){
-            this.winner = this.car;
+            this.winner = this.car.car;
             this.winnerTime = this.car.gameTime;
-            this.winnerName = "player"
-            this.loser = this.automaticVehicle;
-            this.loserTime = this.automaticVehicle;
-            this.loserName = "BOT"
+            this.loser = this.automaticVehicle.car;
+            this.loserTime = this.automaticVehicle.gameTime;
         }
         else{
-            this.loser = this.car;
+            this.loser = this.car.car;
             this.loserTime = this.car.gameTime;
-            this.loserName = "player"
-            this.winner = this.automaticVehicle;
-            this.winnerTime = this.automaticVehicle;
-            this.winnerName = "BOT"
+            this.winner = this.automaticVehicle.car;
+            this.winnerTime = this.automaticVehicle.gameTime;
         }
         this.display.reset();
 

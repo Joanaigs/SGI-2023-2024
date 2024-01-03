@@ -15,7 +15,7 @@ class MyFirework {
         this.points = null
 
         this.material = new THREE.PointsMaterial({
-            size: 0.3,
+            size: 0.2,
             color: 0xffffff,
             opacity: 1,
             vertexColors: true,
@@ -23,7 +23,7 @@ class MyFirework {
             depthTest: false,
         })
 
-        this.height = 40;
+        this.height = 100;
         this.speed = 20;
 
         this.launch()
@@ -44,14 +44,14 @@ class MyFirework {
         this.colors = colors
 
         let x = THREE.MathUtils.randFloat(-1965, -1975);
-        let y = THREE.MathUtils.randFloat(this.height * 2, this.height * 3.5)
+        let y = THREE.MathUtils.randFloat(this.height * 0.9, this.height * 1.3)
         let z = -3000;
         this.dest.push(x, y, z)
         this.timeRange= (this.dest[1]-y)/30
         //random vertices between 0 and 1 in x and z
 
         //let vertices = [THREE.MathUtils.randFloat(-5, 5), 0, THREE.MathUtils.randFloat(-5, 5)]
-        let vertices = [THREE.MathUtils.randFloat(-1965, -1975), 239 , -3000]
+        let vertices = [THREE.MathUtils.randFloat(-1965, -1975), 229 , -3000]
         //let vertices = [THREE.MathUtils.randFloat(-1965, -1975), THREE.MathUtils.randFloat(249, 253), THREE.MathUtils.randFloat(-2990, 3010)];
         this.startPosition = vertices
 

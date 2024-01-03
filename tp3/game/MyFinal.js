@@ -152,21 +152,21 @@ class MyFinal extends THREE.Object3D {
         this.winnerWord.position.set(-3.0, 3.5, -10);
         this.winnerGroup.add(this.winnerWord);
 
-        this.winnerValue = this.font.getWord("player");
+        this.winnerValue = this.font.getWord(this.gameLogic.winnerName);
         this.winnerValue.scale.set(0.9, 0.9, 0.9);
         this.winnerValue.position.set(0.3, 3.5, -10);
         this.winnerGroup.add(this.winnerValue);
 
         this.loserGroup = new THREE.Group();
-        this.winnerWord = this.font.getWord("LOSER:"); // Change "WINNER:" to "LOSER:"
-        this.winnerWord.scale.set(0.5, 0.5, 0.5);
-        this.winnerWord.position.set(-1.3, 2.7, -10);
-        this.loserGroup.add(this.winnerWord);
+        this.loserWord = this.font.getWord("LOSER:"); // Change "WINNER:" to "LOSER:"
+        this.loserWord.scale.set(0.5, 0.5, 0.5);
+        this.loserWord.position.set(-1.3, 2.7, -10);
+        this.loserGroup.add(this.loserWord);
 
-        this.winnerValue = this.font.getWord("player");
-        this.winnerValue.scale.set(0.5, 0.5, 0.5);
-        this.winnerValue.position.set(0.3, 2.7, -10);
-        this.loserGroup.add(this.winnerValue);
+        this.loserValue = this.font.getWord(this.gameLogic.loserName);
+        this.loserValue.scale.set(0.5, 0.5, 0.5);
+        this.loserValue.position.set(0.5, 2.7, -10);
+        this.loserGroup.add(this.loserValue);
 
 
         // game mode
@@ -183,7 +183,7 @@ class MyFinal extends THREE.Object3D {
 
         this.winnerGroup.translateX(-0.4);
         this.loserGroup.translateX(-0.4);
-        this.modeGroup.translateX(-0.4);
+        this.modeGroup.translateX(-0.8);
 
         //left is the loser
         this.loserInfoGroup = new THREE.Group();
@@ -191,11 +191,11 @@ class MyFinal extends THREE.Object3D {
         this.loserNameValue.scale.set(0.4, 0.4, 0.4);
         this.loserNameValue.position.set(-3.6, 0, -10);
 
-        this.loserCarValue = this.font.getWord("Cyan Truck");
+        this.loserCarValue = this.font.getWord(this.gameLogic.loserCarName);
         this.loserCarValue.scale.set(0.3, 0.3, 0.3);
         this.loserCarValue.position.set(-3.0, -0.4, -10);
 
-        this.loserTimeValue = this.font.getWord("00:00:22");
+        this.loserTimeValue = this.font.getWord(this.gameLogic.loserTime);
         this.loserTimeValue.scale.set(0.3, 0.3, 0.3);
         this.loserTimeValue.position.set(-2.7, -0.7, -10);
 
@@ -207,11 +207,11 @@ class MyFinal extends THREE.Object3D {
         this.winnerNameValue.scale.set(0.4, 0.4, 0.4);
         this.winnerNameValue.position.set(0.1, 0, -10);
 
-        this.winnerCarValue = this.font.getWord("Cyan Truck");
+        this.winnerCarValue = this.font.getWord(this.gameLogic.winnerCarName);
         this.winnerCarValue.scale.set(0.3, 0.3, 0.3);
         this.winnerCarValue.position.set(1.2, -0.4, -10);
 
-        this.winnerTimeValue = this.font.getWord("00:00:22");
+        this.winnerTimeValue = this.font.getWord(this.gameLogic.winnerTime);
         this.winnerTimeValue.scale.set(0.3, 0.3, 0.3);
         this.winnerTimeValue.position.set(1.2, -0.7, -10);
 
