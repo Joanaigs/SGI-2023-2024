@@ -199,6 +199,7 @@ class MyAutomaticVehicle {
         let spline = new THREE.CatmullRomCurve3([...this.route])
 
         // Setup visual control points
+        this.keyGroup = new THREE.Group()
 
         for (let i = 0; i < this.route.length; i++) {
             const geometry = new THREE.SphereGeometry(5, 32, 32)
@@ -207,14 +208,15 @@ class MyAutomaticVehicle {
             sphere.scale.set(0.2, 0.2, 0.2)
             sphere.position.set(... this.route[i])
 
-            this.game.gameGroup.add(sphere)
+            this.keyGroup.add(sphere)
         }
 
         const tubeGeometry = new THREE.TubeGeometry(spline, 100, 0.05, 10, false)
         const tubeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 })
         const tubeMesh = new THREE.Mesh(tubeGeometry, tubeMaterial)
 
-        this.game.gameGroup.add(tubeMesh)
+        this.keyGroup.add(tubeMesh)
+        this.game.gameGroup.add(this.keyGroup)
     }
 
     /**
@@ -282,6 +284,14 @@ class MyAutomaticVehicle {
      * Updates the animation
      */
     update() {
+
+        if(this.game.app.showRoutes && !this.pointsDrawn){
+            this.debugKeyFrames();
+            this.pointsDrawn = true;
+        }else if(!this.game.app.showRoutes && this.pointsDrawn){
+            this.game.gameGroup.remove(this.keyGroup);
+            this.pointsDrawn = false;
+        }
         if (!this.gameOver) {
             let delta = this.clock.getDelta()
             if (this.mixer) {

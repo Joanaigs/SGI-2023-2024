@@ -253,6 +253,15 @@ class MyGame {
      * Updates the game. Updates all the objects of the game.
      */
     update() {
+        if(!this.checkpoints.checkpointObjcts[0].visible && this.app.showcheckPoints){
+            for (let i = 0; i < this.checkpoints.checkpointObjcts.length; i++) {
+                this.checkpoints.checkpointObjcts[i].visible = true;
+            }
+        }else if(this.checkpoints.checkpointObjcts[0].visible && !this.app.showcheckPoints){
+            for (let i = 0; i < this.checkpoints.checkpointObjcts.length; i++) {
+                this.checkpoints.checkpointObjcts[i].visible = false;
+            }
+        }
         this.outdoor.update();
         this.powerUps.update();
         this.obstacles.update();

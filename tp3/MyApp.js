@@ -17,6 +17,8 @@ class MyApp {
         this.scene = null
         this.stats = null
         this.showBoundingBoxes = false
+        this.showcheckPoints = false
+        this.showRoutes = false
 
         // camera related attributes
         this.activeCamera = null

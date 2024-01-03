@@ -42,6 +42,12 @@ class MyGuiInterface {
     const boundingBoxFolder = this.datgui.addFolder("Bounding Boxes");
     boundingBoxFolder.add(this.app, "showBoundingBoxes");
 
+    const checkpointsFolder = this.datgui.addFolder("Checkpoints");
+    checkpointsFolder.add(this.app, "showcheckPoints");
+
+    const routesFolder = this.datgui.addFolder("Routes");
+    routesFolder.add(this.app, "showRoutes");
+
   }
 
   updateGui() {
