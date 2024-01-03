@@ -13,17 +13,19 @@
 
     <cameras initial="main">
         <perspective id="main" angle="1.047" near="0.1" far="5000" location="100 700 200"
-        target="100 0 200" />
-        <perspective id="playerGarage" angle="1.047" near="0.1" far="5000" location="-2510 175 -2758"
-        target="-2489 162 -2353" />
+            target="100 0 200" />
+        <perspective id="playerGarage" angle="1.047" near="0.1" far="5000"
+            location="-2510 175 -2758"
+            target="-2489 162 -2353" />
         <perspective id="car" angle="1.26" near="0.1" far="5000" location="400 10 300"
             target="75 0 300" />
         <perspective id="followCar" angle="1.047" near="0.1" far="5000" location="310 20 100"
             target="310 0 150" />
         <perspective id="frontHouse" angle="1.047" near="0.1" far="5000" location="130 10 -25"
             target="50 10 -25" />
-        <perspective id="playerGarage2" angle="1.1" near="0.01" far="2000" location="-2510 175 -2758"
-        target="-2489 162 -2353" />
+        <perspective id="playerGarage2" angle="1.1" near="0.01" far="2000"
+            location="-2510 175 -2758"
+            target="-2489 162 -2353" />
         <perspective id="menu" angle="1.047" near="0.1" far="5000" location="-1971 249 -2510"
             target="-1971 249 -2500" />
         <perspective id="origin" angle="1.047" near="0.1" far="5000" location="5 5 5"
@@ -43,6 +45,8 @@
         <texture id="icecreamTex" filepath="textures/icecream.jpg" />
         <texture id="icecreamBumpTex" filepath="textures/icecream_bump.jpg" />
         <texture id="icecreamSpecTex" filepath="textures/icecream_specular.jpg" />
+        <texture id="cookieTex" filepath="textures/cookie.jpg" />
+
     </textures>
 
     <materials>
@@ -51,19 +55,25 @@
             specular="1 1 1 1" shininess="30" textureref="candycaneTex" texlength_s="0.2"
             texlength_t="10" twosided="true" />
         <material id="coneApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
-            specular="1 1 1 1" shininess="30" textureref="coneTex"  bumpref="coneBumpTex" bumpscale="0.5"
-            texlength_s="4" texlength_t="4"  />
+            specular="1 1 1 1" shininess="30" textureref="coneTex" bumpref="coneBumpTex"
+            bumpscale="0.5"
+            texlength_s="4" texlength_t="4" />
         <material id="icecreamApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
-            specular="1 1 1 1" shininess="30" textureref="icecreamTex" bumpref="icecreamBumpTex" bumpscale="1"
-            specularref="icecreamSpecTex" texlength_s="5" texlength_t="5"  />
+            specular="1 1 1 1" shininess="30" textureref="icecreamTex" bumpref="icecreamBumpTex"
+            bumpscale="1"
+            specularref="icecreamSpecTex" texlength_s="5" texlength_t="5" />
         <material id="whiteApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0"
             specular="1 1 1 1" shininess="0" />
-        <material id="chupachupaRedApp" emissive="0.0 0.0 0.0 1" color="1 0 0 0.95"
+        <material id="chupachupaRedApp" emissive="0.0 0.0 0.0 1" color="1 0.33 0.33 0.95"
             specular="1 1 1 1" shininess="50" />
         <material id="lolipopPinkShaderApp" emissive="0.0 0.0 0.0 1" color="1.0 0.75 0.8 0.95"
-            specular="1 1 1 1" shininess="50" shaderfrag="shaders/lolipop.frag" shadervert="shaders/lolipop.vert" shaderuniforms="heightMap sampler2D textures/lolipop_heightmap.jpg" />
+            specular="1 1 1 1" shininess="50" shaderfrag="shaders/lolipop.frag"
+            shadervert="shaders/lolipop.vert"
+            shaderuniforms="heightMap sampler2D textures/lolipop_heightmap.jpg" />
         <material id="lolipopPinkApp" emissive="0.0 0.0 0.0 1" color="1.0 0.75 0.8 0.95"
-        specular="1 1 1 1" shininess="0"/>
+            specular="1 1 1 1" shininess="0" />
+        <material id="cookieApp" emissive="0.0 0.0 0.0 1" color="1 1 1 1.0" specular="0 0 0 1"
+            shininess="0" textureref="cookieTex" texlength_s="30" texlength_t="30" twosided="true" />
 
     </materials>
 
@@ -87,25 +97,30 @@
                     distance="0"
                     decay="1"
                     position="-2500 300 -2600"
+                    shadowfar="500"
+                    castshadow="true"
+                    shadowmapsize="512"
+
                 />
 
-                <noderef id="candycane1" />
+                <noderef id="candycane" />
                 <noderef id="canycane2" />
                 <noderef id="canycane3" />
-                <noderef id="icecream1" />
-                <noderef id="chupachupa1" />
-                <noderef id="lolipop1" />
+                <noderef id="icecream" />
+                <noderef id="chupachupa" />
+                <noderef id="lolipop" />
                 <noderef id="candycaneGarage" />
                 <noderef id="candycaneGarage2" />
                 <noderef id="candycaneGarage3" />
                 <noderef id="candycaneGarage4" />
+                <noderef id="cookie" />
 
 
             </children>
         </node>
 
         <!-- Candy canes -->
-        <node id="fullCandyCane">
+        <node id="fullCandyCane" castshadows="true">
 
             <transforms>
                 <scale value3="200 200 200" />
@@ -217,7 +232,7 @@
                 <primitive>
                     <cylinder base="0.1" top="0.1" height="0.01" slices="32" stacks="1"
                         capsclose="true" />
-                        
+
                 </primitive>
             </children>
 
@@ -241,11 +256,11 @@
         </node>
 
 
-        <node id="candycaneGarage">
+        <node id="candycaneGarage" castshadows="true">
             <transforms>
                 <translate value3="-2350 190 -2500" />
-                <rotate value3="0.0 3.14 0.0"/>
-                <scale value3="0.3 0.3 0.3"/>
+                <rotate value3="0.0 3.14 0.0" />
+                <scale value3="0.3 0.3 0.3" />
             </transforms>
 
             <children>
@@ -253,10 +268,10 @@
             </children>
         </node>
 
-        <node id="candycaneGarage4">
+        <node id="candycaneGarage4" castshadows="true">
             <transforms>
                 <translate value3="-2330 190 -2500" />
-                <scale value3="0.3 0.3 0.3"/>
+                <scale value3="0.3 0.3 0.3" />
             </transforms>
 
             <children>
@@ -264,11 +279,11 @@
             </children>
         </node>
 
-        
-        <node id="candycaneGarage2">
+
+        <node id="candycaneGarage2" castshadows="true">
             <transforms>
                 <translate value3="-2650 190 -2500" />
-                <scale value3="0.3 0.3 0.3"/>
+                <scale value3="0.3 0.3 0.3" />
             </transforms>
 
             <children>
@@ -276,11 +291,11 @@
             </children>
         </node>
 
-        <node id="candycaneGarage3">
+        <node id="candycaneGarage3" castshadows="true">
             <transforms>
                 <translate value3="-2670 190 -2500" />
-                <rotate value3="0.0 3.14 0.0"/>
-                <scale value3="0.3 0.3 0.3"/>
+                <rotate value3="0.0 3.14 0.0" />
+                <scale value3="0.3 0.3 0.3" />
             </transforms>
 
             <children>
@@ -290,7 +305,6 @@
 
         <!-- Icecream -->
 
-        
 
         <node id="icecreamObject">
 
@@ -299,11 +313,10 @@
                 <noderef id="icecreamCone" />
                 <noderef id="icecreamBall1" />
                 <noderef id="icecreamBall2" />
-                <noderef id="icecreamBall3" />  
+                <noderef id="icecreamBall3" />
             </children>
-            
-        </node>
 
+        </node>
 
 
         <node id="icecreamCone">
@@ -316,7 +329,7 @@
             <children>
                 <primitive>
                     <cylinder base="0" top="1.5" height="4" slices="32" stacks="1"
-                    capsclose="true" />
+                        capsclose="true" />
                 </primitive>
 
             </children>
@@ -326,7 +339,6 @@
             <transforms>
                 <scale value3="1 0.4 1" />
             </transforms>
-
 
 
             <children>
@@ -369,7 +381,7 @@
 
         <lod id="icecreamBall">
             <children>
-                <noderef id="icecreamBallFirst" mindist="0"/>
+                <noderef id="icecreamBallFirst" mindist="0" />
                 <noderef id="icecreamBallSecond" mindist="5000" />
             </children>
         </lod>
@@ -443,7 +455,7 @@
 
         <lod id="chupachupalod">
             <children>
-                <noderef id="chupachupaFirst" mindist="0"/>
+                <noderef id="chupachupaFirst" mindist="0" />
                 <noderef id="chupachupaSecond" mindist="1000" />
             </children>
         </lod>
@@ -507,7 +519,7 @@
                 <translate value3="0 5.25 0" />
                 <scale value3="1 1 0.5" />
             </transforms>
-            
+
             <materialref id="lolipopPinkShaderApp" />
 
             <children>
@@ -533,9 +545,10 @@
             </children>
         </node>
 
-        <!--Outside Ring-->
+        <!--Outside
+        Ring-->
 
-        <node id="lolipop1">
+        <node id="lolipop">
             <transforms>
                 <translate value3="800 15 600" />
                 <rotate value3="0 1.54 0" />
@@ -547,7 +560,7 @@
             </children>
         </node>
 
-        <node id="chupachupa1">
+        <node id="chupachupa">
             <transforms>
                 <translate value3="-300 20 200" />
                 <rotate value3="0 0 0" />
@@ -559,7 +572,7 @@
             </children>
         </node>
 
-        <node id="icecream1">
+        <node id="icecream">
 
             <transforms>
                 <translate value3="-25 0 600" />
@@ -573,9 +586,9 @@
 
         </node>
 
-        <node id="candycane1">
+        <node id="candycane">
             <transforms>
-                <translate value3="-500 200 700" />
+                <translate value3="-500 150 700" />
                 <rotate value3="0 -1 0" />
                 <scale value3="0.8 0.8 0.8" />
 
@@ -615,6 +628,26 @@
             <children>
                 <noderef id="fullCandyCane" />
             </children>
+        </node>
+
+        <node id="cookie">
+            <transforms>
+                <translate value3="20 20 -20" />
+                <rotate value3="1.54 -0.1 0" />
+                <rotate value3="1 0 0" />
+
+                <scale value3="10 10 10" />
+            </transforms>
+
+            <materialref id="cookieApp" />
+
+            <children>
+                <primitive>
+                    <cylinder base="10" top="10" height="0.1" slices="32" stacks="1"
+                        capsclose="true" />
+                </primitive>
+            </children>
+
         </node>
 
         

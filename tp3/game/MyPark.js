@@ -32,6 +32,7 @@ class MyPark extends THREE.Object3D {
 
         const skybox1 = new MySkybox(skyboxData1);
         const skyboxMesh1 = skybox1.addSkybox();
+        skyboxMesh1.receiveShadow = true;
         return skyboxMesh1;
     }
     
@@ -43,18 +44,30 @@ class MyPark extends THREE.Object3D {
             this.playerCandyShop.scale.set(100, 100, 100);
             this.playerCandyShop.rotation.y = Math.PI;
             this.playerCandyShop.position.set(-2500, 128, -2500);
+
+            for(let i = 0; i < this.playerCandyShop.children.length; i++){
+                if(this.playerCandyShop.children[i].type == "Mesh"){
+                    this.playerCandyShop.children[i].receiveShadow = true;
+                }
+                else{
+                    for(let j = 0; j < this.playerCandyShop.children[i].children.length; j++){
+                        this.playerCandyShop.children[i].children[j].castShadow = true;
+                    }
+                }
     
+            }
             this.playerPark.add(this.playerCandyShop);
         });
 
         let donutGeometry = new THREE.TorusGeometry(15, 8, 64, 100); 
-        let donutMaterial = new THREE.MeshBasicMaterial({ color: 0xFFD700 });
+        let donutMaterial = new THREE.MeshPhongMaterial({ color: 0xFFD700 });
         let donut = new THREE.Mesh(donutGeometry, donutMaterial);
         donut.position.set(-2509, 149, -2520.5);
 
         let donutGeometry2 = new THREE.TorusGeometry(15, 8, 64, 100); 
-        let donutMaterial2 = new THREE.MeshBasicMaterial({ color: 0xEC5DBD });
+        let donutMaterial2 = new THREE.MeshPhongMaterial({ color: 0xEC5DBD });
         let donut2 = new THREE.Mesh(donutGeometry2, donutMaterial2);
+        donut.castShadow = true;
         donut2.position.set(-2509, 149, -2522.5);
 
 
@@ -120,6 +133,17 @@ class MyPark extends THREE.Object3D {
             this.playerCandyShop.scale.set(100, 100, 100);
             this.playerCandyShop.rotation.y = Math.PI;
             this.playerCandyShop.position.set(-2500, 128, -2500);
+
+            for(let i = 0; i < this.playerCandyShop.children.length; i++){
+                if(this.playerCandyShop.children[i].type == "Mesh"){
+                    this.playerCandyShop.children[i].receiveShadow = true;
+                }
+                else{
+                    for(let j = 0; j < this.playerCandyShop.children[i].children.length; j++){
+                        this.playerCandyShop.children[i].children[j].castShadow = true;
+                    }
+                }
+            }
     
             this.botPark.add(this.playerCandyShop);
         });

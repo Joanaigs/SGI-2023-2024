@@ -24,12 +24,79 @@ class MyMenu {
         document.addEventListener('mousedown', (event) => {
             this.onDocumentMouseDown(event);
         });
+        document.addEventListener(
+            "pointermove",(event) => {
+                this.onPointerMove(event);
+            });
+        this.pickingColor = 0xFFC0CD;
     }
 
     resetClickableObjects() {
         while (this.clickableObjects.length > 0) {
             this.clickableObjects.pop();
         }
+    }
+
+    onPointerMove(event) {
+
+        this.pointer = new THREE.Vector2()
+       
+        this.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+        this.pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        const raycaster = new THREE.Raycaster();
+
+
+        raycaster.setFromCamera(this.pointer, this.app.activeCamera);
+
+        //3. compute intersections
+        const intersects = raycaster.intersectObjects(this.clickableObjects);
+
+
+        this.pickingHelper(intersects)
+    }
+
+    /*
+    * Helper to visualize the intersected object
+    *
+    */
+    pickingHelper(intersects) {
+        if (intersects.length > 0) {
+            const obj = intersects[0].object
+            if (this.clickableObjects.includes(obj)) {
+                this.changeColorOfFirstPickedObj(obj)
+            }
+        }
+        else {
+            this.restoreColorOfFirstPickedObj()
+        }
+    }
+
+    /*
+    * Change the color of the first intersected object
+    *
+    */
+    changeColorOfFirstPickedObj(obj) {
+
+            if (this.lastPickedObj != obj) {
+                if (this.lastPickedObj)
+                    this.lastPickedObj.material.color.setHex(this.lastPickedObj.currentHex);
+                this.lastPickedObj = obj;
+                this.lastPickedObj.currentHex = this.lastPickedObj.material.color.getHex();
+                this.lastPickedObj.material.color.setHex(this.pickingColor);
+            }
+        
+    }
+
+    /*
+    * Restore the original color of the intersected object
+    *
+    */
+    restoreColorOfFirstPickedObj() {
+        if (this.lastPickedObj){
+                this.lastPickedObj.material.color.setHex(this.lastPickedObj.currentHex);
+        }
+        this.lastPickedObj = null;
     }
 
     
@@ -66,6 +133,10 @@ class MyMenu {
                 this.hardButton.material.color.setHex(0xFF80AB); 
                 this.easyButton.material.color.setHex(0xFFBCF2);
                 this.normalButton.material.color.setHex(0xFFBCF2);
+                if(this.lastPickedObj===this.hardButton){
+                    this.lastPickedObj.currentHex = 0xFF80AB;
+                    this.lastPickedObj.material.color.setHex(this.pickingColor);
+                }
                 this.clickableObjects.push(this.easyButton);
                 this.clickableObjects.push(this.normalButton);
             }
@@ -76,6 +147,10 @@ class MyMenu {
                 this.normalButton.material.color.setHex(0xFF80AB); 
                 this.easyButton.material.color.setHex(0xFFBCF2);
                 this.hardButton.material.color.setHex(0xFFBCF2);
+                if(this.lastPickedObj===this.normalButton){
+                    this.lastPickedObj.currentHex = 0xFF80AB;
+                    this.lastPickedObj.material.color.setHex(this.pickingColor);
+                }
                 this.clickableObjects.push(this.easyButton);
                 this.clickableObjects.push(this.hardButton);
 
@@ -87,6 +162,10 @@ class MyMenu {
                 this.easyButton.material.color.setHex(0xFF80AB); 
                 this.normalButton.material.color.setHex(0xFFBCF2);
                 this.hardButton.material.color.setHex(0xFFBCF2);
+                if(this.lastPickedObj===this.easyButton){
+                    this.lastPickedObj.currentHex = 0xFF80AB;
+                    this.lastPickedObj.material.color.setHex(this.pickingColor);
+                }
                 this.clickableObjects.push(this.normalButton);
                 this.clickableObjects.push(this.hardButton);
             }
@@ -98,6 +177,11 @@ class MyMenu {
                 let remove = this.clickableObjects.indexOf(this.pinkTruck);
                 this.clickableObjects.splice(remove, 1);
                 this.playerCar = "pinkTruck";
+                
+                let pinkTruckPosition = this.playerPinkTruck.position;
+                this.spotLight.position.set(pinkTruckPosition.x, pinkTruckPosition.y + 40, pinkTruckPosition.z);
+                this.spotLight.target = this.playerPinkTruck;
+            
 
                 this.clickableObjects.push(this.playerCyanCar);
                 this.clickableObjects.push(this.playerCyanTruck);
@@ -109,6 +193,9 @@ class MyMenu {
                 let remove = this.clickableObjects.indexOf(this.cyanTruck);
                 this.clickableObjects.splice(remove, 1);
 
+                this.spotLight.position.set(this.playerCyanTruck.position.x, this.playerCyanTruck.position.y + 40, this.playerCyanTruck.position.z);
+                this.spotLight.target = this.playerCyanTruck;
+
                 this.clickableObjects.push(this.playerPinkCar);
                 this.clickableObjects.push(this.playerCyanCar);
                 this.clickableObjects.push(this.playerPinkTruck);
@@ -119,6 +206,9 @@ class MyMenu {
                 let remove = this.clickableObjects.indexOf(this.cyanCar);
                 this.clickableObjects.splice(remove, 1);
 
+                this.spotLight.position.set(this.playerCyanCar.position.x, this.playerCyanCar.position.y + 40, this.playerCyanCar.position.z);
+                this.spotLight.target = this.playerCyanCar;
+
                 this.clickableObjects.push(this.playerPinkCar);
                 this.clickableObjects.push(this.playerCyanTruck);
                 this.clickableObjects.push(this.playerPinkTruck);
@@ -128,6 +218,9 @@ class MyMenu {
                 this.playerCar = "pinkCar";
                 let remove = this.clickableObjects.indexOf(this.pinkCar);
                 this.clickableObjects.splice(remove, 1);
+
+                this.spotLight.position.set(this.playerPinkCar.position.x, this.playerPinkCar.position.y + 40, this.playerPinkCar.position.z);
+                this.spotLight.target = this.playerPinkCar;
 
                 this.clickableObjects.push(this.playerCyanCar);
                 this.clickableObjects.push(this.playerCyanTruck);
@@ -142,6 +235,10 @@ class MyMenu {
                 let remove = this.clickableObjects.indexOf(this.botOrangeTruck);
                 this.clickableObjects.splice(remove, 1);
                 this.botCar = "orangeTruck";
+
+                this.spotLight.position.set(this.botOrangeTruck.position.x, this.botOrangeTruck.position.y + 40, this.botOrangeTruck.position.z);
+                this.spotLight.target = this.botOrangeTruck;
+            
             
                 this.clickableObjects.push(this.botRedCar);
                 this.clickableObjects.push(this.botRedTruck);
@@ -151,6 +248,9 @@ class MyMenu {
                 this.botCar = "redTruck";
                 let remove = this.clickableObjects.indexOf(this.botRedTruck);
                 this.clickableObjects.splice(remove, 1);
+
+                this.spotLight.position.set(this.botRedTruck.position.x, this.botRedTruck.position.y + 40, this.botRedTruck.position.z);
+                this.spotLight.target = this.botRedTruck;
             
                 this.clickableObjects.push(this.botOrangeCar);
                 this.clickableObjects.push(this.botOrangeTruck);
@@ -160,6 +260,9 @@ class MyMenu {
                 this.botCar = "redCar";
                 let remove = this.clickableObjects.indexOf(this.botRedCar);
                 this.clickableObjects.splice(remove, 1);
+
+                this.spotLight.position.set(this.botRedCar.position.x, this.botRedCar.position.y + 40, this.botRedCar.position.z);
+                this.spotLight.target = this.botRedCar;
             
                 this.clickableObjects.push(this.botOrangeCar);
                 this.clickableObjects.push(this.botOrangeTruck);
@@ -169,6 +272,9 @@ class MyMenu {
                 this.botCar = "orangeCar";
                 let remove = this.clickableObjects.indexOf(this.botOrangeCar);
                 this.clickableObjects.splice(remove, 1);
+
+                this.spotLight.position.set(this.botOrangeCar.position.x, this.botOrangeCar.position.y + 40, this.botOrangeCar.position.z);
+                this.spotLight.target = this.botOrangeCar;
             
                 this.clickableObjects.push(this.botRedCar);
                 this.clickableObjects.push(this.botRedTruck);
@@ -176,6 +282,7 @@ class MyMenu {
             }
             else if(intersects[0].object.name === "botCarButton"){
                 this.resetClickableObjects();
+                this.app.scene.remove(this.spotLight)
                 this.displayGameInfo();
             }
             else if(intersects[0].object.name === "startGameButton"){
@@ -187,6 +294,10 @@ class MyMenu {
                 document.removeEventListener('mousedown', (event) => {
                     this.onDocumentMouseDown(event);
                 });
+                document.removeEventListener(
+                    "pointermove",(event) => {
+                        this.onPointerMove(event);
+                    });
                 this.gameLogic.state = "game";
             }
         }
@@ -388,6 +499,7 @@ class MyMenu {
         this.background = playerPark.initPark();
         this.shop = playerPark.buildPlayerPark();
 
+
         // Add button for each car
         this.playerPinkCar = playerPark.getPlayerCar(0);
         this.playerCyanCar = playerPark.getPlayerCar(1);
@@ -401,6 +513,19 @@ class MyMenu {
         this.clickableObjects.push(this.playerPinkCar);
         this.clickableObjects.push(this.playerCyanTruck);
         this.clickableObjects.push(this.playerPinkTruck);
+
+        this.spotLight = new THREE.SpotLight(0xffffff, 2, 100, Math.PI / 8, 0, 0);
+        let pinkTruckPosition = this.playerPinkTruck.position;
+        this.spotLight.position.set(pinkTruckPosition.x, pinkTruckPosition.y + 40, pinkTruckPosition.z);
+        this.spotLight.target = this.playerPinkTruck;
+        this.spotLight.castShadow = true;
+        this.spotLight.shadow.mapSize.width = 258
+        this.spotLight.shadow.mapSize.height = 258
+        this.spotLight.shadow.bias = 0.0001;
+
+
+        this.playerCar = "pinkTruck";
+        this.app.scene.add(this.spotLight);
 
         // Next Button
         const boxGeometry = new THREE.BoxGeometry(20, 10, 0.1); 
@@ -438,6 +563,12 @@ class MyMenu {
         this.clickableObjects.push(this.botOrangeCar);
         this.clickableObjects.push(this.botOrangeTruck); 
         this.clickableObjects.push(this.botRedTruck); 
+
+        
+        let orangeTruckPosition = this.botOrangeTruck.position;
+        this.spotLight.position.set(orangeTruckPosition.x, orangeTruckPosition.y + 40, orangeTruckPosition.z);
+        this.spotLight.target = this.playerPinkTruck;
+        this.botCar = "orangeTruck";
         
 
         // Next Button
