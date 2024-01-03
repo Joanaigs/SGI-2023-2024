@@ -118,31 +118,27 @@ class MyAutomaticVehicle {
         // Create an AnimationMixer
         this.mixer = new THREE.AnimationMixer(this.car)
         this.mixerWheel1 = new THREE.AnimationMixer(this.car.children[0].wheelsGroup.children[0])
-        this.mixerWheel1RotX = new THREE.AnimationMixer(this.car.children[0].wheelsGroup.children[0])
         this.mixerWheel2 = new THREE.AnimationMixer(this.car.children[0].wheelsGroup.children[1])
-        this.mixerWheel2RotX = new THREE.AnimationMixer(this.car.children[0].wheelsGroup.children[1])
         this.mixerWheel3RotX = new THREE.AnimationMixer(this.car.children[0].wheelsGroup.children[2])
         this.mixerWheel4RotX = new THREE.AnimationMixer(this.car.children[0].wheelsGroup.children[3])
 
         this.mixer.timeScale = this.timeScale
         this.mixerWheel1.timeScale = this.timeScale
         this.mixerWheel2.timeScale = this.timeScale
-        this.mixerWheel1RotX.timeScale = this.timeScale * 10
-        this.mixerWheel2RotX.timeScale = this.timeScale * 10
-        this.mixerWheel3RotX.timeScale = this.timeScale * 10
-        this.mixerWheel4RotX.timeScale = this.timeScale * 10
+        this.mixerWheel3RotX.timeScale = this.timeScale
+        this.mixerWheel4RotX.timeScale = this.timeScale 
 
         // Create AnimationActions for each clip
         const positionAction = this.mixer.clipAction(positionClip)
         const rotationAction = this.mixer.clipAction(rotationClip)
-        const rotationActionWheel1X = this.mixerWheel1RotX.clipAction(rotationClipWheelX)
+        const rotationActionWheel1X = this.mixerWheel1.clipAction(rotationClipWheelX)
         const rotationActionWheel1 = this.mixerWheel1.clipAction(rotationClipWheel)
-        const rotationActionWheel2X = this.mixerWheel2RotX.clipAction(rotationClipWheelX)
+        const rotationActionWheel2X = this.mixerWheel2.clipAction(rotationClipWheelX)
         const rotationActionWheel2 = this.mixerWheel2.clipAction(rotationClipWheel)
         const rotationActionWheel3X = this.mixerWheel3RotX.clipAction(rotationClipWheelX)
         const rotationActionWheel4X = this.mixerWheel4RotX.clipAction(rotationClipWheelX)
-        this.animations.push(positionAction);
-        this.animations.push(rotationAction);
+        // this.animations.push(positionAction);
+        // this.animations.push(rotationAction);
         this.animations.push(rotationActionWheel1X);
         this.animations.push(rotationActionWheel1);
         this.animations.push(rotationActionWheel2X);
@@ -163,8 +159,8 @@ class MyAutomaticVehicle {
         this.mixer.timeScale = 0
         this.mixerWheel1.timeScale = 0
         this.mixerWheel2.timeScale = 0
-        this.mixerWheel1RotX.timeScale = 0
-        this.mixerWheel2RotX.timeScale = 0
+        this.mixerWheel3RotX.timeScale = 0
+        this.mixerWheel4RotX.timeScale = 0
         this.pausedTime = Date.now()
     }
 
@@ -172,8 +168,8 @@ class MyAutomaticVehicle {
         this.mixer.timeScale = this.timeScale
         this.mixerWheel1.timeScale = this.timeScale
         this.mixerWheel2.timeScale = this.timeScale
-        this.mixerWheel1RotX.timeScale = this.timeScale * 10
-        this.mixerWheel2RotX.timeScale = this.timeScale * 10
+        this.mixerWheel3RotX.timeScale = this.timeScale
+        this.mixerWheel4RotX.timeScale = this.timeScale
         this.timeInPaused += Date.now() - this.pausedTime
     }
 
@@ -242,8 +238,8 @@ class MyAutomaticVehicle {
         this.mixer.timeScale = 0
         this.mixerWheel1.timeScale = 0
         this.mixerWheel2.timeScale = 0
-        this.mixerWheel1RotX.timeScale = 0
-        this.mixerWheel2RotX.timeScale = 0
+        this.mixerWheel3RotX.timeScale = 0
+        this.mixerWheel4RotX.timeScale = 0
 
         return true;
     }
@@ -259,12 +255,6 @@ class MyAutomaticVehicle {
             }
             if (this.mixerWheel2) {
                 this.mixerWheel2.update(delta);
-            }
-            if (this.mixerWheel1RotX) {
-                this.mixerWheel1RotX.update(delta);
-            }
-            if (this.mixerWheel2RotX) {
-                this.mixerWheel2RotX.update(delta);
             }
             if (this.mixerWheel3RotX) {
                 this.mixerWheel3RotX.update(delta);
