@@ -11,10 +11,113 @@ class MyFinal extends THREE.Object3D {
         this.app = this.gameLogic.app;
         this.fireworks=[]
         this.camera = this.gameLogic.app.cameras['final'];
-        console.log(this.camera);
+
+        this.clickableObjects = []
+        document.addEventListener('mousedown', (event) => {
+            this.onDocumentMouseDown(event);
+        });
+        document.addEventListener(
+            "pointermove",(event) => {
+                this.onPointerMove(event);
+            });
+        this.pickingColor = 0xFFC0CD;
+
         this.initScreenEnvironment();
         this.buildDisplayCamera(this.camera);
     }   
+
+    resetClickableObjects() {
+        while (this.clickableObjects.length > 0) {
+            this.clickableObjects.pop();
+        }
+    }
+
+    onPointerMove(event) {
+
+        this.pointer = new THREE.Vector2()
+       
+        this.pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+        this.pointer.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        const raycaster = new THREE.Raycaster();
+
+
+        raycaster.setFromCamera(this.pointer, this.app.activeCamera);
+
+        //3. compute intersections
+        const intersects = raycaster.intersectObjects(this.clickableObjects);
+
+
+        this.pickingHelper(intersects)
+    }
+
+    /*
+    * Helper to visualize the intersected object
+    *
+    */
+    pickingHelper(intersects) {
+        if (intersects.length > 0) {
+            const obj = intersects[0].object
+            if (this.clickableObjects.includes(obj)) {
+                this.changeColorOfFirstPickedObj(obj)
+            }
+        }
+        else {
+            this.restoreColorOfFirstPickedObj()
+        }
+    }
+
+    /*
+    * Change the color of the first intersected object
+    *
+    */
+    changeColorOfFirstPickedObj(obj) {
+
+            if (this.lastPickedObj != obj) {
+                if (this.lastPickedObj)
+                    this.lastPickedObj.material.color.setHex(this.lastPickedObj.currentHex);
+                this.lastPickedObj = obj;
+                this.lastPickedObj.currentHex = this.lastPickedObj.material.color.getHex();
+                this.lastPickedObj.material.color.setHex(this.pickingColor);
+            }
+        
+    }
+
+    /*
+    * Restore the original color of the intersected object
+    *
+    */
+    restoreColorOfFirstPickedObj() {
+        if (this.lastPickedObj){
+                this.lastPickedObj.material.color.setHex(this.lastPickedObj.currentHex);
+        }
+        this.lastPickedObj = null;
+    }
+
+
+    onDocumentMouseDown(event) {
+        // Calculate mouse coordinates in normalized device coordinates
+        const mouse = new THREE.Vector2();
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        // Create a raycaster
+        const raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera(mouse, this.app.activeCamera);
+
+        // Check for intersections with the button
+        const intersects = raycaster.intersectObjects(this.clickableObjects);
+
+        if (intersects.length > 0 && intersects[0].object) {
+            if (intersects[0].object.name === "backToMenu") {
+                this.resetClickableObjects();
+                console.log("hey");
+            } else if (intersects[0].object.name === "tryAgain" ) {
+                this.resetClickableObjects();
+                console.log("heyo");
+            }
+        }
+    }
 
     initScreenEnvironment() {
         const skyboxDataFinal = {
@@ -116,26 +219,29 @@ class MyFinal extends THREE.Object3D {
 
         // Buttons to continue 
         this.buttons = new THREE.Group();
-        const pinkMaterial = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 }); // Pink color
+        const pinkMaterial1 = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 });
+        const pinkMaterial2 = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 })
         const rectangleGeometry = new THREE.PlaneGeometry(3, 1, 32);
 
         // Left rectangle
-        this.leftRectangleMesh = new THREE.Mesh(rectangleGeometry, pinkMaterial);
+        this.leftRectangleMesh = new THREE.Mesh(rectangleGeometry, pinkMaterial1);
         this.leftRectangleMesh.position.set(-width / 2+3, -3.5, -10);
         this.leftRectangleMesh.name="tryAgain";
         const tryAgainValue = this.font.getWord("TRY AGAIN");
         tryAgainValue.position.set(this.leftRectangleMesh.x , this.leftRectangleMesh.y, this.leftRectangleMesh.z-2);
         tryAgainValue.scale.set(0.3, 0.3, 0.3);
         this.buttons.add(this.leftRectangleMesh, tryAgainValue);
+        this.clickableObjects.push(this.leftRectangleMesh);
     
         // Right rectangle
-        this.rightRectangleMesh = new THREE.Mesh(rectangleGeometry, pinkMaterial);
+        this.rightRectangleMesh = new THREE.Mesh(rectangleGeometry, pinkMaterial2);
         this.rightRectangleMesh.position.set(width / 2 -3, -3.5, -10); 
         this.rightRectangleMesh.name="backToMenu";
         const backToMenuValue = this.font.getWord("BACK TO MENU");
         backToMenuValue.scale.set(0.3, 0.3, 0.3);
         backToMenuValue.position.set(this.rightRectangleMesh.x , this.rightRectangleMesh.y, this.rightRectangleMesh.z+2);
         this.buttons.add(this.rightRectangleMesh, backToMenuValue);
+        this.clickableObjects.push(this.rightRectangleMesh);
     
 
 

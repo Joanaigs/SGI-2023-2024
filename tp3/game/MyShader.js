@@ -55,7 +55,6 @@ class MyShader {
             // report built!
             this.ready = true
         }
-
         return this.material
     }
 
