@@ -114,11 +114,13 @@ class MyFinal extends THREE.Object3D {
                 this.app.scene.remove(this.skyboxMeshFinal);
                 this.resetClickableObjects();
                 this.gameLogic.state = "menu";
+                this.reset();
             } else if (intersects[0].object.name === "tryAgain" ) {
                 this.camera.remove(this.finalGroup);
                 this.app.scene.remove(this.skyboxMeshFinal);
                 this.resetClickableObjects();
                 this.gameLogic.state = "game";
+                this.reset();
             }
         }
     }
@@ -251,6 +253,12 @@ class MyFinal extends THREE.Object3D {
 
         this.finalGroup.add(this.modeGroup, this.winnerGroup, this.loserGroup, this.loserInfoGroup, this.winnerInfogroup, this.buttons);
         this.camera.add(this.finalGroup);
+    }
+
+    reset(){
+        for(let i = 0; i < this.fireworks.length; i++ ) {
+            this.fireworks[i].reset()
+        }
     }
 
     update() {

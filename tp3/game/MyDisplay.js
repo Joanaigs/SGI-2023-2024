@@ -19,6 +19,7 @@ class MyDisplay{
         this.lastCarVelocity = 0;
         this.pause = false;
         this.font =new MyFont(false);
+        this.cameraname = camera;
         this.camera = this.game.app.cameras[camera];
         this.buildDisplayCamera(this.camera);
         this.normalVelTex= new THREE.TextureLoader().load('./textures/velocity_normal.png');
@@ -32,6 +33,7 @@ class MyDisplay{
 
     // Inside the buildDisplayCamera method
     buildDisplayCamera(camera) {
+        console.log("f");
         this.hudGroup = new THREE.Group();
 
         let height = 2 * Math.tan(camera.fov * Math.PI / 360)*5;
@@ -256,10 +258,15 @@ class MyDisplay{
     }
 
     reset(){
+        console.log(this.camera.children);
         this.camera.remove(this.hudGroup);
+        this.camera.remove(this.velocityGroup);
         this.camera.remove(this.powerUpsGroup);
         this.camera.remove(this.obstaclesGroup);
-        this.camera.remove(this.velocityGroup);
+        this.camera.remove(this.pausedGroup);
+        console.log(this.camera.children);
+        console.log(this.camera);
+
     }
 
 

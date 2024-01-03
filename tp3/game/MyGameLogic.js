@@ -31,7 +31,6 @@ class MyGameLogic {
             return;
         }
         this.state = "menu";
-        //this.state = "gameOver";
         this.gameStates();
     }
 
@@ -55,11 +54,6 @@ class MyGameLogic {
         this.game = new MyGame(this, car, enemyCar, this.myReader.powerUps, this.myReader.obstacles, this.myReader.routes, this.myReader.cutPath, this.myReader.checkpoints, this.myReader.track2, difficult);
     }
 
-    restartGame(){
-        this.game.reset();
-        this.state = "game"
-        this.gameStates();
-    }
 
     backToMenu(){
         this.game.reset();
@@ -73,8 +67,11 @@ class MyGameLogic {
                 this.final=null;
                 if(this.winnerCar && this.loserCar)
                 this.app.scene.remove(this.winnerCar, this.loserCar);
-                if(this.game)
+                if(this.game){
                     this.game.reset();
+                    this.game = null;
+                    this.myReader.reset();
+                }
                 this.app.setActiveCamera("menu")
                 this.menu = new MyMenu(this);
                 break;
@@ -123,13 +120,16 @@ class MyGameLogic {
                 this.loserTime ="00:00:02";
                 this.winnerTime="00:00:01"
                 */
-
-                this.final = new MyFinal(this);
                 if(this.game){
                     this.game.reset();
+                    this.game = null;
+                    this.myReader.reset();
                 }
                 this.game = null;
                 this.myReader.reset();
+
+                this.final = new MyFinal(this);
+
                 
                 break;
         }
@@ -157,6 +157,7 @@ class MyGameLogic {
 
         }
         else if (this.state === "game" && this.game) {
+            console.log("update")
             this.game.update();
         }
         else if(this.state == "gameOver" && this.final){

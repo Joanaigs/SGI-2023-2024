@@ -96,6 +96,7 @@ class MyGame {
 
 
     countDown() {
+        console.log("countdown")
         this.tourusGeometry = new THREE.TorusGeometry(41, 8, 48, 100);
         this.tourusMaterial = new THREE.MeshPhongMaterial({ color: 0xffaaaa });
         this.tourus = new THREE.Mesh(this.tourusGeometry, this.tourusMaterial);
@@ -113,17 +114,20 @@ class MyGame {
 
         this.semaphoreIntervalId = setInterval(() => {
             this.semaphore.material.color.setHex(this.semaphoreColors[1]);
-            setTimeout(() => {
+            this.semaphoreIntervalId2 = setTimeout(() => {
                 this.semaphore.material.color.setHex(this.semaphoreColors[2]);
                 setTimeout(() => {
                     this.semaphore.material.color.setHex(this.semaphoreColors[0]);
                     this.started = true;
                     this.start();
                     clearInterval(this.semaphoreIntervalId); // Stop the countdown loop
+                    clearInterval(this.semaphoreIntervalId2);
                     this.gameGroup.remove(this.semaphore);
                 }, this.semaphoreInterval);
             }, this.semaphoreInterval);
         }, this.semaphoreInterval * 2);
+
+
 
     }
 
@@ -150,7 +154,6 @@ class MyGame {
             this.winner = this.automaticVehicle.car;
             this.winnerTime = this.automaticVehicle.gameTime;
         }
-        this.display.reset();
 
     }
 
@@ -430,6 +433,8 @@ class MyGame {
 
     reset(){
         this.app.scene.remove(this.gameGroup);
+        this.display.reset();
+
     }
 }
 
