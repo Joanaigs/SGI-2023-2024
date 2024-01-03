@@ -15,7 +15,7 @@ class MyFirework {
         this.points = null
 
         this.material = new THREE.PointsMaterial({
-            size: 0.1,
+            size: 0.3,
             color: 0xffffff,
             opacity: 1,
             vertexColors: true,
@@ -23,13 +23,14 @@ class MyFirework {
             depthTest: false,
         })
 
-        this.height = 20
-        this.speed = 20
+        this.height = 40;
+        this.speed = 20;
 
         this.launch()
         this.gravity=9.8;
         this.timeY=0;
 
+        // -1970, 249, -3000
     }
 
     /**
@@ -42,13 +43,16 @@ class MyFirework {
         let colors = [color.r, color.g, color.b]
         this.colors = colors
 
-        let x = THREE.MathUtils.randFloat(-5, 5)
-        let y = THREE.MathUtils.randFloat(this.height * 0.9, this.height * 1.1)
-        let z = THREE.MathUtils.randFloat(-5, 5)
+        let x = THREE.MathUtils.randFloat(-1965, -1975);
+        let y = THREE.MathUtils.randFloat(this.height * 2, this.height * 3.5)
+        let z = -3000;
         this.dest.push(x, y, z)
         this.timeRange= (this.dest[1]-y)/30
         //random vertices between 0 and 1 in x and z
-        let vertices = [THREE.MathUtils.randFloat(-5, 5), 0, THREE.MathUtils.randFloat(-5, 5)]
+
+        //let vertices = [THREE.MathUtils.randFloat(-5, 5), 0, THREE.MathUtils.randFloat(-5, 5)]
+        let vertices = [THREE.MathUtils.randFloat(-1965, -1975), 239 , -3000]
+        //let vertices = [THREE.MathUtils.randFloat(-1965, -1975), THREE.MathUtils.randFloat(249, 253), THREE.MathUtils.randFloat(-2990, 3010)];
         this.startPosition = vertices
 
         this.geometry = new THREE.BufferGeometry()
@@ -115,9 +119,9 @@ class MyFirework {
             if (count === 1) {
                 const currentTime = Date.now();
                 const timeElapsed = (currentTime - this.startTime) / 1000; // Convert milliseconds to seconds
-                vertices[0] = this.startPosition[0] + this.speed*timeElapsed
+                vertices[0] += (this.dest[0] - vertices[0]) / this.speed
                 vertices[1] =  this.startPosition[1] + this.speed*timeElapsed - 0.5 * this.gravity * timeElapsed ** 2;
-                vertices[2] = this.startPosition[2] + this.speed*timeElapsed
+                vertices[2] += (this.dest[2] - vertices[2]) / this.speed
                 this.timeY += this.timeRange
             }
             else {

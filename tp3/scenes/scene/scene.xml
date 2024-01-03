@@ -30,6 +30,8 @@
             target="0 0 0" />
         <perspective id="pickObstacles" angle="1.047" near="0.1" far="5000" location="-127 376 261"
             target="41 57 272" />
+         <perspective id="final" angle="1.0" near="0.1" far="5000" location="-1973 242 -2950"
+            target="-1971 242 -3000" />
     </cameras>
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas

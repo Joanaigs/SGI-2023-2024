@@ -104,19 +104,16 @@ class MyVehicle {
 
     accelerate() {
         if (this.maxVelocity < 0) {
-            console.log("maxVelocity: " + this.maxVelocity);
-            if (this.velocity < 0.15) {
+            if (this.velocity < 0.3) {
                 this.velocity += this.acceleration;
-                console.log("velocity: " + this.velocity);
             }
             else
-                this.velocity = 0.15;
+                this.velocity = 0.3;
         } else {
             if (this.velocity < this.maxVelocity) {
                 this.velocity += this.acceleration;
             }
             if (this.velocity >= this.maxVelocity) {
-                console.log("as: " + this.maxVelocity);
                 this.velocity = this.maxVelocity;
             }
         }
@@ -362,14 +359,14 @@ class MyVehicle {
         const textureHeight = 700;
         const threshold = 0.1; // Adjust this threshold as needed
     
-        // Normalizar as coordenadas para a textura
+        // Normalizar as coordenadas para as da textura
         const normalizedX = (carPosition.x - 38);
         const normalizedY = (carPosition.z - 29);
     
         console.log('normalizedX:', normalizedX);
         console.log('normalizedY:', normalizedY);
     
-        // Criar um canvas temporário
+        // Criar canvas 
         const canvas = document.createElement('canvas');
         canvas.width = textureWidth;
         canvas.height = textureHeight;
@@ -382,7 +379,7 @@ class MyVehicle {
             context.drawImage(this.trackTexture.image, 0, 0, 411, 700);
             document.body.appendChild(canvas);
     
-            // Obter os dados da textura
+ 
             const imageData = context.getImageData(normalizedX, normalizedY, 1, 1).data;
             
             // Ler a cor da textura na posição (normalizedX, normalizedY)
@@ -393,7 +390,7 @@ class MyVehicle {
             );
             console.log(textureColor);
     
-            // Compare a cor da textura com a cor esperada, considerando o threshold
+            // Comparar a cor da textura com a cor esperada, considerando o threshold
             return (
                 textureColor.r  < threshold &&
                 textureColor.g  < threshold &&

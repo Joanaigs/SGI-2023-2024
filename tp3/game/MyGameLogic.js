@@ -22,11 +22,7 @@ class MyGameLogic {
         this.username = "";
         this.difficulty;
         this.playerCar = null;
-        this.botCar = null;
-
-        this.final = new MyFinal(this);
-        
-        
+        this.botCar = null;        
     }
 
     waitForReader() {
@@ -34,7 +30,8 @@ class MyGameLogic {
             setTimeout(this.waitForReader.bind(this), 100);
             return;
         }
-        this.state = "menu";
+        //this.state = "menu";
+        this.state = "gameOver";
         this.gameSates();
     }
 
@@ -73,9 +70,15 @@ class MyGameLogic {
                 break;
             case "gameOver":
                 this.game = null;
+                this.winnerCar = new MyVehicleObject("pinkTruck");
+                this.winnerCar.position.set(-1960, 230, -3000);
+                this.loserCar = new MyVehicleObject("cyanTruck");
+                this.loserCar.position.set(-1980, 230, -3000);
+                this.app.scene.add(this.winnerCar, this.loserCar);
+
+                this.final = new MyFinal(this);
                 this.myReader.reset();
-                this.gameOver();
-                this.state = "menu";
+                
                 break;
         }
     }
@@ -94,6 +97,10 @@ class MyGameLogic {
         }
         else if (this.state === "game" && this.game) {
             this.game.update();
+        }
+        else if(this.state == "gameOver" && this.final){
+            this.winnerCar.rotation.y += 0.02;
+            this.final.update();
         }
     }
 }

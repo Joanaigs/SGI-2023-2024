@@ -47,12 +47,11 @@ class MyAutomaticVehicle {
         let pointsRoute = []
         let times = []
 
+        
         for (let i = 0; i < this.route.length; i++) {
             pointsRoute.push(...this.route[i])
             times.push(i)
-
         }
-
 
         const positionKF = new THREE.VectorKeyframeTrack('.position', times,
             [

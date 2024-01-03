@@ -79,8 +79,6 @@ class MyDisplay{
         this.pausedGroup.position.set(-3, 0.5, -10);
         this.pausedGroup.visible=false;
 
-        
-
         //PowerUps
         this.powerUpsGroup = new THREE.Group();
         this.powerUps = this.font.getWord("PowerUps");
