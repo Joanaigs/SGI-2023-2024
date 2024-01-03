@@ -161,10 +161,22 @@ class MyGame {
     gameOverFinal() {
         this.gameOver = true;
         this.logic.state = "gameOver";
-        if (this.car.gameTime < this.automaticVehicle.gameTime)
-            console.log("YOU WIN")
-        else
-            console.log("YOU LOSE")
+        if (this.car.gameTime < this.automaticVehicle.gameTime){
+            this.winner = this.car;
+            this.winnerTime = this.car.gameTime;
+            this.winnerName = "player"
+            this.loser = this.automaticVehicle;
+            this.loserTime = this.automaticVehicle;
+            this.loserName = "BOT"
+        }
+        else{
+            this.loser = this.car;
+            this.loserTime = this.car.gameTime;
+            this.loserName = "player"
+            this.winner = this.automaticVehicle;
+            this.winnerTime = this.automaticVehicle;
+            this.winnerName = "BOT"
+        }
         this.display.reset();
 
     }

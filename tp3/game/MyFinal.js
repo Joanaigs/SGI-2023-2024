@@ -93,6 +93,30 @@ class MyFinal extends THREE.Object3D {
 
         this.winnerInfogroup.add(this.winnerNameValue, this.winnerCarValue, this.winnerTimeValue);
 
+        // Buttons to continue 
+
+        const pinkMaterial = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 }); // Pink color
+        const rectangleGeometry = new THREE.PlaneGeometry(3, 1, 32);
+
+        // Left rectangle
+        this.leftRectangleMesh = new THREE.Mesh(rectangleGeometry, pinkMaterial);
+        this.leftRectangleMesh.position.set(-width / 2+3, -3.5, -10);
+        this.leftRectangleMesh.name="tryAgain";
+        const tryAgainValue = this.font.getWord("TRY AGAIN");
+        tryAgainValue.position.set(this.leftRectangleMesh.x , this.leftRectangleMesh.y, this.leftRectangleMesh.z-2);
+        tryAgainValue.scale.set(0.3, 0.3, 0.3);
+        this.finalGroup.add(this.leftRectangleMesh, tryAgainValue);
+    
+        // Right rectangle
+        this.rightRectangleMesh = new THREE.Mesh(rectangleGeometry, pinkMaterial);
+        this.rightRectangleMesh.position.set(width / 2 -3, -3.5, -10); 
+        this.rightRectangleMesh.name="backToMenu";
+        const backToMenuValue = this.font.getWord("BACK TO MENU");
+        backToMenuValue.scale.set(0.3, 0.3, 0.3);
+        backToMenuValue.position.set(this.rightRectangleMesh.x , this.rightRectangleMesh.y, this.rightRectangleMesh.z);
+        this.finalGroup.add(this.rightRectangleMesh, backToMenuValue);
+    
+
 
         this.finalGroup.add(this.winnerGroup, this.loserGroup, this.loserInfoGroup, this.winnerInfogroup);
         this.camera.add(this.finalGroup);

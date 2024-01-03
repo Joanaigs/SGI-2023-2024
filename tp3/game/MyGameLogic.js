@@ -70,6 +70,18 @@ class MyGameLogic {
                 break;
             case "gameOver":
                 this.game = null;
+                /*
+                this.winnerCar = this.game.winner;
+                this.loserCar = this.game.loser;
+                this.loser = this.car;
+                this.loserTime = this.car.gameTime;
+                this.loserName = "player"
+                this.winner = this.automaticVehicle;
+                this.winnerTime = this.automaticVehicle;
+                this.winnerName = "BOT"
+
+
+                */
                 this.winnerCar = new MyVehicleObject("pinkTruck");
                 this.winnerCar.position.set(-1960, 230, -3000);
                 this.loserCar = new MyVehicleObject("cyanTruck");
