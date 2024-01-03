@@ -36,7 +36,7 @@ class MyGame {
         this.app = logic.app
         this.scaleTrack = 50;
         this.penalties = 0;
-        this.numberOfLaps = 0;
+        this.numberOfLaps = 3;
         this.gameOver = false;
         this.started = false;
         this.powerUps = powerUps;

@@ -169,7 +169,7 @@ class MyPowerUps {
         this.game.car.maxVelocity += this.originalScaleVelocity;
 
         // Set a timeout to revert the changes after 10 seconds
-        this.velovityTimeout = Date.now() + 5000;
+        this.velovityTimeout = Date.now() + 8000;
     }
 
     /**
@@ -184,7 +184,7 @@ class MyPowerUps {
      * Gives a time advantage
      */
     timePowerUp() {
-        this.game.penalties -= 1;
+        this.game.penalties -= 5;
     }
 
     /**

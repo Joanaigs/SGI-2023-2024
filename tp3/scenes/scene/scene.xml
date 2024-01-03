@@ -28,8 +28,6 @@
             target="-2489 162 -2353" />
         <perspective id="menu" angle="1.047" near="0.1" far="5000" location="-1971 249 -2510"
             target="-1971 249 -2500" />
-        <perspective id="origin" angle="1.047" near="0.1" far="5000" location="5 5 5"
-            target="0 0 0" />
         <perspective id="pickObstacles" angle="1.047" near="0.1" far="5000" location="-127 376 261"
             target="41 57 272" />
          <perspective id="final" angle="1.0" near="0.1" far="5000" location="-1973 242 -2950"

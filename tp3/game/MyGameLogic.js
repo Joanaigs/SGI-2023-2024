@@ -48,10 +48,10 @@ class MyGameLogic {
                 difficult = 0.5;
                 break;
             case "medium":
-                difficult = 0.7;
+                difficult = 0.6;
                 break;
             case "hard":
-                difficult = 0.9;
+                difficult = 0.8;
                 break;
         }
         let car = new MyVehicleObject(this.playerCar, false);
