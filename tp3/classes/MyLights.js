@@ -43,6 +43,8 @@ class MyLights {
         this.content.lights.set(lightData.id, directionalLight);
         this.content.lightsHelper.set(lightData.id, helper2);
         this.content.lightEnabled[lightData.id] = lightData.enabled;
+
+        this.content.app.scene.add(helper2);
         break;
 
       case "pointlight":
