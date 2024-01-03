@@ -34,6 +34,8 @@ class MyGame {
         this.cutPath = cutPath;
         this.paused = false
         this.track = track;
+        this.gameGroup = new THREE.Group();
+        this.app.scene.add(this.gameGroup);
 
 
         this.powerUps.setGame(this);
@@ -63,7 +65,7 @@ class MyGame {
         this.pickableObj = []
         this.selectedObstacle = null;
         this.outdoor = new MyOutdoor(this.app, new THREE.Vector3(200, 2, 600));
-        this.app.scene.add(this.outdoor);
+        this.gameGroup.add(this.outdoor);
         this.createStartButton();
         this.pickingColor = "0x00ff00"
         this.pickingColorVector = new THREE.Vector3(0, 1, 0)
@@ -84,7 +86,7 @@ class MyGame {
             this.playerCandyShop.rotation.y = Math.PI;
             this.playerCandyShop.position.set(75, -0.5, 300);
             this.playerCandyShop.visible = false;
-            this.app.scene.add(this.playerCandyShop);
+            this.gameGroup.add(this.playerCandyShop);
         });
 
 
@@ -97,14 +99,14 @@ class MyGame {
         this.bannerMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
         this.cylinder1 = new THREE.Mesh(this.cylinGeometry, this.bannerMaterial);
         this.cylinder1.position.set(this.startPosition.x - 20.5, 10, this.startPosition.z);
-        this.app.scene.add(this.cylinder1);
+        this.gameGroup.add(this.cylinder1);
         this.cylinder2 = new THREE.Mesh(this.cylinGeometry, this.bannerMaterial);
         this.cylinder2.position.set(this.startPosition.x + 20.5, 10, this.startPosition.z);
-        this.app.scene.add(this.cylinder2);
+        this.gameGroup.add(this.cylinder2);
         this.bannerTopGeometry = new THREE.BoxGeometry(41, 10, 1);
         this.bannerTop = new THREE.Mesh(this.bannerTopGeometry, this.bannerMaterial);
         this.bannerTop.position.set(this.startPosition.x, 15, this.startPosition.z);
-        this.app.scene.add(this.bannerTop);
+        this.gameGroup.add(this.bannerTop);
         this.boxGeometry = new THREE.BoxGeometry(10, 5, 1.1)
         this.button = new THREE.Mesh(this.boxGeometry, new THREE.MeshBasicMaterial({ color: 0xff0000 }))
         this.button.position.set(this.startPosition.x - 10, 15, this.startPosition.z);
@@ -115,8 +117,8 @@ class MyGame {
         this.startWord.scale.set(3, 3, 3);
         this.startWord.rotation.y = Math.PI;
 
-        this.app.scene.add(this.startWord);
-        this.app.scene.add(this.button);
+        this.gameGroup.add(this.startWord);
+        this.gameGroup.add(this.button);
         this.pickableObj.push(this.button)
 
     }
@@ -125,14 +127,14 @@ class MyGame {
         // Remove the button from the scene and add the semaphore
         let indexToRemove = this.pickableObj.indexOf(this.button);
         this.pickableObj.splice(indexToRemove, 1);
-        this.app.scene.remove(this.button);
-        this.app.scene.remove(this.startWord);
+        this.gameGroup.remove(this.button);
+        this.gameGroup.remove(this.startWord);
         this.semaphoreGeometry = new THREE.CylinderGeometry(2, 2, 0.5, 32);
         this.semaphoreMaterial = new THREE.MeshBasicMaterial({ color: this.semaphoreColors[0] });
         this.semaphore = new THREE.Mesh(this.semaphoreGeometry, this.semaphoreMaterial);
         this.semaphore.position.set(this.startPosition.x, 15, this.startPosition.z - 2);
         this.semaphore.rotateX(Math.PI / 2);
-        this.app.scene.add(this.semaphore);
+        this.gameGroup.add(this.semaphore);
 
         this.semaphoreIntervalId = setInterval(() => {
             this.semaphore.material.color.setHex(this.semaphoreColors[1]);
@@ -143,7 +145,7 @@ class MyGame {
                     this.started = true;
                     this.start();
                     clearInterval(this.semaphoreIntervalId); // Stop the countdown loop
-                    this.app.scene.remove(this.semaphore);
+                    this.gameGroup.remove(this.semaphore);
                 }, this.semaphoreInterval);
             }, this.semaphoreInterval);
         }, this.semaphoreInterval * 3);
@@ -220,14 +222,14 @@ class MyGame {
         text.rotation.x = Math.PI / 2;
         text.rotation.y = Math.PI;
         console.log(this.saveButton.position)
-        this.app.scene.add(this.saveButton);
+        this.gameGroup.add(this.saveButton);
         this.pickableObj.push(this.saveButton)
     }
 
     changePositionObstaclesSave() {
         this.app.setActiveCamera('followCar');
         this.pickableObj = [];
-        this.app.scene.remove(this.saveButton);
+        this.gameGroup.remove(this.saveButton);
         for (let i = 0; i < this.obstaclesAvailable.length; i++) {
             this.obstaclesAvailable[i].visible = false;
         }
@@ -363,7 +365,7 @@ class MyGame {
                 if (!this.selectedObstacle) {
                     this.obstaclesList.push(obj);
                     let objClone = obj.clone();
-                    this.app.scene.add(objClone);
+                    this.gameGroup.add(objClone);
                     this.selectedObstacle = objClone
                     this.selectedObstacle.position.y = 1; // Lift the obstacle above the ground
 
@@ -458,6 +460,10 @@ class MyGame {
                 this.lastPickedObj.material.color.setHex(this.lastPickedObj.currentHex);
         }
         this.lastPickedObj = null;
+    }
+
+    reset(){
+        this.app.scene.remove(this.gameGroup);
     }
 }
 

@@ -28,7 +28,7 @@ class MyAutomaticVehicle {
         this.car = car
         this.car.position.set(position.x, position.y, position.z);
         this.car.position.add(target);
-        this.game.app.scene.add(this.car);
+        this.game.gameGroup.add(this.car);
 
         this.checkPoints = this.game.checkpoints.getCheckpoints();
         this.checkpointsCount = new Map();
@@ -189,14 +189,14 @@ class MyAutomaticVehicle {
             sphere.scale.set(0.2, 0.2, 0.2)
             sphere.position.set(... this.route[i])
 
-            this.game.app.scene.add(sphere)
+            this.game.gameGroup.add(sphere)
         }
 
         const tubeGeometry = new THREE.TubeGeometry(spline, 100, 0.05, 10, false)
         const tubeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 })
         const tubeMesh = new THREE.Mesh(tubeGeometry, tubeMaterial)
 
-        this.game.app.scene.add(tubeMesh)
+        this.game.gameGroup.add(tubeMesh)
     }
 
     checkCollisions() {

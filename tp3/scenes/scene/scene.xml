@@ -120,7 +120,7 @@
         </node>
 
         <!-- Candy canes -->
-        <node id="fullCandyCane" castshadows="true">
+        <node id="fullCandyCane">
 
             <transforms>
                 <scale value3="200 200 200" />

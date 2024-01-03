@@ -50,8 +50,8 @@ class MyGameLogic {
                 difficult = 0.9;
                 break;
         }
-        let car = new MyVehicleObject(this.playerCar);
-        let enemyCar = new MyVehicleObject(this.botCar);
+        let car = new MyVehicleObject(this.playerCar, false);
+        let enemyCar = new MyVehicleObject(this.botCar, false);
         this.game = new MyGame(this, car, enemyCar, this.myReader.powerUps, this.myReader.obstacles, this.myReader.routes, this.myReader.cutPath, this.myReader.checkpoints, this.myReader.track2, difficult);
     }
 
@@ -61,6 +61,8 @@ class MyGameLogic {
     gameSates() {
         switch (this.state) {
             case "menu":
+                if(this.game)
+                    this.game.reset();
                 this.app.setActiveCamera("menu")
                 this.menu = new MyMenu(this);
                 break;
@@ -69,6 +71,7 @@ class MyGameLogic {
                 this.game.update();
                 break;
             case "gameOver":
+                this.game.reset();
                 this.game = null;
                 /*
                 this.winnerCar = this.game.winner;
