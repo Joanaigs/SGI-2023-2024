@@ -259,6 +259,7 @@ class MyDisplay{
         this.camera.remove(this.hudGroup);
         this.camera.remove(this.powerUpsGroup);
         this.camera.remove(this.obstaclesGroup);
+        this.camera.remove(this.velocityGroup);
     }
 
 

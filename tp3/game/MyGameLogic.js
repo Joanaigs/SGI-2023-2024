@@ -70,17 +70,23 @@ class MyGameLogic {
     gameStates() {
         switch (this.state) {
             case "menu":
+                this.final=null;
+                if(this.winnerCar && this.loserCar)
+                this.app.scene.remove(this.winnerCar, this.loserCar);
                 if(this.game)
                     this.game.reset();
                 this.app.setActiveCamera("menu")
                 this.menu = new MyMenu(this);
                 break;
             case "game":
+                this.final = null;
+                if(this.winnerCar && this.loserCar)
+                    this.app.scene.remove(this.winnerCar, this.loserCar);
                 this.gamePlay();
                 this.game.update();
                 break;
             case "gameOver":
-                console.log(this.game.winner);
+                this.app.setActiveCamera("final")
                 this.winnerCar = this.game.winner.clone();
                 this.winnerCar.position.set(-1960, 230, -3000);
                 console.log(this.game.loser);
@@ -96,7 +102,7 @@ class MyGameLogic {
                 }
                 else{
                     this.winnerName = "BOT";
-                    this.loserName = this.input;
+                    this.loserName = "this.input";
                     this.winnerCarName = this.normalizeCarType(this.botCar);
                     this.loserCarName = this.normalizeCarType(this.playerCar);
                 }

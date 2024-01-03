@@ -110,11 +110,15 @@ class MyFinal extends THREE.Object3D {
 
         if (intersects.length > 0 && intersects[0].object) {
             if (intersects[0].object.name === "backToMenu") {
+                this.camera.remove(this.finalGroup);
+                this.app.scene.remove(this.skyboxMeshFinal);
                 this.resetClickableObjects();
-                console.log("hey");
+                this.gameLogic.state = "menu";
             } else if (intersects[0].object.name === "tryAgain" ) {
+                this.camera.remove(this.finalGroup);
+                this.app.scene.remove(this.skyboxMeshFinal);
                 this.resetClickableObjects();
-                console.log("heyo");
+                this.gameLogic.state = "game";
             }
         }
     }
@@ -134,8 +138,8 @@ class MyFinal extends THREE.Object3D {
         };
 
         const skyboxFinal = new MySkybox(skyboxDataFinal);
-        const skyboxMeshFinal = skyboxFinal.addSkybox();
-        this.app.scene.add(skyboxMeshFinal);
+        this.skyboxMeshFinal = skyboxFinal.addSkybox();
+        this.app.scene.add(this.skyboxMeshFinal);
     }
 
     buildDisplayCamera(camera) {

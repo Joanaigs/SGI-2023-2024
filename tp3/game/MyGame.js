@@ -65,7 +65,6 @@ class MyGame {
         this.selectedObstacle = null;
         this.outdoor = new MyOutdoor(this.app, new THREE.Vector3(200, 2, 600));
         this.gameGroup.add(this.outdoor);
-        this.createStartButton();
         this.pickingColor = "0x00ff00"
         this.pickingColorVector = new THREE.Vector3(0, 1, 0)
 
@@ -88,50 +87,27 @@ class MyGame {
             this.gameGroup.add(this.playerCandyShop);
         });
 
+        this.countDown();
 
 
 
-    }
-
-    createStartButton() {
-        this.cylinGeometry = new THREE.CylinderGeometry(0.5, 0.5, 20, 32);
-        this.bannerMaterial = new THREE.MeshBasicMaterial({ color: 0x000000 });
-        this.cylinder1 = new THREE.Mesh(this.cylinGeometry, this.bannerMaterial);
-        this.cylinder1.position.set(this.startPosition.x - 20.5, 10, this.startPosition.z);
-        this.gameGroup.add(this.cylinder1);
-        this.cylinder2 = new THREE.Mesh(this.cylinGeometry, this.bannerMaterial);
-        this.cylinder2.position.set(this.startPosition.x + 20.5, 10, this.startPosition.z);
-        this.gameGroup.add(this.cylinder2);
-        this.bannerTopGeometry = new THREE.BoxGeometry(41, 10, 1);
-        this.bannerTop = new THREE.Mesh(this.bannerTopGeometry, this.bannerMaterial);
-        this.bannerTop.position.set(this.startPosition.x, 15, this.startPosition.z);
-        this.gameGroup.add(this.bannerTop);
-        this.boxGeometry = new THREE.BoxGeometry(10, 5, 1.1)
-        this.button = new THREE.Mesh(this.boxGeometry, new THREE.MeshBasicMaterial({ color: 0xff0000 }))
-        this.button.position.set(this.startPosition.x - 10, 15, this.startPosition.z);
-        this.button.name = "startButton"
-
-        this.startWord = this.myFont.getWord("START");
-        this.startWord.position.set(this.startPosition.x + 10, 15, this.startPosition.z - 1);
-        this.startWord.scale.set(3, 3, 3);
-        this.startWord.rotation.y = Math.PI;
-
-        this.gameGroup.add(this.startWord);
-        this.gameGroup.add(this.button);
-        this.pickableObj.push(this.button)
 
     }
+
 
     countDown() {
+        this.tourusGeometry = new THREE.TorusGeometry(41, 8, 48, 100);
+        this.tourusMaterial = new THREE.MeshPhongMaterial({ color: 0xffaaaa });
+        this.tourus = new THREE.Mesh(this.tourusGeometry, this.tourusMaterial);
+        this.tourus.position.set(this.startPosition.x , 0-15, this.startPosition.z);
+
+        this.gameGroup.add(this.tourus);
+
         // Remove the button from the scene and add the semaphore
-        let indexToRemove = this.pickableObj.indexOf(this.button);
-        this.pickableObj.splice(indexToRemove, 1);
-        this.gameGroup.remove(this.button);
-        this.gameGroup.remove(this.startWord);
         this.semaphoreGeometry = new THREE.CylinderGeometry(2, 2, 0.5, 32);
         this.semaphoreMaterial = new THREE.MeshBasicMaterial({ color: this.semaphoreColors[0] });
         this.semaphore = new THREE.Mesh(this.semaphoreGeometry, this.semaphoreMaterial);
-        this.semaphore.position.set(this.startPosition.x, 15, this.startPosition.z - 2);
+        this.semaphore.position.set(this.startPosition.x,25, this.startPosition.z - 8);
         this.semaphore.rotateX(Math.PI / 2);
         this.gameGroup.add(this.semaphore);
 
@@ -147,7 +123,7 @@ class MyGame {
                     this.gameGroup.remove(this.semaphore);
                 }, this.semaphoreInterval);
             }, this.semaphoreInterval);
-        }, this.semaphoreInterval * 3);
+        }, this.semaphoreInterval * 2);
 
     }
 
@@ -340,11 +316,7 @@ class MyGame {
 
         if (intersects.length > 0) {
             const obj = intersects[0].object;
-            if (obj.name === "startButton") {
-                this.countDown();
-                return
-            }
-            else if (obj === this.saveButton) {
+            if (obj === this.saveButton) {
                 this.changePositionObstaclesSave();
                 return
             }
