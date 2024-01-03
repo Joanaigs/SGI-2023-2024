@@ -287,6 +287,8 @@ class MyMenu {
             else if(intersects[0].object.name === "botCarButton"){
                 this.resetClickableObjects();
                 this.app.scene.remove(this.spotLight)
+                this.app.scene.remove(this.botParkScene);
+                this.app.setActiveCamera(this.background);
                 this.displayGameInfo();
             }
             else if(intersects[0].object.name === "startGameButton"){
@@ -295,6 +297,7 @@ class MyMenu {
                 this.gameLogic.difficulty = this.difficulty
                 this.gameLogic.playerCar = this.playerCar;
                 this.gameLogic.botCar = this.botCar;
+                this.app.scene.remove(this.gameInfoPage);
                 document.removeEventListener('mousedown', (event) => {
                     this.onDocumentMouseDown(event);
                 });

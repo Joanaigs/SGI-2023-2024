@@ -5,11 +5,13 @@ import { MyFont } from './MyFont.js';
 /**
  *  This class contains the contents of out application
  */
-class MyDisplay{
+class MyDisplayOutdoor  extends THREE.Object3D {
 
 
-    constructor(game, camera) {
+    constructor(game, position)  {
+        super();
         this.game = game;
+        this.pos = position;
         this.lasTime = 0;
         this.lastLaps = 0;
         this.lastVelocity = 0;
@@ -21,18 +23,33 @@ class MyDisplay{
         this.font =new MyFont(false);
         this.cameraname = camera;
         this.camera = this.game.app.cameras[camera];
-        this.buildDisplayCamera(this.camera);
         this.normalVelTex= new THREE.TextureLoader().load('./textures/velocity_normal.png');
         this.powerupVelTex= new THREE.TextureLoader().load('./textures/velocity_powerup.png');
         this.obstacleVelTex= new THREE.TextureLoader().load('./textures/velocity_obstacle.png');
         this.colisionVelTex= new THREE.TextureLoader().load('./textures/velocity_colision.png');
         this.outsideVelTex= new THREE.TextureLoader().load('./textures/velocity_outside.png');
 
+        //base
+        const baseGeometry = new THREE.CylinderGeometry(5, 5, 50);
+        const baseMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
+        const base = new THREE.Mesh(baseGeometry, baseMaterial);
+        base.position.set(this.pos.x, this.pos.y+25, this.pos.z);
+        this.add(base);
+
+        //back
+        const backGeometry = new THREE.BoxGeometry(100, 50, 10);
+        const backMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
+        const back = new THREE.Mesh(backGeometry, backMaterial);
+        back.position.set(this.pos.x, this.pos.y+75, this.pos.z);
+        this.add(back);
+        this.buildDisplay();
+
+
 
     }
 
     // Inside the buildDisplayCamera method
-    buildDisplayCamera(camera) {
+    buildDisplay() {
         this.hudGroup = new THREE.Group();
 
         let height = 2 * Math.tan(camera.fov * Math.PI / 360)*5;
@@ -263,6 +280,7 @@ class MyDisplay{
         this.camera.remove(this.obstaclesGroup);
         this.camera.remove(this.pausedGroup);
 
+
     }
 
 
@@ -274,4 +292,4 @@ class MyDisplay{
 
 }
 
-export { MyDisplay };
+export { MyDisplayOutdoor };
