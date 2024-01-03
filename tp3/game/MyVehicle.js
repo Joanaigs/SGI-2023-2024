@@ -1,5 +1,4 @@
 import * as THREE from 'three';
-import { MyGame } from './MyGame';
 
 
 /**
@@ -9,7 +8,7 @@ class MyVehicle {
 
     /**
      * This constructor creates the vehicle
-     * @param {MyGame} game the game object 
+     * @param {} game the game object 
      * @param {*} position the position of the car
      * @param {*} target the target of the car 
      * @param {*} car  the car object

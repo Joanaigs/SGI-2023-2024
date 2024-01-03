@@ -9,7 +9,7 @@ class MyAutomaticVehicle {
 
     /**
      * Constructs the automatic vehicle
-     * @param {MyGame} game the game object 
+     * @param {} game the game object 
      * @param {THREE.Vector3} position the position of the car 
      * @param {THREE.Vector3} target the target of the car 
      * @param {List<THREE.Vector3>} route points of the route
