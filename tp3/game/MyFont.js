@@ -1,13 +1,26 @@
 import * as THREE from 'three';
 
+/**
+ * This class represents a font
+ */
 class MyFont extends THREE.Object3D {
+
+    /**
+     * The constructor of the class. Initializes the font
+     * @param {Boolean} center if the font should be centered, default is true
+     */
     constructor(center = true) {
         super();
         this.texture = new THREE.TextureLoader().load('textures/font1.png');
         this.center = center;
     }
 
-
+    /**
+     * Returns a mesh with the word
+     * @param {String} word the word to be displayed 
+     * @param {Hex} color the color of the word, default is white 
+     * @returns 
+     */
     getWord(word, color = 0xffffff){
         let wordMesh = new THREE.Group();
         for (let i = 0; i < word.length; i++) {
@@ -32,7 +45,11 @@ class MyFont extends THREE.Object3D {
         return wordMesh;
     }
 
-
+    /**
+     * Gets the offset of the character
+     * @param {Char} c the character
+     * @returns the offset of the character
+     */
     getCharFrame(c) {
         // Define the properties for each character frame (adjust as needed)
         const framesX = 16; // Number of frames in the X direction

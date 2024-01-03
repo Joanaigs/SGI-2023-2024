@@ -7,7 +7,7 @@ import { MyRoute } from './MyRoute.js';
 import { MyCheckpoints } from './MyCheckpoints.js';
 import { MyShader } from './MyShader.js';
 /**
- *  This class contains the contents of out application
+ *  This class contains reads the game background
  */
 class MyReader {
 
@@ -71,6 +71,9 @@ class MyReader {
         this.waitForShaders();
     }
 
+    /**
+     * Waits for the shaders to load
+     */
     waitForShaders() {
         for(let i = 0; i < this.shaders.length; i++){
             if (this.shaders[i].ready === false) {
@@ -81,6 +84,9 @@ class MyReader {
         this.initBackgroud();
     }
 
+    /**
+     * waits for the powerups to load
+     */
     waitForPowerUps() {
         if (this.powerUps.loadedObjects < this.powerUps.powerups.length) {
             setTimeout(this.waitForPowerUps.bind(this), 100)
@@ -89,6 +95,9 @@ class MyReader {
         this.waitForObstacles();
     }
 
+    /**
+     * waits for the obstacles to load
+     */
     waitForObstacles() {
         if (this.obstacles.loadedObjects < this.obstacles.obstacles.length) {
             setTimeout(this.waitForObstacles.bind(this), 100)
@@ -98,7 +107,7 @@ class MyReader {
     }
 
     /**
-     * initializes the contents
+     * initializes the contents of the track
      */
     initBackgroud() {
 
@@ -125,8 +134,6 @@ class MyReader {
         this.obstacles.drawObstacles(1);
         this.obstacles.drawObstaclesPark(1);
         this.routes = new MyRoute(this.scaleTrack, this.position);
-        this.car1 = new MyVehicleObject("cyanCar");
-        this.car2 = new MyVehicleObject("cyanTruck");
         this.checkpoints.drawCheckpoints();
 
         //uncomment and remove last line

@@ -2,11 +2,20 @@ import * as THREE from 'three';
 
 
 /**
- *  This class contains the contents of out application
+ *  This class contains the automatic vehicle
  */
 class MyAutomaticVehicle {
 
 
+    /**
+     * Constructs the automatic vehicle
+     * @param {MyGame} game the game object 
+     * @param {THREE.Vector3} position the position of the car 
+     * @param {THREE.Vector3} target the target of the car 
+     * @param {List<THREE.Vector3>} route points of the route
+     * @param {THREE.Object3D} car the car object 
+     * @param {Number} timeScale the time scale of the animation
+      */
     constructor(game, position, target, route, car, timeScale = 0.6) {
 
 
@@ -41,6 +50,9 @@ class MyAutomaticVehicle {
         this.timeScale = timeScale;
     }
 
+    /**
+     * Starts the animation. Creates 4 types of animations. Two for the car itself(the position and rotation), two for the front wheels(rotation and rotation in x axis) and one for the back wheels(rotation in x axis)
+     */
     start() {
         //this.debugKeyFrames()
 
@@ -154,6 +166,9 @@ class MyAutomaticVehicle {
 
     }
 
+    /**
+     * Pauses the animation
+     */
     pause() {
         this.mixer.timeScale = 0
         this.mixerWheel1.timeScale = 0
@@ -163,6 +178,9 @@ class MyAutomaticVehicle {
         this.pausedTime = Date.now()
     }
 
+    /**
+     * Continues the animation
+     */
     continue() {
         this.mixer.timeScale = this.timeScale
         this.mixerWheel1.timeScale = this.timeScale
@@ -172,6 +190,10 @@ class MyAutomaticVehicle {
         this.timeInPaused += Date.now() - this.pausedTime
     }
 
+
+    /**
+     * Shows the route points
+     */
     debugKeyFrames() {
 
         let spline = new THREE.CatmullRomCurve3([...this.route])
@@ -195,6 +217,9 @@ class MyAutomaticVehicle {
         this.game.gameGroup.add(tubeMesh)
     }
 
+    /**
+     * Checks the collisions with the checkpoints
+     */
     checkCollisions() {
         // Check collisions with checkpoints
         for (const checkpoint of this.checkPoints) {
@@ -210,6 +235,12 @@ class MyAutomaticVehicle {
 
     }
 
+    /**
+     * Checks intersection between two objects
+     * @param {*} object1 
+     * @param {*} object2 
+     * @returns 
+     */
     checkIntersection(object1, object2) {
 
         // Get the bounding boxes of the two objects
@@ -222,6 +253,10 @@ class MyAutomaticVehicle {
         return false;
     }
 
+    /**
+     * 
+     * @returns true if the game is over, false otherwise
+     */
     checkEndGame() {
         for (let i = 0; i < this.checkPoints.length; i++) {
             let checkpoint = this.checkPoints[i];
@@ -243,6 +278,9 @@ class MyAutomaticVehicle {
         return true;
     }
 
+    /**
+     * Updates the animation
+     */
     update() {
         if (!this.gameOver) {
             let delta = this.clock.getDelta()

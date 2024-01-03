@@ -1,4 +1,11 @@
+/**
+ * MyKeyboardListener
+ */
 export class MyKeyboardListener {
+    /**
+     * the constructor of the class
+     * @param {*} window 
+     */
     constructor(window) {
         this.window = window;
         this.keys = {};
@@ -9,6 +16,10 @@ export class MyKeyboardListener {
         this.window.addEventListener('keyup', this.keyUpHandler);
     }
 
+    /**
+     * The function called when a key is pressed
+     * @param {*} event 
+     */
     keyDownHandler = (event) => {
         this.keys[event.code] = true;
 
@@ -21,15 +32,26 @@ export class MyKeyboardListener {
         }
     };
 
+    /**
+     * The function called when a key is released
+     * @param {*} event 
+     */
     keyUpHandler = (event) => {
         this.keys[event.code] = false;
         this.pressedKey = "";
     };
 
+    /**
+     * The function that checks if a key is pressed
+     * @param {*} callback 
+     */
     onKeyPress(callback) {
         this.keyPressCallback = callback;
     }
 
+    /**
+     * The function that checks if a key is pressed
+     */
     removeEventListeners() {
         this.window.removeEventListener('keydown', this.keyDownHandler);
         this.window.removeEventListener('keyup', this.keyUpHandler);

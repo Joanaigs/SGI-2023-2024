@@ -1,8 +1,11 @@
 import * as THREE from "three";
 
+/**
+ * This class creates a track
+ */
 class MyTrack {
     /**
-     * Constructs the object
+     * Creates a track
      * @param {MyApp} app The application object
      */
     constructor(app, size, width, position) {
@@ -60,6 +63,12 @@ class MyTrack {
 
     }
 
+    /**
+     * FOr the a segment returns the UV coordinates
+     * @param {number} segmentLength  the length of the segment
+     * @param {Number} totalLength the total length of the track
+     * @returns 
+     */
     calculateUVCoordinates(segmentLength, totalLength) {
         let uvScale = this.nextUvScale ;
         this.nextUvScale += (segmentLength / totalLength);
@@ -67,6 +76,12 @@ class MyTrack {
         return [0, uvScale, 0.5, uvScale, 1, uvScale];
     }
 
+    /**
+     * Creates a buffer geometry for the track
+     * @param {number} track id of the track 
+     * @param {THREE.Material} material the material of the track 
+     * @returns the track object
+     */
     drawTrack(track, material) {
         this.nextUvScale = 0;
         this.material = material;

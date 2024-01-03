@@ -1,6 +1,10 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'; // Import the GLTFLoader
 
+/**
+ * This class contains the wheel object
+ */
+ 
 class MyWheel extends THREE.Object3D {
     constructor() {
         super();
@@ -8,6 +12,10 @@ class MyWheel extends THREE.Object3D {
         this.clock = new THREE.Clock();
     }
 
+    /**
+     * Loads the model of the wheel
+     * @param {*} callback 
+     */
     loadModel(callback) {
         const loader = new GLTFLoader();
         loader.load('./models/wheel.gltf', (gltf) => {
@@ -16,6 +24,10 @@ class MyWheel extends THREE.Object3D {
         });
     }
 
+    /**
+     * 
+     * @returns the wheel object
+     */
     build() {
         this.loadModel(() => {
             let groupTires = new THREE.Group();
@@ -47,6 +59,10 @@ class MyWheel extends THREE.Object3D {
         return this;
     }
 
+    /**
+     * Builds the truck wheels
+     * @returns the wheel object
+     */
     buildTruckWheels() {
         this.loadModel(() => {
             let groupTires = new THREE.Group();

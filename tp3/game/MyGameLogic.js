@@ -6,7 +6,7 @@ import { MyVehicleObject } from './MyVehicleObject.js';
 import { MyFinal} from './MyFinal.js';
 
 /**
- *  This class contains the contents of out application
+ *  This class contains all the logic of our game
  */
 class MyGameLogic {
 
@@ -25,6 +25,9 @@ class MyGameLogic {
         this.botCar = null;        
     }
 
+    /**
+     * Waits for the reader to load
+     */
     waitForReader() {
         if (!this.myReader.backgroundLoaded) {
             setTimeout(this.waitForReader.bind(this), 100);
@@ -34,7 +37,9 @@ class MyGameLogic {
         this.gameStates();
     }
 
-
+    /**
+     * Starts the game
+     */
     gamePlay() {
         this.app.setActiveCamera("followCar");
         let difficult;
@@ -54,13 +59,9 @@ class MyGameLogic {
         this.game = new MyGame(this, car, enemyCar, this.myReader.powerUps, this.myReader.obstacles, this.myReader.routes, this.myReader.cutPath, this.myReader.checkpoints, this.myReader.track2, difficult);
     }
 
-
-    backToMenu(){
-        this.game.reset();
-        this.state = "menu"
-        this.gameStates();
-    }
-
+    /**
+     * Changes the state of the game
+     */
     gameStates() {
         switch (this.state) {
             case "menu":
@@ -126,6 +127,11 @@ class MyGameLogic {
         }
     }
 
+    /**
+     * Normalizes the car type
+     * @param {*} carType 
+     * @returns the car type
+     */
     normalizeCarType(carType){
         if(carType == "pinkTruck") return "Pink Truck"
         else if (carType == "cyanTruck") return "Cyan Truck"
@@ -137,7 +143,11 @@ class MyGameLogic {
         else if (carType == "redCar") return "Red Car"
     }
 
-
+    /**
+     * formats the time to mm:ss:ms
+     * @param {*} milliseconds 
+     * @returns  the time in mm:ss:ms
+     */
     formatTime(milliseconds) {
         const totalSeconds = Math.floor(milliseconds / 1000);
         const minutes = Math.floor(totalSeconds / 60);
@@ -147,13 +157,17 @@ class MyGameLogic {
         return `${this.padNumber(minutes)}:${this.padNumber(seconds)}:${this.padNumber(millisecondsPart)}`;
     }
 
-
+    /**
+     *  Pads a number with a leading zero if it's less than 10
+     * @param {Number} number the number to pad 
+     * @returns the padded number
+     */
      padNumber(number) {
         return number < 10 ? `0${number}` : number.toString();
     }
 
     /**
-     * Updates the scene
+     * Updates the gameState
      */
     update() {
         this.myReader.update();

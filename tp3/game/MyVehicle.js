@@ -1,11 +1,19 @@
 import * as THREE from 'three';
+import { MyGame } from './MyGame';
 
 
 /**
- *  This class contains the contents of out application
+ *  This class contains the vehicles of the game
  */
 class MyVehicle {
 
+    /**
+     * This constructor creates the vehicle
+     * @param {MyGame} game the game object 
+     * @param {*} position the position of the car
+     * @param {*} target the target of the car 
+     * @param {*} car  the car object
+     */
     constructor(game, position, target, car) {
 
         this.game = game
@@ -60,11 +68,18 @@ class MyVehicle {
 
     }
 
+    /**
+     * Add Obstacel to the game
+     * @param {*} obstacle 
+     */
     addObstacle(obstacle) {
         this.obstacles.push(obstacle);
         this.obstaclesActivated.set(obstacle, false);
     }
 
+    /**
+     * Updates the number of laps the car has done
+     */
     updateNumberOfLaps() {
         let min = 5;
         for (let i = 0; i < this.checkPoints.length; i++) {
@@ -74,6 +89,10 @@ class MyVehicle {
         }
         this.laps = min;
     }
+    /**
+     * 
+     * @returns true if the game is over
+     */
     checkEndGame() {
         for (let i = 0; i < this.checkPoints.length; i++) {
             let checkpoint = this.checkPoints[i];
@@ -89,18 +108,27 @@ class MyVehicle {
         return true;
     }
 
+    /**
+     * Turn the car left
+     */
     left() {
         if (this.wheelRotation < this.maxRotation) {
             this.wheelRotation += this.rotateScale;
         }
     }
 
+    /**
+     * Turn the car right
+     */
     right() {
         if (this.wheelRotation > this.minRotation) {
             this.wheelRotation -= this.rotateScale;
         }
     }
 
+    /**
+     * Accelerate the car
+     */
     accelerate() {
         if (this.maxVelocity < 0) {
             if (this.velocity < 0.3) {
@@ -119,6 +147,9 @@ class MyVehicle {
         if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06 * this.carRotationScale;
     }
 
+    /**
+     * Brake the car
+     */
     brake() {
         if (this.velocity > this.minVelocity) {
             this.velocity -= this.acceleration;
@@ -126,17 +157,26 @@ class MyVehicle {
         if (this.wheelRotation > 0.1 || this.wheelRotation < -0.1) this.rotation += this.wheelRotation * 0.06 * this.carRotationScale;
     }
 
+    /**
+     * Pause the game
+     */
     pause() {
         this.originalVelocity = this.velocity;
         this.velocity = 0;
         this.timePaused = Date.now();
     }
 
+    /**
+     * Continue the game
+     */
     continue() {
         this.velocity = this.originalVelocity;
         this.timeInPause += Date.now() - this.timePaused;
     }
 
+    /**
+     * Handles the keys pressed, and updates the car
+     */
     handleKeys() {
         if (!this.game.paused) {
             if ((this.game.keysPressed['a'] || this.game.keysPressed['arrowleft']) && !(this.game.keysPressed['d'] || this.game.keysPressed['arrowright'])) {
@@ -190,7 +230,9 @@ class MyVehicle {
     }
 
 
-
+    /**
+     * Updates the car position, rotation and velocity. Also checks if the car is inside the track and if it has collided with any object
+     */
     update() {
         if (this.game.started && !this.game.paused && !this.gameOver) {
             this.handleKeys();
@@ -238,6 +280,11 @@ class MyVehicle {
 
     }
 
+    /**
+     * Checks if the car has collided with any object
+     * @param {*} obstacles 
+     * @param {*} powerUps 
+     */
     checkCollisions(obstacles, powerUps) {
         for (const obstacle of obstacles) {
             const intersection = this.checkIntersection(this.car, obstacle);
@@ -295,6 +342,10 @@ class MyVehicle {
 
     }
 
+    /**
+     * 
+     * @returns true if the car is inside the track
+     */
     checkInsideTrack() {
         const raycaster = new THREE.Raycaster();
         raycaster.set(this.car.position, new THREE.Vector3(0, -1, 0).normalize());
@@ -314,6 +365,12 @@ class MyVehicle {
 
 
 
+    /**
+     * 
+     * @param {*} object1 
+     * @param {*} object2 
+     * @returns true if the two objects intersect
+     */
     checkIntersection(object1, object2) {
 
         // Get the bounding boxes of the two objects

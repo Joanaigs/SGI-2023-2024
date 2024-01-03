@@ -10,16 +10,27 @@ import { MyFont } from './MyFont.js';
 import { MyOutdoor } from './MyOutdoor.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { MyDisplayOutdoor } from './MyDisplayOutdoor.js';
+import { MyVehicleObject } from './MyVehicleObject.js';
+import { MyCheckpoints } from './MyCheckpoints.js';
 
 /**
- *  This class contains the contents of out application
+ *  This class contains the game
  */
 class MyGame {
 
     /**
-       constructs the object
-       @param {MyApp} app The application object
-    */
+     * The Constructor for the game. Initializes the game and the game objects
+     * @param {MyGameLogic} logic the logic of the game 
+     * @param {MyVehicleObject} car the car of the player 
+     * @param {MyVehicleObject} enemyCar the car of the enemy 
+     * @param {MyPowerUps} powerUps the powerUps of the game 
+     * @param {MyObstacle} obstacles the obstacles of the game 
+     * @param {MyRoute} routes the routes of the game 
+     * @param {THREE.Object3D} cutPath the cutPath of the game 
+     * @param {MyCheckpoints} checkpoints the checkpoints of the game 
+     * @param {THREE.Object3D} track  the track of the game
+     * @param {Number} difficulty the difficulty of the game(time of the animation of the enemy car) 
+     */
     constructor(logic, car, enemyCar, powerUps, obstacles, routes, cutPath, checkpoints, track, difficulty) {
         this.logic = logic;
         this.app = logic.app
@@ -96,6 +107,9 @@ class MyGame {
     }
 
 
+    /**
+     * Starts the countdown, then starts the game
+     */
     countDown() {
         this.tourusGeometry = new THREE.TorusGeometry(41, 8, 48, 100);
         this.tourusMaterial = new THREE.MeshPhongMaterial({ color: 0xffaaaa });
@@ -133,6 +147,9 @@ class MyGame {
     }
 
 
+    /**
+     * Starts the game
+     */
     start() {
         this.started = true;
         this.display = new MyDisplay(this, 'followCar');
@@ -142,6 +159,9 @@ class MyGame {
         this.automaticVehicle.start()
     }
 
+    /**
+     * Ends the game, only when both cars are finished
+     */
     gameOverFinal() {
         this.gameOver = true;
         this.logic.state = "gameOver";
@@ -160,18 +180,27 @@ class MyGame {
 
     }
 
+    /**
+     * Pauses the game
+     */
     pause() {
         this.automaticVehicle.pause()
         this.car.pause()
         this.paused = true;
     }
 
+    /**
+     * Continues the game
+     */
     continue() {
         this.automaticVehicle.continue()
         this.car.continue()
         this.paused = false;
     }
 
+    /**
+     * Changes the position of the obstacles. Two options: change the position of the obstacles or add a new obstacle
+     */
     changePositionObstacles() {
         this.pause();
         this.app.setActiveCamera('pickObstacles');
@@ -202,6 +231,9 @@ class MyGame {
         this.pickableObj.push(this.saveButton)
     }
 
+    /**
+     * Saves the changes of the obstacles
+     */
     changePositionObstaclesSave() {
         this.app.setActiveCamera('followCar');
         this.pickableObj = [];
@@ -216,7 +248,7 @@ class MyGame {
 
 
     /**
-     * Updates the scene
+     * Updates the game. Updates all the objects of the game.
      */
     update() {
         this.outdoor.update();
@@ -240,6 +272,9 @@ class MyGame {
             this.gameOverFinal();
     }
 
+    /**
+     * Updates the camera to follow the car
+     */
     updateCameraFollow() {
         // Set the camera position to follow the car
         const offset = new THREE.Vector3(0, 20, -50);
@@ -256,6 +291,9 @@ class MyGame {
         this.app.controls.target = this.car.car.position.clone();
     }
 
+    /**
+     * Updates the camera to follow the car
+     */
     updateCamera() {
         // Set the camera position to follow the car
         const offset = new THREE.Vector3(90, 20, 0); // Adjusted offset for left side
@@ -271,18 +309,29 @@ class MyGame {
         this.app.controls.target = this.car.car.position.clone();
     }
 
+    /**
+     *  Handles the keydown event
+     * @param {*} event 
+     */
     onKeyDown(event) {
         const key = event.key.toLowerCase();
         this.keysPressed[key] = true;
         this.handleKeys();
     }
 
+    /**
+     *  Handles the keyup event
+     * @param {*} event 
+     */
     onKeyUp(event) {
         const key = event.key.toLowerCase();
         this.keysPressed[key] = false;
         this.handleKeys();
     }
 
+    /**
+     * Handles the keys pressed
+     */
     handleKeys() {
         if (this.started && !this.gameOver) {
             if (this.keysPressed[' ']) {
@@ -302,6 +351,9 @@ class MyGame {
 
     }
 
+    /**
+     * Handles the click event
+     */
     onClick() {
         if (this.selectedObstacle) {
             if (!this.obstaclesList.includes(this.selectedObstacle)) {
@@ -346,7 +398,10 @@ class MyGame {
         }
     }
 
-
+    /**
+     * Handles the pointer movement
+     * @param {*} event 
+     */
     onPointerMove(event) {
 
 
@@ -379,7 +434,7 @@ class MyGame {
         this.pickingHelper(intersects2)
     }
 
-    /*
+    /**
     * Helper to visualize the intersected object
     *
     */
@@ -395,7 +450,7 @@ class MyGame {
         }
     }
 
-    /*
+    /**
     * Change the color of the first intersected object
     *
     */
@@ -419,7 +474,7 @@ class MyGame {
         }
     }
 
-    /*
+    /**
     * Restore the original color of the intersected object
     *
     */
@@ -434,6 +489,9 @@ class MyGame {
         this.lastPickedObj = null;
     }
 
+    /**
+     * Resets the game
+     */
     reset(){
         this.app.scene.remove(this.gameGroup);
         this.display.reset();
