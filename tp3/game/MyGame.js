@@ -223,10 +223,10 @@ class MyGame {
         let saveButtonGeometry = new THREE.BoxGeometry(20, 1.1, 10)
         this.saveButton = new THREE.Mesh(saveButtonGeometry, new THREE.MeshBasicMaterial({ color: 0x000000 }))
         this.saveButton.position.set(2.95 * this.scaleTrack + this.position.x, 0, 7.4 * this.scaleTrack + this.position.z);
-        let text = this.myFont.getWord("SAVE");
+        let text = this.myFont.getChar(0, 1-2/16);
         this.saveButton.add(text);
-        text.position.set(5, 5, 0);
-        text.scale.set(7, 7, 7);
+        text.position.set(3, 5, 0);
+        text.scale.set(10, 10, 10);
         text.rotation.x = Math.PI / 2 ;
         text.rotation.y = Math.PI;
         this.gameGroup.add(this.saveButton);
