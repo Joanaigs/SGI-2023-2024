@@ -122,7 +122,6 @@ class MyMenu {
                 let remove = this.clickableObjects.indexOf(this.nameButton);
                 this.clickableObjects.splice(remove, 1);
                 this.input = document.getElementById("username").value
-                console.log(this.input);
                 this.input = (document.getElementById("username").value == "")? "player": this.input;
                 this.usernameInput.style.visibility = 'hidden';
                 this.chooseDificultyPage();

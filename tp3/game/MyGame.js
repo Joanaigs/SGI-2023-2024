@@ -96,7 +96,6 @@ class MyGame {
 
 
     countDown() {
-        console.log("countdown")
         this.tourusGeometry = new THREE.TorusGeometry(41, 8, 48, 100);
         this.tourusMaterial = new THREE.MeshPhongMaterial({ color: 0xffaaaa });
         this.tourus = new THREE.Mesh(this.tourusGeometry, this.tourusMaterial);
@@ -216,7 +215,6 @@ class MyGame {
      * Updates the scene
      */
     update() {
-        //console.log(this.app.activeCamera)
         this.outdoor.update();
         this.powerUps.update();
         this.obstacles.update();

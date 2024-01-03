@@ -86,7 +86,6 @@ class MyGameLogic {
                 this.app.setActiveCamera("final")
                 this.winnerCar = this.game.winner.clone();
                 this.winnerCar.position.set(-1960, 230, -3000);
-                console.log(this.game.loser);
                 this.loserCar = this.game.loser.clone();
                 this.loserCar.position.set(-1980, 230, -3000);
                 this.app.scene.add(this.winnerCar, this.loserCar);
@@ -157,7 +156,6 @@ class MyGameLogic {
 
         }
         else if (this.state === "game" && this.game) {
-            console.log("update")
             this.game.update();
         }
         else if(this.state == "gameOver" && this.final){
