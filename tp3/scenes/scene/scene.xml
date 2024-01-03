@@ -106,7 +106,7 @@
 
                 <pointlight id="garageSun" enabled="true"
                     color="1 1 1 0"
-                    intensity="500"
+                    intensity="200"
                     distance="0"
                     decay="1"
                     position="-2500 300 -2600"
