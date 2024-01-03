@@ -213,8 +213,8 @@ class MyFinal extends THREE.Object3D {
         this.modeValue.position.set(0.3, 2.1, -10);
         this.modeGroup.add(this.modeValue);
 
-        this.winnerGroup.translateX(0.5);
-        this.loserGroup.translateX(-0.4);
+        this.winnerGroup.translateX(-0.2);
+        this.loserGroup.translateX(-0.5);
         this.modeGroup.translateX(-0.8);
 
         //left is the loser
@@ -232,17 +232,17 @@ class MyFinal extends THREE.Object3D {
         this.loserTimeValue.position.set(-2.7, -0.7, -10);
 
         this.loserInfoGroup.add(this.loserNameValue, this.loserCarValue, this.loserTimeValue);
-        this.loserInfoGroup.position.set(-1.5, 0, 0);
+        this.loserInfoGroup.position.set(-0.1, 0, 0);
 
         //right is the winner
         this.winnerInfogroup = new THREE.Group();
         this.winnerNameValue = this.myNonCenteredFont.getWord("WINNER STATS:");
         this.winnerNameValue.scale.set(0.4, 0.4, 0.4);
-        this.winnerNameValue.position.set(0.5, 0, -10);
+        this.winnerNameValue.position.set(0.6, 0, -10);
 
         this.winnerCarValue = this.myNonCenteredFont.getWord(this.gameLogic.winnerCarName);
         this.winnerCarValue.scale.set(0.3, 0.3, 0.3);
-        this.winnerCarValue.position.set(0.5, -0.4, -10);
+        this.winnerCarValue.position.set(0.6, -0.4, -10);
 
         this.winnerTimeValue = this.myNonCenteredFont.getWord(this.gameLogic.winnerTime);
         this.winnerTimeValue.scale.set(0.3, 0.3, 0.3);

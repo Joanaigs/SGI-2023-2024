@@ -101,7 +101,7 @@ class MyGameLogic {
                     this.loserCarName = this.normalizeCarType(this.botCar);
                 }
                 else{
-                    this.winnerName = "player";
+                    this.winnerName = "BOT";
                     this.loserName = this.menu.input;
                     this.winnerCarName = this.normalizeCarType(this.botCar);
                     this.loserCarName = this.normalizeCarType(this.playerCar);
@@ -118,8 +118,6 @@ class MyGameLogic {
 
                 this.game = null;
                 this.myReader.reset();
-
-                console.log("oi");
                 this.final = new MyFinal(this);
 
                 

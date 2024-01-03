@@ -291,7 +291,6 @@ class MyGame {
         // Set the camera to look at the car
         this.app.activeCamera.lookAt(this.car.car.position.clone());
         this.app.controls.target = this.car.car.position.clone();
-        console.log("hi")
     }
 
     /**

@@ -404,6 +404,10 @@ class MyVehicle {
         return false;
     }
 
+    /**
+     * This function was the attempt of the technique 'render to text'. However, it turned out not to be 
+     * more efficient neither precise as the raycaster
+     */
     /*
     checkCarPosition(carPosition) {
         const textureWidth = 411;
