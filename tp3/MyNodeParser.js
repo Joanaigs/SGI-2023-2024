@@ -77,7 +77,7 @@ class MyNodeParser {
         children.push(this.contents.lights.get(child.id));
       }
       else if (child.type === "lod") {
-        
+
         let childLod = this.lodCreation(child, materialID, castshadow, receiveshadows)
         children.push(childLod);
 
@@ -195,28 +195,25 @@ class MyNodeParser {
    */
   nodeCreation(child, materialID, castshadow, receiveshadows) {
     let childGroup;
-    if (!this.contents.nodeObjects.has(child.id)) {
-      childGroup = new THREE.Group();
+    childGroup = new THREE.Group();
 
-      //transformations
-      let combinedMatrix = this.transformations(child);
-      childGroup.applyMatrix4(combinedMatrix);
+    //transformations
+    let combinedMatrix = this.transformations(child);
+    childGroup.applyMatrix4(combinedMatrix);
 
-      //material
-      let newMaterialID = materialID;
-      if (child.materialIds && child.materialIds.length > 0) {
-        newMaterialID = child.materialIds[0];
-      }
-
-      //children
-      let tempChildren = this.children(child.id, newMaterialID, child.castShadows || castshadow, child.receiveShadows || receiveshadows);
-      for (let tempChild of tempChildren) {
-        childGroup.add(tempChild);
-      }
-      this.contents.nodeObjects.set(child.id, childGroup);
+    //material
+    let newMaterialID = materialID;
+    if (child.materialIds && child.materialIds.length > 0) {
+      newMaterialID = child.materialIds[0];
     }
-    else
-      childGroup = this.contents.nodeObjects.get(child.id).clone();
+
+    //children
+    let tempChildren = this.children(child.id, newMaterialID, child.castShadows || castshadow, child.receiveShadows || receiveshadows);
+    for (let tempChild of tempChildren) {
+      childGroup.add(tempChild);
+    }
+    this.contents.nodeObjects.set(child.id, childGroup);
+
     return childGroup;
   }
 

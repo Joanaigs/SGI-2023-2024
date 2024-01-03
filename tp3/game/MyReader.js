@@ -139,10 +139,6 @@ class MyReader {
 
     reset(){
         this.obstacles.reset();
-        this.app.scene.remove(this.car1);
-        this.app.scene.remove(this.car2);
-        this.car1=new MyVehicleObject("cyan");
-        this.car2=new MyVehicleObject("purple");
         this.cutPath.visible = false;
     }
 

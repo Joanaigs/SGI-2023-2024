@@ -6,26 +6,26 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
  *  This class contains the contents of our application
  */
 class MyVehicleObject extends THREE.Object3D {
-    constructor(carType) {
+    constructor(carType, shadows=true) {
         super();
         this.groupBody = new THREE.Group();
         this.groupWheels = new THREE.Group();
         
 
-        if(carType == "pinkTruck") this.buildTruck(0xFFBCF2);
-        else if (carType == "cyanTruck") this.buildTruck(0x7BD2E4);
-        else if (carType == "orangeTruck") this.buildTruck(0xFF964F);
-        else if(carType == "redTruck") this.buildTruck(0xFF6961);
-        if (carType == "pinkCar") this.buildCar(0xFFBCF2);
-        else if (carType == "cyanCar") this.buildCar(0x7BD2E4);
-        else if (carType == "orangeCar") this.buildCar(0xFF964F);
-        else if (carType == "redCar") this.buildCar(0xFF6961);
+        if(carType == "pinkTruck") this.buildTruck(0xFFBCF2, shadows);
+        else if (carType == "cyanTruck") this.buildTruck(0x7BD2E4, shadows);
+        else if (carType == "orangeTruck") this.buildTruck(0xFF964F, shadows);
+        else if(carType == "redTruck") this.buildTruck(0xFF6961, shadows);
+        if (carType == "pinkCar") this.buildCar(0xFFBCF2, shadows);
+        else if (carType == "cyanCar") this.buildCar(0x7BD2E4, shadows);
+        else if (carType == "orangeCar") this.buildCar(0xFF964F, shadows);
+        else if (carType == "redCar") this.buildCar(0xFF6961, shadows);
         // EC5DBD donut
 
     }
 
 
-    buildTruck(hexColor) {
+    buildTruck(hexColor, shadows=true) {
         const loader = new GLTFLoader();
         loader.load('./models/car.gltf', (gltf) => {
             this.car = gltf.scene;
@@ -45,7 +45,8 @@ class MyVehicleObject extends THREE.Object3D {
                 }
             });
 
-            this.transverseChildren(this.car);
+            if(shadows)
+                this.transverseChildren(this.car);
 
             this.groupBody.add(this.car);
         });
@@ -57,7 +58,7 @@ class MyVehicleObject extends THREE.Object3D {
         this.typeCar="truck";
     }
 
-    buildCar(hexColor) {
+    buildCar(hexColor, shadows=true) {
         const loader = new GLTFLoader();
         loader.load('./models/Car_Low_Poly.gltf', (gltf) => {
             this.car = gltf.scene;
@@ -77,7 +78,8 @@ class MyVehicleObject extends THREE.Object3D {
                     }
                 }
             });
-            this.transverseChildren(this.car);
+            if(shadows)
+                this.transverseChildren(this.car);
             this.groupBody.add(this.car);
         });
 

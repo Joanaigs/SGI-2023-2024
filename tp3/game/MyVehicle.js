@@ -50,7 +50,7 @@ class MyVehicle {
         this.car = car;
         this.car.position.set(position.x, position.y, position.z);
         this.car.position.add(target);
-        this.game.app.scene.add(this.car);
+        this.game.gameGroup.add(this.car);
 
 
         this.trackTexture = new THREE.TextureLoader().load('./textures/track.png');
@@ -330,23 +330,23 @@ class MyVehicle {
 
         if (this.game.app.showBoundingBoxes) {
             if (this.helper1) {
-                this.game.app.scene.remove(this.helper1);
+                this.game.gameGroup.remove(this.helper1);
             }
             if (this.helperObj.get(object2)) {
-                this.game.app.scene.remove(this.helperObj.get(object2));
+                this.game.gameGroup.remove(this.helperObj.get(object2));
             }
             this.helper1 = new THREE.Box3Helper(box1, 0xffff00);
-            this.game.app.scene.add(this.helper1);
+            this.game.gameGroup.add(this.helper1);
             this.helper2 = new THREE.Box3Helper(box2, 0xffff00);
-            this.game.app.scene.add(this.helper2);
+            this.game.gameGroup.add(this.helper2);
             this.helperObj.set(object2, this.helper2);
         }
         else {
             if (this.helper1) {
-                this.game.app.scene.remove(this.helper1);
+                this.game.gameGroup.remove(this.helper1);
             }
             if (this.helperObj.get(object2)) {
-                this.game.app.scene.remove(this.helperObj.get(object2));
+                this.game.gameGroup.remove(this.helperObj.get(object2));
             }
         }
 
