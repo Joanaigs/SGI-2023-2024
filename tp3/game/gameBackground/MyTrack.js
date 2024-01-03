@@ -168,6 +168,7 @@ class MyTrack {
         // Create the final object to add to the scene
 
         this.line = new THREE.Mesh(bGeometry, this.material);
+        this.line.receiveShadow = true;
 
 
 

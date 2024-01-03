@@ -78,7 +78,6 @@ class MyReader {
                 return;
             }
         }
-        console.log("shaders loaded");
         this.initBackgroud();
     }
 
@@ -87,7 +86,6 @@ class MyReader {
             setTimeout(this.waitForPowerUps.bind(this), 100)
             return;
         }
-        console.log("powerups loaded");
         this.waitForObstacles();
     }
 
@@ -96,7 +94,6 @@ class MyReader {
             setTimeout(this.waitForObstacles.bind(this), 100)
             return;
         }
-        console.log("obstacles loaded");
         this.backgroundLoaded = true;
     }
 
@@ -109,6 +106,7 @@ class MyReader {
         const floorGeometry = new THREE.PlaneGeometry(this.app.skyboxObject.width, this.app.skyboxObject.depth, 100, 100);
 
         let floor = new THREE.Mesh(floorGeometry, this.shader.material);
+        floor.receiveShadow = true;
         floor.rotation.x = Math.PI / 2;
         floor.rotation.y = Math.PI;
         floor.position.set(0, -1, 0);

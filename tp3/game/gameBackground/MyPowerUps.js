@@ -187,7 +187,6 @@ class MyPowerUps {
     getPowerUps() {
         //list of keys
         let keys = Array.from(this.powerUpsObject.keys());
-        console.log(keys);
         return keys;
     }
 

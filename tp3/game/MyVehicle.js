@@ -27,7 +27,6 @@ class MyVehicle {
         this.track = this.game.track;
         this.velocityReduced = false;
 
-        console.log(this.track);
 
         this.powerUps = this.game.powerUps.getPowerUps();
         this.obstacles = this.game.obstacles.getObstacles();
@@ -244,7 +243,6 @@ class MyVehicle {
             const intersection = this.checkIntersection(this.car, obstacle);
 
             if (!this.obstaclesActivated.get(obstacle) && intersection) {
-                console.log('Collision with obstacle!');
                 this.game.obstacles.activateObstacle(this.game, obstacle);
                 this.obstaclesActivated.set(obstacle, true);
             }
@@ -260,7 +258,6 @@ class MyVehicle {
             this.changedVelocity = this.maxVelocity * 0.4;
             this.maxVelocity -= this.changedVelocity
             this.carsCollided = true;
-            console.log('Collision with enemy!');
             setTimeout(() => {
                 this.maxVelocity += this.changedVelocity;
                 this.carsCollided = false;
@@ -272,7 +269,6 @@ class MyVehicle {
             if (!this.poweupsActivated.get(powerUp)) {
                 const intersection = this.checkIntersection(this.car, powerUp);
                 if (intersection) {
-                    console.log('Collision with power-up!');
                     this.game.powerUps.activatePowerUp(this.game, powerUp);
                     this.poweupsActivated.set(powerUp, true);
                     powerUp.visible = false;
@@ -292,7 +288,6 @@ class MyVehicle {
                 this.checkpointsCount.set(checkpoint, n + 1);
                 this.checkPointCollided = true;
                 this.lastCheckpoint = checkpoint;
-                console.log("checkpoint: " + this.checkpointsCount.get(checkpoint));
                 this.checkEndGame();
                 this.updateNumberOfLaps();
             }

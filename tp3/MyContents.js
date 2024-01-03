@@ -107,7 +107,6 @@ class MyContents {
             if(material.shaderfrag){
                 let uniforms = {};
                 //uniforms are sepearted by a comma, name, type, value
-                console.log(material.shaderuniforms);
                 let uniform = material.shaderuniforms.split(",");
                 for(let i=0; i<uniform.length; i++){
                     let uniformName = uniform[i].split(" ")[0];
@@ -122,7 +121,6 @@ class MyContents {
                 }
 
                 uniforms["color"] = {type: "vec4", value: new THREE.Vector4(material.color.r, material.color.g, material.color.b, material.color.a)};
-                console.log(uniforms);
                 let shader = new MyShader(material.shadervert,material.shaderfrag, uniforms);
                 shader.id = material.id;
                 this.shaders.push(shader);
@@ -172,10 +170,11 @@ class MyContents {
             do {
                 x = Math.random() * (maxx - minx) + minx;
                 z = Math.random() * (maxz - minz) + minz;
-            } while ((x > -160 && x < 350 && z > -120 && z < 690) || this.isTooClose(x, z, this.objectsPositions));
+            } while ((x > -170 && x < 370 && z > -170 && z < 690) || this.isTooClose(x, z, this.objectsPositions));
             let y = 120;
             let rotation = Math.random() * (2*Math.PI);
             let object = candyCane.clone();
+            object.castShadow = false;
             object.position.set(x,y,z);
             object.scale.set(100, 100, 100);
             object.rotation.y = rotation;
@@ -211,13 +210,12 @@ class MyContents {
             do {
                 x = Math.random() * (maxx - minx) + minx;
                 z = Math.random() * (maxz - minz) + minz;
-            } while ((x > -160 && x < 370 && z > -150 && z < 690) || this.isTooClose(x, z, this.objectsPositions));
+            } while ((x > -170 && x < 370 && z > -170 && z < 690) || this.isTooClose(x, z, this.objectsPositions));
             let randomColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
             let scale = Math.random() * (maxscale - minscale) + minscale;
             let y = 20 + scale/2;
             let rotation = Math.random() * (2*Math.PI);
             let object = chupaChup.clone();
-            console.log(object);
             for(let i = 0; i < object.children.length; i++){
                 for(let j = 0; j < object.children[i].children.length-1; j++){
                     let mat=object.children[i].children[j].children[0].material
@@ -259,7 +257,7 @@ class MyContents {
             do {
                 x = Math.random() * (maxx - minx) + minx;
                 z = Math.random() * (maxz - minz) + minz;
-            } while ((x > -160 && x < 370 && z > -150 && z < 690) || this.isTooClose(x, z, this.objectsPositions));
+            } while ((x > -170 && x < 370 && z > -170 && z < 690) || this.isTooClose(x, z, this.objectsPositions));
             let scale = Math.random() * (maxscale - minscale) + minscale;
             let y = 20 + scale/2;
             let rotation = Math.random() * (2*Math.PI);
@@ -272,7 +270,6 @@ class MyContents {
             let colorvec3 = new THREE.Color(pastelColors[Math.floor(Math.random() * pastelColors.length)]);
             cloneMaterial.uniforms["color"].value = new THREE.Vector3(colorvec3.r, colorvec3.g, colorvec3.b);
             object.children[0].children[0].material = cloneMaterial;
-            console.log(material);
             this.app.scene.add(object);
             this.objectsPositions.push({x: x, z: z});
         }
@@ -296,7 +293,7 @@ class MyContents {
             do {
                 x = Math.random() * (maxx - minx) + minx;
                 z = Math.random() * (maxz - minz) + minz;
-            } while ((x > -160 && x < 370 && z > -150 && z < 690) || this.isTooClose(x, z, this.objectsPositions));
+            } while ((x > -170 && x < 370 && z > -170 && z < 690) || this.isTooClose(x, z, this.objectsPositions));
             let scale = Math.random() * (maxscale - minscale) + minscale;
             let y = 10 + scale/2;
             let rotation = Math.random() * (2*Math.PI);

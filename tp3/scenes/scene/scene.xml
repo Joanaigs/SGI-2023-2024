@@ -91,6 +91,20 @@
                     position="120 80 1.047"
                 />
 
+                <directionallight id="light5" enabled="true" 
+                color="1.0 1.0 1.0 1" 
+                intensity="3"
+                castshadow="true"
+                position="500 200 -300" 
+                shadowfar="2000"
+                shadowmapsize="256"
+                shadowleft="-1000"
+                shadowright="1000"
+                shadowtop="1000"
+                shadowbottom="-1000"
+
+            /> 
+
                 <pointlight id="garageSun" enabled="true"
                     color="1 1 1 0"
                     intensity="500"
@@ -99,8 +113,12 @@
                     position="-2500 300 -2600"
                     shadowfar="500"
                     castshadow="true"
+<<<<<<< HEAD
                     shadowmapsize="512"
                 />
+=======
+                    shadowmapsize="256"
+>>>>>>> 5f1e0a4df1009dac92ed892bb39b24b32d958581
 
                 <pointlight id="final" enabled="true"
                     color="1 1 1 0"
@@ -392,7 +410,7 @@
         <lod id="icecreamBall">
             <children>
                 <noderef id="icecreamBallFirst" mindist="0" />
-                <noderef id="icecreamBallSecond" mindist="5000" />
+                <noderef id="icecreamBallSecond" mindist="800" />
             </children>
         </lod>
 
@@ -582,7 +600,7 @@
             </children>
         </node>
 
-        <node id="icecream">
+        <node id="icecream" castshadows="true">
 
             <transforms>
                 <translate value3="-25 0 600" />
@@ -640,7 +658,7 @@
             </children>
         </node>
 
-        <node id="cookie">
+        <node id="cookie" castshadows="true">
             <transforms>
                 <translate value3="20 20 -20" />
                 <rotate value3="1.54 -0.1 0" />
