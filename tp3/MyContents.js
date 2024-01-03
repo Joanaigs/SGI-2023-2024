@@ -147,7 +147,181 @@ class MyContents {
         }
         this.nodeParser = new MyNodeParser(this, this.data);
         this.nodeParser.init();
+        this.candyCanes();
+        this.chupaChups();
+        this.lolipops();
+        this.icecream();
         this.game = new MyGameLogic(this.app);
+    }
+
+    candyCanes(){
+        let candyCane = this.nodeObjects.get("fullCandyCane");
+        this.objectsPositions = [];
+        //create random positions and scales
+        let minx = -1000;
+        let maxx = 1000;
+        let minz = -1000;
+        let maxz = 1000;
+
+        let minscale = 0.5;
+        let maxscale = 1.5;
+
+        for(let i = 0; i < 10; i++){
+            let x;
+            let z;
+            do {
+                x = Math.random() * (maxx - minx) + minx;
+                z = Math.random() * (maxz - minz) + minz;
+            } while ((x > -160 && x < 350 && z > -120 && z < 690) || this.isTooClose(x, z, this.objectsPositions));
+            let y = 120;
+            let rotation = Math.random() * (2*Math.PI);
+            let object = candyCane.clone();
+            object.position.set(x,y,z);
+            object.scale.set(100, 100, 100);
+            object.rotation.y = rotation;
+            this.app.scene.add(object);
+            this.objectsPositions.push({x: x, z: z});
+        }
+
+    }
+
+    chupaChups(){
+        let chupaChup = this.nodeObjects.get("chupachupalod");
+        this.objectsPositions = [];
+        //create random positions and scales
+        let minx = -1000;
+        let maxx = 1000;
+        let minz = -1000;
+        let maxz = 1000;
+
+        const pastelColors = [
+            0xFFB6C1, 
+            0xaaaaff, 
+            0xaaffaa, 
+            0xff5555, 
+        ];
+    
+
+        let minscale = 5;
+        let maxscale = 20;
+
+        for(let i = 0; i < 20; i++){
+            let x;
+            let z;
+            do {
+                x = Math.random() * (maxx - minx) + minx;
+                z = Math.random() * (maxz - minz) + minz;
+            } while ((x > -160 && x < 370 && z > -150 && z < 690) || this.isTooClose(x, z, this.objectsPositions));
+            let randomColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+            let scale = Math.random() * (maxscale - minscale) + minscale;
+            let y = 20 + scale/2;
+            let rotation = Math.random() * (2*Math.PI);
+            let object = chupaChup.clone();
+            console.log(object);
+            for(let i = 0; i < object.children.length; i++){
+                for(let j = 0; j < object.children[i].children.length-1; j++){
+                    let mat=object.children[i].children[j].children[0].material
+                    let matClone = mat.clone();
+                    matClone.color.setHex(randomColor);
+                    object.children[i].children[j].children[0].material = matClone;
+                }
+            }
+            object.position.set(x,y,z);
+            object.scale.set(scale, scale, scale);
+            object.rotation.y = rotation;
+            this.app.scene.add(object);
+            this.objectsPositions.push({x: x, z: z});
+        }
+    }
+
+    lolipops(){
+        let lolipop = this.nodeObjects.get("lolipopObject");
+        this.objectsPositions = [];
+        //create random positions and scales
+        let minx = -1000;
+        let maxx = 1000;
+        let minz = -1000;
+        let maxz = 1000;
+
+        const pastelColors = [
+            0xFFC0CD, 
+            0xbbbbff, 
+            0xbbffbb, 
+            0xff8888, 
+        ];
+
+        let minscale = 5;
+        let maxscale = 20;
+
+        for(let i = 0; i < 20; i++){
+            let x;
+            let z;
+            do {
+                x = Math.random() * (maxx - minx) + minx;
+                z = Math.random() * (maxz - minz) + minz;
+            } while ((x > -160 && x < 370 && z > -150 && z < 690) || this.isTooClose(x, z, this.objectsPositions));
+            let scale = Math.random() * (maxscale - minscale) + minscale;
+            let y = 20 + scale/2;
+            let rotation = Math.random() * (2*Math.PI);
+            let object = lolipop.clone();
+            object.position.set(x,y,z);
+            object.scale.set(scale, scale, scale);
+            object.rotation.y = rotation;
+            let material = object.children[0].children[0].material;
+            let cloneMaterial = material.clone();
+            let colorvec3 = new THREE.Color(pastelColors[Math.floor(Math.random() * pastelColors.length)]);
+            cloneMaterial.uniforms["color"].value = new THREE.Vector3(colorvec3.r, colorvec3.g, colorvec3.b);
+            object.children[0].children[0].material = cloneMaterial;
+            console.log(material);
+            this.app.scene.add(object);
+            this.objectsPositions.push({x: x, z: z});
+        }
+    }
+
+    icecream(){
+        let icecream = this.nodeObjects.get("icecreamBall3");
+        this.objectsPositions = [];
+        //create random positions and scales
+        let minx = -1000;
+        let maxx = 1000;
+        let minz = -1000;
+        let maxz = 1000;
+
+        let minscale = 5;
+        let maxscale = 30;
+
+        for(let i = 0; i < 10; i++){
+            let x;
+            let z;
+            do {
+                x = Math.random() * (maxx - minx) + minx;
+                z = Math.random() * (maxz - minz) + minz;
+            } while ((x > -160 && x < 370 && z > -150 && z < 690) || this.isTooClose(x, z, this.objectsPositions));
+            let scale = Math.random() * (maxscale - minscale) + minscale;
+            let y = 10 + scale/2;
+            let rotation = Math.random() * (2*Math.PI);
+            let object = icecream.clone();
+            object.position.set(x,y,z);
+            object.scale.set(scale, scale, scale);
+            object.rotation.y = rotation;
+            this.app.scene.add(object);
+            this.objectsPositions.push({x: x, z: z});
+        }
+    }
+
+
+
+
+
+    isTooClose(newX, newZ, existingPositions) {
+        // Check if the new position is too close to any existing positions
+        for (let position of existingPositions) {
+            let distance = Math.sqrt((newX - position.x) ** 2 + (newZ - position.z) ** 2);
+            if (distance < 200) { // Adjust this value based on your preference for minimum distance
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
