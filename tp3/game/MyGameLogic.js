@@ -93,15 +93,16 @@ class MyGameLogic {
                 this.loserCar.position.set(-1980, 230, -3000);
                 this.app.scene.add(this.winnerCar, this.loserCar);
 
+
                 if(this.winnerCar == this.car){
-                    this.winnerName = this.input;
+                    this.winnerName = this.menu.input;
                     this.loserName = "BOT"
                     this.winnerCarName = this.normalizeCarType(this.playerCar);
                     this.loserCarName = this.normalizeCarType(this.botCar);
                 }
                 else{
-                    this.winnerName = "BOT";
-                    this.loserName = this.input;
+                    this.winnerName = "player";
+                    this.loserName = this.menu.input;
                     this.winnerCarName = this.normalizeCarType(this.botCar);
                     this.loserCarName = this.normalizeCarType(this.playerCar);
                 }
@@ -109,8 +110,6 @@ class MyGameLogic {
                 this.loserTime = this.formatTime(this.game.loserTime);
                 this.winnerTime =  this.formatTime(this.game.winnerTime);
                 
-                console.log("aqui!");
-
                 if(this.game){
                     this.game.reset();
                     this.game = null;
@@ -119,8 +118,8 @@ class MyGameLogic {
 
                 this.game = null;
                 this.myReader.reset();
-                
-                this.console.log("oi");
+
+                console.log("oi");
                 this.final = new MyFinal(this);
 
                 

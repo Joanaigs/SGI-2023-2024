@@ -14,7 +14,8 @@ class MyFinal extends THREE.Object3D {
     constructor(gameLogic) {
         super();
         this.gameLogic = gameLogic;
-        this.font = new MyFont(true);
+        this.font = new MyFont();
+        this.myNonCenteredFont = new MyFont(false);
         this.app = this.gameLogic.app;
         this.fireworks=[]
         this.camera = this.gameLogic.app.cameras['final'];
@@ -180,7 +181,7 @@ class MyFinal extends THREE.Object3D {
         this.winnerGroup = new THREE.Group(); 
         this.winnerWord = this.font.getWord("WINNER:");
         this.winnerWord.scale.set(0.9, 0.9, 0.9);
-        this.winnerWord.position.set(-3.0, 3.5, -10);
+        this.winnerWord.position.set(-3.5, 3.5, -10);
         this.winnerGroup.add(this.winnerWord);
 
         this.winnerValue = this.font.getWord(this.gameLogic.winnerName);
@@ -202,31 +203,31 @@ class MyFinal extends THREE.Object3D {
 
         // game mode
         this.modeGroup = new THREE.Group();
-        this.modeWord = this.font.getWord("MODE: ");
+        this.modeWord = this.myNonCenteredFont.getWord("MODE: ");
         this.modeWord.scale.set(0.3, 0.3, 0.3);
         this.modeWord.position.set(-0.5, 2.1, -10);
         this.modeGroup.add(this.modeWord);
 
-        this.modeValue = this.font.getWord("normal");
+        this.modeValue = this.myNonCenteredFont.getWord("normal");
         this.modeValue.scale.set(0.3, 0.3, 0.3);
         this.modeValue.position.set(0.3, 2.1, -10);
         this.modeGroup.add(this.modeValue);
 
-        this.winnerGroup.translateX(-0.4);
+        this.winnerGroup.translateX(0.5);
         this.loserGroup.translateX(-0.4);
         this.modeGroup.translateX(-0.8);
 
         //left is the loser
         this.loserInfoGroup = new THREE.Group();
-        this.loserNameValue = this.font.getWord("LOSER STATS:");
+        this.loserNameValue = this.myNonCenteredFont.getWord("LOSER STATS:");
         this.loserNameValue.scale.set(0.4, 0.4, 0.4);
-        this.loserNameValue.position.set(-3.6, 0, -10);
+        this.loserNameValue.position.set(-3.0, 0, -10);
 
-        this.loserCarValue = this.font.getWord(this.gameLogic.loserCarName);
+        this.loserCarValue = this.myNonCenteredFont.getWord(this.gameLogic.loserCarName);
         this.loserCarValue.scale.set(0.3, 0.3, 0.3);
         this.loserCarValue.position.set(-3.0, -0.4, -10);
 
-        this.loserTimeValue = this.font.getWord(this.gameLogic.loserTime);
+        this.loserTimeValue = this.myNonCenteredFont.getWord(this.gameLogic.loserTime);
         this.loserTimeValue.scale.set(0.3, 0.3, 0.3);
         this.loserTimeValue.position.set(-2.7, -0.7, -10);
 
@@ -234,15 +235,15 @@ class MyFinal extends THREE.Object3D {
 
         //right is the winner
         this.winnerInfogroup = new THREE.Group();
-        this.winnerNameValue = this.font.getWord("WINNER STATS:");
+        this.winnerNameValue = this.myNonCenteredFont.getWord("WINNER STATS:");
         this.winnerNameValue.scale.set(0.4, 0.4, 0.4);
-        this.winnerNameValue.position.set(0.1, 0, -10);
+        this.winnerNameValue.position.set(0.5, 0, -10);
 
-        this.winnerCarValue = this.font.getWord(this.gameLogic.winnerCarName);
+        this.winnerCarValue = this.myNonCenteredFont.getWord(this.gameLogic.winnerCarName);
         this.winnerCarValue.scale.set(0.3, 0.3, 0.3);
         this.winnerCarValue.position.set(1.2, -0.4, -10);
 
-        this.winnerTimeValue = this.font.getWord(this.gameLogic.winnerTime);
+        this.winnerTimeValue = this.myNonCenteredFont.getWord(this.gameLogic.winnerTime);
         this.winnerTimeValue.scale.set(0.3, 0.3, 0.3);
         this.winnerTimeValue.position.set(1.2, -0.7, -10);
 
@@ -270,7 +271,7 @@ class MyFinal extends THREE.Object3D {
         this.rightRectangleMesh.name="backToMenu";
         const backToMenuValue = this.font.getWord("BACK TO MENU");
         backToMenuValue.scale.set(0.3, 0.3, 0.3);
-        backToMenuValue.position.set(this.rightRectangleMesh.x , this.rightRectangleMesh.y, this.rightRectangleMesh.z+2);
+        backToMenuValue.position.set(this.rightRectangleMesh.x , this.rightRectangleMesh.y, this.rightRectangleMesh.z-1);
         this.buttons.add(this.rightRectangleMesh, backToMenuValue);
         this.clickableObjects.push(this.rightRectangleMesh);
     

@@ -50,11 +50,11 @@ class MyPark extends THREE.Object3D {
     buildPlayerPark(){
 
         const loader = new GLTFLoader();
-        loader.load('./models/playerPark1.gltf', (gltf) => {
+        loader.load('./models/finalPlayerPark.gltf', (gltf) => {
             this.playerCandyShop = gltf.scene;
             this.playerCandyShop.scale.set(100, 100, 100);
             this.playerCandyShop.rotation.y = Math.PI;
-            this.playerCandyShop.position.set(-2500, 128, -2500);
+            this.playerCandyShop.position.set(-2500, 126, -2500);
 
             for(let i = 0; i < this.playerCandyShop.children.length; i++){
                 if(this.playerCandyShop.children[i].type == "Mesh"){
@@ -90,22 +90,22 @@ class MyPark extends THREE.Object3D {
 
         
         this.car1 = new MyVehicleObject("pinkCar");
-        this.car1.position.set(-2445, 128, -2570);
+        this.car1.position.set(-2445, 126, -2570);
         this.car1.rotation.y = Math.PI;
         this.car1.scale.set(3,3,3);
 
         this.car2 = new MyVehicleObject("cyanCar");
-        this.car2.position.set(-2415, 128, -2572);
+        this.car2.position.set(-2415, 126, -2572);
         this.car2.rotation.y = Math.PI;
         this.car2.scale.set(3,3,3);
 
         this.car3 = new MyVehicleObject("cyanTruck");
-        this.car3.position.set(-2583, 128, -2572);
+        this.car3.position.set(-2583, 126, -2572);
         this.car3.rotation.y = Math.PI;
         this.car3.scale.set(3,3,3);
 
         this.car4 = new MyVehicleObject("pinkTruck");
-        this.car4.position.set(-2555, 128, -2572);
+        this.car4.position.set(-2555, 126, -2572);
         this.car4.rotation.y = Math.PI;
         this.car4.scale.set(3,3,3);
 
@@ -143,11 +143,11 @@ class MyPark extends THREE.Object3D {
      */
     buildBotPark() {
         const loader = new GLTFLoader();
-        loader.load('./models/playerCandyShop/candyShop.gltf', (gltf) => {
+        loader.load('./models/finalBotPark.gltf', (gltf) => {
             this.playerCandyShop = gltf.scene;
             this.playerCandyShop.scale.set(100, 100, 100);
             this.playerCandyShop.rotation.y = Math.PI;
-            this.playerCandyShop.position.set(-2500, 128, -2500);
+            this.playerCandyShop.position.set(-2500, 126, -2500);
 
             for(let i = 0; i < this.playerCandyShop.children.length; i++){
                 if(this.playerCandyShop.children[i].type == "Mesh"){
@@ -164,22 +164,22 @@ class MyPark extends THREE.Object3D {
         });
     
         this.carBot1 = new MyVehicleObject("orangeCar");
-        this.carBot1.position.set(-2445, 128, -2570);
+        this.carBot1.position.set(-2445, 126, -2570);
         this.carBot1.rotation.y = Math.PI;
         this.carBot1.scale.set(3, 3, 3);
     
         this.carBot2 = new MyVehicleObject("redCar");
-        this.carBot2.position.set(-2415, 128, -2572);
+        this.carBot2.position.set(-2415, 126, -2572);
         this.carBot2.rotation.y = Math.PI;
         this.carBot2.scale.set(3, 3, 3);
     
         this.carBot3 = new MyVehicleObject("redTruck");
-        this.carBot3.position.set(-2583, 128, -2572);
+        this.carBot3.position.set(-2583, 126, -2572);
         this.carBot3.rotation.y = Math.PI;
         this.carBot3.scale.set(3, 3, 3);
     
         this.carBot4 = new MyVehicleObject("orangeTruck");
-        this.carBot4.position.set(-2555, 128, -2572);
+        this.carBot4.position.set(-2555, 126, -2572);
         this.carBot4.rotation.y = Math.PI;
         this.carBot4.scale.set(3, 3, 3);
 
