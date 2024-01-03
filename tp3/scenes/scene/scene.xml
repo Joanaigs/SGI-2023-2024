@@ -21,8 +21,8 @@
         <perspective id="frontHouse" angle="1.047" near="0.1" far="5000" location="130 10 -25"
             target="50 10 -25" />
         <perspective id="playerGarage" angle="1.1" near="0.01" far="2000"
-            location="-2510 175 -2758"
-            target="-2489 162 -2353" />
+            location="-2500 170 -2750"
+            target="-2500 170 -2500" />
         <perspective id="menu" angle="1.047" near="0.1" far="5000" location="-1971 249 -2510"
             target="-1971 249 -2500" />
         <perspective id="pickObstacles" angle="1.047" near="0.1" far="5000" location="-127 376 261"
@@ -277,7 +277,7 @@
 
         <node id="candycaneGarage">
             <transforms>
-                <translate value3="-2350 190 -2500" />
+                <translate value3="-2350 180 -2500" />
                 <rotate value3="0.0 3.14 0.0" />
                 <scale value3="0.3 0.3 0.3" />
             </transforms>
@@ -289,7 +289,7 @@
 
         <node id="candycaneGarage4">
             <transforms>
-                <translate value3="-2330 190 -2500" />
+                <translate value3="-2330 180 -2500" />
                 <scale value3="0.3 0.3 0.3" />
             </transforms>
 
@@ -301,7 +301,7 @@
 
         <node id="candycaneGarage2" >
             <transforms>
-                <translate value3="-2650 190 -2500" />
+                <translate value3="-2650 180 -2500" />
                 <scale value3="0.3 0.3 0.3" />
             </transforms>
 
@@ -312,7 +312,7 @@
 
         <node id="candycaneGarage3" >
             <transforms>
-                <translate value3="-2670 190 -2500" />
+                <translate value3="-2670 180 -2500" />
                 <rotate value3="0.0 3.14 0.0" />
                 <scale value3="0.3 0.3 0.3" />
             </transforms>
