@@ -54,9 +54,9 @@ class MyGameLogic {
                 difficult = 0.8;
                 break;
         }
-        let car = new MyVehicleObject(this.playerCar, false);
+        this.car = new MyVehicleObject(this.playerCar, false);
         let enemyCar = new MyVehicleObject(this.botCar, false);
-        this.game = new MyGame(this, car, enemyCar, this.myReader.powerUps, this.myReader.obstacles, this.myReader.routes, this.myReader.cutPath, this.myReader.checkpoints, this.myReader.track2, difficult);
+        this.game = new MyGame(this, this.car, enemyCar, this.myReader.powerUps, this.myReader.obstacles, this.myReader.routes, this.myReader.cutPath, this.myReader.checkpoints, this.myReader.track2, difficult);
     }
 
     /**
@@ -93,8 +93,7 @@ class MyGameLogic {
                 this.loserCar.position.set(-1980, 230, -3000);
                 this.app.scene.add(this.winnerCar, this.loserCar);
 
-
-                if(this.winnerCar == this.car){
+                if(!this.game.botWon){
                     this.winnerName = this.menu.input;
                     this.loserName = "BOT"
                     this.winnerCarName = this.normalizeCarType(this.playerCar);

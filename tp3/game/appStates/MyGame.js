@@ -166,12 +166,14 @@ class MyGame {
         this.gameOver = true;
         this.logic.state = "gameOver";
         if (this.car.gameTime < this.automaticVehicle.gameTime){
+            this.botWon = false;
             this.winner = this.car.car;
             this.winnerTime = this.car.gameTime;
             this.loser = this.automaticVehicle.car;
             this.loserTime = this.automaticVehicle.gameTime;
         }
         else{
+            this.botWon = true;
             this.loser = this.car.car;
             this.loserTime = this.car.gameTime;
             this.winner = this.automaticVehicle.car;
