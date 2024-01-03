@@ -36,7 +36,7 @@ class MyObstacle {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.cabbageTexture },
             baseColor: { type: 'vec3', value: new THREE.Vector3(1.0, 1.0, 1.0) },
-            scale: { type: 'f', value: 0.0 },
+            scale: { type: 'f', value: 0.4 },
         })
 
 
@@ -45,7 +45,7 @@ class MyObstacle {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.tomatoTexture },
             baseColor: { type: 'vec3', value: new THREE.Vector3(1.0, 1.0, 1.0) },
-            scale: { type: 'f', value: 0.0 },
+            scale: { type: 'f', value: 0.4 },
 
         })
 
@@ -54,7 +54,7 @@ class MyObstacle {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.potatoTexture },
             baseColor: { type: 'vec3', value: new THREE.Vector3(1.0, 1.0, 1.0) },
-            scale: { type: 'f', value: 0.0 },
+            scale: { type: 'f', value: 0.4 },
 
         })
 
