@@ -100,7 +100,17 @@
                     shadowfar="500"
                     castshadow="true"
                     shadowmapsize="512"
+                />
 
+                <pointlight id="final" enabled="true"
+                    color="1 1 1 0"
+                    intensity="300"
+                    distance="0"
+                    decay="1"
+                    position="-2500 300 -3000"
+                    shadowfar="500"
+                    castshadow="true"
+                    shadowmapsize="512"
                 />
 
                 <noderef id="candycane" />

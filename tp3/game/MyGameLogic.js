@@ -71,8 +71,6 @@ class MyGameLogic {
                 this.game.update();
                 break;
             case "gameOver":
-                this.game.reset();
-                this.game = null;
                 /*
                 this.winnerCar = this.game.winner;
                 this.loserCar = this.game.loser;
@@ -92,6 +90,10 @@ class MyGameLogic {
                 this.app.scene.add(this.winnerCar, this.loserCar);
 
                 this.final = new MyFinal(this);
+                if(this.game){
+                    this.game.reset();
+                }
+                this.game = null;
                 this.myReader.reset();
                 
                 break;

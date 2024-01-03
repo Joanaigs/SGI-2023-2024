@@ -7,7 +7,7 @@ class MyFinal extends THREE.Object3D {
     constructor(gameLogic) {
         super();
         this.gameLogic = gameLogic;
-        this.font = new MyFont();
+        this.font = new MyFont(true);
         this.app = this.gameLogic.app;
         this.fireworks=[]
         this.camera = this.gameLogic.app.cameras['final'];
@@ -43,23 +43,44 @@ class MyFinal extends THREE.Object3D {
         // Create the time object
 
         // Create the laps object
-        this.winnerGroup = new THREE.Group();
-        this.winnerValue = this.font.getWord("BOT WINS!");
+        this.winnerGroup = new THREE.Group(); 
+        this.winnerWord = this.font.getWord("WINNER:");
+        this.winnerWord.scale.set(0.9, 0.9, 0.9);
+        this.winnerWord.position.set(-3.0, 3.5, -10);
+        this.winnerGroup.add(this.winnerWord);
+
+        this.winnerValue = this.font.getWord("player");
         this.winnerValue.scale.set(0.9, 0.9, 0.9);
-        this.winnerValue.position.set(-3.0, 3, -10);
+        this.winnerValue.position.set(0.3, 3.5, -10);
         this.winnerGroup.add(this.winnerValue);
 
         this.loserGroup = new THREE.Group();
-        this.loserValue = this.font.getWord("PLAYER LOSES");
-        this.loserValue.scale.set(0.4, 0.4, 0.4);
-        this.loserValue.position.set(-2.0, 2.3, -10);
-        this.loserGroup.add(this.loserValue);
+        this.winnerWord = this.font.getWord("LOSER:"); // Change "WINNER:" to "LOSER:"
+        this.winnerWord.scale.set(0.5, 0.5, 0.5);
+        this.winnerWord.position.set(-1.3, 2.7, -10);
+        this.loserGroup.add(this.winnerWord);
 
+        this.winnerValue = this.font.getWord("player");
+        this.winnerValue.scale.set(0.5, 0.5, 0.5);
+        this.winnerValue.position.set(0.3, 2.7, -10);
+        this.loserGroup.add(this.winnerValue);
+
+
+        // game mode
         this.modeGroup = new THREE.Group();
         this.modeWord = this.font.getWord("MODE: ");
-        this.modeWord.scale.set(0.4, 0.4, 0.4);
-        this.modeWord.position.set(-2.0, 2.3, -10);
+        this.modeWord.scale.set(0.3, 0.3, 0.3);
+        this.modeWord.position.set(-0.5, 2.1, -10);
         this.modeGroup.add(this.modeWord);
+
+        this.modeValue = this.font.getWord("normal");
+        this.modeValue.scale.set(0.3, 0.3, 0.3);
+        this.modeValue.position.set(0.3, 2.1, -10);
+        this.modeGroup.add(this.modeValue);
+
+        this.winnerGroup.translateX(-0.4);
+        this.loserGroup.translateX(-0.4);
+        this.modeGroup.translateX(-0.4);
 
         //left is the loser
         this.loserInfoGroup = new THREE.Group();
@@ -94,7 +115,7 @@ class MyFinal extends THREE.Object3D {
         this.winnerInfogroup.add(this.winnerNameValue, this.winnerCarValue, this.winnerTimeValue);
 
         // Buttons to continue 
-
+        this.buttons = new THREE.Group();
         const pinkMaterial = new THREE.MeshBasicMaterial({ color: 0xFFBCF2 }); // Pink color
         const rectangleGeometry = new THREE.PlaneGeometry(3, 1, 32);
 
@@ -105,7 +126,7 @@ class MyFinal extends THREE.Object3D {
         const tryAgainValue = this.font.getWord("TRY AGAIN");
         tryAgainValue.position.set(this.leftRectangleMesh.x , this.leftRectangleMesh.y, this.leftRectangleMesh.z-2);
         tryAgainValue.scale.set(0.3, 0.3, 0.3);
-        this.finalGroup.add(this.leftRectangleMesh, tryAgainValue);
+        this.buttons.add(this.leftRectangleMesh, tryAgainValue);
     
         // Right rectangle
         this.rightRectangleMesh = new THREE.Mesh(rectangleGeometry, pinkMaterial);
@@ -113,12 +134,12 @@ class MyFinal extends THREE.Object3D {
         this.rightRectangleMesh.name="backToMenu";
         const backToMenuValue = this.font.getWord("BACK TO MENU");
         backToMenuValue.scale.set(0.3, 0.3, 0.3);
-        backToMenuValue.position.set(this.rightRectangleMesh.x , this.rightRectangleMesh.y, this.rightRectangleMesh.z);
-        this.finalGroup.add(this.rightRectangleMesh, backToMenuValue);
+        backToMenuValue.position.set(this.rightRectangleMesh.x , this.rightRectangleMesh.y, this.rightRectangleMesh.z+2);
+        this.buttons.add(this.rightRectangleMesh, backToMenuValue);
     
 
 
-        this.finalGroup.add(this.winnerGroup, this.loserGroup, this.loserInfoGroup, this.winnerInfogroup);
+        this.finalGroup.add(this.modeGroup, this.winnerGroup, this.loserGroup, this.loserInfoGroup, this.winnerInfogroup, this.buttons);
         this.camera.add(this.finalGroup);
     }
 
