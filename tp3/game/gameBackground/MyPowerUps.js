@@ -2,10 +2,17 @@ import * as THREE from 'three';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { MyShader } from '../MyShader.js';
 
-
+/**
+ * This class contains the PowerUps of the game
+ */
 class MyPowerUps {
 
-
+    /**
+     * Constructs all the powerups, and loads all the shaders
+     * @param {MyApp} app the application object
+     * @param {THREE.Vector3} position the position of the powerups
+     * @param {number} scale the scale of the powerups
+     */
     constructor(app, position, scale) {
         this.position = position;
         this.app = app;
@@ -22,7 +29,7 @@ class MyPowerUps {
         this.powerUpsObject = new Map();
         this.texture = new THREE.TextureLoader().load('textures/wallPaper.jpg');
 
-        this.heartTexture = new THREE.TextureLoader().load('textures/candy.jpg');
+        this.heartTexture = new THREE.TextureLoader().load('models/heart/heart.jpg');
         this.heartShader = new MyShader('shaders/pulsate.vert', 'shaders/pulsate_texture.frag', {
             time: { type: 'f', value: 0.0 },
             uSampler: { type: 'sampler2D', value: this.heartTexture },
@@ -57,10 +64,18 @@ class MyPowerUps {
         this.timeout = 10000;
     }
 
+    /**
+     * Sets the game object
+     * @param {MyGame} game the game object
+     */
     setGame(game) {
         this.game = game;
     }
 
+    /**
+     * Draws all the powerups
+     * @param {number} value to get the powerups of the track 
+     */
     drawPowerUps(value) {
         if (value === 1) {
             this.powerups = this.powerups1;
@@ -70,6 +85,10 @@ class MyPowerUps {
         }
     }
 
+    /**
+     * Draws a powerup
+     * @param {THREE.Object3D} powerUps the powerup to draw 
+     */
     drawPowerUp(powerUps) {
         switch (powerUps.type) {
             case "VELOCITY":
@@ -139,6 +158,9 @@ class MyPowerUps {
         }
     }
 
+    /**
+     * Enhances the velocity of the car
+     */
     velocityPowerUp() {
         this.originalScaleVelocity = this.game.car.velocity*1;
 
@@ -150,19 +172,33 @@ class MyPowerUps {
         this.velovityTimeout = Date.now() + 5000;
     }
 
+    /**
+     * A Cut path appears
+     */
     velocityCutPowerUp() {
         this.game.cutPath.visible = true;
         this.cutTimoout = Date.now() + this.timeout;
     }
 
+    /**
+     * Gives a time advantage
+     */
     timePowerUp() {
         this.game.penalties -= 1;
     }
 
+    /**
+     * Changes the position of the obstacles
+     */
     changePowerUp() {
         this.game.changePositionObstacles();
     }
 
+    /**
+     * Function that activates the powerup
+     * @param {MyGame} game  the game object
+     * @param {THREE.Object3D} object the powerup to activate 
+     */
     activatePowerUp(game, object) {
         this.game = game;
         let powerUp = this.powerUpsObject.get(object);
@@ -184,12 +220,20 @@ class MyPowerUps {
         }
     }
 
+    /**
+     * 
+     * @returns the list of powerups
+     */
     getPowerUps() {
         //list of keys
         let keys = Array.from(this.powerUpsObject.keys());
         return keys;
     }
 
+    /**
+     * updates the powerups. Updates the shader time. An deals with the timeoouts
+     * 
+     */
     update() {
         if (!this.game)
             return;
@@ -220,6 +264,10 @@ class MyPowerUps {
         }
     }
 
+    /**
+     * 
+     * @returns the list of shaders
+     */
     getShaders() {
         return [this.heartShader, this.teddyShader, this.speedShader, this.mintShader]
     }

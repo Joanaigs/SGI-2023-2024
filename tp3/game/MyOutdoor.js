@@ -1,6 +1,14 @@
 import * as THREE from 'three';
 
+/**
+ * This class represents an outdoor
+ */
 class MyOutdoor extends THREE.Object3D {
+    /**
+     * The constructor of the class. Initializes the outdoor
+     * @param {*} app 
+     * @param {*} position 
+     */
     constructor(app, position) {
         super();
         this.app = app;
@@ -10,6 +18,9 @@ class MyOutdoor extends THREE.Object3D {
         this.startTimer = Date.now();
     }
 
+    /**
+     * Builds the structure of the outdoor
+     */
     buildOutside() {
         //base
         const baseGeometry = new THREE.CylinderGeometry(5, 5, 50);
@@ -29,6 +40,9 @@ class MyOutdoor extends THREE.Object3D {
 
     }
 
+    /**
+     * Captures the images of the outdoor. The RGB image and the LGray image. The LGray image is used for the depth map
+     */
     captureImages() {
         // Remove the existing planes if they exist
         if (this.planeRGB) {
@@ -123,6 +137,9 @@ class MyOutdoor extends THREE.Object3D {
 
     }
 
+    /**
+     * Updates the image of the outdoor
+     */
     updateImage() {
 
          // Set the render target for rendering
@@ -141,6 +158,9 @@ class MyOutdoor extends THREE.Object3D {
         
     }
 
+    /**
+     * Updates the outdoor from 60 to 60 seconds
+     */
     update() {
         if (Date.now() - this.startTimer > 60000) {
             this.updateImage();

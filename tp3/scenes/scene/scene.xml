@@ -97,7 +97,7 @@
                 castshadow="true"
                 position="500 200 -300" 
                 shadowfar="2000"
-                shadowmapsize="256"
+                shadowmapsize="128"
                 shadowleft="-1000"
                 shadowright="1000"
                 shadowtop="1000"

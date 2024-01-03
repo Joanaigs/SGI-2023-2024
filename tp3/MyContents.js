@@ -133,6 +133,9 @@ class MyContents {
 
     }
 
+    /**
+     * waits for the shaders to load. Then creates the rest of the scene and starts the game
+     */
     waitForshaders(){
         for(let i = 0; i < this.shaders.length; i++){
             if (this.shaders[i].ready === false) {
@@ -152,6 +155,9 @@ class MyContents {
         this.game = new MyGameLogic(this.app);
     }
 
+    /**
+     * creates the candy canes
+     */
     candyCanes(){
         let candyCane = this.nodeObjects.get("fullCandyCane");
         this.objectsPositions = [];
@@ -185,6 +191,9 @@ class MyContents {
 
     }
 
+    /**
+     * creates the chupa chups
+     */
     chupaChups(){
         let chupaChup = this.nodeObjects.get("chupachupalod");
         this.objectsPositions = [];
@@ -233,6 +242,9 @@ class MyContents {
         }
     }
 
+    /**
+     * creates the lolipops
+     */
     lolipops(){
         let lolipop = this.nodeObjects.get("lolipopObject");
         this.objectsPositions = [];
@@ -276,6 +288,9 @@ class MyContents {
         }
     }
 
+    /**
+     * creates the icecreams
+     */
     icecream(){
         let icecream = this.nodeObjects.get("icecreamBall3");
         this.objectsPositions = [];
@@ -309,6 +324,10 @@ class MyContents {
         }
     }
 
+    /**
+     * Removes shadows from the object
+     * @param {*} obj 
+     */
     removeshadows(obj){
         for(let i = 0; i < obj.children.length; i++){
             if(obj.children[i].type == "Mesh"){
@@ -323,7 +342,13 @@ class MyContents {
 
 
 
-
+    /**
+     * Checks if the new position is too close to any existing positions
+     * @param {*} newX 
+     * @param {*} newZ 
+     * @param {*} existingPositions 
+     * @returns 
+     */
     isTooClose(newX, newZ, existingPositions) {
         // Check if the new position is too close to any existing positions
         for (let position of existingPositions) {

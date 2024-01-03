@@ -4,10 +4,13 @@ import { MyVehicleObject } from './MyVehicleObject.js';
 import { MySkybox } from '../classes/MySkybox.js';
 
 /**
- *  This class contains the contents of out application
+ *  This class contains the park of the cars
  */
 class MyPark extends THREE.Object3D {
 
+    /**
+     * Holds the park of the cars
+     */
     constructor() {
         super();
         this.playerPark = new THREE.Group();
@@ -16,6 +19,10 @@ class MyPark extends THREE.Object3D {
         this.botPark = new THREE.Group();
     }
 
+    /**
+     * 
+     * @returns the skybox of the scene of the park
+     */
     initPark(){
         const skyboxData1 = {
             size: [1000, 249, 1000],
@@ -36,6 +43,10 @@ class MyPark extends THREE.Object3D {
         return skyboxMesh1;
     }
     
+    /**
+     * 
+     * @returns the park of the player
+     */
     buildPlayerPark(){
 
         const loader = new GLTFLoader();
@@ -126,6 +137,10 @@ class MyPark extends THREE.Object3D {
     }
 
 
+    /**
+     * 
+     * @returns the park of the bot
+     */
     buildBotPark() {
         const loader = new GLTFLoader();
         loader.load('./models/playerCandyShop/candyShop.gltf', (gltf) => {

@@ -2,11 +2,18 @@ import * as THREE from 'three';
 
 
 /**
- *  This class contains the contents of out application
+ *  This class contains the checkpoints of the track
  */
 class MyCheckpoints {
 
 
+    /**
+     * Holds the checkpoints of the track
+     * @param {MyApp} app the application object 
+     * @param {Number} scale the scale of the track
+     * @param {THREE.Vector3} position the position of the track 
+     * @param {Number} width the width of the track 
+     */
     constructor(app, scale, position, width) {
         this.app = app;
         this.width = width;
@@ -40,6 +47,9 @@ class MyCheckpoints {
         this.checkpointObjcts=[];
     }
 
+    /**
+     * Draws the checkpoints
+     */
     drawCheckpoints() {
         for (let i = 0; i < this.checkpoint1.length; i++) {
             const geometry = new THREE.BoxGeometry(this.width+20, this.width, 20);
@@ -54,6 +64,10 @@ class MyCheckpoints {
         }
     }
 
+    /**
+     * 
+     * @returns the checkpoints
+     */
     getCheckpoints() {
         return this.checkpointObjcts;
     }

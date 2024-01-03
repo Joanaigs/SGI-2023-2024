@@ -2,10 +2,17 @@ import * as THREE from 'three';
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { MyShader } from '../MyShader.js';
 
-
+/**
+ * This class contains all Obstacles saved
+ */
 class MyObstacle {
 
-
+    /**
+     * Created all the obstacles and loads its shaders
+     * @param {MyApp} app the application object
+     * @param {vec3} position the position of the track
+     * @param {number} scale the scale of the track
+     */
     constructor(app, position, scale) {
         this.position = position;
         this.app = app;
@@ -59,10 +66,18 @@ class MyObstacle {
 
     }
 
+    /**
+     * Sets the game object
+     * @param {MyGame} game  the game object
+     */
     setGame(game) {
         this.game = game;
     }
 
+    /**
+     * Adds an obstacle to the map, changes the material to a shader
+     * @param {THREE.Object3D} obstacle the obstacle to add 
+     */
     addObstacle(obstacle) {
         this.obstaclesObject.set(obstacle, obstacle.name);
         switch (obstacle.name) {
@@ -84,6 +99,10 @@ class MyObstacle {
         }
     }
 
+    /**
+     * Adds to the scene all the obstacles belonging to the park
+     * @param {number} value obstacles belonging to track n 
+     */
     drawObstaclesPark(value) {
         if (value === 1) {
             for (let i = 0; i < this.obstacleAvailable1.length; i++) {
@@ -92,6 +111,10 @@ class MyObstacle {
         }
     }
 
+    /**
+     * Adds to the scene all the obstacles belonging to the track
+     * @param {Number} value obstacles belonging to track n
+     */
     drawObstacles(value) {
         if (value === 1) {
             this.obstacles = this.obstacle1;
@@ -102,6 +125,11 @@ class MyObstacle {
     }
 
 
+    /**
+     * Draws an obstacle in the scene
+     * @param {THREE.Object3D} obstacle the obstacle to draw 
+     * @param {boolean} visible if the obstacle is visible or not 
+     */
     drawObstacle(obstacle, visible = true) {
         switch (obstacle.type) {
             case "VELOCITY":
@@ -160,6 +188,11 @@ class MyObstacle {
         }
     }
 
+    /**
+     * Draws an obstacle in the park
+     * @param {THREE.Object3D} obstacle the obstacle to draw 
+     * @param {boolean} visible if the obstacle is visible or not 
+     */
     drawObstaclePark(obstacle, visible = true) {
         switch (obstacle.type) {
             case "VELOCITY":
@@ -215,6 +248,9 @@ class MyObstacle {
         }
     }
 
+    /**
+     * Reduces the velocity of the car
+     */
     obstacleVelocity() {
         this.scaleVelocity = this.game.car.velocity*0.5;
 
@@ -226,11 +262,17 @@ class MyObstacle {
         this.velocityTimeout = Date.now() + 10000;
     }
 
+    /**
+     * Confuses the car
+     */
     obstacleConfused() {
         this.game.car.confused = true;
         this.confusedTimeout = Date.now() + 10000;
     }
 
+    /**
+     * Makes the car slippery
+     */
     obstacleSlippery() {
 
         // Increase rotationScale
@@ -246,6 +288,9 @@ class MyObstacle {
 
     }
 
+    /**
+     * Creates a rain particle system
+     */
     createRainParticleSystem() {
         const particleCount = 100;
         const particles = new THREE.BufferGeometry();
@@ -276,6 +321,11 @@ class MyObstacle {
         this.app.scene.add(this.particleSystem);
     }
 
+    /**
+     * fucntion call when a car hits an obstacle, to decide what to do
+     * @param {MyGame} game myGame object 
+     * @param {THREE.Object3D} object the object that the car hit 
+     */
     activateObstacle(game, object) {
         this.game = game;
         let obstacle = this.obstaclesObject.get(object);
@@ -292,16 +342,27 @@ class MyObstacle {
         }
     }
 
+    /**
+     * 
+     * @returns a list of all the obstacles
+     */
     getObstacles() {
         let keys = Array.from(this.obstaclesObject.keys());
         return keys;
     }
 
+    /**
+     * 
+     * @returns a list of all the obstacles available
+     */
     getObstaclesAvailable() {
         let keys = Array.from(this.obstaclesAvailableObject.keys());
         return keys;
     }
 
+    /**
+     * Resets the obstacles
+     */
     reset() {
         for (let i = 0; i < this.obstacles.length; i++) {
             let obstacle = this.obstaclesObject.get(this.obstacles[i]);
@@ -311,6 +372,9 @@ class MyObstacle {
         this.obstaclesAvailableObject.clear();
     }
 
+    /**
+     * Updates the obstacles. Updates the time of the shaders, and deals with the timeout of the obstacles
+     */
     update() {
         if (this.game) {
             if (!this.game.paused && this.game.started) {
@@ -378,6 +442,10 @@ class MyObstacle {
         }
     }
 
+    /**
+     * 
+     * @returns a list of all the shaders
+     */
     getShaders() {
         return [this.cabbageShader, this.potatoShader, this.tomatoShader]
     }

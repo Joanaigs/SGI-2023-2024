@@ -5,9 +5,13 @@ import { MyPark } from './MyPark.js';
 import { MyKeyboardListener } from './MyKeyboardListener.js';
 
 /**
- *  This class contains the functions needed to allow the logic of the Menu
+ *  This class contains the menu of our game
  */
 class MyMenu {
+    /**
+     *  Constructs the object
+     * @param {*} gameLogic 
+     */
     constructor(gameLogic) {
         this.myFont = new MyFont();
         this.myNonCenteredFont = new MyFont();
@@ -33,12 +37,19 @@ class MyMenu {
         this.pickingColor = 0xFFC0CD;
     }
 
+    /**
+     * Renders the menu
+     */
     resetClickableObjects() {
         while (this.clickableObjects.length > 0) {
             this.clickableObjects.pop();
         }
     }
 
+    /**
+     * Event listener for the mouse
+     * @param {*} event 
+     */
     onPointerMove(event) {
 
         this.pointer = new THREE.Vector2()
@@ -58,7 +69,7 @@ class MyMenu {
         this.pickingHelper(intersects)
     }
 
-    /*
+    /** 
     * Helper to visualize the intersected object
     *
     */
@@ -74,7 +85,7 @@ class MyMenu {
         }
     }
 
-    /*
+    /**
     * Change the color of the first intersected object
     *
     */
@@ -90,7 +101,7 @@ class MyMenu {
         
     }
 
-    /*
+    /**
     * Restore the original color of the intersected object
     *
     */
@@ -101,7 +112,10 @@ class MyMenu {
         this.lastPickedObj = null;
     }
 
-    
+    /**
+     * Event listener for the click of the mouse
+     * @param {*} event 
+     */
     onDocumentMouseDown(event) {
         // Calculate mouse coordinates in normalized device coordinates
         const mouse = new THREE.Vector2();
@@ -310,7 +324,9 @@ class MyMenu {
         }
     }
 
-
+    /**
+     * Creates the environment of the menu
+     */
     initMenuEnvironment() {
         // Existing code for creating the first skybox
         const skyboxData2 = {
@@ -331,6 +347,9 @@ class MyMenu {
         this.app.scene.add(skyboxMesh2);
     }
 
+    /**
+     * Creates the start page of the menu
+     */
     buildStartPage() {
         // Create a box (cube) for the start button
         const boxGeometry = new THREE.BoxGeometry(10, 3, 0.5); // Adjust the size as needed
@@ -377,6 +396,9 @@ class MyMenu {
 
     }
 
+    /**
+     * Creates the input
+     */
     createUsernameInput() {
         this.listener = new MyKeyboardListener(window);
     
@@ -402,7 +424,9 @@ class MyMenu {
         });
     }
 
-
+    /**
+     * Creates the page to choose the player username
+     */
     playerNamePage(){
         this.app.scene.remove(this.menuGroup);
 
@@ -433,6 +457,9 @@ class MyMenu {
         this.app.scene.add(this.namePageGroup);
     }
 
+    /**
+     * Creates the page to choose the difficulty
+     */
     chooseDificultyPage() {
         this.app.scene.remove(this.namePageGroup);
         this.app.scene.remove(this.wordMesh);
@@ -500,7 +527,9 @@ class MyMenu {
         this.app.scene.add(this.difficultyPageGroup);
     }
     
-
+    /**
+     * Creates the page to choose the player car
+     */
     choosePlayerCar(){
         this.app.scene.remove(this.difficultyPageGroup);
         this.app.scene.traverse(function (child) {
@@ -560,6 +589,9 @@ class MyMenu {
         this.app.scene.add(this.playerParkScene);
     }
 
+    /**
+     * Pages to choose the bot car
+     */
     chooseBotCar(){
         this.botParkScene = new THREE.Group();
         const botPark = new MyPark();
@@ -604,6 +636,9 @@ class MyMenu {
         this.app.scene.add(this.botParkScene);
     }
 
+    /**
+     * Page to display the game info
+     */
     displayGameInfo(){
         this.app.scene.remove(this.botParkScene);
         this.app.setActiveCamera("menu");
@@ -676,6 +711,11 @@ class MyMenu {
         this.app.scene.add(this.gameInfoPage);
     }
 
+    /**
+     * Normalizes the car type
+     * @param {*} carType 
+     * @returns 
+     */
     normalizeCarType(carType){
         if(carType == "pinkTruck") return "Pink Truck"
         else if (carType == "cyanTruck") return "Cyan Truck"

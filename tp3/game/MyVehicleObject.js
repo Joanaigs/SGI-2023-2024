@@ -3,9 +3,15 @@ import { MyWheel } from './MyWheel.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 /**
- *  This class contains the contents of our application
+ *  This class contains the vehicle object
  */
 class MyVehicleObject extends THREE.Object3D {
+
+    /**
+     * This class contains the vehicle object
+     * @param {*} carType the type of the car 
+     * @param {*} shadows If the car has shadows or not
+     */
     constructor(carType, shadows=true) {
         super();
         this.groupBody = new THREE.Group();
@@ -25,6 +31,11 @@ class MyVehicleObject extends THREE.Object3D {
     }
 
 
+    /**
+     * Builds the truck
+     * @param {*} hexColor 
+     * @param {*} shadows 
+     */
     buildTruck(hexColor, shadows=true) {
         const loader = new GLTFLoader();
         loader.load('./models/car.gltf', (gltf) => {
@@ -58,6 +69,11 @@ class MyVehicleObject extends THREE.Object3D {
         this.typeCar="truck";
     }
 
+    /**
+     * Builds the car
+     * @param {*} hexColor 
+     * @param {*} shadows 
+     */
     buildCar(hexColor, shadows=true) {
         const loader = new GLTFLoader();
         loader.load('./models/Car_Low_Poly.gltf', (gltf) => {
@@ -90,6 +106,10 @@ class MyVehicleObject extends THREE.Object3D {
         this.typeCar="car";
     }
 
+    /**
+     * Transverses the children of the object and adds shadows to the meshes
+     * @param {*} obj 
+     */
     transverseChildren(obj){
         for(let i = 0; i < obj.children.length; i++){
             if(obj.children[i].type == "Mesh"){

@@ -2,11 +2,15 @@ import * as THREE from 'three';
 
 
 /**
- *  This class contains the contents of out application
+ *  This class contains the routes of the automatic cars
  */
 class MyRoute {
 
-
+    /**
+     * Contains the routes of the automatic cars
+     * @param {*} scale 
+     * @param {*} position 
+     */
     constructor(scale, position) {
         let i=scale;
         this.route1 = [
@@ -85,6 +89,11 @@ class MyRoute {
         }
     }
 
+    /**
+     * 
+     * @param {number} indice 
+     * @returns returns the route of the car
+     */
     getRoutes (indice) {
         switch (indice) {
             case 1:

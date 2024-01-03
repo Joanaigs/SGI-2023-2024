@@ -3,7 +3,14 @@ import { MySkybox } from '../classes/MySkybox.js';
 import { MyFirework } from './powerUps/MyFirework.js'
 import { MyFont } from './MyFont.js';
 
+/**
+ * This class contains the final screen of the game
+ */
 class MyFinal extends THREE.Object3D {
+    /**
+     * The constructor for the final screen
+     * @param {MyGameLogic} gameLogic the game logic object
+     */
     constructor(gameLogic) {
         super();
         this.gameLogic = gameLogic;
@@ -26,12 +33,19 @@ class MyFinal extends THREE.Object3D {
         this.buildDisplayCamera(this.camera);
     }   
 
+    /**
+     * Resets the clickable objects
+     */
     resetClickableObjects() {
         while (this.clickableObjects.length > 0) {
             this.clickableObjects.pop();
         }
     }
 
+    /**
+     * The pointer move event
+     * @param {*} event 
+     */
     onPointerMove(event) {
 
         this.pointer = new THREE.Vector2()
@@ -51,10 +65,11 @@ class MyFinal extends THREE.Object3D {
         this.pickingHelper(intersects)
     }
 
-    /*
-    * Helper to visualize the intersected object
-    *
-    */
+
+    /**
+     * Helper to visualize the intersected object
+     * @param {*} intersects 
+     */
     pickingHelper(intersects) {
         if (intersects.length > 0) {
             const obj = intersects[0].object
@@ -67,7 +82,7 @@ class MyFinal extends THREE.Object3D {
         }
     }
 
-    /*
+    /**
     * Change the color of the first intersected object
     *
     */
@@ -83,7 +98,7 @@ class MyFinal extends THREE.Object3D {
         
     }
 
-    /*
+    /**
     * Restore the original color of the intersected object
     *
     */
@@ -94,7 +109,10 @@ class MyFinal extends THREE.Object3D {
         this.lastPickedObj = null;
     }
 
-
+    /**
+     * The mouse down event
+     * @param {*} event 
+     */
     onDocumentMouseDown(event) {
         // Calculate mouse coordinates in normalized device coordinates
         const mouse = new THREE.Vector2();
@@ -125,6 +143,9 @@ class MyFinal extends THREE.Object3D {
         }
     }
 
+    /**
+     * Initializes the screen environment
+     */
     initScreenEnvironment() {
         const skyboxDataFinal = {
             size: [70, 50, 70],
@@ -144,6 +165,10 @@ class MyFinal extends THREE.Object3D {
         this.app.scene.add(this.skyboxMeshFinal);
     }
 
+    /**
+     * Builds the display of the camera
+     * @param {THREE.PerspectiveCamera} camera  the camera to display
+     */
     buildDisplayCamera(camera) {
         this.finalGroup = new THREE.Group();
 
@@ -255,15 +280,21 @@ class MyFinal extends THREE.Object3D {
         this.camera.add(this.finalGroup);
     }
 
+    /**
+     * Resets the final screen
+     */
     reset(){
         for(let i = 0; i < this.fireworks.length; i++ ) {
             this.fireworks[i].reset()
         }
     }
 
+    /**
+     * Updates the fireworks.A new firework is added every 1% of the calls
+     */
     update() {
  
-        // add new fireworks every 5% of the calls
+        // add new fireworks every 1% of the calls
         if(Math.random()  < 0.01 ) {
             let firework = new MyFirework(this.app, this)
             this.fireworks.push(firework)
