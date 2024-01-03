@@ -102,7 +102,6 @@
                 shadowright="1000"
                 shadowtop="1000"
                 shadowbottom="-1000"
-
             /> 
 
                 <pointlight id="garageSun" enabled="true"
@@ -114,6 +113,7 @@
                     shadowfar="500"
                     castshadow="true"
                     shadowmapsize="256"
+                />
 
                 <pointlight id="final" enabled="true"
                     color="1 1 1 0"
