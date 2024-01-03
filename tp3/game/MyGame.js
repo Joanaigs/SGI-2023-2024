@@ -9,6 +9,7 @@ import { MyDisplay } from './MyDisplay.js';
 import { MyFont } from './MyFont.js';
 import { MyOutdoor } from './MyOutdoor.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MyDisplayOutdoor } from './MyDisplayOutdoor.js';
 
 /**
  *  This class contains the contents of out application
@@ -100,6 +101,7 @@ class MyGame {
         this.tourusMaterial = new THREE.MeshPhongMaterial({ color: 0xffaaaa });
         this.tourus = new THREE.Mesh(this.tourusGeometry, this.tourusMaterial);
         this.tourus.position.set(this.startPosition.x , 0-15, this.startPosition.z);
+        this.tourus.castShadow = true;
 
         this.gameGroup.add(this.tourus);
 
@@ -134,6 +136,8 @@ class MyGame {
     start() {
         this.started = true;
         this.display = new MyDisplay(this, 'followCar');
+        this.displayOutdoor = new MyDisplayOutdoor(this, new THREE.Vector3(100, 2, 50));
+        this.gameGroup.add(this.displayOutdoor);
         this.startTime = Date.now();
         this.automaticVehicle.start()
     }
@@ -221,7 +225,8 @@ class MyGame {
 
         if (this.display)
             this.display.update((Date.now() - this.startTime) - this.car.timeInPause, this.car.laps, this.car.maxVelocity, this.penalties);
-
+        if(this.displayOutdoor)
+            this.displayOutdoor.update((Date.now() - this.startTime) - this.car.timeInPause, this.car.laps, this.car.maxVelocity, this.penalties);
         this.car.update();
         this.automaticVehicle.update();
 

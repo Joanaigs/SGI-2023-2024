@@ -118,12 +118,9 @@
                 <pointlight id="final" enabled="true"
                     color="1 1 1 0"
                     intensity="300"
-                    distance="0"
+                    distance="100"
                     decay="1"
                     position="-2500 300 -3000"
-                    shadowfar="500"
-                    castshadow="true"
-                    shadowmapsize="512"
                 />
 
                 <noderef id="candycane" />
@@ -143,7 +140,7 @@
         </node>
 
         <!-- Candy canes -->
-        <node id="fullCandyCane">
+        <node id="fullCandyCane" castshadows="true">
 
             <transforms>
                 <scale value3="200 200 200" />
@@ -279,7 +276,7 @@
         </node>
 
 
-        <node id="candycaneGarage" castshadows="true">
+        <node id="candycaneGarage">
             <transforms>
                 <translate value3="-2350 190 -2500" />
                 <rotate value3="0.0 3.14 0.0" />
@@ -291,7 +288,7 @@
             </children>
         </node>
 
-        <node id="candycaneGarage4" castshadows="true">
+        <node id="candycaneGarage4">
             <transforms>
                 <translate value3="-2330 190 -2500" />
                 <scale value3="0.3 0.3 0.3" />
@@ -303,7 +300,7 @@
         </node>
 
 
-        <node id="candycaneGarage2" castshadows="true">
+        <node id="candycaneGarage2" >
             <transforms>
                 <translate value3="-2650 190 -2500" />
                 <scale value3="0.3 0.3 0.3" />
@@ -314,7 +311,7 @@
             </children>
         </node>
 
-        <node id="candycaneGarage3" castshadows="true">
+        <node id="candycaneGarage3" >
             <transforms>
                 <translate value3="-2670 190 -2500" />
                 <rotate value3="0.0 3.14 0.0" />
