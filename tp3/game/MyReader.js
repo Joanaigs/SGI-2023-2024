@@ -1,10 +1,10 @@
 import * as THREE from 'three';
-import { MyTrack } from './gameBackground/MyTrack.js';
-import { MyPowerUps} from './gameBackground/MyPowerUps.js';
-import { MyObstacle } from './gameBackground/MyObstacle.js';
-import { MyVehicleObject } from './MyVehicleObject.js';
-import { MyRoute } from './MyRoute.js';
-import { MyCheckpoints } from './MyCheckpoints.js';
+import { MyTrack } from './track/MyTrack.js';
+import { MyPowerUps} from './track/MyPowerUps.js';
+import { MyObstacle } from './track/MyObstacle.js';
+import { MyVehicleObject } from './vehicle/MyVehicleObject.js';
+import { MyRoute } from './track/MyRoute.js';
+import { MyCheckpoints } from './track/MyCheckpoints.js';
 import { MyShader } from './MyShader.js';
 /**
  *  This class contains reads the game background

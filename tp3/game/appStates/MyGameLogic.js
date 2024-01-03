@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-import { MyReader } from './MyReader.js';
+import { MyReader } from '../MyReader.js';
 import { MyGame } from './MyGame.js';
 import { MyMenu } from './MyMenu.js';
-import { MyVehicleObject } from './MyVehicleObject.js';
+import { MyVehicleObject } from '../vehicle/MyVehicleObject.js';
 import { MyFinal} from './MyFinal.js';
 
 /**

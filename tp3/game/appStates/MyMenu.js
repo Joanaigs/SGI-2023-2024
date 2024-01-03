@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-import { MySkybox } from '../classes/MySkybox.js';
-import { MyFont } from './MyFont.js';
-import { MyPark } from './MyPark.js';
-import { MyKeyboardListener } from './MyKeyboardListener.js';
+import { MySkybox } from '../../classes/MySkybox.js';
+import { MyFont } from '../MyFont.js';
+import { MyPark } from '../gameBackground/MyPark.js';
+import { MyKeyboardListener } from '../MyKeyboardListener.js';
 
 /**
  *  This class contains the menu of our game

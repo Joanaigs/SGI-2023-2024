@@ -1,22 +1,19 @@
 import * as THREE from 'three';
-import { MyFont } from './MyFont.js';
+import { MyFont } from '../MyFont.js';
 
 
 /**
- *  This class contains the outdoor display
+ *  This class contains the Display of the game
  */
-class MyDisplayOutdoor extends THREE.Object3D {
-
+class MyDisplay {
 
     /**
      * The constructor of the class
-     * @param {MyGame} game the game object 
-     * @param {THREE.Vector3} position the position of the display 
+     * @param {MyGame} game the game object
+     * @param {String} camera the camera name 
      */
-    constructor(game, position) {
-        super();
+    constructor(game, camera) {
         this.game = game;
-        this.pos = position;
         this.lasTime = 0;
         this.lastLaps = 0;
         this.lastVelocity = 0;
@@ -26,49 +23,28 @@ class MyDisplayOutdoor extends THREE.Object3D {
         this.lastCarVelocity = 0;
         this.pause = false;
         this.font = new MyFont(false);
+        this.cameraname = camera;
+        this.camera = this.game.app.cameras[camera];
         this.normalVelTex = new THREE.TextureLoader().load('./textures/velocity_normal.png');
         this.powerupVelTex = new THREE.TextureLoader().load('./textures/velocity_powerup.png');
         this.obstacleVelTex = new THREE.TextureLoader().load('./textures/velocity_obstacle.png');
         this.colisionVelTex = new THREE.TextureLoader().load('./textures/velocity_colision.png');
         this.outsideVelTex = new THREE.TextureLoader().load('./textures/velocity_outside.png');
-
-        //base
-        const baseGeometry = new THREE.CylinderGeometry(5, 5, 50);
-        const baseMaterial = new THREE.MeshPhongMaterial({ color: 0xffaaaa });
-        const base = new THREE.Mesh(baseGeometry, baseMaterial);
-        base.position.set(this.pos.x, this.pos.y + 25, this.pos.z);
-        this.add(base);
-
-        //back
-        const backGeometry = new THREE.BoxGeometry(100, 50, 10);
-        const backMaterial = new THREE.MeshPhongMaterial({ color: 0xffaaaa });
-        const back = new THREE.Mesh(backGeometry, backMaterial);
-        back.position.set(this.pos.x, this.pos.y + 75, this.pos.z);
-        this.add(back);
-
-        //content
-        this.content = new THREE.Group();
-        const planeGeometry = new THREE.PlaneGeometry(90, 40, 200, 200);
-        const planeMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
-        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-        this.content.add(plane);
-        this.content.position.set(this.pos.x, this.pos.y + 75, this.pos.z - 6);
-        this.content.rotateY(Math.PI);
-
-        this.add(this.content);
+        this.buildDisplayCamera(this.camera);
 
 
-        this.buildDisplay();
-        this.rotation.y = -Math.PI / 2;
 
     }
 
     /**
-     * Builds the display
+     * Builds the display in the camera
+     * @param {THREE.PerspectiveCamera} camera 
      */
-    buildDisplay() {
+    buildDisplayCamera(camera) {
         this.hudGroup = new THREE.Group();
 
+        let height = 2 * Math.tan(camera.fov * Math.PI / 360) * 5;
+        let width = height * camera.aspect;
         // Create the time object
         this.timeGroup = new THREE.Group();
         this.hudGroup.add(this.timeGroup);
@@ -81,7 +57,7 @@ class MyDisplayOutdoor extends THREE.Object3D {
         this.maxValue.position.set(0.5, -0.25, 0);
         this.lapsGroup.add(this.maxValue);
         this.lapsGroup.add(this.lapsValue);
-        this.lapsGroup.position.set(10, 0, 0);
+        this.lapsGroup.position.set(0, -1.3, 0);
         this.hudGroup.add(this.lapsGroup);
 
         // Create the velocity object
@@ -96,11 +72,10 @@ class MyDisplayOutdoor extends THREE.Object3D {
         this.velocityGroup.add(this.velocityText);
         this.velocityGroup.add(this.velocityValue);
         this.velocityGroup.add(this.velocity);
-        this.velocityGroup.position.set(45 - 10, -20 + 10, 0.2);
-        this.velocityGroup.scale.set(10, 10, 10);
+        this.velocityGroup.position.set(width / 2 - 1.5, -height / 2 + 1, -5);
 
-        this.hudGroup.position.set(-45 + 10, 13, 1);
-        this.hudGroup.scale.set(7, 7, 7);
+        this.hudGroup.position.set(-width / 2 + 0.5, height / 2 - 0.5, -5);
+        this.hudGroup.scale.set(0.25, 0.25, 0.25);
 
 
 
@@ -110,8 +85,7 @@ class MyDisplayOutdoor extends THREE.Object3D {
         this.pausedGroup = new THREE.Group();
         this.paused = this.font.getWord("PAUSED");
         this.pausedGroup.add(this.paused);
-        this.pausedGroup.position.set(-5, 0, 1);
-        this.pausedGroup.scale.set(7, 7, 7);
+        this.pausedGroup.position.set(-1.5, 0.5, -10);
         this.pausedGroup.visible = false;
 
         //PowerUps
@@ -121,23 +95,23 @@ class MyDisplayOutdoor extends THREE.Object3D {
         this.powerUpsVelocity = this.font.getWord("Velocity Timer:");
         this.powerUpsVelocity.position.set(1, -1, 0);
         this.powerUpsGroup.add(this.powerUpsVelocity);
-        this.powerUpsGroup.position.set(-40, 5, 1);
-        this.powerUpsGroup.scale.set(4, 4, 4);
-        //this.powerUpsGroup.visible=false;
+        this.powerUpsGroup.position.set(-width / 2 + 0.5, -height / 2 + 1.5, -5);
+        this.powerUpsGroup.scale.set(0.22, 0.22, 0.22);
+        this.powerUpsGroup.visible = false;
         // Obstacles
         this.obstaclesGroup = new THREE.Group();
         this.obstacles = this.font.getWord("Obstacles");
-        this.obstaclesGroup.position.set(-40, -4, 1);
-        this.obstaclesGroup.scale.set(4, 4, 4);
+        this.obstaclesGroup.position.set(-width / 2 + 0.5, -height / 2 + 1, -5);
+        this.obstaclesGroup.scale.set(0.22, 0.22, 0.22);
         this.obstaclesGroup.add(this.obstacles);
         this.obstaclesOffset = 1;
 
         // Add the group to the scene (assuming your scene is accessible from this.game.app)
-        this.content.add(this.hudGroup);
-        this.content.add(this.velocityGroup);
-        this.content.add(this.powerUpsGroup);
-        this.content.add(this.obstaclesGroup);
-        this.content.add(this.pausedGroup);
+        camera.add(this.hudGroup);
+        camera.add(this.velocityGroup);
+        camera.add(this.powerUpsGroup);
+        camera.add(this.obstaclesGroup);
+        camera.add(this.pausedGroup);
 
     }
 
@@ -154,7 +128,6 @@ class MyDisplayOutdoor extends THREE.Object3D {
 
         return `${this.padNumber(minutes)}:${this.padNumber(seconds)}:${this.padNumber(millisecondsPart)}`;
     }
-
     /**
      * Returns the number with two digits
      * @param {} number 
@@ -170,9 +143,9 @@ class MyDisplayOutdoor extends THREE.Object3D {
      * @param {Number} laps the laps
      * @param {Number} velocity the velocity
      * @param {Number} penalty  the penalty
+     * @returns 
      */
     update(time, laps, velocity, penalty) {
-        //became biilboard(followCamera)
         if (this.game.paused) {
             this.pausedGroup.visible = true;
 
@@ -309,6 +282,20 @@ class MyDisplayOutdoor extends THREE.Object3D {
 
     }
 
+    /**
+     * Resets the display
+     */
+    reset() {
+        this.camera.remove(this.hudGroup);
+        this.camera.remove(this.velocityGroup);
+        this.camera.remove(this.powerUpsGroup);
+        this.camera.remove(this.obstaclesGroup);
+        this.camera.remove(this.pausedGroup);
+
+    }
+
+
+
 }
 
-export { MyDisplayOutdoor };
+export { MyDisplay };

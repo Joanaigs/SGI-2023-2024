@@ -1,17 +1,17 @@
 import * as THREE from 'three';
-import { MyTrack } from './gameBackground/MyTrack.js';
-import { MyPowerUps } from './gameBackground/MyPowerUps.js';
-import { MyObstacle } from './gameBackground/MyObstacle.js';
-import { MyVehicle } from './MyVehicle.js';
-import { MyRoute } from './MyRoute.js';
-import { MyAutomaticVehicle } from './MyAutomaticVehicle.js';
-import { MyDisplay } from './MyDisplay.js';
-import { MyFont } from './MyFont.js';
-import { MyOutdoor } from './MyOutdoor.js';
+import { MyTrack } from '../track/MyTrack.js';
+import { MyPowerUps } from '../track/MyPowerUps.js';
+import { MyObstacle } from '../track/MyObstacle.js';
+import { MyVehicle } from '../vehicle/MyVehicle.js';
+import { MyRoute } from '../track/MyRoute.js';
+import { MyAutomaticVehicle } from '../vehicle/MyAutomaticVehicle.js';
+import { MyDisplay } from '../gameBackground/MyDisplay.js';
+import { MyFont } from '../MyFont.js';
+import { MyOutdoor } from '../gameBackground/MyOutdoor.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { MyDisplayOutdoor } from './MyDisplayOutdoor.js';
-import { MyVehicleObject } from './MyVehicleObject.js';
-import { MyCheckpoints } from './MyCheckpoints.js';
+import { MyDisplayOutdoor } from '../gameBackground/MyDisplayOutdoor.js';
+import { MyVehicleObject } from '../vehicle/MyVehicleObject.js';
+import { MyCheckpoints } from '../track/MyCheckpoints.js';
 
 /**
  *  This class contains the game

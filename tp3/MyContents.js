@@ -7,7 +7,7 @@ import { MyVideoTexture } from './classes/MyVideoTexture.js';
 import { MyMaterial } from './classes/MyMaterial.js';
 import { MyLights } from './classes/MyLights.js';
 import { MyNodeParser } from './MyNodeParser.js';
-import { MyGameLogic } from './game/MyGameLogic.js';
+import { MyGameLogic } from './game/appStates/MyGameLogic.js';
 import { MyShader } from './game/MyShader.js';
 
 /**

@@ -1,7 +1,7 @@
 import * as THREE from 'three';
-import { MySkybox } from '../classes/MySkybox.js';
-import { MyFirework } from './powerUps/MyFirework.js'
-import { MyFont } from './MyFont.js';
+import { MySkybox } from '../../classes/MySkybox.js';
+import { MyFirework } from '../MyFirework.js'
+import { MyFont } from '../MyFont.js';
 
 /**
  * This class contains the final screen of the game

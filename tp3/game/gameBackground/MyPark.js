@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { MyVehicleObject } from './MyVehicleObject.js';
-import { MySkybox } from '../classes/MySkybox.js';
+import { MyVehicleObject } from '../vehicle/MyVehicleObject.js';
+import { MySkybox } from '../../classes/MySkybox.js';
 
 /**
  *  This class contains the park of the cars
