@@ -26,7 +26,7 @@ class MyPark extends THREE.Object3D {
     initPark(){
         const skyboxData1 = {
             size: [1000, 249, 1000],
-            center: [-2500, 249, -2500],
+            center: [-2600, 249, -2500],
             emissive: 0xffffff,
             intensity: 2.0,
             up: './textures/up.jpg',

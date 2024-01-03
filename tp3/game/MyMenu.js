@@ -585,8 +585,14 @@ class MyMenu {
         continueWord.scale.set(5, 5, 5);
         this.clickableObjects.push(this.playerCarButton);
 
+        // Choose your car word
+        const yourCarWord = this.myFont.getWord("Choose Your Car:"); // Assuming getWord is a method to create a 3D text object
+        yourCarWord.position.set(this.playerCarButton.position.x+52, this.playerCarButton.position.y+75, this.playerCarButton.position.z - 0.7);
+        yourCarWord.rotation.y = Math.PI;
+        yourCarWord.scale.set(10, 10, 10);
+
         // Save all elements on a variable
-        this.playerParkScene.add(this.playerCarButton, continueWord, this.playerCyanCar, this.playerPinkCar, this.playerCyanTruck, this.playerPinkTruck, this.background, this.shop);
+        this.playerParkScene.add(yourCarWord, this.playerCarButton, continueWord, this.playerCyanCar, this.playerPinkCar, this.playerCyanTruck, this.playerPinkTruck, this.background, this.shop);
         this.app.scene.add(this.playerParkScene);
     }
 
@@ -633,8 +639,14 @@ class MyMenu {
         continueWord.rotation.y = Math.PI;
         continueWord.scale.set(5, 5, 5);
 
+        // Choose bot car word
+        const botCarWord = this.myFont.getWord("Choose Opponent Car:"); // Assuming getWord is a method to create a 3D text object
+        botCarWord.position.set(this.botCarButton.position.x+70, this.botCarButton.position.y+75, this.botCarButton.position.z - 0.7);
+        botCarWord.rotation.y = Math.PI;
+        botCarWord.scale.set(10, 10, 10);
+
         // Save all elements on a variable
-        this.botParkScene.add(this.botCarButton, continueWord, this.botBackground, this.botShop, this.botRedCar, this.botOrangeCar, this.botOrangeTruck, this.botRedTruck);
+        this.botParkScene.add(botCarWord, this.botCarButton, continueWord, this.botBackground, this.botShop, this.botRedCar, this.botOrangeCar, this.botOrangeTruck, this.botRedTruck);
         this.app.scene.add(this.botParkScene);
     }
 
