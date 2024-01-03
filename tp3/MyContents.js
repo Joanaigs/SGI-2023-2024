@@ -318,7 +318,6 @@ class MyContents {
             object.scale.set(scale, scale, scale);
             this.removeshadows(object);
             object.rotation.y = rotation;
-            console.log(object);
             this.app.scene.add(object);
             this.objectsPositions.push({x: x, z: z});
         }

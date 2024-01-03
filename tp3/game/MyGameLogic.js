@@ -118,8 +118,6 @@ class MyGameLogic {
 
                 this.game = null;
                 this.myReader.reset();
-
-                console.log("oi");
                 this.final = new MyFinal(this);
 
                 

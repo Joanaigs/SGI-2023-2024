@@ -147,7 +147,6 @@ class MyContents {
             if (material.map) {
                 material.map.magFilter = value
                 material.map.needsUpdate = true
-                console.log(material.map.magFilter)
             }
         
         }
