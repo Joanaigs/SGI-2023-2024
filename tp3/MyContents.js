@@ -174,10 +174,11 @@ class MyContents {
             let y = 120;
             let rotation = Math.random() * (2*Math.PI);
             let object = candyCane.clone();
-            object.castShadow = false;
+            this.removeshadows(object);
             object.position.set(x,y,z);
             object.scale.set(100, 100, 100);
             object.rotation.y = rotation;
+
             this.app.scene.add(object);
             this.objectsPositions.push({x: x, z: z});
         }
@@ -300,9 +301,22 @@ class MyContents {
             let object = icecream.clone();
             object.position.set(x,y,z);
             object.scale.set(scale, scale, scale);
+            this.removeshadows(object);
             object.rotation.y = rotation;
+            console.log(object);
             this.app.scene.add(object);
             this.objectsPositions.push({x: x, z: z});
+        }
+    }
+
+    removeshadows(obj){
+        for(let i = 0; i < obj.children.length; i++){
+            if(obj.children[i].type == "Mesh"){
+                obj.children[i].castShadow = false;
+            }
+            else{
+                this.removeshadows(obj.children[i]);
+            }
         }
     }
 

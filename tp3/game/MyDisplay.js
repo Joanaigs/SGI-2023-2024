@@ -21,12 +21,13 @@ class MyDisplay{
         this.font =new MyFont(false);
         this.cameraname = camera;
         this.camera = this.game.app.cameras[camera];
-        this.buildDisplayCamera(this.camera);
         this.normalVelTex= new THREE.TextureLoader().load('./textures/velocity_normal.png');
         this.powerupVelTex= new THREE.TextureLoader().load('./textures/velocity_powerup.png');
         this.obstacleVelTex= new THREE.TextureLoader().load('./textures/velocity_obstacle.png');
         this.colisionVelTex= new THREE.TextureLoader().load('./textures/velocity_colision.png');
         this.outsideVelTex= new THREE.TextureLoader().load('./textures/velocity_outside.png');
+        this.buildDisplayCamera(this.camera);
+
 
 
     }
@@ -56,8 +57,8 @@ class MyDisplay{
         this.velocityGroup = new THREE.Group();
         this.velocity = new THREE.Mesh(new THREE.PlaneGeometry(2, 1), new THREE.MeshBasicMaterial({ map: this.normalVelTex, transparent: true }));
         this.velocityValue = this.font.getWord("0");
-        this.velocityValue.position.set(-0.1, -0.3, 0);
-        this.velocityValue.scale.set(0.3, 0.3, 0.3);
+        this.velocityValue.position.set(-0.2, -0.3, 0);
+        this.velocityValue.scale.set(0.4, 0.4, 0.4);
         this.velocityText = this.font.getWord("km/h");
         this.velocityText.position.set(-0.1, -0.55, 0);
         this.velocityText.scale.set(0.15, 0.15, 0.15);
@@ -77,7 +78,7 @@ class MyDisplay{
         this.pausedGroup = new THREE.Group();
         this.paused = this.font.getWord("PAUSED");
         this.pausedGroup.add(this.paused);
-        this.pausedGroup.position.set(-3, 0.5, -10);
+        this.pausedGroup.position.set(-1.5, 0.5, -10);
         this.pausedGroup.visible=false;
 
         //PowerUps

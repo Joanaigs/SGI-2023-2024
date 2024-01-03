@@ -13,14 +13,14 @@ class MyOutdoor extends THREE.Object3D {
     buildOutside() {
         //base
         const baseGeometry = new THREE.CylinderGeometry(5, 5, 50);
-        const baseMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
+        const baseMaterial = new THREE.MeshPhongMaterial({ color: 0xffaaaa });
         const base = new THREE.Mesh(baseGeometry, baseMaterial);
         base.position.set(this.pos.x, this.pos.y+25, this.pos.z);
         this.add(base);
 
         //back
         const backGeometry = new THREE.BoxGeometry(100, 50, 10);
-        const backMaterial = new THREE.MeshPhongMaterial({ color: 0x000000 });
+        const backMaterial = new THREE.MeshPhongMaterial({ color: 0xffaaaa });
         const back = new THREE.Mesh(backGeometry, backMaterial);
         back.position.set(this.pos.x, this.pos.y+75, this.pos.z);
         this.add(back);
