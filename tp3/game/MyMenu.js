@@ -562,6 +562,7 @@ class MyMenu {
     }
 
     chooseBotCar(){
+        this.app.scene.remove(this.playerParkScene);
         this.botParkScene = new THREE.Group();
         const botPark = new MyPark();
         this.botBackground = botPark.initPark();
