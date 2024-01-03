@@ -95,6 +95,10 @@
                     distance="0"
                     decay="1"
                     position="-2500 300 -2600"
+                    shadowfar="500"
+                    castshadow="true"
+                    shadowmapsize="512"
+
                 />
 
                 <noderef id="candycane" />
@@ -114,7 +118,7 @@
         </node>
 
         <!-- Candy canes -->
-        <node id="fullCandyCane">
+        <node id="fullCandyCane" castshadows="true">
 
             <transforms>
                 <scale value3="200 200 200" />
@@ -250,7 +254,7 @@
         </node>
 
 
-        <node id="candycaneGarage">
+        <node id="candycaneGarage" castshadows="true">
             <transforms>
                 <translate value3="-2350 190 -2500" />
                 <rotate value3="0.0 3.14 0.0" />
@@ -262,7 +266,7 @@
             </children>
         </node>
 
-        <node id="candycaneGarage4">
+        <node id="candycaneGarage4" castshadows="true">
             <transforms>
                 <translate value3="-2330 190 -2500" />
                 <scale value3="0.3 0.3 0.3" />
@@ -274,7 +278,7 @@
         </node>
 
 
-        <node id="candycaneGarage2">
+        <node id="candycaneGarage2" castshadows="true">
             <transforms>
                 <translate value3="-2650 190 -2500" />
                 <scale value3="0.3 0.3 0.3" />
@@ -285,7 +289,7 @@
             </children>
         </node>
 
-        <node id="candycaneGarage3">
+        <node id="candycaneGarage3" castshadows="true">
             <transforms>
                 <translate value3="-2670 190 -2500" />
                 <rotate value3="0.0 3.14 0.0" />

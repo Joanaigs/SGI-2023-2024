@@ -30,7 +30,7 @@ class MySkybox {
             new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(this.textures.right), side: THREE.BackSide, color: this.emissive}),
             new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(this.textures.left), side: THREE.BackSide, color: this.emissive}),
             new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(this.textures.up), side: THREE.BackSide, color: this.emissive}),
-            new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(this.textures.down), side: THREE.BackSide, color: this.emissive}),
+            new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load(this.textures.down), side: THREE.BackSide, color: this.emissive}),
             new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(this.textures.back), side: THREE.BackSide, color: this.emissive}),
             new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load(this.textures.front), side: THREE.BackSide,color: this.emissive}),
         ];

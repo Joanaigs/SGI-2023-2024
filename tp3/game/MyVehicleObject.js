@@ -45,6 +45,8 @@ class MyVehicleObject extends THREE.Object3D {
                 }
             });
 
+            this.transverseChildren(this.car);
+
             this.groupBody.add(this.car);
         });
 
@@ -75,6 +77,7 @@ class MyVehicleObject extends THREE.Object3D {
                     }
                 }
             });
+            this.transverseChildren(this.car);
             this.groupBody.add(this.car);
         });
 
@@ -83,6 +86,18 @@ class MyVehicleObject extends THREE.Object3D {
         this.add(this.groupWheels);
         this.add(this.groupBody);
         this.typeCar="car";
+    }
+
+    transverseChildren(obj){
+        for(let i = 0; i < obj.children.length; i++){
+            if(obj.children[i].type == "Mesh"){
+                obj.children[i].castShadow = true;
+                obj.children[i].receiveShadow = true;
+            }
+            else{
+                this.transverseChildren(obj.children[i]);
+            }
+        }
     }
 
 }
