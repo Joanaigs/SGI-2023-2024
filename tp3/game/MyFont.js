@@ -44,6 +44,31 @@ class MyFont extends THREE.Object3D {
         }
         return wordMesh;
     }
+    /**
+     * Gets a character
+     * @param {*} offsetx 
+     * @param {*} offsetY 
+     * @param {*} color 
+     * @returns 
+     */
+    getChar(offsetx, offsetY, color = 0xffffff){
+        let letterTexture = this.texture.clone();
+        letterTexture.needsUpdate = true;
+        letterTexture.offset.x = offsetx;
+        letterTexture.offset.y = offsetY;
+        letterTexture.repeat.x = 1/16;
+        letterTexture.repeat.y = 1/16;
+        let wordMesh = new THREE.Group();
+        let plane = new THREE.PlaneGeometry(1, 1);
+        let sprite = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({ map: letterTexture, color: color, transparent: true }));
+        if(this.center)
+            sprite.position.set((0.5)+word.length/6, 0, 0);
+        else
+            sprite.position.set((0.5), 0, 0);
+        wordMesh.add(sprite);
+    
+        return wordMesh;
+    }
 
     /**
      * Gets the offset of the character
