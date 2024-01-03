@@ -560,7 +560,7 @@ class MyMenu {
         this.clickableObjects.push(this.playerCyanTruck);
         this.clickableObjects.push(this.playerPinkTruck);
 
-        this.spotLight = new THREE.SpotLight(0xffffff, 2, 100, Math.PI / 8, 0, 0);
+        this.spotLight = new THREE.SpotLight(0xffffff, 10, 100, Math.PI / 8, 0, 0);
         let pinkTruckPosition = this.playerPinkTruck.position;
         this.spotLight.position.set(pinkTruckPosition.x, pinkTruckPosition.y + 40, pinkTruckPosition.z);
         this.spotLight.target = this.playerPinkTruck;
