@@ -205,6 +205,8 @@ class MyGame {
         this.pause();
         this.app.setActiveCamera('pickObstacles');
         this.app.controls.target = this.app.cameraTarget['pickObstacles'];
+        this.app.setActiveCamera('pickObstacles');
+
 
         this.obstaclesList = this.obstacles.getObstacles();
         for (let i = 0; i < this.obstaclesList.length; i++) {
@@ -223,9 +225,9 @@ class MyGame {
         this.saveButton.position.set(2.95 * this.scaleTrack + this.position.x, 0, 7.4 * this.scaleTrack + this.position.z);
         let text = this.myFont.getWord("SAVE");
         this.saveButton.add(text);
-        text.position.set(6, 1.1, 0);
-        text.scale.set(4, 4, 4);
-        text.rotation.x = Math.PI / 2;
+        text.position.set(5, 5, 0);
+        text.scale.set(7, 7, 7);
+        text.rotation.x = Math.PI / 2 ;
         text.rotation.y = Math.PI;
         this.gameGroup.add(this.saveButton);
         this.pickableObj.push(this.saveButton)
@@ -289,6 +291,7 @@ class MyGame {
         // Set the camera to look at the car
         this.app.activeCamera.lookAt(this.car.car.position.clone());
         this.app.controls.target = this.car.car.position.clone();
+        console.log("hi")
     }
 
     /**

@@ -33,58 +33,6 @@ class MyApp {
         this.axis = null
         this.contents == null
     }
-
-    // Capture RGB image from the active camera
-    captureRGBImage() {
-        const renderTarget = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight);
-        this.app.renderer.setRenderTarget(renderTarget);
-        this.app.renderer.render(this.app.scene, this.app.activeCamera);
-        const imageData = this.readRenderTarget(renderTarget);
-        this.app.renderer.setRenderTarget(null); // Reset render target
-        return imageData;
-    }
-
-    // Capture LGray image from the depth buffer of the active camera
-    captureLGrayImage() {
-        const renderTarget = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight);
-        this.app.renderer.setRenderTarget(renderTarget);
-        this.app.renderer.render(this.app.scene, this.app.activeCamera);
-        const depthBuffer = this.readDepthBuffer(renderTarget);
-        const lGrayImageData = this.convertDepthToLGray(depthBuffer);
-        this.app.renderer.setRenderTarget(null); // Reset render target
-        //save image
-
-        return lGrayImageData;
-    }
-
-    // Helper function to read the render target pixels
-    readRenderTarget(renderTarget) {
-        const pixelBuffer = new Uint8Array(window.innerWidth * window.innerHeight * 4);
-        this.app.renderer.readRenderTargetPixels(renderTarget, 0, 0, window.innerWidth, window.innerHeight, pixelBuffer);
-        return pixelBuffer;
-    }
-
-    // Helper function to read the depth buffer
-    readDepthBuffer(renderTarget) {
-        const depthBuffer = new Float32Array(window.innerWidth * window.innerHeight);
-        this.app.renderer.readRenderTargetPixels(renderTarget, 0, 0, window.innerWidth, window.innerHeight, depthBuffer);
-        return depthBuffer;
-    }
-
-    // Helper function to convert depth buffer to LGray image
-    convertDepthToLGray(depthBuffer) {
-        // You need to implement the conversion logic based on your requirements
-        // This is a simple example, and you may need to adjust it according to your needs
-        const lGrayBuffer = new Uint8Array(depthBuffer.length);
-        for (let i = 0; i < depthBuffer.length; i++) {
-            const normalizedDepth = (depthBuffer[i] - this.app.activeCamera.near) / (this.app.activeCamera.far - this.app.activeCamera.near);
-            const lGrayValue = normalizedDepth * 255;
-            lGrayBuffer[i] = lGrayValue;
-        }
-        return lGrayBuffer;
-    }
-
-
     /**
      * initializes the application
      */
@@ -138,7 +86,7 @@ class MyApp {
                     this.scene.add(cameraTemp1);
                     break;
                 case "orthogonal":
-                    let cameraTemp2 = new THREE.OrthographicCamera(cameras[camera].left * aspect, cameras[camera].right * aspect, cameras[camera].top, cameras[camera].bottom, cameras[camera].near, cameras[camera].far);
+                    let cameraTemp2 = new THREE.OrthographicCamera(cameras[camera].left*aspect, cameras[camera].right*aspect, cameras[camera].top, cameras[camera].bottom, cameras[camera].near, cameras[camera].far);
                     cameraTemp2.position.set(cameras[camera].location[0], cameras[camera].location[1], cameras[camera].location[2]);
                     cameraTemp2.lookAt(new THREE.Vector3(cameras[camera].target[0], cameras[camera].target[1], cameras[camera].target[2]));
                     this.cameraTarget[cameras[camera].id] = new THREE.Vector3(cameras[camera].target[0], cameras[camera].target[1], cameras[camera].target[2]);
@@ -159,8 +107,7 @@ class MyApp {
             // if the camera is the active camera
             if (camera === this.activeCameraName) {
                 // update the camera target
-                if(this.controls)
-                    this.controls.target = this.cameraTarget[camera]
+                this.controls.target = this.cameraTarget[camera]
             }
         }
     }
@@ -172,7 +119,6 @@ class MyApp {
     setActiveCamera(cameraName) {
         this.activeCameraName = cameraName
         this.activeCamera = this.cameras[this.activeCameraName]
-        this.updateTarget();
     }
 
     /**

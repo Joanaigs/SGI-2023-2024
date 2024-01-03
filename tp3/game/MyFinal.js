@@ -232,6 +232,7 @@ class MyFinal extends THREE.Object3D {
         this.loserTimeValue.position.set(-2.7, -0.7, -10);
 
         this.loserInfoGroup.add(this.loserNameValue, this.loserCarValue, this.loserTimeValue);
+        this.loserInfoGroup.position.set(-1.5, 0, 0);
 
         //right is the winner
         this.winnerInfogroup = new THREE.Group();
@@ -241,11 +242,11 @@ class MyFinal extends THREE.Object3D {
 
         this.winnerCarValue = this.myNonCenteredFont.getWord(this.gameLogic.winnerCarName);
         this.winnerCarValue.scale.set(0.3, 0.3, 0.3);
-        this.winnerCarValue.position.set(1.2, -0.4, -10);
+        this.winnerCarValue.position.set(0.5, -0.4, -10);
 
         this.winnerTimeValue = this.myNonCenteredFont.getWord(this.gameLogic.winnerTime);
         this.winnerTimeValue.scale.set(0.3, 0.3, 0.3);
-        this.winnerTimeValue.position.set(1.2, -0.7, -10);
+        this.winnerTimeValue.position.set(0.8, -0.7, -10);
 
         this.winnerInfogroup.add(this.winnerNameValue, this.winnerCarValue, this.winnerTimeValue);
 
@@ -260,9 +261,10 @@ class MyFinal extends THREE.Object3D {
         this.leftRectangleMesh.position.set(-width / 2+3, -3.5, -10);
         this.leftRectangleMesh.name="tryAgain";
         const tryAgainValue = this.font.getWord("TRY AGAIN");
-        tryAgainValue.position.set(this.leftRectangleMesh.x , this.leftRectangleMesh.y, this.leftRectangleMesh.z-2);
+        tryAgainValue.position.set(-0.75, 0.44, 1);
         tryAgainValue.scale.set(0.3, 0.3, 0.3);
-        this.buttons.add(this.leftRectangleMesh, tryAgainValue);
+        this.leftRectangleMesh.add(tryAgainValue);
+        this.buttons.add(this.leftRectangleMesh);
         this.clickableObjects.push(this.leftRectangleMesh);
     
         // Right rectangle
@@ -271,8 +273,9 @@ class MyFinal extends THREE.Object3D {
         this.rightRectangleMesh.name="backToMenu";
         const backToMenuValue = this.font.getWord("BACK TO MENU");
         backToMenuValue.scale.set(0.3, 0.3, 0.3);
-        backToMenuValue.position.set(this.rightRectangleMesh.x , this.rightRectangleMesh.y, this.rightRectangleMesh.z-1);
-        this.buttons.add(this.rightRectangleMesh, backToMenuValue);
+        backToMenuValue.position.set(-1.7, 0.44, 1);
+        this.rightRectangleMesh.add(backToMenuValue);
+        this.buttons.add(this.rightRectangleMesh);
         this.clickableObjects.push(this.rightRectangleMesh);
     
 
