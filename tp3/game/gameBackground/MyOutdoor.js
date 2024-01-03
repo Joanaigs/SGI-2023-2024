@@ -127,7 +127,7 @@ class MyOutdoor extends THREE.Object3D {
         this.plane = new THREE.Mesh(planeLGrayGeometry, this.lGrayMaterial);
 
         // Set the position and rotation of the LGray plane
-        this.plane.position.set(this.pos.x, this.pos.y+75, this.pos.z-5);
+        this.plane.position.set(this.pos.x, this.pos.y+75, this.pos.z-6);
         this.plane.rotateY(Math.PI);
 
         // Add the LGray plane to the scene

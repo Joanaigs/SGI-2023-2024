@@ -221,7 +221,9 @@ class MyDisplayOutdoor extends THREE.Object3D {
             if (velocity < 0.5)
                 this.velocity.material.map = this.outsideVelTex;
         }
+        console.log(this.game.car.velocity)
         if (this.game.car.velocity != this.lastCarVelocity) {
+            console.log(this.game.car.velocity)
             this.velocityGroup.remove(this.velocityValue);
             this.velocityValue = this.font.getWord(Math.round(this.game.car.velocity * 100).toString());
             this.velocityValue.position.set(-0.2, -0.3, 0);

@@ -14,16 +14,13 @@
     <cameras initial="main">
         <perspective id="main" angle="1.047" near="0.1" far="5000" location="100 700 200"
             target="100 0 200" />
-        <perspective id="playerGarage" angle="1.047" near="0.1" far="5000"
-            location="-2510 175 -2758"
-            target="-2489 162 -2353" />
         <perspective id="car" angle="1.26" near="0.1" far="5000" location="400 10 300"
             target="75 0 300" />
         <perspective id="followCar" angle="1.047" near="0.1" far="5000" location="310 20 100"
             target="310 0 150" />
         <perspective id="frontHouse" angle="1.047" near="0.1" far="5000" location="130 10 -25"
             target="50 10 -25" />
-        <perspective id="playerGarage2" angle="1.1" near="0.01" far="2000"
+        <perspective id="playerGarage" angle="1.1" near="0.01" far="2000"
             location="-2510 175 -2758"
             target="-2489 162 -2353" />
         <perspective id="menu" angle="1.047" near="0.1" far="5000" location="-1971 249 -2510"
@@ -32,6 +29,10 @@
             target="41 57 272" />
          <perspective id="final" angle="1.0" near="0.1" far="5000" location="-1973 242 -2950"
             target="-1971 242 -3000" />
+        <perspective id="displayOutdoor" angle="1.047" near="0.1" far="5000" location="70 95 90"
+            target="25 95 90" />
+        <perspective id="outdoorCamera" angle="1.047" near="0.1" far="5000" location="200 95 500"
+            target="200 95 600" />
     </cameras>
 
     <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas
