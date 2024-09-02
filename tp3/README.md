@@ -81,26 +81,26 @@ SpriteSheets were used across the game to display the text.
 
 
 `Figure 1 `
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp3/screenshots/main_page.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp3/screenshots/main_page.png)
 
 `Figure 2 `
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp3/screenshots/pick_car.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp3/screenshots/pick_car.png)
 
 `Figure 2`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp3/screenshots/camera.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp3/screenshots/camera.png)
 
 `Figure 4`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp3/screenshots/scene.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp3/screenshots/scene.png)
 
 `Figure 5`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp3/screenshots/outdoorDisplay.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp3/screenshots/outdoorDisplay.png)
 
 `Figure 6`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp3/screenshots/outdoor.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp3/screenshots/outdoor.png)
 
 
 `Figure 7 `
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp3/screenshots/final.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp3/screenshots/final.png)
 
 ## Issues/Problems
 No issues found.
