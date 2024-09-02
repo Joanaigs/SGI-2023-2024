@@ -24,10 +24,10 @@
 Our scene represents the living room of a lonely robot on its birthday.
 
 `Figure 1 `
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/overall.png?ref_type=heads)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp1/Screenshots/overall.png?ref_type=heads)
 
 `Figure 2`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/robot.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp1/Screenshots/robot.png)
 
 
 In figure 3 it's possible to see:
@@ -39,7 +39,7 @@ In figure 3 it's possible to see:
 * **Robot**: There is also a robot seated on the sofa, holding a plate with a piece of **cake**.
 
 `Figure 3`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/tv_side.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp1/Screenshots/tv_side.png)
 
 
 In figure 4 it's possible to see:
@@ -49,10 +49,10 @@ In figure 4 it's possible to see:
 * **Large windows** featuring curtain rods and curtains made from curved surfaces.
 
 `Figure 4`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/dinning_table.png?ref_type=heads)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp1/Screenshots/dinning_table.png?ref_type=heads)
 
 `Figure 5`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/curved_flower.png?ref_type=heads)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp1/Screenshots/curved_flower.png?ref_type=heads)
 
 
 ### Items present in the scene 
