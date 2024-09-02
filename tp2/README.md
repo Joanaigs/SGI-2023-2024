@@ -106,13 +106,13 @@ Many materials have different levels of detail.
 
 
 `Figure 1 `
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp2/screenshots/television_side.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp2/screenshots/television_side.png)
 
 `Figure 2 `
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp2/screenshots/dining_side.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp2/screenshots/dining_side.png)
 
 `Figure 3 `
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp2/screenshots/house_outside.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp2/screenshots/house_outside.png)
 
 ## Issues/Problems
 No issues found.
