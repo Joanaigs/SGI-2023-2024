@@ -28,10 +28,10 @@
 Our scene represents the living room of a lonely robot on its birthday.
 
 `Figure 1 `
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/overall.png?ref_type=heads)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp1/Screenshots/overall.png?ref_type=heads)
 
 `Figure 2`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/robot.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp1/Screenshots/robot.png)
 
 
 In figure 3 it's possible to see:
@@ -43,7 +43,7 @@ In figure 3 it's possible to see:
 * **Robot**: There is also a robot seated on the sofa, holding a plate with a piece of **cake**.
 
 `Figure 3`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/tv_side.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp1/Screenshots/tv_side.png)
 
 
 In figure 4 it's possible to see:
@@ -53,10 +53,10 @@ In figure 4 it's possible to see:
 * **Large windows** featuring curtain rods and curtains made from curved surfaces.
 
 `Figure 4`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/dinning_table.png?ref_type=heads)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp1/Screenshots/dinning_table.png?ref_type=heads)
 
 `Figure 5`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp1/Screenshots/curved_flower.png?ref_type=heads)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp1/Screenshots/curved_flower.png?ref_type=heads)
 
 
 #### Items present in the scene 
@@ -171,13 +171,13 @@ Many materials have different levels of detail.
 
 
 `Figure 1 `
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp2/screenshots/television_side.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp2/screenshots/television_side.png)
 
 `Figure 2 `
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp2/screenshots/dining_side.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp2/screenshots/dining_side.png)
 
 `Figure 3 `
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp2/screenshots/house_outside.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp2/screenshots/house_outside.png)
 
 #### Issues/Problems
 No issues found.
@@ -259,26 +259,26 @@ SpriteSheets were used across the game to display the text.
 
 
 `Figure 1 `
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp3/screenshots/main_page.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp3/screenshots/main_page.png)
 
 `Figure 2 `
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp3/screenshots/pick_car.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp3/screenshots/pick_car.png)
 
 `Figure 2`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp3/screenshots/camera.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp3/screenshots/camera.png)
 
 `Figure 4`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp3/screenshots/scene.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp3/screenshots/scene.png)
 
 `Figure 5`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp3/screenshots/outdoorDisplay.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp3/screenshots/outdoorDisplay.png)
 
 `Figure 6`
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp3/screenshots/outdoor.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp3/screenshots/outdoor.png)
 
 
 `Figure 7 `
-![](https://git.fe.up.pt/sgi-meic/sgi-2023-2024/t05/sgi-t05-g05/raw/main/tp3/screenshots/final.png)
+![](https://github.com/Joanaigs/SGI-2023-2024/blob/main/tp3/screenshots/final.png)
 
 #### Issues/Problems
 No issues found.
